@@ -1,0 +1,87 @@
+
+# Python / Backend FastAPI
+pycache/
+*.py[cod]
+*$py.class
+venv/
+.env
+.env.local
+.env.*.local
+build/
+dist/
+*.egg-info/
+.eggs/
+*.spec
+*.log
+*.sqlite
+*.db
+.coverage
+htmlcov/
+
+
+# Alembic / Migrations
+
+migrations/pycache/
+alembic.ini
+
+# Node / Frontend web
+node_modules/
+dist/
+build/
+.cache/
+.npm/
+
+# Flutter / Mobile
+.flutter-plugins
+.flutter-plugins-dependencies
+.dart_tool/
+.packages
+build/
+
+# iOS
+ios/Pods/
+ios/Runner.xcodeproj/project.xcworkspace/
+
+# Android
+android/.gradle/
+android/.idea/
+android/app/build/
+
+# Electron / Desktop
+out/
+release/
+*.asar
+
+# Microcontrollori
+# Arduino build
+*.hex
+*.elf
+*.bin
+*.pioenvs/
+.pio/
+
+# ESP-IDF
+build/
+sdkconfig.old
+
+# STM32CubeIDE
+*.ioc
+Debug/
+Release/
+
+# Database dumps
+*.sql
+*.dump
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
