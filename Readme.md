@@ -21,71 +21,63 @@ La piattaforma mira ad essere flessibile per agevolare tutti gli studenti, sarà
 ## Questionari (singolo o challenge)
 ## Segnalazioni e Suggerimenti  -->
 
-# Struttura del progetto 
+# Architettura del progetto 
 
-    Project/
-    |
-    |-- BE/
-        |-- api/
-        |-- core/
-        |-- models/
-        |-- services/
-        L-- main.py
-    |-- FE/
-    |-- database/
-        |-- migrations/
-        L-- seed/
-    |-- docs/
-    |-- Readme.md
-    |-- requirements.txt
+    StudentLab/
+    │
+    ├── app/
+    │   ├── main.py              
+    │   │
+    │   ├── core/      
+    │   │
+    │   ├── auth/      
+    │   │
+    │   ├── questionnaires/    
+    │   │
+    │   ├── dictionary/          
+    │   │
+    │   ├── files/               
+    │   │
+    │   ├── shared/ 
+    │   │             
+    │   ├── profilies/    
+    │               
+    ├── test/ 
+    ├── requirements.txt
+    ├── docker-compose.yml
+    └── README.md
+
+## Moduli
+
+### **`core/`**
+Il modulo core rappresenta le fondamenta dell'intera applicazione. Qui vengono gestite tutte le configurazioni di base e i componenti essenziali che gli altri moduli utilizzeranno. 
 
 
+### **`auth/`**
+Questo modulo è dedicato interamente alla gestione dell'identità degli utenti e al controllo degli accessi.
 
-## `Project/`
-È la cartella principale, contiene tutto il progetto: backend, frontend, documentazione, script, database.  
+### **`profiles/`**
+Una volta che l'utente è autenticato, questo modulo gestisce tutte le informazioni che lo caratterizzano.
 
-### `FE/`
-Il Frontend è la parte che interaggisce con l'utente
+### **`questionnaires/`**
+Il cuore didattico dell'applicazione, dedicato alla creazione e somministrazione di test e quiz.
 
-### `BE/`
-Il backend è il cuore dell'applicazione: gestisce logica dell'applicazione, database, autenticazione, API
+### **`dictionary/`**
+Una raccolta dinamica di termini e concetti accademici.
 
-#### `API/`
-Contiene API per gestire il profilo utente, i questionari, catalogo, espansioni modulari e api per l'autenticazione.
+### **`files/`**
+Il modulo dedicato all'elaborazione e gestione di tutti i tipi di documenti e file
 
-#### `core/`
-Contiene le funzioni fondamentali del sistema. come configurazioni globali, funzioni di sicurezza,  gestisce la connessione con il database PostgreSQL
-
-#### `models/`
-Contiene i modelli del database: user, tabelle di questionari, cataloghi, dizionari ed eveentuali espanzioni
-
-#### `services/`
+### **`services/`**
 Contiene la logica applicativa riutilizzabile, non endpoint. per mantenere il codice pulito, separano la logica api, riutilizzabili in altri moduli e facilita i test.
 
-#### `main.py`
+### **`main.py`**
 Contiene i punti di ingresso dell'applicazione, dove verranno avviati l'app fastAPI, rotte API, il middleware e la connessione del database.
 
-#### `test/`
+### **`test/`**
 Contiene test automatici (Pytest), Serve per verificare che API e servizi funzionino.
-
-### `database/migrations/`
-Contiene file di migrazione Alembic:
-Modifica della struttura tabellare del database nel tempo
-
-### `databse/seed/`
-Dati da inserire inizialmente all'interno del database, 
-(sono complementari non duplicati)
-
-### `requirements.txt`
-Contiene la lista dei pachetti python necessari per l'app
 
 ### `Readme.md`
 Spiega l'obbiettivo del progetto, la struttura del progetto e come avviare l'applicazione.
-
-### `Docs`
-Documentazione del progetto (diagrammi, API docs, guide)
-
-
-
 
 
