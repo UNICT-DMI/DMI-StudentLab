@@ -1,9 +1,5 @@
 
-# Python / Backend FastAPI
-pycache/
-*.py[cod]
-*$py.class
-venv/
+studentlab_venv/
 .env
 .env.local
 .env.*.local
