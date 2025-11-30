@@ -5,7 +5,7 @@ services:
     container_name: studentlab-db
     environment:
       POSTGRES_USER: ${DB_USER:-st2lab5admin}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-StudentLab2024!}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-st2lab5admin}
       POSTGRES_DB: ${DB_NAME:-studentlab_db}
     ports:
       - "5432:5432"
