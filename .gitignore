@@ -1,59 +1,94 @@
-
-# Python / Backend FastAPI
-pycache/
+# PYTHON
+__pycache__/
 *.py[cod]
 *$py.class
-venv/
-.env
-.env.local
-.env.*.local
+*.pyc
+*.so
+.Python
 build/
+develop-eggs/
 dist/
-*.egg-info/
+downloads/
+eggs/
 .eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
 *.spec
-*.log
-*.sqlite
-*.db
-.coverage
-htmlcov/
 
+# Virtual Environment
+venv/
+env/
+ENV/
+studentlab_venv/
 
 # Alembic / Migrations
-
-migrations/pycache/
+migrations/__pycache__/
 alembic.ini
 
-# Node / Frontend web
-node_modules/
-dist/
-build/
+# Testing
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.tox/
 .cache/
-.npm/
 
-# Flutter / Mobile
-.flutter-plugins
-.flutter-plugins-dependencies
+
+# ENVIRONMENT & SECURITY
+.env
+.env.local
+.env.production
+.env.*.local
+!.env.example
+
+
+# DATABASE & LOGS
+*.db
+*.sqlite
+*.sqlite3
+*.sql
+*.dump
+*.log
+logs/
+
+
+# FLUTTER / DART 
 .dart_tool/
 .packages
+.pub-cache/
+.pub/
 build/
+.flutter-plugins
+.flutter-plugins-dependencies
+**/doc/api/
 
 # iOS
 ios/Pods/
 ios/Runner.xcodeproj/project.xcworkspace/
+**/ios/Flutter/.last_build_id
 
 # Android
 android/.gradle/
 android/.idea/
 android/app/build/
 
-# Electron / Desktop
-out/
-release/
-*.asar
 
-# Microcontrollori
-# Arduino build
+# NODE.JS
+node_modules/
+dist/
+build/
+.npm/
+.cache/
+
+# Arduino
 *.hex
 *.elf
 *.bin
@@ -69,15 +104,15 @@ sdkconfig.old
 Debug/
 Release/
 
-# Database dumps
-*.sql
-*.dump
-
-# IDE / Editor
+# IDE / EDITOR
 .vscode/
 .idea/
 *.swp
 *.swo
+*.sublime-*
+
+# DOCKER
+docker-compose.override.yml
 
 
 # macOS
@@ -85,3 +120,11 @@ Release/
 
 # Windows
 Thumbs.db
+
+# Linux
+*~
+
+# ELECTRON / DESKTOP
+out/
+release/
+*.asar
