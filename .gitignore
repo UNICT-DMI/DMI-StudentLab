@@ -78,6 +78,10 @@ Release/
 .idea/
 *.swp
 *.swo
+*.sublime-*
+
+# DOCKER
+docker-compose.yml
 
 
 # macOS
