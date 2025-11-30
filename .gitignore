@@ -1,8 +1,8 @@
-# Python
+# PYTHON
 __pycache__/
 *.py[cod]
-*.pyc
 *$py.class
+*.pyc
 *.so
 .Python
 build/
@@ -21,39 +21,46 @@ wheels/
 .installed.cfg
 *.egg
 MANIFEST
+*.spec
 
 # Virtual Environment
 venv/
 env/
 ENV/
+studentlab_venv/
 
-# Environment variables
+# Alembic / Migrations
+migrations/__pycache__/
+alembic.ini
+
+# Testing
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.tox/
+.cache/
+
+
+# ENVIRONMENT & SECURITY
 .env
 .env.local
 .env.production
+.env.*.local
+!.env.example
 
-# Database
+
+# DATABASE & LOGS
 *.db
+*.sqlite
 *.sqlite3
-
-# Logs
+*.sql
+*.dump
 *.log
 logs/
 
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
 
-# OS
-.DS_Store
-Thumbs.db
-
-# Docker
-docker-compose.yml
-
-# Flutter/Dart
+# FLUTTER / DART 
 .dart_tool/
 .packages
 .pub-cache/
@@ -62,11 +69,62 @@ build/
 .flutter-plugins
 .flutter-plugins-dependencies
 **/doc/api/
+
+# iOS
+ios/Pods/
+ios/Runner.xcodeproj/project.xcworkspace/
 **/ios/Flutter/.last_build_id
 
-# Testing
-.coverage
-.coverage.*
-htmlcov/
-.pytest_cache/
-.tox/
+# Android
+android/.gradle/
+android/.idea/
+android/app/build/
+
+
+# NODE.JS
+node_modules/
+dist/
+build/
+.npm/
+.cache/
+
+# Arduino
+*.hex
+*.elf
+*.bin
+*.pioenvs/
+.pio/
+
+# ESP-IDF
+build/
+sdkconfig.old
+
+# STM32CubeIDE
+*.ioc
+Debug/
+Release/
+
+# IDE / EDITOR
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-*
+
+# DOCKER
+docker-compose.override.yml
+
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Linux
+*~
+
+# ELECTRON / DESKTOP
+out/
+release/
+*.asar
