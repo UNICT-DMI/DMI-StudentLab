@@ -1,8 +1,48 @@
+# PYTHON
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+*.spec
+# Testing
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.tox/
+.cache/
 
-studentlab_venv/
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.env
+__pycache__/
+*.pyc
 .env
 .env.local
+.env.production
 .env.*.local
+!.env.example
 build/
 dist/
 *.egg-info/
@@ -14,7 +54,14 @@ dist/
 .coverage
 htmlcov/
 
-
+# DATABASE & LOGS
+*.db
+*.sqlite
+*.sqlite3
+*.sql
+*.dump
+*.log
+logs/
 # Alembic / Migrations
 
 migrations/pycache/
@@ -48,7 +95,14 @@ out/
 release/
 *.asar
 
-# Microcontrollori
+# NODE.JS
+node_modules/
+dist/
+build/
+.npm/
+.cache/
+
+
 # Arduino build
 *.hex
 *.elf
