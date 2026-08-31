@@ -1,0 +1,12 @@
+{
+  "first_name": "Franz",
+  "last_name": "Amoroso",
+  "email": "franz2@test.it",
+  "password": "Test1234!",
+  "department": "DMI",
+  "course": "Informatica",
+  "description": "Profilo di test",
+  "role": "student",
+  "available": true,
+  "willing_to_teach": false
+}

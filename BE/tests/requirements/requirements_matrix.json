@@ -1,0 +1,166 @@
+{
+  "version": "2026-08-18",
+  "requirements": [
+    {
+      "id": "FR-AUTH-001",
+      "category": "auth",
+      "description": "Protected user APIs require authentication",
+      "automation": "pytest",
+      "status": "active"
+    },
+    {
+      "id": "FR-AUTH-002",
+      "category": "auth",
+      "description": "Teacher area requires verified teacher",
+      "automation": "pytest",
+      "status": "active"
+    },
+    {
+      "id": "FR-ADMIN-001",
+      "category": "admin",
+      "description": "Admin verification endpoints exist and are protected",
+      "automation": "pytest",
+      "status": "active"
+    },
+    {
+      "id": "FR-GRADE-001",
+      "category": "student",
+      "description": "Subject without grade needs no verification",
+      "automation": "pytest",
+      "status": "active"
+    },
+    {
+      "id": "FR-GRADE-002",
+      "category": "student",
+      "description": "New or changed grade becomes pending",
+      "automation": "pytest",
+      "status": "active"
+    },
+    {
+      "id": "FR-GRADE-003",
+      "category": "student",
+      "description": "Removing grade resets status to none",
+      "automation": "pytest",
+      "status": "active"
+    },
+    {
+      "id": "FR-CATALOG-001",
+      "category": "catalog",
+      "description": "University/department/course/subject catalog endpoints exist",
+      "automation": "pytest",
+      "status": "active"
+    },
+    {
+      "id": "FR-TEACHER-001",
+      "category": "teacher",
+      "description": "Teacher material endpoints require verified teacher",
+      "automation": "pytest",
+      "status": "active"
+    },
+    {
+      "id": "FR-MATERIAL-001",
+      "category": "materials",
+      "description": "Teacher upload route exists",
+      "automation": "pytest",
+      "status": "active"
+    },
+    {
+      "id": "FR-NOTIF-001",
+      "category": "notifications",
+      "description": "Unread notification endpoint exists",
+      "automation": "pytest",
+      "status": "active"
+    },
+    {
+      "id": "FR-REPORT-001",
+      "category": "moderation",
+      "description": "User/group/content reporting routes exist",
+      "automation": "pytest",
+      "status": "active"
+    },
+    {
+      "id": "FR-DELETE-001",
+      "category": "account",
+      "description": "In-app account deletion flow endpoints exist",
+      "automation": "pytest",
+      "status": "active"
+    },
+    {
+      "id": "NFR-SEC-001",
+      "category": "security",
+      "description": "CORS must not use wildcard with credentials",
+      "automation": "pytest",
+      "status": "active"
+    },
+    {
+      "id": "NFR-SEC-002",
+      "category": "security",
+      "description": "No known hardcoded current user ID pattern in Flutter source",
+      "automation": "pytest",
+      "status": "active"
+    },
+    {
+      "id": "NFR-UX-001",
+      "category": "ux",
+      "description": "Flutter UI must not directly expose error.toString() in common user-facing widgets",
+      "automation": "pytest-static",
+      "status": "active"
+    },
+    {
+      "id": "NFR-DATA-001",
+      "category": "data",
+      "description": "UserSubject stores grade verification metadata",
+      "automation": "pytest",
+      "status": "active"
+    },
+    {
+      "id": "NFR-DATA-002",
+      "category": "data",
+      "description": "Subject catalog has stable code fields",
+      "automation": "pytest",
+      "status": "active"
+    },
+    {
+      "id": "STORE-GP-DELETE",
+      "category": "store",
+      "description": "Google Play account deletion requires in-app and web resource",
+      "automation": "manual+pytest",
+      "status": "manual"
+    },
+    {
+      "id": "STORE-APPLE-DELETE",
+      "category": "store",
+      "description": "Apple account creation apps allow deletion initiation in app",
+      "automation": "manual+pytest",
+      "status": "manual"
+    },
+    {
+      "id": "STORE-UGC-001",
+      "category": "store",
+      "description": "UGC reporting, moderation and blocking must be release-verified",
+      "automation": "manual",
+      "status": "manual"
+    },
+    {
+      "id": "NFR-PERF-001",
+      "category": "performance",
+      "description": "Load tests for catalog/social/material APIs",
+      "automation": "load-test",
+      "status": "planned"
+    },
+    {
+      "id": "NFR-A11Y-001",
+      "category": "accessibility",
+      "description": "Flutter accessibility checks on real/widget UI",
+      "automation": "flutter+manual",
+      "status": "planned"
+    },
+    {
+      "id": "NFR-OFFLINE-001",
+      "category": "offline",
+      "description": "Material local/remote sync behavior",
+      "automation": "flutter-integration",
+      "status": "planned"
+    }
+  ]
+}

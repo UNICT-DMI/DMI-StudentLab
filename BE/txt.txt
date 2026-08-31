@@ -1,0 +1,2076 @@
+Sì. Ti faccio un recap ordinato dello stato attuale di StudentLab, separando quello che è già fatto da quello che manca ancora, così abbiamo una roadmap unica e non perdiamo pezzi.
+
+Stato attuale
+Già impostato / completato
+Flutter frontend già strutturato con Home, Quiz, Social, Gruppi, Materiali, Auth.
+FastAPI backend già funzionante.
+PostgreSQL Neon già collegato.
+SQLite locale già previsto/usato per cache e materiale offline.
+Vercel Blob già integrato per i file.
+Registrazione/login/JWT e AuthSession già presenti.
+Download materiali offline già presente.
+Struttura locale dei materiali:
+Ateneo → Dipartimento → Corso → Materia → File.
+Gruppi studio già presenti.
+Upload materiali dei gruppi già presente.
+Protezione duplicati tramite SHA-256 già implementata.
+university aggiunto ai gruppi/materiali.
+Catalogo accademico UNICT/DMI/L-31 preparato.
+Tabelle per:
+subjects
+subject_offerings
+academic_teachers
+subject_offering_teachers
+Campo di verifica voto già progettato.
+Struttura iniziale teacher/student già presente.
+UI recensioni già parzialmente presente nel profilo e nelle card.
+1. Finire il catalogo accademico
+
+Questa è la cosa che stiamo facendo adesso.
+
+Manca:
+
+far completare correttamente import_academic_catalog.py;
+verificare che Neon venga popolato;
+controllare:
+subjects;
+offerings;
+teachers;
+teacher links;
+evitare duplicati durante import successivi.
+
+Poi dobbiamo creare API vere per navigare il catalogo:
+
+GET /universities
+GET /departments
+GET /courses
+GET /subjects
+
+Idealmente con ID:
+
+/universities
+/universities/{id}/departments
+/departments/{id}/courses
+/courses/{id}/subjects
+
+Per adesso però abbiamo mantenuto compatibilità con department/course testuali.
+
+2. Normalizzare Ateneo → Dipartimento → Corso
+
+Attualmente User contiene ancora:
+
+department: string
+course: string
+
+e Subject contiene anch'esso nomi testuali.
+
+La struttura definitiva dovrebbe diventare più normalizzata:
+
+University
+    ↓
+Department
+    ↓
+Course
+    ↓
+Subject
+
+Con tabelle dedicate:
+
+universities
+departments
+courses
+subjects
+
+Questo è importante soprattutto quando StudentLab uscirà dal solo DMI e supporterà altri:
+
+Atenei
+Dipartimenti
+Corsi di laurea
+
+Il JSON che abbiamo creato può essere il seed iniziale.
+
+3. Sistemare completamente i ruoli
+
+Questo è uno dei blocchi più importanti.
+
+Abbiamo deciso:
+
+student
+teacher
+creator/admin
+
+Ma teacher non significa automaticamente docente verificato.
+
+Registrazione docente:
+
+role = teacher
+teacher_verification_status = pending
+
+Dopo tua approvazione:
+
+teacher_verification_status = verified
+
+Possibili stati:
+
+pending
+verified
+rejected
+
+Manca quindi nel backend:
+
+teacher_verification_status
+teacher_verified_by
+teacher_verified_at
+
+e la relativa logica.
+
+4. Bloccare le escalation di privilegi
+
+Questa è una correzione importante.
+
+Adesso UserUpdate contiene ancora:
+
+role: str | None
+
+e update_user() usa genericamente:
+
+setattr(...)
+
+Quindi dobbiamo impedire a un utente normale di modificare:
+
+role
+teacher_verification_status
+is_active
+admin permissions
+grade_status
+
+Questi campi devono essere modificabili solo tramite endpoint autorizzati.
+
+Dobbiamo introdurre dependency tipo:
+
+require_authenticated_user
+require_verified_teacher
+require_admin
+require_creator
+5. Identity sempre derivata dal JWT
+
+Abbiamo ancora alcuni punti dove Flutter passa cose come:
+
+userId
+createdBy
+uploadedBy
+
+L'obiettivo definitivo è:
+
+Flutter
+    ↓ JWT
+FastAPI
+    ↓
+current_user.id
+
+Non:
+
+Flutter → uploadedBy: 1
+
+Il backend deve ignorare qualsiasi identità dichiarata dal client.
+
+Questo va sistemato su:
+
+gruppi;
+upload materiali;
+recensioni;
+assegnazioni;
+verifiche;
+messaggi;
+connessioni;
+eventuali prenotazioni.
+6. Sistemare SocialUser
+
+Abbiamo iniziato a progettarlo ma dobbiamo completare frontend + backend.
+
+Dobbiamo avere:
+
+available
+availableForHelp
+availableForPrivateLessons
+
+perché adesso willingToTeach viene usato con due significati diversi.
+
+Lo studente può:
+
+aiutare altri studenti
+fare lezioni private
+
+Il docente può:
+
+aiutare
+fare lezioni private
+
+Sono quindi due boolean indipendenti.
+
+7. Aggiornare i form di registrazione
+
+StudentSocialForm e TeacherSocialForm vanno rivisti.
+
+Non devono più avere:
+
+DMI
+Informatica
+
+scritti manualmente/hardcoded.
+
+Dovranno essere:
+
+Ateneo
+▼ UNICT
+
+
+Dipartimento
+▼ DMI
+
+
+Corso
+▼ Informatica L-31
+
+e poi:
+
+Materie
+
+caricate dal catalogo.
+
+Per lo studente:
+
+Materia
+Voto opzionale
+Posso aiutare
+Nota
+
+Per il docente:
+
+Materia insegnata
+eventuale modulo
+eventuale canale
+8. Verifica dei voti degli studenti
+
+Questa parte è già progettata ma non ancora completata.
+
+Quando uno studente inserisce:
+
+Programmazione II
+28/30
+
+il backend deve automaticamente impostare:
+
+grade_status = pending
+
+Non deve essere il client a mandarlo.
+
+Stati:
+
+none
+pending
+verified
+rejected
+
+Poi l'admin vede:
+
+Franz Amoroso
+Programmazione II
+28/30
+
+
+[Approva]
+[Rifiuta]
+
+Dopo approvazione:
+
+verified_by
+verified_at
+
+Nel profilo:
+
+28/30 ✓
+
+solo se verificato.
+
+9. Verifica docenti
+
+Molto simile.
+
+Un docente si registra normalmente ma appare come:
+
+Insegnante
+Verifica in corso
+
+Non deve avere accesso alla vera area docente.
+
+Tu potrai vedere:
+
+Mario Rossi
+
+
+UNICT
+DMI
+Informatica
+
+
+Materie dichiarate:
+Programmazione I
+
+
+Catalogo ufficiale:
+Programmazione I
+
+
+[Approva]
+[Rifiuta]
+
+Una volta verificato:
+
+✓ Docente verificato
+10. Collegare i docenti registrati al catalogo
+
+Abbiamo previsto:
+
+academic_teachers.user_id
+
+Normalmente:
+
+MESSINA FABRIZIO
+user_id = NULL
+
+Se quel docente crea un account e viene verificato:
+
+MESSINA FABRIZIO
+user_id = 137
+
+Questo è molto utile perché collega:
+
+docente ufficiale
+↕
+profilo StudentLab
+11. Recensioni
+
+La UI già mostra recensioni, ma manca praticamente tutto il backend.
+
+Servono:
+
+reviews
+
+
+id
+reviewer_id
+reviewed_user_id
+rating
+comment
+created_at
+updated_at
+
+Vincoli:
+
+rating 1..5
+reviewer != reviewed_user
+UNIQUE(reviewer_id, reviewed_user_id)
+
+API:
+
+GET /users/{id}/reviews
+POST /users/{id}/reviews
+PUT /users/{id}/reviews/me
+DELETE /users/{id}/reviews/me
+
+Frontend:
+
+Lascia una recensione
+★★★★★
+Commento
+[Pubblica]
+
+Sia studenti sia docenti possono riceverle.
+
+12. Aggiornare le card Social
+
+Da aggiornare:
+
+student_help_card.dart
+teacher_help_card.dart
+social_user_profile_page.dart
+social_profile_preview.dart
+
+Devono mostrare correttamente:
+
+Disponibile ad aiutare
+Lezioni private
+
+e per docente:
+
+✓ Docente verificato
+
+oppure:
+
+Verifica in corso
+
+Per i voti:
+
+28/30 ✓ verificato
+
+oppure:
+
+28/30 · verifica in corso
+13. Privacy del profilo
+
+Da valutare bene.
+
+Attualmente nel profilo pubblico viene mostrata anche l'email.
+
+Probabilmente sarebbe meglio:
+
+Nome
+Ateneo
+Dipartimento
+Corso
+Materie
+Descrizione
+Recensioni
+
+e non mostrare pubblicamente:
+
+email
+
+Il contatto dovrebbe avvenire tramite StudentLab.
+
+14. Connessioni tra utenti
+
+La UI presenta già concetti tipo:
+
+Collegati
+Contatta
+
+ma la connessione backend non è ancora completa.
+
+Servirà qualcosa tipo:
+
+user_connections
+
+
+id
+requester_id
+receiver_id
+status
+created_at
+
+Stati:
+
+pending
+accepted
+rejected
+blocked
+15. Messaggistica
+
+La UI chat esiste, ma va collegata realmente agli utenti.
+
+Serve:
+
+conversations
+conversation_members
+messages
+
+Con:
+
+sender_id
+conversation_id
+text
+created_at
+read_at
+
+Poi eventualmente WebSocket.
+
+16. Gruppi
+
+I gruppi sono già abbastanza avanti.
+
+Rimangono principalmente:
+
+sicurezza JWT;
+ruoli reali;
+membership verificata backend;
+owner/admin/moderatore;
+eventualmente richieste ingresso;
+gestione membri;
+ban/kick;
+notifiche;
+chat reale;
+materiale assegnato al gruppo.
+17. Hardening upload materiali
+
+Il sistema upload è già funzionante e abbiamo la protezione SHA-256.
+
+Manca però un hardening importante:
+
+Dopo:
+
+Flutter → Blob
+
+quando chiamiamo:
+
+/group_material_complete
+
+FastAPI dovrebbe verificare davvero:
+
+Blob esiste
+pathname corretto
+dimensione corretta
+MIME corretto
+
+prima di salvare il metadata su Neon.
+
+Dobbiamo anche eliminare eventuali Blob orfani in caso di race/errore.
+
+18. Materiali personali
+
+StudentMaterialPage esiste e la gerarchia offline è impostata.
+
+Manca rendere realmente funzionante:
+
+[Aggiungi materiale]
+
+per:
+
+file locale
+→ classificazione
+→ Ateneo
+→ Dipartimento
+→ Corso
+→ Materia
+→ salvataggio SQLite
+
+Poi possiamo decidere se un materiale personale può anche essere sincronizzato sul cloud.
+
+19. Materiali assegnati dai docenti
+
+Serve la tabella:
+
+material_assignments
+
+
+id
+material_id
+student_id
+assigned_by
+assigned_at
+status
+
+Il docente verificato può fare:
+
+Programmazione I - esercizi.pdf
+
+
+Assegna a:
+☑ Mario
+☑ Franz
+☑ Luca
+
+Lo studente vede:
+
+Materiale assegnato dal docente
+
+ma non viene necessariamente scaricato automaticamente.
+
+20. Area docente
+
+Una volta verificato:
+
+Area docente
+
+con:
+
+Materiali
+Studenti
+Assegnazioni
+Gruppi autorizzati
+Materie insegnate
+
+Non deve essere una seconda area admin.
+
+21. Pannello amministratore
+
+Questa è una parte grossa ancora completamente da costruire.
+
+Struttura:
+
+Admin Dashboard
+
+
+Utenti
+Docenti
+Verifiche docenti
+Verifiche voti
+Atenei
+Dipartimenti
+Corsi
+Materie
+Materiali
+Gruppi
+Segnalazioni
+
+Dashboard:
+
+Utenti: 1.204
+Studenti: 1.170
+Docenti: 34
+Docenti da verificare: 3
+Voti da verificare: 17
+22. Soft delete utenti
+
+Non cancellerei realmente subito gli utenti.
+
+Meglio:
+
+is_active = false
+deleted_at
+deleted_by
+
+Pannello:
+
+Utenti eliminati
+[Ripristina]
+
+Vale anche per:
+
+università
+dipartimenti
+corsi
+materie
+
+quando possibile.
+
+23. Gestione struttura accademica dal pannello admin
+
+Il JSON serve da seed.
+
+Poi però devi poter fare:
+
++Ateneo
++Dipartimento
++Corso
++Materia
++Docente
+
+senza modificare manualmente JSON o database.
+
+Il catalogo diventerà quindi modificabile dal pannello.
+
+24. Quiz e catalogo accademico
+
+Anche i quiz dovrebbero in futuro utilizzare gli stessi ID:
+
+university_id
+department_id
+course_id
+subject_id
+
+invece di affidarsi soltanto a stringhe.
+
+Questo permetterà a:
+
+Quiz
+Materiali
+Gruppi
+Social
+
+di parlare tutti della stessa materia reale.
+
+25. Cache locale del catalogo
+
+Una volta che avremo API catalogo, possiamo salvare localmente:
+
+universities
+departments
+courses
+subjects
+
+in SQLite.
+
+Così anche offline l'utente può navigare il proprio catalogo.
+
+26. Guest mode
+
+Va completato bene.
+
+Guest:
+
+nessun account
+SQLite locale
+quiz
+materiale locale
+eventuali preferenze locali
+
+No:
+
+chat
+recensioni
+gruppi cloud
+sincronizzazione
+
+A meno che successivamente non decidiamo diversamente.
+
+27. Sincronizzazione guest → account
+
+Molto utile più avanti:
+
+Guest
+↓
+crea account
+↓
+Vuoi importare i tuoi dati locali?
+
+Per esempio:
+
+materiali offline
+progressi quiz
+preferenze
+28. Notifiche
+
+Ancora da progettare.
+
+Serviranno per:
+
+richiesta connessione
+nuovo messaggio
+materiale assegnato
+richiesta gruppo
+verifica voto completata
+verifica docente completata
+
+Prima possiamo fare notifiche interne, poi push.
+
+29. Prenotazioni / lezioni private
+
+Hai già teacher_booking_page.dart, ma la funzione va completata.
+
+Dato che sia studenti sia docenti possono offrire lezioni:
+
+utente
+→ disponibilità
+→ slot
+→ richiesta
+→ accettata/rifiutata
+
+Questo è un blocco futuro, non prioritario rispetto ad auth/social/admin.
+
+30. Laboratori on-demand
+
+È una delle funzionalità più grandi e può rimanere più avanti.
+
+Architettura prevista:
+
+Flutter
+↓
+FastAPI
+↓
+laboratorio-service
+↓
+Firecracker microVM
+
+con:
+
+create
+start
+monitor
+terminate
+
+e scenari isolati.
+
+Non lo toccherei fino a quando la piattaforma base non è stabile.
+
+31. App update
+
+Hai già:
+
+/app_version
+
+e:
+
+AppStartupGate
+
+con:
+
+upToDate
+optional
+required
+maintenance
+
+Va solo verificato/hardenizzato.
+
+C'è anche il debito tecnico di dart:io Platform se vuoi supportare Flutter Web.
+
+32. Testing
+
+Quando chiudiamo questi blocchi serviranno test almeno per:
+
+registrazione
+login
+restore session
+teacher pending
+teacher verified
+grade pending
+grade verified
+permissions
+reviews
+group membership
+material upload
+duplicate material
+catalog import
+
+Backend con pytest sarebbe ideale.
+
+33. Migrazioni database
+
+Al momento stiamo facendo SQL manuale su Neon.
+
+Prima che il progetto cresca ancora, conviene introdurre:
+
+Alembic
+
+così invece di ricordare manualmente:
+
+ALTER TABLE ...
+
+avremo migrazioni versionate nel repository.
+
+Questa la metterei abbastanza presto.
+
+La roadmap che seguirei da adesso
+
+Per evitare di saltare continuamente da una feature all'altra, procederei così:
+
+FASE 1 — Catalogo
+✓ JSON
+✓ modelli iniziali
+✓ tabelle Neon
+→ import catalogo
+→ API catalogo
+
+
+FASE 2 — Utenti
+→ User aggiornato
+→ disponibilità separate
+→ teacher verification
+→ sicurezza ruoli
+→ JWT identity
+
+
+FASE 3 — Registrazione
+→ dropdown Ateneo
+→ Dipartimento
+→ Corso
+→ Materie
+→ Student form
+→ Teacher form
+→ Profile preview
+
+
+FASE 4 — Verifiche
+→ voto pending/verified
+→ docente pending/verified
+→ backend admin permissions
+
+
+FASE 5 — Social
+→ card
+→ profilo pubblico
+→ recensioni
+→ connessioni
+→ messaggistica
+
+
+FASE 6 — Admin
+→ dashboard
+→ utenti
+→ docenti
+→ voti
+→ struttura accademica
+→ recupero utenti
+
+
+FASE 7 — Teacher
+→ area docente
+→ materiali
+→ assegnazioni
+→ studenti
+
+
+FASE 8 — Gruppi/materiali
+→ sicurezza JWT
+→ gestione membri
+→ hardening Blob
+→ materiali personali
+
+
+FASE 9 — Offline/sync
+→ cache catalogo
+→ guest
+→ migrazione guest-account
+
+
+FASE 10 — Extra
+→ notifiche
+→ prenotazioni
+→ laboratori Firecracker
+→ testing completo
+Quindi il prossimo passo immediato
+
+Non cambierei ancora Flutter.
+
+Chiuderei prima completamente:
+
+Catalogo accademico
+
+cioè:
+
+1. import JSON in Neon
+2. verificare i record
+3. creare API Atenei
+4. creare API Dipartimenti
+5. creare API Corsi
+6. creare API Materie
+
+Dopodiché torniamo su User e sulla registrazione. In questo modo quando tocchiamo i form Flutter li facciamo una volta sola con l'architettura definitiva, invece di riscriverli continuamente.
+
+Situazione attuale
+
+La parte di autenticazione/autorizzazione è ormai impostata nella direzione corretta: JWT, /me, controllo admin lato server, docente verificato lato server, teacher/*, materiali docente, HTTPS obbligatorio in ApiService, e stiamo eliminando created_by/uploaded_by controllabili dal client.
+
+Anche l'idea Guest è positiva per Apple: Apple dice esplicitamente che quando le funzionalità principali non richiedono necessariamente un account, l'app dovrebbe permettere un utilizzo senza login. StudentLab ha già una modalità Guest, quindi siamo messi bene su questo aspetto.
+
+Prima priorità: sicurezza
+
+Prima della pubblicazione chiuderei questo blocco completamente:
+
+Secure storage JWT con flutter_secure_storage, mantenendo AuthSession solo in RAM.
+Eliminazione definitiva di created_by, uploaded_by, admin_id, teacher_id, verified_by, ecc. dai payload quando rappresentano l'identità dell'utente autenticato.
+Correzione degli endpoint backend gruppi affinché usino sempre current_user.id.
+Controllo ownership dei gruppi e dei materiali esclusivamente nel backend.
+Ricerca globale nel progetto di eventuali _currentUserId = 1, userId: 1 o ID equivalenti.
+CORS produzione: niente configurazione indiscriminata allow_origins=["*"].
+Gestione corretta di JWT scaduto, 401, 403, server offline e timeout.
+
+Io farei questo immediatamente dopo i file dei gruppi che stiamo sistemando.
+
+Seconda priorità: cancellazione account
+
+Questa non è facoltativa.
+
+Apple richiede alle app che permettono la creazione di account di permettere anche di avviare la cancellazione dell'account direttamente dentro l'app.
+
+Google richiede addirittura due strade: cancellazione/request dentro l'app e una risorsa web pubblica da cui l'utente possa richiedere la cancellazione dell'account e dei dati associati.
+
+Quindi per StudentLab dobbiamo creare qualcosa come:
+
+Impostazioni
+   ↓
+Account
+   ↓
+Elimina account
+   ↓
+reinserimento password / conferma
+   ↓
+DELETE /me
+   ↓
+cancellazione/anonymizzazione DB
+   ↓
+cancellazione JWT
+   ↓
+logout
+
+e una pagina web pubblica tipo:
+
+studentlab.../account-deletion
+
+Questa la considero obbligatoria prima dello store.
+
+Terza priorità: report, blocco e moderazione
+
+Questa è probabilmente la parte store-specifica più importante per StudentLab.
+
+StudentLab contiene UGC:
+
+recensioni
+chat
+gruppi
+profili
+materiali
+community / Q&A
+
+Per Apple non basta moderare le recensioni. Le app social/UGC devono avere sistemi per filtrare materiale inappropriato, segnalare contenuti, rispondere alle segnalazioni e bloccare utenti abusivi.
+
+Google richiede analogamente moderazione UGC e funzionalità in-app per reporting e blocking di contenuti e utenti.
+
+Quindi dobbiamo ancora implementare bene:
+
+Segnala utente
+Segnala recensione
+Segnala messaggio
+Segnala gruppo
+Segnala materiale
+
+
+Blocca utente
+Sblocca utente
+
+
+Admin
+ └─ Segnalazioni
+     ├─ pending
+     ├─ reviewed
+     ├─ resolved
+     └─ rejected
+
+La moderazione recensioni che abbiamo già costruito è un buon primo pezzo, ma da sola non copre la policy UGC dell'intera StudentLab.
+
+Quarta priorità: Privacy
+
+Dobbiamo preparare una vera Privacy Policy StudentLab e renderla raggiungibile dall'app e dal sito.
+
+Poi bisognerà dichiarare correttamente ad Apple quali dati raccogliamo e come vengono utilizzati tramite App Privacy. Apple richiede che queste informazioni includano anche la raccolta effettuata da eventuali SDK di terze parti.
+
+Per iOS dobbiamo inoltre controllare il PrivacyInfo.xcprivacy. Apple richiede la dichiarazione delle Required Reason APIs quando utilizzate e App Store Connect può rifiutare una build che non soddisfa questi requisiti.
+
+Su Google Play compileremo invece il Data Safety form, includendo anche le informazioni sulla cancellazione dei dati/account.
+
+Per StudentLab dovremo classificare almeno i dati realmente utilizzati:
+
+email
+nome/cognome
+università
+dipartimento
+corso
+materie
+voti eventualmente inseriti
+recensioni
+chat
+gruppi
+materiali caricati
+identificativo account
+
+e dichiarare solo ciò che effettivamente raccogliamo/utilizziamo.
+
+Quinta priorità: Android 2026
+
+Qui abbiamo una scadenza vicinissima.
+
+Dal 31 agosto 2026, nuove app e aggiornamenti Google Play devono targettizzare Android 16 / API level 36 o superiore.
+
+Oggi è 16 agosto 2026, quindi io configurerei StudentLab direttamente con:
+
+targetSdk = 36
+compileSdk = 36
+
+compatibilmente con la versione Flutter/Gradle che stiamo usando.
+
+Dobbiamo inoltre verificare compatibilità con memory page size da 16 KB per le librerie native. Google indica questa compatibilità per app che targettizzano Android 15+; dal 1 febbraio 2027 gli aggiornamenti incompatibili non potranno più essere pubblicati.
+
+Sesta priorità: Apple social/age rating
+
+StudentLab è chiaramente un'app con funzionalità social.
+
+Apple ha annunciato che da settembre 2026 sarà necessario indicare nelle submission se l'app contiene funzionalità social media.
+
+Noi dovremo quindi dichiararlo correttamente e compilare l'age rating coerentemente con chat, UGC e interazioni tra utenti.
+
+Il fatto che la nostra chat sia collegata a utenti autenticati e gruppi determinati è molto meglio di una chat anonima/random; Apple tratta in maniera particolarmente severa anonymous/random chat.
+
+Settima priorità: test Google Play
+
+Se il tuo Play Developer Account è un account personale creato dopo il 13 novembre 2023, Google richiede prima dell'accesso alla produzione un closed test con almeno 12 tester opt-in per 14 giorni continuativi.
+
+Quindi va verificato che tipo/data di account Play Console hai.
+
+Ottava priorità: release vera e propria
+
+Alla fine dovremo fare build release Android/iOS, signing Android, App Bundle .aab, configurazione package/application ID definitivo, versione/build number, icone, splash screen, screenshot, descrizioni store, email/support URL, Privacy Policy URL e account demo per Apple Review.
+
+Apple chiede inoltre che i servizi backend siano disponibili durante la review e, quando l'app ha funzionalità basate su account, che App Review possa accedere con un account demo o equivalente.
+
+Dove siamo realmente
+
+Se raggruppo StudentLab in macro-blocchi, io la vedo così:
+
+Già molto avanti: autenticazione, JWT, profili social, percorsi accademici, materie/voti, recensioni, moderazione recensioni, gruppi, materiali gruppi/offline, Teacher Area, verifica docente, Teacher Materials, Admin Area, modalità Guest.
+
+Da chiudere adesso: sicurezza gruppi/backend → secure JWT storage.
+
+Subito dopo: cancellazione account → report/block/moderazione globale.
+
+Poi: Privacy Policy + Data Safety + Apple Privacy manifest.
+
+Infine: Android API 36 + configurazione iOS + signing + testing + store assets + release test.
+
+Quindi non siamo più nella fase in cui manca l'architettura fondamentale. Siamo entrando nella fase di hardening, compliance e release preparation.
+
+Il prossimo passo più sensato rimane: chiudiamo ApiService + endpoint FastAPI dei gruppi eliminando definitivamente l'identità controllabile dal client, e subito dopo implementiamo flutter_secure_storage per il JWT. Dopo questi due interventi possiamo segnare praticamente come concluso il blocco sicurezza autenticazione.
+
+
+
+
+
+
+
+
+
+18/08/2026
+Sì. Ti faccio il punto tenendo separati **“codice già esistente”**, **“funzione realmente chiusa end-to-end”** e **“requisito ancora da completare”**. È importante perché StudentLab ha ormai parecchi model, UI e servizi, ma alcune aree sono ancora parziali: non le considererei finite solo perché esistono già classi o schermate.
+
+## Dove siamo adesso
+
+Come stato complessivo, direi che **l'architettura e gran parte delle fondamenta sono già costruite**, mentre siamo ancora nella fase in cui dobbiamo chiudere i flussi completi e prepararli per una vera pubblicazione.
+
+Non darei un'unica percentuale, perché sarebbe fuorviante. Separerei così:
+
+| Area                         | Stato          |
+| ---------------------------- | -------------- |
+| Architettura FE/BE           | 🟢 avanzata    |
+| Catalogo accademico          | 🟢 avanzato    |
+| Quiz                         | 🟢/🟡 avanzato |
+| Profilo Social               | 🟡 avanzato    |
+| Registrazione/auth           | 🟡             |
+| Gruppi                       | 🟡             |
+| Materiali                    | 🟡             |
+| Verifiche accademiche        | 🟡             |
+| Notifiche                    | 🟡/🔴          |
+| Area Admin                   | 🔴/🟡          |
+| Area Docente                 | 🔴/🟡          |
+| Docente → Studente materiali | 🔴             |
+| Offline completo             | 🔴/🟡          |
+| Moderazione completa         | 🔴/🟡          |
+| Store readiness              | 🔴             |
+
+Quindi **non siamo all'inizio**, ma non siamo ancora al punto “pubblichiamo domani”.
+
+---
+
+# 1. Catalogo accademico: siamo messi bene
+
+Questa è una delle cose che abbiamo appena portato a un punto molto buono.
+
+Abbiamo abbandonato il vecchio unico:
+
+```text
+data/dmi/academic_catalog.json
+```
+
+e siamo passati alla struttura:
+
+```text
+data/
+  dei/
+    l-33/
+  di3a/
+    l-25/
+    l-26/
+  dmi/
+    l-31/
+    l-35/
+  dsbga/
+    l-13/
+  lex/
+    lmg-01/
+```
+
+con:
+
+```text
+universities
+→ departments
+→ courses
+→ subjects
+→ offerings
+→ teachers
+```
+
+L'import sul PostgreSQL è riuscito:
+
+```text
+7 cataloghi
+287 materie
+461 offerings
+393 associazioni docente/offering aggiunte
+6 associazioni rimosse
+0 file saltati
+COMMIT riuscito
+```
+
+Questa parte quindi la considero **funzionante**.
+
+Resta da fare una cosa tecnica importante sul DB: allineare definitivamente il `UniqueConstraint` delle materie ai codici:
+
+```python
+university_code
+department_code
+course_code
+code
+```
+
+invece di affidarsi ai nomi del dipartimento/corso.
+
+---
+
+# 2. Quiz: molto avanti
+
+Abbiamo già il flusso sostanziale:
+
+```text
+selezione
+→ materia
+→ caricamento quiz
+→ risposta
+→ validazione
+→ risultato
+→ spiegazioni
+```
+
+Abbiamo `QuizPage`, `QuizResultLayer`, corrette/errate/percentuale e le spiegazioni.
+
+Mancano principalmente l'integrazione definitiva con il catalogo dinamico ovunque, la selezione multipla degli argomenti, persistenza delle statistiche dell'utente e offline/cache più avanzati.
+
+Questa è una delle aree più vicine ad essere chiusa.
+
+---
+
+# 3. Registrazione e autenticazione: backend avanti, flusso finale ancora da chiudere
+
+Abbiamo già lavorato su:
+
+```text
+Register
+Login
+JWT
+password hashing
+email verification
+policy
+preview profilo
+student / teacher
+```
+
+Abbiamo anche la preview con il nuovo comportamento delle verifiche.
+
+Però resta fondamentale chiudere:
+
+```text
+persistenza sessione Flutter
+token reale in tutte le schermate
+rimozione ID hardcoded
+sessione dopo riapertura app
+recupero password
+cambio password
+logout completo
+gestione token scaduto
+```
+
+Questa per me è **priorità numero uno**.
+
+Finché troviamo cose come:
+
+```dart
+_currentUserId = 1;
+```
+
+non possiamo considerare l'autenticazione completa.
+
+---
+
+# 4. Email verification
+
+Questa è già parecchio avanti.
+
+Abbiamo:
+
+```text
+codice di 6 cifre
+scadenza
+timer
+resend
+verifica
+messaggi user-friendly
+```
+
+Va però collaudata end-to-end con backend reale e casi limite:
+
+```text
+codice errato
+codice scaduto
+troppi tentativi
+resend multiplo
+rete assente
+registrazione interrotta
+```
+
+---
+
+# 5. Controllo età
+
+Questo **manca ancora realmente**.
+
+Avevamo stabilito che la registrazione deve avere controllo dell'età.
+
+Con l'evoluzione Social di StudentLab questo diventa più importante, perché ci sono profili, gruppi, chat e UGC.
+
+Google richiede dichiarazioni accurate sul target d'età; inoltre le app Social sono soggette ai Child Safety Standards e, se si includono minori nel target, le social features hanno ulteriori requisiti. ([Google Support][1])
+
+Dobbiamo quindi decidere esplicitamente:
+
+```text
+età minima StudentLab
+come raccogliamo/verifichiamo l'età
+cosa possono fare eventuali minorenni
+```
+
+Non lascerei questa scelta alla fine.
+
+---
+
+# 6. Profilo Social: molto avanzato
+
+Qui abbiamo fatto tanto.
+
+Abbiamo ormai il modello concettuale di:
+
+```text
+studente
+docente
+percorsi accademici multipli
+titoli accademici multipli
+materie
+teacher assignments
+disponibilità
+aiuto
+lezioni private
+descrizione
+recensioni
+verifiche
+```
+
+Abbiamo aggiornato anche:
+
+```text
+SocialProfilePreview
+SocialUserProfilePage
+SocialPage
+StudentHelpCard
+TeacherHelpCard
+```
+
+e stabilito la distinzione tra card compatta e profilo completo.
+
+---
+
+# 7. Regola voti studenti: adesso è definita bene
+
+La materia **non necessita verifica**.
+
+```text
+Materia
+grade = null
+→ nessuna verifica
+```
+
+Se lo studente dichiara:
+
+```text
+27/30
+```
+
+allora:
+
+```text
+grade_status = pending
+```
+
+e potrà diventare:
+
+```text
+verified
+rejected
+```
+
+Se modifica un voto già verificato:
+
+```text
+verified
+→ modifica
+→ pending
+```
+
+Sul proprio profilo può vedere anche gli stati pending/rejected.
+
+Su card e profilo degli altri:
+
+```text
+voto verified → pubblico
+voto pending  → nascosto
+voto rejected → nascosto
+```
+
+Questa regola è pronta concettualmente; va chiuso il flusso Admin che effettua materialmente la verifica.
+
+---
+
+# 8. Titoli accademici e percorsi
+
+Anche qui abbiamo definito una struttura abbastanza solida.
+
+Un titolo:
+
+```text
+Laurea triennale
+Laurea magistrale
+Laurea magistrale a ciclo unico
+...
+```
+
+è un'informazione accademica dichiarata e deve poter essere verificata.
+
+Un percorso `graduated` continua ad avere il significato di percorso concluso/titolo nella UI, soprattutto nelle card compatte.
+
+Ma:
+
+```text
+graduated != verified
+```
+
+Abbiamo inoltre corretto la preview per mostrare chiaramente `DA VERIFICARE`.
+
+Rimane da completare soprattutto la parte backend definitiva `academicTitles` e l'Admin che approva/rifiuta.
+
+---
+
+# 9. Teacher verification
+
+Il concetto è definito:
+
+```text
+utente si registra come teacher
+→ pending
+→ Admin/Creator verifica
+→ verified / rejected
+```
+
+Un teacher **non deve auto-verificarsi**.
+
+Dopo la verifica potrà ottenere gli strumenti docente.
+
+Questa parte ha model e struttura, ma l'intero pannello operativo non è ancora fatto.
+
+---
+
+# 10. Area Docente: è una delle prossime grandi sezioni
+
+Questa non la considero ancora completa.
+
+Dovremo avere qualcosa concettualmente simile a:
+
+```text
+Area Docente
+
+I miei insegnamenti
+Materiali
+Assegna materiale
+Studenti / destinatari
+Cronologia assegnazioni
+Notifiche
+```
+
+Il docente verificato dovrebbe poter vedere solo gli insegnamenti per cui è autorizzato.
+
+Da lì:
+
+```text
+seleziona insegnamento
+→ materiale
+→ destinatario
+→ assegna
+```
+
+Può trattarsi di:
+
+```text
+studente
+gruppo
+corso
+materia/offering
+```
+
+a seconda delle regole che definiremo.
+
+---
+
+# 11. Docente → Studente: invio materiali
+
+Questa è ancora una funzione importante da costruire end-to-end.
+
+Il flusso dovrebbe essere:
+
+```text
+Teacher verificato
+       ↓
+sceglie insegnamento verificato
+       ↓
+carica/seleziona materiale
+       ↓
+sceglie destinatari
+       ↓
+backend controlla permessi
+       ↓
+crea assegnazione
+       ↓
+crea notifica
+       ↓
+Studente riceve materiale
+```
+
+Il semplice upload del file non basta.
+
+Serve un'entità concettuale del tipo:
+
+```text
+MaterialAssignment
+```
+
+con almeno:
+
+```text
+material_id
+assigned_by
+assigned_to
+subject_id
+offering_id
+created_at
+status
+```
+
+---
+
+# 12. Area Studente: materiali ricevuti
+
+Anche questa va chiusa.
+
+Lo studente dovrà distinguere chiaramente:
+
+```text
+Materiale assegnato online
+Materiale disponibile per download
+Materiale scaricato
+Materiale presente offline
+Materiale aggiornato
+Materiale revocato
+```
+
+Questa è esattamente la ragione per cui avevamo discusso PostgreSQL remoto + SQLite locale.
+
+PostgreSQL dice:
+
+```text
+quali materiali spettano allo studente
+```
+
+SQLite/file system dice:
+
+```text
+quali materiali sono effettivamente sul dispositivo
+```
+
+---
+
+# 13. Upload materiali: siamo già avanti
+
+Abbiamo progettato il flusso Vercel Blob con:
+
+```text
+presigned URL
+250 MB max
+SHA-256
+controllo duplicati
+MIME consentiti
+autorizzazione backend
+pathname controllato
+```
+
+Formati:
+
+```text
+PDF
+TXT
+ZIP
+DOCX
+PPTX
+```
+
+La parte fondamentale da mantenere è:
+
+```text
+file → Blob/storage
+metadata → PostgreSQL
+```
+
+e **non file binario dentro PostgreSQL**.
+
+Questo mantiene anche basso il consumo Neon.
+
+---
+
+# 14. Form materiali + nuovo catalogo
+
+Adesso che abbiamo importato i 287 subjects, i form materiali devono usare lo stesso catalogo backend:
+
+```text
+Università
+→ Dipartimento
+→ Corso
+→ Materia
+→ Offering
+→ Modulo / Canale
+```
+
+Non dobbiamo avere una seconda lista Flutter separata.
+
+La filosofia rimane quella che avevamo scelto:
+
+```text
+Scrivi oppure scegli tra quelli esistenti
+```
+
+quindi catalogo + inserimento manuale.
+
+---
+
+# 15. Gruppi: struttura presente, flusso completo ancora parziale
+
+Abbiamo già lavorato su:
+
+```text
+StudyGroup
+partecipanti
+detail
+chat layer
+materiali
+owner
+admin
+join request
+gruppi pubblici/privati
+report
+owner transfer
+```
+
+E abbiamo anche definito la regola particolare del trasferimento proprietario.
+
+Ma manca ancora molto della parte “production”:
+
+```text
+WebSocket chat completo
+moderazione messaggi
+block
+mute
+rate limit
+notifiche realtime
+cancellazione contenuto
+gestione abusi
+```
+
+---
+
+# 16. Social e moderazione: questa è obbligatoria prima degli store
+
+Qui dobbiamo essere particolarmente seri.
+
+Apple richiede alle app con User Generated Content/social networking di avere meccanismi per filtrare materiale problematico, segnalare contenuti, rispondere alle segnalazioni, bloccare utenti abusivi e fornire informazioni di contatto pubbliche. ([Apple Developer][2])
+
+Quindi per StudentLab non basta avere:
+
+```text
+Segnala profilo
+```
+
+Dobbiamo arrivare a:
+
+```text
+Segnala profilo
+Segnala gruppo
+Segnala messaggio
+Segnala materiale
+Segnala recensione
+Blocca utente
+Moderation queue
+Admin action
+sospensione/ban
+community standards
+contatto supporto
+```
+
+Google Play richiede inoltre alle app Social di rispettare i Child Safety Standards, inclusi standard pubblicati, un meccanismo in-app per segnalazioni, processi per gestire CSAM e un punto di contatto dedicato alla child safety. ([Google Support][1])
+
+Questa diventa una parte dell'**Area Admin**.
+
+---
+
+# 17. Block User
+
+Questa funzione ci manca e la metterei alta nella roadmap.
+
+Non solo:
+
+```text
+non voglio vedere questo utente
+```
+
+ma deve propagarsi correttamente a:
+
+```text
+profilo
+ricerca
+chat
+gruppi
+messaggi
+recensioni
+notifiche
+contatti
+```
+
+---
+
+# 18. Area Admin: è uno dei blocchi principali mancanti
+
+Questa probabilmente sarà una delle prossime sezioni importanti da costruire.
+
+Dovrà avere almeno:
+
+```text
+Admin Dashboard
+────────────────────────────
+Verifiche
+  voti
+  titoli
+  percorsi
+  teacher
+  teacher assignments
+
+Utenti
+  cerca
+  sospendi
+  riattiva
+  ruolo teacher
+
+Segnalazioni
+  profilo
+  gruppo
+  contenuto
+  materiale
+  chat
+
+Catalogo
+  università
+  dipartimenti
+  corsi
+  materie
+  offerings
+  docenti catalogo
+
+Materiali
+  revisione/pubblicazione
+
+Audit
+  chi ha approvato cosa
+  quando
+  perché
+```
+
+Questa area non dovrebbe semplicemente fare CRUD.
+
+Deve creare un vero **audit trail**:
+
+```text
+reviewed_by
+reviewed_at
+decision
+reason
+```
+
+---
+
+# 19. Notifiche
+
+Abbiamo già previsto il model e la UI concettuale.
+
+Nella Home autenticata:
+
+```text
+🔔 3
+```
+
+Dovranno arrivare notifiche per:
+
+```text
+verifica voto
+verifica titolo
+verifica teacher
+nuovo materiale
+richiesta gruppo
+owner transfer
+segnalazione/moderazione
+recensione
+```
+
+La UI unread/read e il collegamento reale con tutti questi eventi devono ancora essere completati.
+
+---
+
+# 20. Account deletion: assolutamente da chiudere
+
+Abbiamo già model e richiesta di cancellazione in parte.
+
+Ma serve il flusso completo.
+
+Google Play richiede, se l'app consente la creazione di account, sia un percorso **in-app** sia una risorsa **web** da cui richiedere la cancellazione dell'account e dei dati associati. ([Google Support][3])
+
+Apple richiede che un'app che offre account creation consenta di iniziare la cancellazione dell'account direttamente dall'app. ([Apple Developer][4])
+
+Quindi dobbiamo avere:
+
+```text
+Profilo
+→ Elimina account
+→ conferma
+→ eventuale re-auth
+→ backend
+→ ownership gruppi
+→ cleanup/anonymization
+→ revoca token
+→ account eliminato
+```
+
+E per Google:
+
+```text
+https://studentlab.../delete-account
+```
+
+o equivalente.
+
+---
+
+# 21. Privacy e Data Safety
+
+Abbiamo iniziato bene con:
+
+```text
+Policy
+Terms
+privacy acknowledgement
+consenso prima della registrazione
+```
+
+ma per pubblicare dovremo far corrispondere esattamente quello che dichiariamo con ciò che l'app raccoglie.
+
+Google richiede la compilazione corretta della sezione Data Safety e una privacy policy; Apple richiede le App Privacy disclosures relative ai dati raccolti dall'app e dagli SDK integrati. ([Google Support][5])
+
+Dovremo censire almeno:
+
+```text
+nome
+cognome
+email
+dati accademici
+voti
+profili
+contenuti UGC
+messaggi
+file
+recensioni
+device/storage data
+analytics eventuali
+```
+
+---
+
+# 22. Apple ha anche una novità importante per noi nel 2026
+
+Questa va segnata.
+
+Apple ha aggiornato nel 2026 il questionario relativo alle social capabilities e, **da settembre 2026**, sarà richiesta l'indicazione della presenza di capacità social nelle nuove submission/update. ([Apple Developer][6])
+
+StudentLab ha:
+
+```text
+profili
+gruppi
+chat
+UGC
+social discovery
+```
+
+quindi questa dichiarazione sarà rilevante.
+
+Siamo al **18 agosto 2026**, quindi va preparata già adesso.
+
+---
+
+# 23. Anche Google ha una scadenza vicina
+
+Google ricorda che le app devono soddisfare il requisito più recente sul target API entro **31 agosto 2026**. ([Google Support][7])
+
+Quindi prima della release Android dovremo controllare:
+
+```text
+compileSdk
+targetSdk
+Gradle
+Android plugin
+Flutter version
+```
+
+e non lasciare questa parte all'ultimo.
+
+---
+
+# 24. Error handling
+
+Questa è già una specifica StudentLab e la considero corretta.
+
+Mai mostrare all'utente:
+
+```text
+SQLAlchemy...
+Exception...
+SocketException...
+HTTP 500...
+Traceback...
+```
+
+Devono diventare:
+
+```text
+Non è stato possibile completare l'operazione.
+Controlla la connessione e riprova.
+Sessione scaduta. Accedi di nuovo.
+Non hai i permessi necessari.
+```
+
+Abbiamo già iniziato a farlo nei Social/Profile/Registration.
+
+Dobbiamo estenderlo all'intera app.
+
+---
+
+# 25. Requisiti non funzionali
+
+Qui abbiamo ancora parecchio lavoro “invisibile”, ma fondamentale.
+
+La checklist principale è:
+
+1. **Security:** rate limiting, brute-force protection, authorization server-side, validazione upload/MIME, gestione token/secrets, audit Admin.
+2. **Privacy:** data minimization, retention, deletion/anonymization, consensi versionati, privacy-safe logging.
+3. **Performance:** paginazione Social/Gruppi/Materiali, eliminazione query N+1, caching catalogo, indici DB.
+4. **Reliability:** timeout, retry, idempotenza, transazioni, offline conflict strategy.
+5. **Offline:** SQLite/cache, stato locale/remoto materiali, sync.
+6. **Accessibility:** text scaling, screen reader, semantic label, contrasto, touch targets.
+7. **Observability:** health check, structured logging, error monitoring, metriche.
+8. **Testing:** unit, integration, API, Flutter widget, Android/iOS real device, regression.
+9. **DevOps:** migrations Alembic, staging/prod, CI, secret management, backup/restore.
+10. **Store QA:** TestFlight/Play testing, review account, screenshots, metadata, Privacy/Data Safety, rating età.
+
+---
+
+# Ordine in cui procederei adesso
+
+Non inizierei subito da funzioni decorative.
+
+Procederei così:
+
+```text
+FASE 1
+Auth + sessione vera
+Email verification
+Age check
+Policy
+Account deletion
+
+        ↓
+
+FASE 2
+Social safety
+Block
+Report
+Moderation
+
+        ↓
+
+FASE 3
+Area Admin
+Voti
+Titoli
+Percorsi
+Teacher
+Segnalazioni
+
+        ↓
+
+FASE 4
+Area Docente
+Teacher assignments
+Materiali
+Assegnazioni
+
+        ↓
+
+FASE 5
+Area Studente
+Materiali ricevuti
+Download
+Offline
+Sync
+
+        ↓
+
+FASE 6
+Notifiche
+
+        ↓
+
+FASE 7
+Gruppi/chat realtime
+Moderazione completa
+
+        ↓
+
+FASE 8
+Security + QA + Store
+```
+
+Questa sequenza evita di costruire, ad esempio, **“Docente manda materiale” prima che esista una vera sessione utente, una verifica teacher e un sistema di notifiche/autorizzazioni affidabile**.
+
+---
+
+# In sintesi
+
+La parte più importante da capire è che StudentLab ha già una **base tecnica notevole**: backend FastAPI/PostgreSQL, catalogo accademico, quiz, model Social, gruppi, profili, materiali e sistemi di verifica sono già stati progettati o parzialmente implementati.
+
+Quello che ci separa da una versione pubblicabile non è “fare altre schermate”. È soprattutto **chiudere i flussi end-to-end e la sicurezza attorno alle funzioni social**.
+
+In particolare le quattro macro-aree mancanti sono:
+
+**Auth/sessione reale → Admin/moderazione → Docente/Materiali → Store compliance.**
+
+E la parte Admin non è accessoria: è ciò che rende possibili in modo corretto voto verificato, titolo verificato, teacher verificato, teacher assignment verificato e gestione delle segnalazioni.
+
+Ho anche preparato il `README.md` completo con stato, roadmap, requisiti funzionali/non funzionali e definition of done:
+
+[Scarica README.md aggiornato di StudentLab](sandbox:/mnt/data/README_StudentLab_2026-08-18.md)
+
+È un README piuttosto completo, circa 986 righe, pensato per diventare il documento di riferimento del repository mentre continuiamo lo sviluppo.
+
+[1]: https://support.google.com/googleplay/android-developer/answer/9878809?hl=en&utm_source=chatgpt.com "Child Endangerment - Play Console Help"
+[2]: https://developer.apple.com/app-store/review/guidelines/?utm_source=chatgpt.com "App Review Guidelines"
+[3]: https://support.google.com/googleplay/android-developer/answer/13327111?hl=en&utm_source=chatgpt.com "Understanding Google Play's app account deletion ..."
+[4]: https://developer.apple.com/support/offering-account-deletion-in-your-app/?utm_source=chatgpt.com "Offering account deletion in your app - Support"
+[5]: https://support.google.com/googleplay/android-developer/answer/10787469?hl=en&utm_source=chatgpt.com "Provide information for Google Play's Data safety section"
+[6]: https://developer.apple.com/wwdc26/guides/app-store/?utm_source=chatgpt.com "WWDC26 App Store guide"
+[7]: https://support.google.com/googleplay/android-developer/answer/17134731?hl=en&utm_source=chatgpt.com "Policy announcement: July 15, 2026 - Play Console Help"

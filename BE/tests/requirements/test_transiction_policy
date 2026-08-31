@@ -1,0 +1,20 @@
+from pathlib import Path
+
+
+SERVICE_ROOT = Path("services")
+
+
+def test_services_do_not_hide_commit_usage():
+    files_with_commits = []
+
+    for path in SERVICE_ROOT.glob("*.py"):
+        content = path.read_text(
+            encoding="utf-8",
+        )
+
+        if "db.commit()" in content:
+            files_with_commits.append(
+                path.name,
+            )
+
+    assert files_with_commits

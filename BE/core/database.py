@@ -1,23 +1,33 @@
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy.pool import NullPool
+
 from .config import settings
 
 
 DATABASE_URL = settings.database_url
 
+engine_kwargs = {
+    "pool_pre_ping": True,
+    "echo": False,
+}
+
+if settings.is_vercel:
+    engine_kwargs["poolclass"] = NullPool
 
 engine = create_engine(
     DATABASE_URL,
-    pool_size=10,
-    max_overflow=20,
-    pool_pre_ping=True,
-    echo=True
+    **engine_kwargs,
 )
 
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+SessionLocal = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=engine,
+)
 
 Base = declarative_base()
+
 
 def get_db():
     db = SessionLocal()
@@ -26,7 +36,6 @@ def get_db():
     finally:
         db.close()
 
+
 def create_tables():
     Base.metadata.create_all(bind=engine)
-
-print("\n\033[34m\\_+_/\033[0m\n")
