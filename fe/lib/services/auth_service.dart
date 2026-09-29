@@ -110,6 +110,10 @@ class AuthService {
 
       _deviceKeys;
 
+  final StudyPlanSyncService
+
+      _studyPlanSync;
+
   AuthService({
 
     ApiService? apiService,
@@ -121,6 +125,8 @@ class AuthService {
     PendingRegistrationStore? pendingStore,
 
     DeviceKeyService? deviceKeys,
+
+    StudyPlanSyncService? studyPlanSync,
 
   })  : _apiService =
 
@@ -150,7 +156,13 @@ class AuthService {
 
             deviceKeys ??
 
-                DeviceKeyService();
+                DeviceKeyService(),
+
+        _studyPlanSync =
+
+            studyPlanSync ??
+
+                StudyPlanSyncService();
 
   Future<void> _publishDeviceKey() async {
 
@@ -166,6 +178,14 @@ class AuthService {
 
     }
 
+  }
+
+  Future<void> _syncStudyPlanAfterAuthentication(int userId) async {
+    try {
+      await _studyPlanSync.onAuthenticated(userId);
+    } catch (_) {
+      // Il Ripasso non deve impedire login/verifica/ripristino sessione.
+    }
   }
 
   Future<AuthRegistrationResult>
@@ -291,6 +311,8 @@ class AuthService {
       user.id,
 
     );
+
+    await _syncStudyPlanAfterAuthentication(user.id);
 
     _publishDeviceKey();
 
@@ -602,6 +624,8 @@ class AuthService {
 
     );
 
+    await _syncStudyPlanAfterAuthentication(user.id);
+
     _publishDeviceKey();
 
     return user;
@@ -665,6 +689,8 @@ class AuthService {
         user.id,
 
       );
+
+      await _syncStudyPlanAfterAuthentication(user.id);
 
       _publishDeviceKey();
 
@@ -1086,6 +1112,12 @@ class AuthService {
         _session.currentUserId;
 
     if (userId != null) {
+
+      try {
+        await _studyPlanSync.refreshRemote(userId);
+      } catch (_) {
+        // Manteniamo il piano locale anche se il dispositivo è offline.
+      }
 
       await _localStorage
 

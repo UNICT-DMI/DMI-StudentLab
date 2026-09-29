@@ -89,14 +89,14 @@ class _DeveloperSearchPageState
         _results = results;
         _loading = false;
       });
-    } catch (error) {
+    } catch (_) {
       if (!mounted) {
         return;
       }
 
       setState(() {
         _loading = false;
-        _error = error.toString();
+        _error = 'Non è stato possibile completare la ricerca. Riprova tra poco.';
       });
     }
   }
@@ -124,16 +124,24 @@ class _DeveloperSearchPageState
           ),
         ),
       );
-    } catch (error) {
+    } catch (_) {
       if (!mounted) {
         return;
       }
 
-      ScaffoldMessenger.of(context)
-          .showSnackBar(
-        SnackBar(
-          content:
-              Text(error.toString()),
+      await showDialog<void>(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
+          title: const Text('File non disponibile'),
+          content: const Text(
+            'Non è stato possibile aprire il file. Riprova tra poco.',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(),
+              child: const Text('Chiudi'),
+            ),
+          ],
         ),
       );
     }
@@ -172,7 +180,7 @@ class _DeveloperSearchPageState
                     crossAxisAlignment:
                         CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Cerca nell’architettura',
                         style: TextStyle(
                           color:
@@ -200,7 +208,7 @@ class _DeveloperSearchPageState
                         onChanged:
                             _onChanged,
                         style:
-                            const TextStyle(
+                            TextStyle(
                           color:
                               AppColors.pureWhite,
                         ),
@@ -209,12 +217,12 @@ class _DeveloperSearchPageState
                           hintText:
                               'Cerca comportamento, file o funzione...',
                           hintStyle:
-                              const TextStyle(
+                              TextStyle(
                             color:
-                                Colors.white38,
+                                AppColors.white38,
                           ),
                           prefixIcon:
-                              const Icon(
+                              Icon(
                             Icons.manage_search,
                             color:
                                 AppColors.skyBlue,
@@ -267,7 +275,7 @@ class _DeveloperSearchPageState
                   ),
                 ),
                 if (_loading)
-                  const LinearProgressIndicator(
+                  LinearProgressIndicator(
                     color:
                         AppColors.skyBlue,
                     backgroundColor:
@@ -281,9 +289,9 @@ class _DeveloperSearchPageState
                     ),
                     child: Text(
                       _error!,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color:
-                            Colors.redAccent,
+                            AppColors.redAccent,
                         fontSize: 11,
                       ),
                     ),
@@ -301,11 +309,11 @@ class _DeveloperSearchPageState
                               mainAxisSize:
                                   MainAxisSize.min,
                               children: [
-                                const Icon(
+                                Icon(
                                   Icons
                                       .travel_explore_outlined,
                                   color:
-                                      Colors.white24,
+                                      AppColors.white24,
                                   size: 44,
                                 ),
                                 const SizedBox(
@@ -419,7 +427,7 @@ class _DeveloperSearchPageState
                                           Text(
                                             result.title,
                                             style:
-                                                const TextStyle(
+                                                TextStyle(
                                               color: AppColors
                                                   .pureWhite,
                                               fontSize:
@@ -480,7 +488,7 @@ class _DeveloperSearchPageState
                                         1,
                                       ),
                                       style:
-                                          const TextStyle(
+                                          TextStyle(
                                         color: AppColors
                                             .materialSky,
                                         fontSize: 10,
@@ -528,7 +536,7 @@ class _ReasonBadge
       ),
       child: Text(
         label,
-        style: const TextStyle(
+        style: TextStyle(
           color: AppColors.materialSky,
           fontSize: 7,
           fontWeight: FontWeight.w600,

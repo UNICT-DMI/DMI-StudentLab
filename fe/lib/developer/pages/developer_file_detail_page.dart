@@ -172,7 +172,7 @@ class _DeveloperFileDetailPageState
           DeveloperUiStyle.elevatedPanelDecoration(
         borderColor:
             file.securityCritical
-                ? Colors.redAccent
+                ? AppColors.redAccent
                 : DeveloperUiStyle.layerColor(
                     file.layer,
                   ),
@@ -197,7 +197,7 @@ class _DeveloperFileDetailPageState
               _fileIcon(file),
               color:
                   file.securityCritical
-                      ? Colors.redAccent
+                      ? AppColors.redAccent
                       : DeveloperUiStyle
                           .layerColor(
                           file.layer,
@@ -216,7 +216,7 @@ class _DeveloperFileDetailPageState
                   maxLines: 2,
                   overflow:
                       TextOverflow.ellipsis,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color:
                         AppColors.pureWhite,
                     fontSize: 16,
@@ -555,7 +555,7 @@ class _FunctionsTab
                       Text(
                         '${function.name}()',
                         style:
-                            const TextStyle(
+                            TextStyle(
                           color: AppColors
                               .pureWhite,
                           fontSize: 12,
@@ -595,7 +595,7 @@ class _FunctionsTab
                           ),
                           if (function
                               .isAsync)
-                            const _InfoBadge(
+                            _InfoBadge(
                               icon:
                                   Icons
                                       .sync_rounded,
@@ -621,11 +621,11 @@ class _FunctionsTab
                     ],
                   ),
                 ),
-                const Icon(
+                Icon(
                   Icons
                       .chevron_right_rounded,
                   color:
-                      Colors.white30,
+                      AppColors.white30,
                   size: 18,
                 ),
               ],
@@ -667,8 +667,8 @@ class _SecurityTab
           title: 'Classificazione',
           accent:
               file.securityCritical
-                  ? Colors.redAccent
-                  : Colors.greenAccent,
+                  ? AppColors.redAccent
+                  : AppColors.greenAccent,
           child: Row(
             children: [
               Icon(
@@ -679,8 +679,8 @@ class _SecurityTab
                         .verified_user_outlined,
                 color:
                     file.securityCritical
-                        ? Colors.redAccent
-                        : Colors.greenAccent,
+                        ? AppColors.redAccent
+                        : AppColors.greenAccent,
                 size: 20,
               ),
               const SizedBox(width: 9),
@@ -704,7 +704,7 @@ class _SecurityTab
                 Icons.notes_rounded,
             title: 'Security notes',
             accent:
-                Colors.redAccent,
+                AppColors.redAccent,
             child: Column(
               crossAxisAlignment:
                   CrossAxisAlignment.start,
@@ -732,7 +732,7 @@ class _SecurityTab
             title:
                 'Funzioni sensibili',
             accent:
-                Colors.orangeAccent,
+                AppColors.orangeAccent,
             child: Column(
               children:
                   securityFunctions
@@ -1050,7 +1050,7 @@ class _ImpactTab extends StatelessWidget {
             title:
                 'Modification state',
             accent:
-                Colors.amber,
+                AppColors.amber,
             child: Column(
               crossAxisAlignment:
                   CrossAxisAlignment.start,
@@ -1185,11 +1185,11 @@ class _InfoBadge
   final String label;
   final Color color;
 
-  const _InfoBadge({
+  _InfoBadge({
     required this.icon,
     required this.label,
-    this.color = AppColors.materialSky,
-  });
+    Color? color,
+  }) : color = color ?? AppColors.materialSky;
 
   @override
   Widget build(BuildContext context) {
@@ -1257,7 +1257,7 @@ class _BulletText
         crossAxisAlignment:
             CrossAxisAlignment.start,
         children: [
-          const Padding(
+          Padding(
             padding:
                 EdgeInsets.only(
               top: 5,
@@ -1332,7 +1332,7 @@ class _ImpactMetric
           const Spacer(),
           Text(
             data.value,
-            style: const TextStyle(
+            style: TextStyle(
               color:
                   AppColors.pureWhite,
               fontSize: 15,
@@ -1391,7 +1391,7 @@ class _EmptyTab extends StatelessWidget {
               Icon(
                 icon,
                 color:
-                    Colors.white24,
+                    AppColors.white24,
                 size: 42,
               ),
               const SizedBox(

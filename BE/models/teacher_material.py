@@ -119,6 +119,19 @@ class TeacherMaterial(Base):
         index=True,
     )
 
+    distribution_mode = Column(
+        String(20),
+        nullable=False,
+        default="persistent",
+        server_default="persistent",
+    )
+
+    cloud_expires_at = Column(
+        DateTime(timezone=True),
+        nullable=True,
+        index=True,
+    )
+
     version = Column(
         Integer,
         nullable=False,

@@ -1079,7 +1079,7 @@ class _RegistrationAcademicPathEditorPageState
                           _required,
 
                       style:
-                          const TextStyle(
+                          TextStyle(
                         color:
                             AppColors.pureWhite,
                       ),
@@ -1148,7 +1148,7 @@ class _RegistrationAcademicPathEditorPageState
                                 TextOverflow.ellipsis,
 
                             style:
-                                const TextStyle(
+                                TextStyle(
                               color:
                                   AppColors.pureWhite,
                             ),
@@ -1242,7 +1242,7 @@ class _RegistrationAcademicPathEditorPageState
                           _required,
 
                       style:
-                          const TextStyle(
+                          TextStyle(
                         color:
                             AppColors.pureWhite,
                       ),
@@ -1311,7 +1311,7 @@ class _RegistrationAcademicPathEditorPageState
                                 TextOverflow.ellipsis,
 
                             style:
-                                const TextStyle(
+                                TextStyle(
                               color:
                                   AppColors.pureWhite,
                             ),
@@ -1408,7 +1408,7 @@ class _RegistrationAcademicPathEditorPageState
                           _required,
 
                       style:
-                          const TextStyle(
+                          TextStyle(
                         color:
                             AppColors.pureWhite,
                       ),
@@ -1477,7 +1477,7 @@ class _RegistrationAcademicPathEditorPageState
                                 TextOverflow.ellipsis,
 
                             style:
-                                const TextStyle(
+                                TextStyle(
                               color:
                                   AppColors.pureWhite,
                             ),
@@ -1542,7 +1542,7 @@ class _RegistrationAcademicPathEditorPageState
                           _required,
 
                       style:
-                          const TextStyle(
+                          TextStyle(
                         color:
                             AppColors.pureWhite,
                       ),
@@ -1600,7 +1600,7 @@ class _RegistrationAcademicPathEditorPageState
                                 TextOverflow.ellipsis,
 
                             style:
-                                const TextStyle(
+                                TextStyle(
                               color:
                                   AppColors.pureWhite,
                             ),
@@ -1650,7 +1650,7 @@ class _RegistrationAcademicPathEditorPageState
                     ),
 
                     items:
-                        const [
+                        [
                       DropdownMenuItem(
                         value:
                             AcademicPathStatus.enrolled,
@@ -1779,7 +1779,7 @@ class _RegistrationAcademicPathEditorPageState
                         _validateStartYear,
 
                     style:
-                        const TextStyle(
+                        TextStyle(
                       color:
                           AppColors.pureWhite,
                     ),
@@ -1817,7 +1817,7 @@ class _RegistrationAcademicPathEditorPageState
                           _validateGraduationYear,
 
                       style:
-                          const TextStyle(
+                          TextStyle(
                         color:
                             AppColors.pureWhite,
                       ),
@@ -1862,7 +1862,7 @@ class _RegistrationAcademicPathEditorPageState
                             : null,
 
                     title:
-                        const Text(
+                        Text(
                       'Percorso corrente',
 
                       style:
@@ -1891,7 +1891,7 @@ class _RegistrationAcademicPathEditorPageState
                     },
 
                     title:
-                        const Text(
+                        Text(
                       'Percorso principale',
 
                       style:
@@ -1916,7 +1916,7 @@ class _RegistrationAcademicPathEditorPageState
                     decoration:
                         BoxDecoration(
                       color:
-                          Colors.amber.withOpacity(
+                          AppColors.amber.withOpacity(
                         0.06,
                       ),
 
@@ -1928,7 +1928,7 @@ class _RegistrationAcademicPathEditorPageState
                       border:
                           Border.all(
                         color:
-                            Colors.amber.withOpacity(
+                            AppColors.amber.withOpacity(
                           0.16,
                         ),
                       ),
@@ -2079,7 +2079,7 @@ class _RegistrationAcademicPathEditorPageState
         ),
 
         borderSide:
-            const BorderSide(
+            BorderSide(
           color:
               AppColors.socialBlue,
         ),
@@ -2125,7 +2125,7 @@ class _HybridFieldHeader
               title,
 
               style:
-                  const TextStyle(
+                  TextStyle(
                 color:
                     AppColors.pureWhite,
 
@@ -2214,7 +2214,7 @@ class _CatalogInfo
             CrossAxisAlignment.start,
 
         children: [
-          const Icon(
+          Icon(
             Icons.info_outline_rounded,
 
             color:

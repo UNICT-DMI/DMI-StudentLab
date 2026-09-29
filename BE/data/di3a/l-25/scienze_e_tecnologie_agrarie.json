@@ -1,0 +1,500 @@
+{
+  "universities": [
+    {
+      "code": "UNICT",
+      "name": "Università degli Studi di Catania",
+      "departments": [
+        {
+          "code": "DI3A",
+          "name": "Dipartimento di Agricoltura, Alimentazione e Ambiente",
+          "courses": [
+            {
+              "code": "L-25",
+              "name": "Scienze e tecnologie agrarie",
+              "degree_type": "Laurea triennale",
+              "subjects": [
+                {
+                  "code": "1001441",
+                  "name": "BIOLOGIA VEGETALE",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": []
+                    }
+                  ]
+                },
+                {
+                  "code": "9795835",
+                  "name": "CHIMICA",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "CONSIGLIO GIUSEPPE"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1008162",
+                  "name": "COLLOQUIO DI LINGUA INGLESE",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": []
+                    }
+                  ]
+                },
+                {
+                  "code": "1008002",
+                  "name": "FERTILITA' DEL SUOLO E NUTRIZIONE DELLE PIANTE",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "PUGLISI IVANA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1001423",
+                  "name": "FISICA",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "PUGLIA SEBASTIANA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1001443",
+                  "name": "GENETICA AGRARIA",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "LO PIERO ANGELA ROBERTA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1001448",
+                  "name": "LABORATORIO DI INFORMATICA",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "A-L",
+                      "teachers": []
+                    },
+                    {
+                      "module": null,
+                      "channel": "M-Z",
+                      "teachers": []
+                    }
+                  ]
+                },
+                {
+                  "code": "9795836",
+                  "name": "MATEMATICA",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "FERRARELLO DANIELA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1001442",
+                  "name": "ZOOTECNICA GENERALE",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "BORDONARO SALVATORE"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9795837",
+                  "name": "AGRONOMIA E COLTIVAZIONI ERBACEE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": "AGRONOMIA GENERALE",
+                      "channel": null,
+                      "teachers": [
+                        "TESTA GIORGIO"
+                      ]
+                    },
+                    {
+                      "module": "COLTIVAZIONI ERBACEE",
+                      "channel": null,
+                      "teachers": [
+                        "ANASTASI UMBERTO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1001786",
+                  "name": "COSTRUZIONI PER L'AGRICOLTURA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "CASCONE GIOVANNI"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1001698",
+                  "name": "IDRAULICA AGRARIA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "CONSOLI SIMONA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1002170",
+                  "name": "MECCANICA AGRARIA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "MANETTO GIUSEPPE EZIO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1008045",
+                  "name": "ORTO-FLOROFRUTTICOLTURA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": "ARBORICOLTURA GENERALE",
+                      "channel": null,
+                      "teachers": [
+                        "GENTILE ALESSANDRA"
+                      ]
+                    },
+                    {
+                      "module": "ORTICOLTURA E FLORICOLTURA",
+                      "channel": null,
+                      "teachers": [
+                        "MAURO ROSARIO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1008030",
+                  "name": "TECNICHE DI ALLEVAMENTO ANIMALE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "BELLA MARCO SEBASTIANO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1008029",
+                  "name": "TECNOLOGIE ALIMENTARI",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "BARBAGALLO RICCARDO NUNZIO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1007994",
+                  "name": "ALIMENTAZIONE MORFOLOGIA E BENESSERE ANIMALE",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": "TECNICHE DI ALIMENTAZIONE",
+                      "channel": null,
+                      "teachers": [
+                        "AVONDO MARCELLA"
+                      ]
+                    },
+                    {
+                      "module": "VALUTAZIONI MORFOFUNZIONALI E BENESSERE ANIMALE",
+                      "channel": null,
+                      "teachers": [
+                        "BELLA MARCO SEBASTIANO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1008023",
+                  "name": "COLTURE FORAGGERE",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": []
+                    }
+                  ]
+                },
+                {
+                  "code": "1008034",
+                  "name": "ECOFISIOLOGIA E MIGLIORAMENTO GENETICO IN ARBORICOLTURA",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "CONTINELLA ALBERTO",
+                        "GENTILE ALESSANDRA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1016341",
+                  "name": "ECONOMIA E MECCANIZZAZIONE PER L'AGRICOLTURA DI PRECISIONE",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": "MECCANIZZAZIONE DELLE OPERAZIONI COLTURALI MEDIANTE TECNICHE DI AGRICOLTURA DI PRECISIONE",
+                      "channel": null,
+                      "teachers": [
+                        "MANETTO GIUSEPPE EZIO"
+                      ]
+                    },
+                    {
+                      "module": "ECONOMIA E MANAGEMENT DELLE INNOVAZIONI",
+                      "channel": null,
+                      "teachers": [
+                        "PECORINO BIAGIO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1016337",
+                  "name": "ECONOMIA, ESTIMO E POLITICA AGRARIA",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": "ECONOMIA AGRARIA",
+                      "channel": null,
+                      "teachers": [
+                        "D'AMICO MARIO"
+                      ]
+                    },
+                    {
+                      "module": "POLITICA AGRARIA",
+                      "channel": null,
+                      "teachers": [
+                        "TIMPANARO GIUSEPPE"
+                      ]
+                    },
+                    {
+                      "module": "ESTIMO RURALE",
+                      "channel": null,
+                      "teachers": [
+                        "CUCUZZA GIUSEPPE",
+                        "TIMPANARO GIUSEPPE"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1008050",
+                  "name": "ENTOMOLOGIA APPLICATA E PATOLOGIA VEGETALE",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": "PATOLOGIA VEGETALE",
+                      "channel": null,
+                      "teachers": [
+                        "POLIZZI GIANCARLO"
+                      ]
+                    },
+                    {
+                      "module": "ENTOMOLOGIA E PARASSITOLOGIA AGRARIA GENERALE",
+                      "channel": null,
+                      "teachers": [
+                        "MASSIMINO COCUZZA GIUSEPPE EROS"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1008024",
+                  "name": "ENTOMOLOGIA E PARASSITOLOGIA AGRARIA APPLICATA",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "BIONDI ANTONIO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1016345",
+                  "name": "GESTIONE DELLE RISORSE IDRICHE E TECNICHE DI IRRIGAZIONE DI PRECISIONE",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "VANELLA DANIELA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1008053",
+                  "name": "IMPATTO AMBIENTALE DEGLI AGROFARMACI",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "ABBATE CRISTINA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1016346",
+                  "name": "MICOLOGIA E VIROLOGIA VEGETALE",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": "MICOLOGIA VEGETALE",
+                      "channel": null,
+                      "teachers": [
+                        "CACCIOLA SANTA OLGA",
+                        "VITALE ALESSANDRO"
+                      ]
+                    },
+                    {
+                      "module": "VIROLOGIA VEGETALE",
+                      "channel": null,
+                      "teachers": [
+                        "TESSITORI MATILDE"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1008043",
+                  "name": "PRINCIPI E TECNICHE AGRONOMICHE IN AGRICOLTURA BIOLOGICA",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "LOMBARDO SARA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1016344",
+                  "name": "RILIEVO DI DATI PER L'AGRICOLTURA DI PRECISIONE E RAPPRESENTAZIONE DEL TERRITORIO",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "D'URSO PROVVIDENZA RITA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1008040",
+                  "name": "STRATEGIE E VALORIZZAZIONE DELL'AGROALIMENTARE DI QUALITA'",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "PERI IURI"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1008016",
+                  "name": "VIVAISMO ORTOFLORICOLO",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "BRANCA FERDINANDO",
+                        "GIUFFRIDA FRANCESCO"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

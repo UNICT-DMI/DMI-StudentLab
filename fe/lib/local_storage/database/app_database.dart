@@ -5,36 +5,26 @@ import '../backend/local_database_backend.dart';
 import 'database_migrations.dart';
 import 'database_tables.dart';
 
-
 class AppDatabase {
   AppDatabase._();
 
-
-  static final AppDatabase instance =
-      AppDatabase._();
-
+  static final AppDatabase instance = AppDatabase._();
 
   static Database? _database;
 
+  static const int _databaseVersion = 15;
 
-  static const int _databaseVersion =
-      8;
-
-  final LocalDatabaseBackend _backend =
-      createLocalDatabaseBackend();
-
+  final LocalDatabaseBackend _backend = createLocalDatabaseBackend();
 
   Future<Database> get database async {
     if (_database != null) {
       return _database!;
     }
 
-    _database =
-        await _initDatabase();
+    _database = await _initDatabase();
 
     return _database!;
   }
-
 
   Future<Database> _initDatabase() async {
     await _backend.initialize();
@@ -48,22 +38,12 @@ class AppDatabase {
     );
   }
 
-
-  Future<void> _onConfigure(
-    Database db,
-  ) async {
-    await db.execute(
-      'PRAGMA foreign_keys = ON',
-    );
+  Future<void> _onConfigure(Database db) async {
+    await db.execute('PRAGMA foreign_keys = ON');
   }
 
-
-  Future<void> _onCreate(
-    Database db,
-    int version,
-  ) async {
-    await db.execute(
-      '''
+  Future<void> _onCreate(Database db, int version) async {
+    await db.execute('''
       CREATE TABLE ${DatabaseTables.materialFiles} (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
 
@@ -83,11 +63,9 @@ class AppDatabase {
 
         UNIQUE(local_path)
       )
-      ''',
-    );
+      ''');
 
-    await db.execute(
-      '''
+    await db.execute('''
       CREATE TABLE ${DatabaseTables.materials} (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
 
@@ -111,6 +89,12 @@ class AppDatabase {
 
         subject_name TEXT,
 
+        course_scope TEXT NOT NULL DEFAULT 'degree',
+
+        path_segments_json TEXT,
+
+        remote_file_hash TEXT,
+
         original_name TEXT NOT NULL,
 
         file_id INTEGER,
@@ -122,6 +106,14 @@ class AppDatabase {
         is_available_remote INTEGER NOT NULL DEFAULT 0,
 
         is_personal INTEGER NOT NULL DEFAULT 0,
+
+        cloud_policy TEXT,
+
+        cloud_expires_at TEXT,
+
+        retention_status TEXT,
+
+        shared_by_user_id INTEGER,
 
         created_at TEXT NOT NULL,
 
@@ -138,7 +130,9 @@ class AppDatabase {
             'local',
             'public',
             'teacher',
-            'group'
+            'group',
+            'personal_sync',
+            'shared_user'
           )
         ),
 
@@ -161,11 +155,19 @@ class AppDatabase {
           remote_key
         )
       )
-      ''',
-    );
+      ''');
 
-    await db.execute(
-      '''
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS material_duplicate_preferences (
+        user_id INTEGER NOT NULL,
+        file_hash TEXT NOT NULL,
+        material_id INTEGER NOT NULL REFERENCES materials(id) ON DELETE CASCADE,
+        updated_at TEXT NOT NULL,
+        PRIMARY KEY(user_id, file_hash)
+      )
+    ''');
+
+    await db.execute('''
       CREATE TABLE ${DatabaseTables.materialDownloads} (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
 
@@ -203,11 +205,9 @@ class AppDatabase {
           )
         )
       )
-      ''',
-    );
+      ''');
 
-    await db.execute(
-      '''
+    await db.execute('''
       CREATE TABLE ${DatabaseTables.materialSyncState} (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
 
@@ -219,11 +219,9 @@ class AppDatabase {
 
         updated_at TEXT NOT NULL
       )
-      ''',
-    );
+      ''');
 
-    await db.execute(
-      '''
+    await db.execute('''
       CREATE TABLE ${DatabaseTables.pendingUploads} (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
 
@@ -253,11 +251,9 @@ class AppDatabase {
 
         last_attempt_at TEXT
       )
-      ''',
-    );
+      ''');
 
-    await db.execute(
-      '''
+    await db.execute('''
       CREATE TABLE ${DatabaseTables.localFileBlobs} (
         path TEXT PRIMARY KEY,
         file_name TEXT NOT NULL,
@@ -267,164 +263,136 @@ class AppDatabase {
         created_at TEXT NOT NULL,
         updated_at TEXT NOT NULL
       )
-      ''',
-    );
+      ''');
 
-    await db.execute(
-      '''
+    await db.execute('''
       CREATE INDEX
       idx_local_file_blobs_updated
       ON ${DatabaseTables.localFileBlobs}(updated_at)
-      ''',
-    );
+      ''');
 
-    await db.execute(
-      '''
+    await db.execute('''
       CREATE UNIQUE INDEX
       idx_material_files_hash
       ON ${DatabaseTables.materialFiles}(
         file_hash
       )
       WHERE file_hash IS NOT NULL
-      ''',
-    );
+      ''');
 
-    await db.execute(
-      '''
+    await db.execute('''
       CREATE INDEX
       idx_materials_user
       ON ${DatabaseTables.materials}(
         user_id
       )
-      ''',
-    );
+      ''');
 
-    await db.execute(
-      '''
+    await db.execute('''
       CREATE INDEX
       idx_materials_user_source
       ON ${DatabaseTables.materials}(
         user_id,
         source
       )
-      ''',
-    );
+      ''');
 
-    await db.execute(
-      '''
+    await db.execute('''
       CREATE INDEX
       idx_materials_user_subject
       ON ${DatabaseTables.materials}(
         user_id,
         subject_id
       )
-      ''',
-    );
+      ''');
 
-    await db.execute(
-      '''
+    await db.execute('''
       CREATE INDEX
       idx_materials_user_group
       ON ${DatabaseTables.materials}(
         user_id,
         group_id
       )
-      ''',
-    );
+      ''');
 
-    await db.execute(
-      '''
+    await db.execute('''
       CREATE INDEX
       idx_materials_remote_id
       ON ${DatabaseTables.materials}(
         source,
         remote_id
       )
-      ''',
-    );
+      ''');
 
-    await db.execute(
-      '''
+    await db.execute('''
       CREATE INDEX
       idx_materials_file_id
       ON ${DatabaseTables.materials}(
         file_id
       )
-      ''',
-    );
+      ''');
 
-    await db.execute(
-      '''
+    await db.execute('''
       CREATE INDEX
       idx_materials_available_remote
       ON ${DatabaseTables.materials}(
         user_id,
         is_available_remote
       )
-      ''',
-    );
+      ''');
 
-    await db.execute(
-      '''
+    await db.execute('''
       CREATE INDEX
       idx_material_downloads_user_status
       ON ${DatabaseTables.materialDownloads}(
         user_id,
         status
       )
-      ''',
-    );
+      ''');
 
-    await db.execute(
-      '''
+    await db.execute('''
       CREATE INDEX
       idx_material_downloads_material
       ON ${DatabaseTables.materialDownloads}(
         material_id
       )
-      ''',
-    );
+      ''');
 
-    await db.execute(
-      '''
+    await db.execute('''
       CREATE INDEX
       idx_material_sync_state_user
       ON ${DatabaseTables.materialSyncState}(
         user_id
       )
-      ''',
-    );
+      ''');
 
-    await db.execute(
-      '''
+    await db.execute('''
       CREATE INDEX
       idx_pending_uploads_user_status
       ON ${DatabaseTables.pendingUploads}(
         user_id,
         status
       )
-      ''',
-    );
+      ''');
 
-    await db.execute(
-      '''
+    await db.execute('''
       CREATE INDEX
       idx_pending_uploads_group
       ON ${DatabaseTables.pendingUploads}(
         group_id
       )
-      ''',
-    );
+      ''');
 
-    await DatabaseMigrations.createQuizSchema(
-      db,
-    );
+    await DatabaseMigrations.createQuizSchema(db);
+
+    await DatabaseMigrations.createStudyPlanSchema(db);
+
+    await DatabaseMigrations.ensureExerciseSchema(db);
+    await DatabaseMigrations.ensureReviewOptions(db);
   }
 
-
   Future<void> close() async {
-    final Database? db =
-        _database;
+    final Database? db = _database;
 
     if (db == null) {
       return;
@@ -432,7 +400,6 @@ class AppDatabase {
 
     await db.close();
 
-    _database =
-        null;
+    _database = null;
   }
 }

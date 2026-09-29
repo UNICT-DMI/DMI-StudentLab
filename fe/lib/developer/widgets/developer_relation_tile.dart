@@ -43,7 +43,7 @@ class DeveloperRelationTile extends StatelessWidget {
   Color get accentColor {
     switch (relation.type) {
       case DeveloperRelationType.security:
-        return Colors.redAccent;
+        return AppColors.redAccent;
       case DeveloperRelationType.calls:
       case DeveloperRelationType.calledBy:
         return AppColors.materialSky;
@@ -96,7 +96,7 @@ class DeveloperRelationTile extends StatelessWidget {
                 children: [
                   Text(
                     relation.label,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.pureWhite,
                       fontSize: 11,
                       fontWeight: FontWeight.w600,
@@ -111,9 +111,9 @@ class DeveloperRelationTile extends StatelessWidget {
               ),
             ),
             if (onTap != null)
-              const Icon(
+              Icon(
                 Icons.chevron_right_rounded,
-                color: Colors.white30,
+                color: AppColors.white30,
                 size: 18,
               ),
           ],

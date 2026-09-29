@@ -137,7 +137,7 @@ class _AdminTeachersPageState
               AppColors.eleganceDeepNavy,
 
           title:
-              const Text(
+              Text(
             'Verifica docente',
 
             style:
@@ -153,9 +153,9 @@ class _AdminTeachersPageState
             'Dopo la verifica l\'account potrà accedere alle funzioni riservate ai docenti.',
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
-                  Colors.white70,
+                  AppColors.white70,
 
               height:
                   1.45,
@@ -188,13 +188,13 @@ class _AdminTeachersPageState
               },
 
               child:
-                  const Text(
+                  Text(
                 'Verifica',
                 
                 style:
                     TextStyle(
                   color:
-                      Colors.greenAccent,
+                      AppColors.greenAccent,
                 ),
               ),
             ),
@@ -237,7 +237,7 @@ class _AdminTeachersPageState
               AppColors.eleganceDeepNavy,
 
           title:
-              const Text(
+              Text(
             'Rifiuta verifica',
 
             style:
@@ -252,9 +252,9 @@ class _AdminTeachersPageState
             'Vuoi rifiutare la richiesta di verifica docente di ${teacher.name}?',
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
-                  Colors.white70,
+                  AppColors.white70,
 
               height:
                   1.45,
@@ -287,13 +287,13 @@ class _AdminTeachersPageState
               },
 
               child:
-                  const Text(
+                  Text(
                 'Rifiuta',
 
                 style:
                     TextStyle(
                   color:
-                      Colors.redAccent,
+                      AppColors.redAccent,
                 ),
               ),
             ),
@@ -437,7 +437,7 @@ class _AdminTeachersPageState
 
             icon:
                 _refreshing
-                    ? const SizedBox(
+                    ? SizedBox(
                         width:
                             19,
 
@@ -709,7 +709,7 @@ class _TeacherVerificationCard
                       : '?',
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
                         AppColors.pureWhite,
 
@@ -744,7 +744,7 @@ class _TeacherVerificationCard
                           TextOverflow.ellipsis,
 
                       style:
-                          const TextStyle(
+                          TextStyle(
                         color:
                             AppColors.pureWhite,
 
@@ -771,9 +771,9 @@ class _TeacherVerificationCard
                           TextOverflow.ellipsis,
 
                       style:
-                          const TextStyle(
+                          TextStyle(
                         color:
-                            Colors.white54,
+                            AppColors.white54,
 
                         fontSize:
                             10,
@@ -950,9 +950,9 @@ class _TeacherVerificationCard
                 teacher.description,
 
                 style:
-                    const TextStyle(
+                    TextStyle(
                   color:
-                      Colors.white60,
+                      AppColors.white60,
 
                   fontSize:
                       10,
@@ -973,7 +973,7 @@ class _TeacherVerificationCard
                   14,
             ),
 
-            const Text(
+            Text(
               'Materie',
 
               style:
@@ -1035,7 +1035,7 @@ class _TeacherVerificationCard
                     style:
                         ElevatedButton.styleFrom(
                       backgroundColor:
-                          Colors.greenAccent,
+                          AppColors.greenAccent,
 
                       foregroundColor:
                           AppColors
@@ -1086,12 +1086,12 @@ class _TeacherVerificationCard
                     style:
                         OutlinedButton.styleFrom(
                       foregroundColor:
-                          Colors.redAccent,
+                          AppColors.redAccent,
 
                       side:
                           BorderSide(
                         color:
-                            Colors.redAccent
+                            AppColors.redAccent
                                 .withOpacity(
                           0.40,
                         ),
@@ -1154,7 +1154,7 @@ class _TeacherPendingBadge
       decoration:
           BoxDecoration(
         color:
-            Colors.amber
+            AppColors.amber
                 .withOpacity(
           0.09,
         ),
@@ -1167,7 +1167,7 @@ class _TeacherPendingBadge
         border:
             Border.all(
           color:
-              Colors.amber
+              AppColors.amber
                   .withOpacity(
             0.20,
           ),
@@ -1175,7 +1175,7 @@ class _TeacherPendingBadge
       ),
 
       child:
-          const Row(
+          Row(
         mainAxisSize:
             MainAxisSize.min,
 
@@ -1184,7 +1184,7 @@ class _TeacherPendingBadge
             Icons.schedule_rounded,
 
             color:
-                Colors.amber,
+                AppColors.amber,
 
             size:
                 12,
@@ -1201,7 +1201,7 @@ class _TeacherPendingBadge
             style:
                 TextStyle(
               color:
-                  Colors.amber,
+                  AppColors.amber,
 
               fontSize:
                   8,
@@ -1266,9 +1266,9 @@ class _TeacherInfoRow
             label,
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
-                  Colors.white38,
+                  AppColors.white38,
 
               fontSize:
                   9,
@@ -1285,9 +1285,9 @@ class _TeacherInfoRow
                 TextAlign.right,
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
-                  Colors.white70,
+                  AppColors.white70,
 
               fontSize:
                   10,
@@ -1347,7 +1347,7 @@ class _TeacherSubjectBadge
             MainAxisSize.min,
 
         children: [
-          const Icon(
+          Icon(
             Icons.menu_book_outlined,
 
             color:
@@ -1366,7 +1366,7 @@ class _TeacherSubjectBadge
             subject.name,
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
                   AppColors.materialSky,
 
@@ -1438,14 +1438,14 @@ class _EmptyTeachers
           ),
 
           child:
-              const Column(
+              Column(
             children: [
               Icon(
                 Icons
                     .cast_for_education_outlined,
 
                 color:
-                    Colors.white38,
+                    AppColors.white38,
 
                 size:
                     46,
@@ -1465,7 +1465,7 @@ class _EmptyTeachers
                 style:
                     TextStyle(
                   color:
-                      Colors.white60,
+                      AppColors.white60,
 
                   fontSize:
                       12,
@@ -1530,7 +1530,7 @@ class _AdminTeacherError
             border:
                 Border.all(
               color:
-                  Colors.redAccent
+                  AppColors.redAccent
                       .withOpacity(
                 0.18,
               ),
@@ -1543,11 +1543,11 @@ class _AdminTeacherError
                 MainAxisSize.min,
 
             children: [
-              const Icon(
+              Icon(
                 Icons.error_outline_rounded,
 
                 color:
-                    Colors.redAccent,
+                    AppColors.redAccent,
 
                 size:
                     40,
@@ -1558,7 +1558,7 @@ class _AdminTeacherError
                     12,
               ),
 
-              const Text(
+              Text(
                 'Impossibile caricare i docenti',
 
                 textAlign:
@@ -1589,9 +1589,9 @@ class _AdminTeacherError
                     TextAlign.center,
 
                 style:
-                    const TextStyle(
+                    TextStyle(
                   color:
-                      Colors.white60,
+                      AppColors.white60,
 
                   fontSize:
                       11,

@@ -36,6 +36,33 @@ class QuizAttemptApiService {
     throw Exception(fallback);
   }
 
+  Future<Map<String, dynamic>> startFreeQuiz({
+    required String department,
+    required String course,
+    required String subject,
+    required List<String> arguments,
+    required int numberOfQuestions,
+    List<String> questionIds = const <String>[],
+  }) async {
+    final response = await http.post(
+      _uri('/quiz-attempts/start'),
+      headers: _headers,
+      body: jsonEncode({
+        'department': department.trim(),
+        'course': course.trim(),
+        'subject': subject.trim(),
+        'arguments': arguments.map((value) => value.trim()).where((value) => value.isNotEmpty).toList(),
+        'all_arguments': arguments.isEmpty,
+        'number_of_questions': numberOfQuestions,
+        if (questionIds.isNotEmpty) 'question_ids': questionIds,
+        'time_limit_seconds': null,
+      }),
+    );
+    return Map<String, dynamic>.from(
+      _decode(response, 'Non è stato possibile avviare il quiz.') as Map,
+    );
+  }
+
   Future<Map<String, dynamic>> startAssignedQuiz(int assignmentId) async {
     final response = await http.post(
       _uri('/quiz-attempts/assignments/$assignmentId/start'),

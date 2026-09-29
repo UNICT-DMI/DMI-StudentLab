@@ -15,6 +15,7 @@ class ContactUserRequest(
         "general",
         "help",
         "private_lesson",
+        "institutional_tutoring",
     ]
 
     subject_id: int | None = Field(
@@ -84,6 +85,7 @@ class ContactUserRequest(
             in {
                 "help",
                 "private_lesson",
+                "institutional_tutoring",
             }
             and self.subject_id is None
         ):

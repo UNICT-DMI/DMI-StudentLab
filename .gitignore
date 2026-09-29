@@ -205,4 +205,7 @@ BE/readme.md
 
 #claude
 CLAUDE.md
-BE/data/
+BE/data/_fonti/
+BE/data/_bozze_dizionario/
+.studentlab_backup/
+*.before_v17

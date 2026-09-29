@@ -10,15 +10,15 @@ class StudentLabIconSurface extends StatelessWidget {
   final double iconSize;
   final double borderRadius;
 
-  const StudentLabIconSurface({
+  StudentLabIconSurface({
     super.key,
     this.icon,
     this.child,
-    this.accent = AppColors.adminCyan,
+    Color? accent,
     this.size = 44,
     this.iconSize = 22,
     this.borderRadius = 13,
-  }) : assert(
+  }) : accent = accent ?? AppColors.adminCyan, assert(
           icon != null || child != null,
           'Serve icon oppure child.',
         );

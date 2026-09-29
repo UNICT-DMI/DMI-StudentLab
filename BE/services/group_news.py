@@ -35,7 +35,7 @@ from services.group import (
 
 from services.user_block import (
     can_send_private_content,
-    get_blocked_user_ids,
+    get_mutually_restricted_user_ids,
     should_hide_user_content,
 )
 
@@ -434,7 +434,7 @@ def get_group_news_feed(
     )
 
     blocked_user_ids = set(
-        get_blocked_user_ids(
+        get_mutually_restricted_user_ids(
             db,
             viewer_user_id,
         )
@@ -551,7 +551,7 @@ def get_private_group_news_inbox(
     )
 
     blocked_user_ids = set(
-        get_blocked_user_ids(
+        get_mutually_restricted_user_ids(
             db,
             viewer_user_id,
         )

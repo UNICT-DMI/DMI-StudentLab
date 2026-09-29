@@ -286,7 +286,7 @@ class _StudentLabPolicyPageState
               ),
 
               child:
-                  const Row(
+                  Row(
                 children: [
                   Icon(
                     Icons
@@ -367,7 +367,7 @@ class _StudentLabPolicyPageState
                     .eleganceMidnight,
 
             title:
-                const Text(
+                Text(
               'Dichiaro di aver letto l’Informativa Privacy.',
 
               style:
@@ -419,7 +419,7 @@ class _StudentLabPolicyPageState
                     .eleganceMidnight,
 
             title:
-                const Text(
+                Text(
               'Accetto la Policy e le condizioni di utilizzo di StudentLab.',
 
               style:
@@ -534,7 +534,7 @@ class StudentLabPolicyDocument
   ) {
     return Container(
       color:
-          Colors.white,
+          AppColors.white,
 
       child:
           ListView(

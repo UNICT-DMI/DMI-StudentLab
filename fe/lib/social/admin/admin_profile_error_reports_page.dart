@@ -169,7 +169,7 @@ class _AdminProfileErrorReportsPageState
                       _buildFilters(),
                       const SizedBox(height: 16),
                       if (_loading)
-                        const Padding(
+                        Padding(
                           padding: EdgeInsets.symmetric(vertical: 70),
                           child: Center(
                             child: CircularProgressIndicator(
@@ -212,7 +212,7 @@ class _AdminProfileErrorReportsPageState
               icon: Icons.schedule_rounded,
               value: _count('pending'),
               label: 'In attesa',
-              color: Colors.amber,
+              color: AppColors.amber,
             ),
             _Counter(
               width: w,
@@ -226,14 +226,14 @@ class _AdminProfileErrorReportsPageState
               icon: Icons.check_circle_outline_rounded,
               value: _count('resolved'),
               label: 'Risolti',
-              color: Colors.greenAccent,
+              color: AppColors.greenAccent,
             ),
             _Counter(
               width: w,
               icon: Icons.block_rounded,
               value: _count('rejected'),
               label: 'Rifiutati',
-              color: Colors.redAccent,
+              color: AppColors.redAccent,
             ),
           ],
         );
@@ -247,7 +247,7 @@ class _AdminProfileErrorReportsPageState
       isExpanded: true,
       dropdownColor: AppColors.eleganceDeepNavy,
       decoration: _decoration('Stato', Icons.tune_rounded),
-      items: const [
+      items: [
         DropdownMenuItem(
           value: null,
           child: Text('Tutti', style: TextStyle(color: AppColors.pureWhite)),
@@ -291,7 +291,7 @@ class _AdminProfileErrorReportsPageState
       dropdownColor: AppColors.eleganceDeepNavy,
       decoration: _decoration('Categoria', Icons.category_outlined),
       items: [
-        const DropdownMenuItem(
+        DropdownMenuItem(
           value: null,
           child: Text('Tutte', style: TextStyle(color: AppColors.pureWhite)),
         ),
@@ -301,7 +301,7 @@ class _AdminProfileErrorReportsPageState
             child: Text(
               _categoryLabel(value),
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(color: AppColors.pureWhite),
+              style: TextStyle(color: AppColors.pureWhite),
             ),
           ),
         ),
@@ -324,14 +324,14 @@ class _AdminProfileErrorReportsPageState
         children: [
           TextField(
             controller: _searchController,
-            style: const TextStyle(color: AppColors.pureWhite),
+            style: TextStyle(color: AppColors.pureWhite),
             onChanged: (value) => setState(() => _search = value),
             decoration: InputDecoration(
               hintText: 'Cerca per categoria, descrizione o ID',
               hintStyle: TextStyle(
                 color: AppColors.pureWhite.withValues(alpha: .35),
               ),
-              prefixIcon: const Icon(
+              prefixIcon: Icon(
                 Icons.search_rounded,
                 color: AppColors.skyBlue,
               ),
@@ -497,7 +497,7 @@ class _AdminProfileErrorReportDetailPageState
                     enabled: !_saving,
                     maxLines: 6,
                     maxLength: 5000,
-                    style: const TextStyle(color: AppColors.pureWhite),
+                    style: TextStyle(color: AppColors.pureWhite),
                     decoration: InputDecoration(
                       hintText: 'Es. corretto nella prossima versione',
                       hintStyle: TextStyle(
@@ -514,7 +514,7 @@ class _AdminProfileErrorReportDetailPageState
                 ),
                 const SizedBox(height: 18),
                 if (_saving)
-                  const Center(
+                  Center(
                     child: CircularProgressIndicator(color: AppColors.skyBlue),
                   )
                 else
@@ -539,7 +539,7 @@ class _AdminProfileErrorReportDetailPageState
                         OutlinedButton.icon(
                           onPressed: () => _setStatus('rejected'),
                           style: OutlinedButton.styleFrom(
-                            foregroundColor: Colors.redAccent,
+                            foregroundColor: AppColors.redAccent,
                           ),
                           icon: const Icon(Icons.block_rounded),
                           label: const Text('Rifiuta'),
@@ -548,7 +548,7 @@ class _AdminProfileErrorReportDetailPageState
                         ElevatedButton.icon(
                           onPressed: () => _setStatus('resolved'),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.greenAccent,
+                            backgroundColor: AppColors.greenAccent,
                             foregroundColor: AppColors.darkElegance,
                           ),
                           icon: const Icon(Icons.check_rounded),
@@ -615,7 +615,7 @@ class _Header extends StatelessWidget {
       borderRadius: BorderRadius.circular(19),
       border: Border.all(color: AppColors.skyBlue.withValues(alpha: .12)),
     ),
-    child: const Row(
+    child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Icon(Icons.bug_report_outlined, color: AppColors.skyBlue, size: 31),
@@ -636,7 +636,7 @@ class _Header extends StatelessWidget {
               Text(
                 'Consulta le segnalazioni inviate dagli utenti e gestiscine lo stato.',
                 style: TextStyle(
-                  color: Colors.white54,
+                  color: AppColors.white54,
                   fontSize: 11,
                   height: 1.4,
                 ),
@@ -681,7 +681,7 @@ class _Counter extends StatelessWidget {
             children: [
               Text(
                 '$value',
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.pureWhite,
                   fontSize: 17,
                   fontWeight: FontWeight.bold,
@@ -689,7 +689,7 @@ class _Counter extends StatelessWidget {
               ),
               Text(
                 label,
-                style: const TextStyle(color: Colors.white54, fontSize: 9),
+                style: TextStyle(color: AppColors.white54, fontSize: 9),
               ),
             ],
           ),
@@ -731,7 +731,7 @@ class _ReportCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     item.categoryLabel,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.pureWhite,
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -746,8 +746,8 @@ class _ReportCard extends StatelessWidget {
               item.description,
               maxLines: 4,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                color: Colors.white60,
+              style: TextStyle(
+                color: AppColors.white60,
                 fontSize: 11,
                 height: 1.4,
               ),
@@ -804,7 +804,7 @@ class _Summary extends StatelessWidget {
                 children: [
                   Text(
                     item.categoryLabel,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.pureWhite,
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
@@ -813,7 +813,7 @@ class _Summary extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     'Segnalazione #${item.id} · Utente #${item.userId}',
-                    style: const TextStyle(color: Colors.white54, fontSize: 10),
+                    style: TextStyle(color: AppColors.white54, fontSize: 10),
                   ),
                 ],
               ),
@@ -872,7 +872,7 @@ class _Section extends StatelessWidget {
             const SizedBox(width: 8),
             Text(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.pureWhite,
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
@@ -923,9 +923,9 @@ class _Chip extends StatelessWidget {
     child: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(icon, color: Colors.white38, size: 12),
+        Icon(icon, color: AppColors.white38, size: 12),
         const SizedBox(width: 5),
-        Text(text, style: const TextStyle(color: Colors.white54, fontSize: 9)),
+        Text(text, style: TextStyle(color: AppColors.white54, fontSize: 9)),
       ],
     ),
   );
@@ -940,9 +940,9 @@ class _EmptyState extends StatelessWidget {
       color: AppColors.eleganceMidnight,
       borderRadius: BorderRadius.circular(17),
     ),
-    child: const Column(
+    child: Column(
       children: [
-        Icon(Icons.task_alt_rounded, color: Colors.greenAccent, size: 38),
+        Icon(Icons.task_alt_rounded, color: AppColors.greenAccent, size: 38),
         SizedBox(height: 12),
         Text(
           'Nessuna segnalazione',
@@ -969,9 +969,9 @@ class _GraphicRetry extends StatelessWidget {
     ),
     child: Column(
       children: [
-        const Icon(
+        Icon(
           Icons.sync_problem_rounded,
-          color: Colors.orangeAccent,
+          color: AppColors.orangeAccent,
           size: 38,
         ),
         const SizedBox(height: 15),
@@ -1005,15 +1005,15 @@ String _statusLabel(String value) {
 Color _statusColor(String value) {
   switch (value) {
     case 'pending':
-      return Colors.amber;
+      return AppColors.amber;
     case 'reviewing':
       return AppColors.skyBlue;
     case 'resolved':
-      return Colors.greenAccent;
+      return AppColors.greenAccent;
     case 'rejected':
-      return Colors.redAccent;
+      return AppColors.redAccent;
     default:
-      return Colors.white54;
+      return AppColors.white54;
   }
 }
 

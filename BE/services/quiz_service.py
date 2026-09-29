@@ -4,6 +4,7 @@ import re
 from copy import deepcopy
 from pathlib import Path
 from typing import Any
+from services.question_json_storage import read_question_json
 
 
 DATA_ROOT = Path("data")
@@ -61,6 +62,10 @@ def load_questions(
         course=course,
         subject=subject,
     )
+
+    archived = read_question_json(path)
+    if archived is not None:
+        return archived
 
     if not path.is_file():
         return []
@@ -164,6 +169,7 @@ def shuffle_filter(
     subject: str,
     selected_arguments: list[str] | None = None,
     number_of_questions: int | None = None,
+    question_ids: list[str] | None = None,
 ) -> list[dict[str, Any]]:
     filtered_questions = get_available_questions(
         department=department,
@@ -171,6 +177,11 @@ def shuffle_filter(
         subject=subject,
         selected_arguments=selected_arguments,
     )
+
+    if question_ids:
+        wanted = {str(value).strip() for value in question_ids if str(value).strip()}
+        filtered_questions = [question for question in filtered_questions
+                              if str(question.get('id_question')) in wanted]
 
     result = deepcopy(filtered_questions)
 
@@ -445,18 +456,6 @@ def subjects(
         if not file_path.is_file():
             continue
 
-        try:
-            with file_path.open(
-                "r",
-                encoding="utf-8",
-            ) as file:
-                data = json.load(file)
-        except (OSError, json.JSONDecodeError):
-            continue
-
-        if not isinstance(data, list):
-            continue
-
         subject = (
             file_path
             .stem
@@ -464,10 +463,25 @@ def subjects(
             .strip()
         )
 
-        if subject:
+        # Un JSON vuoto o con sole domande nascoste non è un quiz disponibile.
+        # La lettura passa dallo storage usato anche dagli altri endpoint quiz.
+        if subject and get_available_questions(department, course, subject):
             result.append(subject)
 
     return sorted(
         set(result),
         key=str.casefold,
     )
+
+
+def available_quiz_paths() -> list[dict[str, str]]:
+    """Solo corsi e materie con una banca question/*.json realmente utilizzabile."""
+    paths = []
+    for folder in DATA_ROOT.glob('*/*/question'):
+        if not folder.is_dir():
+            continue
+        course, department = folder.parent.name, folder.parent.parent.name
+        for subject in subjects(department, course):
+            paths.append({'department': department.upper(), 'course': course.upper(),
+                          'subject': subject})
+    return sorted(paths, key=lambda p: (p['department'], p['course'], p['subject'].casefold()))

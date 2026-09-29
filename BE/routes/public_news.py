@@ -22,7 +22,7 @@ from services.public_news import (
     get_public_news_feed,
     moderate_public_news,
 )
-from services.user_block import is_user_blocked
+from services.user_block import is_user_blocked, is_block_relationship_present
 
 
 router = APIRouter(
@@ -74,6 +74,7 @@ def api_public_news_feed(
     university: str | None = Query(default=None, max_length=255),
     department: str | None = Query(default=None, max_length=255),
     course: str | None = Query(default=None, max_length=255),
+    teacher: str | None = Query(default=None, max_length=255),
     subject_id: int | None = Query(default=None, gt=0),
     limit: int = Query(default=50, ge=1, le=100),
     offset: int = Query(default=0, ge=0),
@@ -89,6 +90,7 @@ def api_public_news_feed(
             university=university,
             department=department,
             course=course,
+            teacher=teacher,
             subject_id=subject_id,
             limit=limit,
             offset=offset,
@@ -126,6 +128,11 @@ def api_public_news_detail(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="News non trovata.",
         )
+
+    if current_user is not None and is_block_relationship_present(
+        db, current_user.id, news.author_user_id
+    ):
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='News non trovata.')
 
     return _build_feed_item(db, news, current_user)
 

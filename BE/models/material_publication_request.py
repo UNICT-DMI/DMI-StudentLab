@@ -5,6 +5,7 @@ from datetime import (
 
 from sqlalchemy import (
     BigInteger,
+    Boolean,
     CheckConstraint,
     Column,
     DateTime,
@@ -223,6 +224,20 @@ class MaterialPublicationRequest(Base):
         index=True,
     )
 
+    attribution_mode = Column(
+        String(20),
+        nullable=False,
+        default="anonymous",
+        server_default="anonymous",
+    )
+
+    admin_force_anonymous = Column(
+        Boolean,
+        nullable=False,
+        default=False,
+        server_default="false",
+    )
+
     proposed_title = Column(
         String(250),
         nullable=True,
@@ -262,6 +277,10 @@ class MaterialPublicationRequest(Base):
     subject = relationship(
         "Subject",
     )
+
+    @property
+    def subject_name(self):
+        return self.subject.name if self.subject is not None else None
 
     reviewer = relationship(
         "User",

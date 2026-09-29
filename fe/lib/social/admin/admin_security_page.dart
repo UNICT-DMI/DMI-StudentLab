@@ -345,7 +345,7 @@ class _AdminSecurityPageState
         border:
             Border.all(
           color:
-              Colors.greenAccent
+              AppColors.greenAccent
                   .withOpacity(
             0.15,
           ),
@@ -368,7 +368,7 @@ class _AdminSecurityPageState
             decoration:
                 BoxDecoration(
               color:
-                  Colors.greenAccent
+                  AppColors.greenAccent
                       .withOpacity(
                 0.08,
               ),
@@ -381,7 +381,7 @@ class _AdminSecurityPageState
               border:
                   Border.all(
                 color:
-                    Colors.greenAccent
+                    AppColors.greenAccent
                         .withOpacity(
                   0.15,
                 ),
@@ -389,11 +389,11 @@ class _AdminSecurityPageState
             ),
 
             child:
-                const Icon(
+                Icon(
               Icons.shield_outlined,
 
               color:
-                  Colors.greenAccent,
+                  AppColors.greenAccent,
 
               size:
                   30,
@@ -412,7 +412,7 @@ class _AdminSecurityPageState
                   CrossAxisAlignment.start,
 
               children: [
-                const Text(
+                Text(
                   'Sicurezza StudentLab',
 
                   style:
@@ -629,7 +629,7 @@ class _SecuritySectionTitle
           title,
 
           style:
-              const TextStyle(
+              TextStyle(
             color:
                 AppColors.pureWhite,
 
@@ -699,13 +699,13 @@ class _SecurityControlCard
   Color get _statusColor {
     switch (statusType) {
       case _SecurityStatusType.secure:
-        return Colors.greenAccent;
+        return AppColors.greenAccent;
 
       case _SecurityStatusType.warning:
-        return Colors.amber;
+        return AppColors.amber;
 
       case _SecurityStatusType.danger:
-        return Colors.redAccent;
+        return AppColors.redAccent;
     }
   }
 
@@ -813,7 +813,7 @@ class _SecurityControlCard
                   title,
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
                         AppColors.pureWhite,
 
@@ -951,8 +951,8 @@ class _SecurityInfoRow
   ) {
     final Color color =
         positive
-            ? Colors.greenAccent
-            : Colors.orangeAccent;
+            ? AppColors.greenAccent
+            : AppColors.orangeAccent;
 
     return Row(
       children: [
@@ -997,9 +997,9 @@ class _SecurityInfoRow
             label,
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
-                  Colors.white54,
+                  AppColors.white54,
 
               fontSize:
                   10,
@@ -1241,7 +1241,7 @@ class _SecurityPrinciple
                 title,
 
                 style:
-                    const TextStyle(
+                    TextStyle(
                   color:
                       AppColors.pureWhite,
 
@@ -1262,9 +1262,9 @@ class _SecurityPrinciple
                 description,
 
                 style:
-                    const TextStyle(
+                    TextStyle(
                   color:
-                      Colors.white54,
+                      AppColors.white54,
 
                   fontSize:
                       9,

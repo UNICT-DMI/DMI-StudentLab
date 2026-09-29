@@ -181,9 +181,9 @@ class _TeacherStudentQuizStatisticsPageState
                           textAlign:
                               TextAlign.center,
                           style:
-                              const TextStyle(
+                              TextStyle(
                             color:
-                                Colors.white70,
+                                AppColors.white70,
                           ),
                         ),
                       ),
@@ -304,7 +304,7 @@ class _TeacherStudentQuizStatisticsPageState
       child:
           Row(
         children: [
-          const CircleAvatar(
+          CircleAvatar(
             backgroundColor:
                 AppColors.brandNightBlue,
             child:
@@ -327,7 +327,7 @@ class _TeacherStudentQuizStatisticsPageState
                 Text(
                   widget.studentLabel,
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
                         AppColors.pureWhite,
                     fontSize:
@@ -343,9 +343,9 @@ class _TeacherStudentQuizStatisticsPageState
                 Text(
                   widget.subject,
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
-                        Colors.white54,
+                        AppColors.white54,
                     fontSize:
                         11,
                   ),
@@ -365,7 +365,7 @@ class _TeacherStudentQuizStatisticsPageState
     return Text(
       title,
       style:
-          const TextStyle(
+          TextStyle(
         color:
             AppColors.pureWhite,
         fontSize:
@@ -398,9 +398,9 @@ class _TeacherStudentQuizStatisticsPageState
           Text(
         text,
         style:
-            const TextStyle(
+            TextStyle(
           color:
-              Colors.white54,
+              AppColors.white54,
           fontSize:
               11,
         ),
@@ -501,7 +501,7 @@ class _ArgumentCard
             weak
                 ? Border.all(
                     color:
-                        Colors.orangeAccent
+                        AppColors.orangeAccent
                             .withValues(
                       alpha:
                           0.25,
@@ -521,7 +521,7 @@ class _ArgumentCard
                     Text(
                   argument,
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
                         AppColors.pureWhite,
                     fontSize:
@@ -537,7 +537,7 @@ class _ArgumentCard
                     TextStyle(
                   color:
                       weak
-                          ? Colors.orangeAccent
+                          ? AppColors.orangeAccent
                           : AppColors.skyBlue,
                   fontWeight:
                       FontWeight.bold,
@@ -564,9 +564,9 @@ class _ArgumentCard
           Text(
             '$correct corrette · $wrong errate',
             style:
-                const TextStyle(
+                TextStyle(
               color:
-                  Colors.white54,
+                  AppColors.white54,
               fontSize:
                   10,
             ),
@@ -659,7 +659,7 @@ class _ReviewCard
       child:
           Row(
         children: [
-          const Icon(
+          Icon(
             Icons.replay_circle_filled_outlined,
             color:
                 AppColors.skyBlue,
@@ -673,7 +673,7 @@ class _ReviewCard
                 Text(
               'Domanda #$questionId',
               style:
-                  const TextStyle(
+                  TextStyle(
                 color:
                     AppColors.pureWhite,
                 fontSize:
@@ -686,9 +686,9 @@ class _ReviewCard
           Text(
             '${accuracy.toStringAsFixed(1)}%',
             style:
-                const TextStyle(
+                TextStyle(
               color:
-                  Colors.white54,
+                  AppColors.white54,
               fontSize:
                   11,
             ),

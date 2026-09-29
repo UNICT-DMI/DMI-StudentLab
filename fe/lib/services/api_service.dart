@@ -454,6 +454,43 @@ class ApiService {
     );
   }
 
+  Future<List<Map<String, dynamic>>> getMaterialPathSuggestions({
+    required String university,
+    required String department,
+    required String course,
+    String? subject,
+  }) async {
+    final response = await http.post(
+      _apiUri('/materials/path-suggestions'),
+      headers: _jsonHeaders,
+      body: jsonEncode(<String, dynamic>{
+        'university': university,
+        'department': department,
+        'course': course,
+        if (subject != null && subject.trim().isNotEmpty) 'subject': subject,
+      }),
+    );
+    return _decodeListResponse(response, 'Percorso non disponibile');
+  }
+
+  Future<Map<String, dynamic>> proposeMaterialCourse({
+    required String university,
+    required String department,
+    required String course,
+  }) async {
+    final response = await http.post(_apiUri('/materials/course-proposals'),
+      headers: _jsonHeaders, body: jsonEncode({
+        'university': university, 'department': department, 'course': course,
+      }));
+    return _decodeMapResponse(response, 'Impossibile proporre il corso');
+  }
+
+  Future<List<Map<String, dynamic>>> myMaterialCourseProposals() async {
+    final response = await http.get(_apiUri('/materials/course-proposals/mine'),
+      headers: _jsonHeaders);
+    return _decodeListResponse(response, 'Impossibile leggere le proposte');
+  }
+
   Future<List<AcademicUniversity>> getUniversities() async {
     final Uri url = Uri.parse('$baseUrl/universities');
 
@@ -521,13 +558,35 @@ class ApiService {
       'Errore caricamento corsi',
     );
 
-    return data
-        .map(AcademicCourse.fromJson)
-        .where(
-          (AcademicCourse course) =>
-              course.code.isNotEmpty && course.name.isNotEmpty,
-        )
-        .toList();
+    final Map<String, AcademicCourse> courses = <String, AcademicCourse>{};
+    for (final AcademicCourse course in data.map(AcademicCourse.fromJson)) {
+      if (course.code.isEmpty || course.name.isEmpty) continue;
+      final String label = course.name.trim().toLowerCase();
+      final String rawCode = course.code.trim().toUpperCase();
+      // Alcuni cataloghi contengono sia il nome attuale sia quello storico.
+      // Si mantiene il codice del record reale per poter caricare le materie.
+      final bool isL31 = departmentCode.toUpperCase() == 'DMI' &&
+          (rawCode == 'L-31' ||
+              label == 'informatica' ||
+              label == 'informatica l-31' ||
+              label == 'l-31 informatica' ||
+              label == 'informatica (l-31)' ||
+              label == 'scienze e tecnologie informatiche');
+      final String key = isL31 ? 'L-31' : rawCode;
+      final AcademicCourse? existing = courses[key];
+      if (existing == null ||
+          (isL31 && rawCode == 'L-31' &&
+              existing.code.trim().toUpperCase() != 'L-31')) {
+        courses[key] = isL31
+            ? AcademicCourse(
+                code: course.code,
+                name: 'Informatica (L-31)',
+                degreeType: course.degreeType,
+              )
+            : course;
+      }
+    }
+    return courses.values.toList();
   }
 
   Future<List<SocialSubject>> getCatalogSubjects({
@@ -577,6 +636,38 @@ class ApiService {
     );
 
     return data.map(SocialUser.fromJson).toList();
+  }
+
+  Future<void> requestInstitutionalTutor() async {
+    final response = await http.post(_apiUri('/institutional-tutors/request'), headers: _jsonHeaders);
+    _decodeMapResponse(response, 'Richiesta di verifica non riuscita.');
+  }
+
+  Future<void> requestStudentVerification() async {
+    final response = await http.post(_apiUri('/student-verifications/request'), headers: _jsonHeaders);
+    _decodeMapResponse(response, 'Richiesta di verifica non riuscita.');
+  }
+
+  Future<List<Map<String, dynamic>>> getPendingStudentVerifications() async {
+    final response = await http.get(_apiUri('/student-verifications/admin/pending'), headers: _jsonHeaders);
+    return _decodeListResponse(response, 'Impossibile caricare le verifiche studenti.');
+  }
+
+  Future<void> decideStudentVerification(int userId, bool approved) async {
+    final response = await http.patch(_apiUri('/student-verifications/admin/$userId'),
+      headers: _jsonHeaders, body: jsonEncode({'approved': approved}));
+    _decodeMapResponse(response, 'Impossibile aggiornare la verifica studente.');
+  }
+
+  Future<List<Map<String, dynamic>>> getPendingInstitutionalTutors() async {
+    final response = await http.get(_apiUri('/institutional-tutors/admin/pending'), headers: _jsonHeaders);
+    return _decodeListResponse(response, 'Impossibile caricare i tutor da verificare.');
+  }
+
+  Future<void> decideInstitutionalTutor(int userId, bool approved) async {
+    final response = await http.patch(_apiUri('/institutional-tutors/admin/$userId'),
+      headers: _jsonHeaders, body: jsonEncode({'approved': approved}));
+    _decodeMapResponse(response, 'Impossibile aggiornare la verifica.');
   }
 
   Future<SocialUser> getSocialUser(int userId) async {
@@ -1638,7 +1729,11 @@ class ApiService {
       },
     );
 
-    final http.Response response = await http.get(url, headers: _jsonHeaders);
+    final Map<String, String> headers = AuthSession.instance.isAuthenticated
+        ? _jsonHeaders
+        : const <String, String>{'Accept': 'application/json'};
+
+    final http.Response response = await http.get(url, headers: headers);
 
     return _decodeMapResponse(response, 'Errore sincronizzazione materiali');
   }
@@ -1655,7 +1750,9 @@ class ApiService {
 
     if (normalizedSource != 'public' &&
         normalizedSource != 'teacher' &&
-        normalizedSource != 'group') {
+        normalizedSource != 'group' &&
+        normalizedSource != 'personal_sync' &&
+        normalizedSource != 'shared_user') {
       throw ArgumentError('Sorgente materiale non valida.');
     }
 
@@ -1666,7 +1763,12 @@ class ApiService {
       'download',
     );
 
-    final http.Response response = await http.get(url, headers: _jsonHeaders);
+    final Map<String, String> headers =
+        normalizedSource == 'public' && !AuthSession.instance.isAuthenticated
+        ? const <String, String>{'Accept': 'application/octet-stream'}
+        : _jsonHeaders;
+
+    final http.Response response = await http.get(url, headers: headers);
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
       return response.bodyBytes;
@@ -2170,6 +2272,24 @@ class ApiService {
     );
 
     return data.map(SocialAcademicPath.fromJson).toList();
+  }
+
+  Future<List<Map<String, dynamic>>> getAcademicCatalogRequests({bool admin = false}) async {
+    final url = Uri.parse('$baseUrl/academic-catalog/${admin ? 'admin/requests' : 'requests/me'}');
+    return _decodeListResponse(await http.get(url, headers: _jsonHeaders),
+        'Richieste sui percorsi non disponibili');
+  }
+
+  Future<Map<String, dynamic>> decideAcademicCatalogRequest(int id, Map<String, dynamic> decision) async {
+    final url = Uri.parse('$baseUrl/academic-catalog/admin/requests/$id');
+    return _decodeMapResponse(await http.patch(url, headers: _jsonHeaders,
+        body: jsonEncode(decision)), 'Impossibile aggiornare il corso');
+  }
+
+  Future<Map<String, dynamic>> retryAcademicCatalogRequest(int id) async {
+    final url = Uri.parse('$baseUrl/academic-catalog/admin/requests/$id/auto');
+    return _decodeMapResponse(await http.post(url, headers: _jsonHeaders),
+        'Il corso non ha ancora una corrispondenza certa');
   }
 
   Future<SocialAcademicPath> updateAcademicPathVerification({
@@ -2888,8 +3008,6 @@ class ApiService {
     );
   }
 
-
-
   String _fileNameFromPath(String filePath) {
     final String normalized = filePath.replaceAll('\\', '/');
 
@@ -3535,6 +3653,7 @@ class ApiService {
     required int size,
     String? fileHash,
     String visibility = 'students',
+    String distributionMode = 'persistent',
   }) async {
     final Uri url = _apiUri('/teacher/materials/complete');
 
@@ -3552,6 +3671,7 @@ class ApiService {
         'size': size,
         'file_hash': fileHash,
         'visibility': visibility,
+        'distribution_mode': distributionMode,
       }),
     );
 
@@ -3566,6 +3686,7 @@ class ApiService {
     required String title,
     required String description,
     required String visibility,
+    String distributionMode = 'persistent',
     required String filePath,
   }) async {
     _requireCurrentUserId();
@@ -3575,6 +3696,7 @@ class ApiService {
       title: title,
       description: description,
       visibility: visibility,
+      distributionMode: distributionMode,
       filePath: filePath,
     );
   }
@@ -3584,6 +3706,7 @@ class ApiService {
     required String title,
     required String description,
     required String visibility,
+    String distributionMode = 'persistent',
     required Uint8List bytes,
     required String originalName,
   }) async {
@@ -3593,6 +3716,7 @@ class ApiService {
       title: title,
       description: description,
       visibility: visibility,
+      distributionMode: distributionMode,
       bytes: bytes,
       originalName: originalName,
     );
@@ -3677,7 +3801,9 @@ class ApiService {
     required String title,
     required String description,
     required String filePath,
+    String attributionMode = 'anonymous',
     Future<void> Function()? onPossibleDuplicate,
+    Future<Map<String, dynamic>> Function(Map<String, dynamic> duplicate)? onDuplicateDecision,
   }) async {
     _requireCurrentUserId();
 
@@ -3686,7 +3812,9 @@ class ApiService {
       title: title,
       description: description,
       filePath: filePath,
+      attributionMode: attributionMode,
       onPossibleDuplicate: onPossibleDuplicate,
+      onDuplicateDecision: onDuplicateDecision,
     );
   }
 
@@ -3696,7 +3824,9 @@ class ApiService {
     required String description,
     required Uint8List bytes,
     required String originalName,
+    String attributionMode = 'anonymous',
     Future<void> Function()? onPossibleDuplicate,
+    Future<Map<String, dynamic>> Function(Map<String, dynamic> duplicate)? onDuplicateDecision,
   }) async {
     _requireCurrentUserId();
     return StudentLabUploadService().uploadMaterialPublicationBytes(
@@ -3705,7 +3835,9 @@ class ApiService {
       description: description,
       bytes: bytes,
       originalName: originalName,
+      attributionMode: attributionMode,
       onPossibleDuplicate: onPossibleDuplicate,
+      onDuplicateDecision: onDuplicateDecision,
     );
   }
 
@@ -3783,6 +3915,14 @@ class ApiService {
     );
   }
 
+  Future<Map<String, dynamic>> recheckAdminPublicationDuplicate(int requestId) async {
+    final response = await http.post(
+      _apiUri('/admin/material_publications/$requestId/duplicate/recheck'),
+      headers: _jsonHeaders,
+    );
+    return _decodeMapResponse(response, 'Impossibile controllare i duplicati');
+  }
+
   Future<Uint8List> downloadAdminPossibleDuplicateFile(int requestId) async {
     final Uri url = _apiUri(
       '/admin/material_publications/'
@@ -3832,6 +3972,15 @@ class ApiService {
     );
 
     return _decodeMapResponse(response, 'Errore approvazione materiale');
+  }
+
+  Future<Map<String, dynamic>> previewAdminPublicationDrive({
+    required int requestId, List<String>? path,
+  }) async {
+    final response = await http.post(
+      _apiUri('/admin/material_publications/$requestId/drive-preview'),
+      headers: _jsonHeaders, body: jsonEncode({'path': path}));
+    return _decodeMapResponse(response, 'Controllo Drive non disponibile');
   }
 
   Future<Map<String, dynamic>> rejectAdminMaterialPublication({
@@ -4128,5 +4277,348 @@ class ApiService {
     );
 
     return _decodeMapResponse(response, 'Errore invio richiesta');
+  }
+
+  Future<List<Map<String, dynamic>>> getMaterialSyncManifestPublic({
+    DateTime? since,
+  }) async {
+    final Uri url = _apiUri(
+      '/materials/sync-manifest',
+      queryParameters: {
+        if (since != null) 'since': since.toUtc().toIso8601String(),
+      },
+    );
+    final http.Response response = await http.get(
+      url,
+      headers: {'Accept': 'application/json'},
+    );
+    final Map<String, dynamic> data = _decodeMapResponse(
+      response,
+      'Errore sincronizzazione materiali',
+    );
+    final dynamic items = data['items'];
+    return items is List
+        ? items
+              .whereType<Map>()
+              .map((e) => Map<String, dynamic>.from(e))
+              .toList()
+        : <Map<String, dynamic>>[];
+  }
+
+  Future<Map<String, dynamic>> createTeacherMaterialRequest({
+    required int subjectId,
+    int? teacherUserId,
+    String? topic,
+    required String message,
+    /// null = automatico (docenti se ci sono, altrimenti StudentLab),
+    /// 'teachers' oppure 'studentlab'.
+    String? recipientKind,
+  }) async {
+    final http.Response response = await http.post(
+      _apiUri('/teacher-material-requests'),
+      headers: _jsonHeaders,
+      body: jsonEncode({
+        'subject_id': subjectId,
+        'teacher_user_id': teacherUserId,
+        'topic': topic,
+        'message': message,
+        if (recipientKind != null) 'recipient_kind': recipientKind,
+      }),
+    );
+    return _decodeMapResponse(response, 'Errore invio richiesta materiale');
+  }
+
+  /// Materiali già leggibili dallo studente che forse soddisfano una richiesta.
+  Future<List<Map<String, dynamic>>> getMaterialRequestSuggestions({
+    required int subjectId,
+    String query = '',
+  }) async {
+    final response = await http.get(
+      _apiUri('/teacher-material-requests/suggestions', queryParameters: {
+        'subject_id': '$subjectId',
+        if (query.trim().isNotEmpty) 'q': query.trim(),
+      }),
+      headers: _jsonHeaders);
+    final values = _decodeListResponse(response, 'Impossibile cercare materiali simili');
+    return values.map((e) => Map<String, dynamic>.from(e as Map)).toList();
+  }
+
+  Future<List<Map<String, dynamic>>> getMaterialRequestSubjects() async {
+    final response = await http.get(_apiUri('/teacher-material-requests/options'),
+      headers: _jsonHeaders);
+    final values = _decodeListResponse(response, 'Impossibile caricare le materie del tuo corso');
+    return values.map((e) => Map<String, dynamic>.from(e as Map)).toList();
+  }
+
+  Future<List<Map<String, dynamic>>> getStudentLabMaterialRequests() async {
+    final response = await http.get(_apiUri('/teacher-material-requests/studentlab'),
+      headers: _jsonHeaders);
+    final values = _decodeListResponse(response, 'Impossibile caricare le richieste StudentLab');
+    return values.map((e) => Map<String, dynamic>.from(e as Map)).toList();
+  }
+
+  Future<Map<String, dynamic>> replyStudentLabMaterialRequest(int id,
+      {required String message, required String action, int? fulfilledPublicMaterialId}) async {
+    final response = await http.post(_apiUri('/teacher-material-requests/studentlab/$id/reply'),
+      headers: _jsonHeaders,
+      body: jsonEncode({
+        'message': message,
+        'action': action,
+        if (fulfilledPublicMaterialId != null) 'fulfilled_public_material_id': fulfilledPublicMaterialId,
+      }));
+    return _decodeMapResponse(response, 'Impossibile rispondere alla richiesta');
+  }
+
+  /// Docenti verificati della materia (admin).
+  Future<List<Map<String, dynamic>>> getAdminSubjectTeachers(int subjectId) async {
+    final response = await http.get(
+      _apiUri('/teacher-material-requests/admin/teachers', queryParameters: {'subject_id': '$subjectId'}),
+      headers: _jsonHeaders);
+    final values = _decodeListResponse(response, 'Impossibile caricare i docenti della materia');
+    return values.map((e) => Map<String, dynamic>.from(e as Map)).toList();
+  }
+
+  /// Materiali StudentLab della materia da collegare a una richiesta (admin).
+  Future<List<Map<String, dynamic>>> getAdminSubjectMaterials(int subjectId, {String query = ''}) async {
+    final response = await http.get(
+      _apiUri('/teacher-material-requests/admin/materials', queryParameters: {
+        'subject_id': '$subjectId',
+        if (query.trim().isNotEmpty) 'q': query.trim(),
+      }),
+      headers: _jsonHeaders);
+    final values = _decodeListResponse(response, 'Impossibile cercare i materiali della materia');
+    return values.map((e) => Map<String, dynamic>.from(e as Map)).toList();
+  }
+
+  /// L'admin chiede materiale ai docenti scelti (una richiesta per docente).
+  Future<List<Map<String, dynamic>>> createAdminTeacherRequest({
+    required int subjectId,
+    required List<int> teacherIds,
+    required String message,
+    String? topic,
+    DateTime? dueDate,
+    int? parentRequestId,
+  }) async {
+    final response = await http.post(_apiUri('/teacher-material-requests/admin'),
+      headers: _jsonHeaders,
+      body: jsonEncode({
+        'subject_id': subjectId,
+        'teacher_user_ids': teacherIds,
+        'message': message,
+        if (topic != null && topic.trim().isNotEmpty) 'topic': topic.trim(),
+        if (dueDate != null)
+          'due_date': '${dueDate.year.toString().padLeft(4, '0')}-${dueDate.month.toString().padLeft(2, '0')}-${dueDate.day.toString().padLeft(2, '0')}',
+        if (parentRequestId != null) 'parent_request_id': parentRequestId,
+      }));
+    final values = _decodeListResponse(response, 'Impossibile inviare la richiesta ai docenti');
+    return values.map((e) => Map<String, dynamic>.from(e as Map)).toList();
+  }
+
+  Future<Map<String, dynamic>> personalRetentionAction({
+    required int materialId,
+    required String action,
+  }) async {
+    final http.Response response = await http.post(
+      _apiUri('/personal-materials/$materialId/retention'),
+      headers: _jsonHeaders,
+      body: jsonEncode({'action': action}),
+    );
+    return _decodeMapResponse(response, 'Errore aggiornamento conservazione');
+  }
+
+  Future<Map<String, dynamic>> syncPersonalMaterial({
+    required String filePath,
+    int? subjectId,
+    String? university,
+    String? department,
+    String? course,
+    String? subjectName,
+  }) {
+    _requireCurrentUserId();
+    return StudentLabUploadService().uploadPersonalMaterial(
+      filePath: filePath,
+      subjectId: subjectId,
+      university: university,
+      department: department,
+      course: course,
+      subjectName: subjectName,
+    );
+  }
+
+  Future<Map<String, dynamic>> shareMaterialWithUser({
+    required String filePath,
+    required int recipientUserId,
+    int? subjectId,
+    String? message,
+  }) {
+    _requireCurrentUserId();
+    return StudentLabUploadService().shareMaterial(
+      filePath: filePath,
+      recipientUserId: recipientUserId,
+      subjectId: subjectId,
+      message: message,
+    );
+  }
+
+  Future<Map<String, dynamic>> shareMaterialBytesWithUser({
+    required Uint8List bytes,
+    required String originalName,
+    required int recipientUserId,
+    int? subjectId,
+    String? message,
+  }) {
+    _requireCurrentUserId();
+    return StudentLabUploadService().shareMaterialBytes(
+      bytes: bytes,
+      originalName: originalName,
+      recipientUserId: recipientUserId,
+      subjectId: subjectId,
+      message: message,
+    );
+  }
+
+  Future<Map<String, dynamic>> acceptMaterialShare(int shareId) async {
+    final http.Response response = await http.post(
+      _apiUri('/material-shares/$shareId/accept'),
+      headers: _jsonHeaders,
+    );
+    return _decodeMapResponse(response, 'Errore accettazione materiale');
+  }
+
+  Future<Map<String, dynamic>> markMaterialShareDelivered(int shareId) async {
+    final http.Response response = await http.post(
+      _apiUri('/material-shares/$shareId/delivered'),
+      headers: _jsonHeaders,
+    );
+    return _decodeMapResponse(response, 'Errore completamento condivisione');
+  }
+
+  Future<Map<String, dynamic>> rejectMaterialShare(int shareId) async {
+    final http.Response response = await http.post(
+      _apiUri('/material-shares/$shareId/reject'),
+      headers: _jsonHeaders,
+    );
+    return _decodeMapResponse(response, 'Errore rifiuto condivisione');
+  }
+
+  Future<List<Map<String, dynamic>>> getMyTeacherMaterialRequests() async {
+    final http.Response response = await http.get(
+      _apiUri('/teacher-material-requests/mine'),
+      headers: _jsonHeaders,
+    );
+    return _decodeListResponse(
+      response,
+      'Errore caricamento delle tue richieste ai docenti',
+    );
+  }
+
+  Future<Map<String, dynamic>> cancelTeacherMaterialRequest(
+    int requestId,
+  ) async {
+    final http.Response response = await http.post(
+      _apiUri('/teacher-material-requests/$requestId/cancel'),
+      headers: _jsonHeaders,
+    );
+    return _decodeMapResponse(
+      response,
+      'Errore annullamento richiesta materiale',
+    );
+  }
+
+  Future<Map<String, dynamic>> createStudentMaterialRequest({
+    required int recipientUserId,
+    int? subjectId,
+    String? topic,
+    required String message,
+  }) async {
+    final http.Response response = await http.post(
+      _apiUri('/student-material-requests'),
+      headers: _jsonHeaders,
+      body: jsonEncode({
+        'recipient_user_id': recipientUserId,
+        'subject_id': subjectId,
+        'topic': topic,
+        'message': message,
+      }),
+    );
+    return _decodeMapResponse(response, 'Errore invio richiesta allo studente');
+  }
+
+  Future<List<Map<String, dynamic>>> getMyStudentMaterialRequests() async {
+    final http.Response response = await http.get(
+      _apiUri('/student-material-requests/mine'),
+      headers: _jsonHeaders,
+    );
+    return _decodeListResponse(
+      response,
+      'Errore caricamento richieste inviate',
+    );
+  }
+
+  Future<List<Map<String, dynamic>>>
+  getReceivedStudentMaterialRequests() async {
+    final http.Response response = await http.get(
+      _apiUri('/student-material-requests/received'),
+      headers: _jsonHeaders,
+    );
+    return _decodeListResponse(
+      response,
+      'Errore caricamento richieste ricevute',
+    );
+  }
+
+  Future<Map<String, dynamic>> cancelStudentMaterialRequest(
+    int requestId,
+  ) async {
+    final http.Response response = await http.post(
+      _apiUri('/student-material-requests/$requestId/cancel'),
+      headers: _jsonHeaders,
+    );
+    return _decodeMapResponse(response, 'Errore annullamento richiesta');
+  }
+
+  Future<Map<String, dynamic>> resolveStudentMaterialRequest({
+    required int requestId,
+    required String action,
+    int? fulfilledShareId,
+  }) async {
+    final http.Response response = await http.post(
+      _apiUri('/student-material-requests/$requestId/resolve'),
+      headers: _jsonHeaders,
+      body: jsonEncode({
+        'action': action,
+        'fulfilled_share_id': fulfilledShareId,
+      }),
+    );
+    return _decodeMapResponse(response, 'Errore gestione richiesta ricevuta');
+  }
+
+  Future<List<Map<String, dynamic>>> getTeacherMaterialRequests() async {
+    final http.Response response = await http.get(
+      _apiUri('/teacher-material-requests/teacher'),
+      headers: _jsonHeaders,
+    );
+    return _decodeListResponse(
+      response,
+      'Errore caricamento richieste materiale',
+    );
+  }
+
+  Future<Map<String, dynamic>> resolveTeacherMaterialRequest({
+    required int requestId,
+    required String action,
+    int? fulfilledMaterialId,
+    int? fulfilledShareId,
+  }) async {
+    final http.Response response = await http.post(
+      _apiUri('/teacher-material-requests/$requestId/resolve'),
+      headers: _jsonHeaders,
+      body: jsonEncode({
+        'action': action,
+        'fulfilled_share_id': fulfilledShareId,
+        'fulfilled_material_id': fulfilledMaterialId,
+      }),
+    );
+    return _decodeMapResponse(response, 'Errore gestione richiesta materiale');
   }
 }

@@ -244,13 +244,13 @@ class _TeacherMaterialsSectionState extends State<TeacherMaterialsSection> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: AppColors.eleganceMidnight,
-          title: const Text(
+          title: Text(
             'Elimina materiale',
             style: TextStyle(color: AppColors.pureWhite),
           ),
           content: Text(
             'Vuoi eliminare definitivamente “$title”?',
-            style: const TextStyle(color: Colors.white70),
+            style: TextStyle(color: AppColors.white70),
           ),
           actions: [
             TextButton(
@@ -259,9 +259,9 @@ class _TeacherMaterialsSectionState extends State<TeacherMaterialsSection> {
             ),
             TextButton(
               onPressed: () => Navigator.pop(context, true),
-              child: const Text(
+              child: Text(
                 'Elimina',
-                style: TextStyle(color: Colors.redAccent),
+                style: TextStyle(color: AppColors.redAccent),
               ),
             ),
           ],
@@ -306,7 +306,7 @@ class _TeacherMaterialsSectionState extends State<TeacherMaterialsSection> {
       children: [
         Row(
           children: [
-            const Expanded(
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -322,7 +322,7 @@ class _TeacherMaterialsSectionState extends State<TeacherMaterialsSection> {
                   Text(
                     'Gestisci i tuoi materiali e controlla quelli pubblicati nei gruppi.',
                     style: TextStyle(
-                      color: Colors.white54,
+                      color: AppColors.white54,
                       fontSize: 11,
                       height: 1.4,
                     ),
@@ -393,7 +393,7 @@ class _TeacherMaterialsSectionState extends State<TeacherMaterialsSection> {
                     onDelete: () => _deleteMaterial(_materials[index]),
                   ),
                   if (index != _materials.length - 1)
-                    const Divider(height: 1, color: Colors.white10),
+                    Divider(height: 1, color: AppColors.white10),
                 ],
               ],
             ),
@@ -417,7 +417,7 @@ class _TeacherMaterialsSectionState extends State<TeacherMaterialsSection> {
                     index++) ...[
                   _GroupMaterialRow(item: _groupMaterials[index]),
                   if (index != _groupMaterials.length - 1)
-                    const Divider(height: 1, color: Colors.white10),
+                    Divider(height: 1, color: AppColors.white10),
                 ],
               ],
             ),
@@ -547,7 +547,7 @@ class _SummaryTile extends StatelessWidget {
               children: [
                 Text(
                   value,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.pureWhite,
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
@@ -555,8 +555,8 @@ class _SummaryTile extends StatelessWidget {
                 ),
                 Text(
                   label,
-                  style: const TextStyle(
-                    color: Colors.white54,
+                  style: TextStyle(
+                    color: AppColors.white54,
                     fontSize: 9,
                   ),
                 ),
@@ -604,7 +604,7 @@ class _SectionCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.pureWhite,
                       fontSize: 13,
                       fontWeight: FontWeight.bold,
@@ -621,7 +621,7 @@ class _SectionCard extends StatelessWidget {
                   ),
                   child: Text(
                     badge,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.teacherIndigo,
                       fontSize: 9,
                       fontWeight: FontWeight.bold,
@@ -631,7 +631,7 @@ class _SectionCard extends StatelessWidget {
               ],
             ),
           ),
-          const Divider(height: 1, color: Colors.white10),
+          Divider(height: 1, color: AppColors.white10),
           child,
         ],
       ),
@@ -679,7 +679,7 @@ class _TeacherMaterialRow extends StatelessWidget {
               color: AppColors.materialSky.withValues(alpha: 0.10),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Icon(
+            child: Icon(
               Icons.insert_drive_file_outlined,
               color: AppColors.materialSky,
               size: 21,
@@ -694,7 +694,7 @@ class _TeacherMaterialRow extends StatelessWidget {
                   title,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.pureWhite,
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
@@ -705,7 +705,7 @@ class _TeacherMaterialRow extends StatelessWidget {
                   fileName,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: Colors.white38, fontSize: 9),
+                  style: TextStyle(color: AppColors.white38, fontSize: 9),
                 ),
                 if (description.isNotEmpty) ...[
                   const SizedBox(height: 5),
@@ -713,8 +713,8 @@ class _TeacherMaterialRow extends StatelessWidget {
                     description,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: Colors.white54,
+                    style: TextStyle(
+                      color: AppColors.white54,
                       fontSize: 9,
                       height: 1.35,
                     ),
@@ -755,7 +755,7 @@ class _TeacherMaterialRow extends StatelessWidget {
             tooltip: 'Azioni materiale',
             enabled: !processing,
             color: AppColors.eleganceMidnight,
-            icon: const Icon(Icons.more_vert_rounded, color: Colors.white54),
+            icon: Icon(Icons.more_vert_rounded, color: AppColors.white54),
             onSelected: (String value) {
               if (value == 'edit') {
                 onEdit();
@@ -763,7 +763,7 @@ class _TeacherMaterialRow extends StatelessWidget {
                 onDelete();
               }
             },
-            itemBuilder: (_) => const [
+            itemBuilder: (_) => [
               PopupMenuItem(
                 value: 'edit',
                 child: Row(
@@ -779,11 +779,11 @@ class _TeacherMaterialRow extends StatelessWidget {
                 child: Row(
                   children: [
                     Icon(Icons.delete_outline_rounded,
-                        size: 18, color: Colors.redAccent),
+                        size: 18, color: AppColors.redAccent),
                     SizedBox(width: 9),
                     Text(
                       'Elimina',
-                      style: TextStyle(color: Colors.redAccent),
+                      style: TextStyle(color: AppColors.redAccent),
                     ),
                   ],
                 ),
@@ -838,7 +838,7 @@ class _GroupMaterialRow extends StatelessWidget {
               color: AppColors.teacherIndigo.withValues(alpha: 0.10),
               borderRadius: BorderRadius.circular(11),
             ),
-            child: const Icon(
+            child: Icon(
               Icons.group_work_outlined,
               color: AppColors.teacherIndigo,
               size: 20,
@@ -853,7 +853,7 @@ class _GroupMaterialRow extends StatelessWidget {
                   name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.pureWhite,
                     fontSize: 11,
                     fontWeight: FontWeight.w600,
@@ -864,7 +864,7 @@ class _GroupMaterialRow extends StatelessWidget {
                   item.groupName,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.materialSky,
                     fontSize: 9,
                   ),
@@ -896,17 +896,17 @@ class _MiniBadge extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 4),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.04),
+        color: AppColors.white.withValues(alpha: 0.04),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: Colors.white54, size: 10),
+          Icon(icon, color: AppColors.white54, size: 10),
           const SizedBox(width: 4),
           Text(
             label,
-            style: const TextStyle(color: Colors.white54, fontSize: 8),
+            style: TextStyle(color: AppColors.white54, fontSize: 8),
           ),
         ],
       ),
@@ -929,12 +929,12 @@ class _EmptyMessage extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       child: Row(
         children: [
-          Icon(icon, color: Colors.white24, size: 25),
+          Icon(icon, color: AppColors.white24, size: 25),
           const SizedBox(width: 11),
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(color: Colors.white38, fontSize: 10),
+              style: TextStyle(color: AppColors.white38, fontSize: 10),
             ),
           ),
         ],
@@ -955,7 +955,7 @@ class _TeacherMaterialsLoading extends StatelessWidget {
         color: AppColors.eleganceMidnight,
         borderRadius: BorderRadius.circular(17),
       ),
-      child: const CircularProgressIndicator(
+      child: CircularProgressIndicator(
         color: AppColors.teacherIndigo,
       ),
     );
@@ -980,17 +980,17 @@ class _TeacherMaterialsError extends StatelessWidget {
         color: AppColors.eleganceMidnight,
         borderRadius: BorderRadius.circular(17),
         border: Border.all(
-          color: Colors.redAccent.withValues(alpha: 0.16),
+          color: AppColors.redAccent.withValues(alpha: 0.16),
         ),
       ),
       child: Row(
         children: [
-          const Icon(Icons.error_outline_rounded, color: Colors.redAccent),
+          Icon(Icons.error_outline_rounded, color: AppColors.redAccent),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
               message,
-              style: const TextStyle(color: Colors.white60, fontSize: 10),
+              style: TextStyle(color: AppColors.white60, fontSize: 10),
             ),
           ),
           TextButton(
@@ -1120,7 +1120,7 @@ class _TeacherMaterialCreateSheetState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'Nuovo materiale docente',
                 style: TextStyle(
                   color: AppColors.pureWhite,
@@ -1129,9 +1129,9 @@ class _TeacherMaterialCreateSheetState
                 ),
               ),
               const SizedBox(height: 5),
-              const Text(
+              Text(
                 'Il file verrà associato a una delle tue materie verificate.',
-                style: TextStyle(color: Colors.white54, fontSize: 10),
+                style: TextStyle(color: AppColors.white54, fontSize: 10),
               ),
               const SizedBox(height: 18),
               DropdownButtonFormField<int>(
@@ -1221,11 +1221,11 @@ class _TeacherMaterialCreateSheetState
                   decoration: BoxDecoration(
                     color: AppColors.darkElegance.withValues(alpha: 0.55),
                     borderRadius: BorderRadius.circular(13),
-                    border: Border.all(color: Colors.white12),
+                    border: Border.all(color: AppColors.white12),
                   ),
                   child: Row(
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.attach_file_rounded,
                         color: AppColors.materialSky,
                       ),
@@ -1237,7 +1237,7 @@ class _TeacherMaterialCreateSheetState
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             color: _file == null
-                                ? Colors.white54
+                                ? AppColors.white54
                                 : AppColors.pureWhite,
                             fontSize: 11,
                           ),
@@ -1345,7 +1345,7 @@ class _TeacherMaterialEditDialogState
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: AppColors.eleganceMidnight,
-      title: const Text(
+      title: Text(
         'Modifica materiale',
         style: TextStyle(color: AppColors.pureWhite),
       ),

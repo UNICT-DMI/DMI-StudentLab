@@ -75,7 +75,7 @@ class MaterialCard extends StatelessWidget {
                     material.name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.pureWhite,
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -110,7 +110,7 @@ class MaterialCard extends StatelessWidget {
                             provenanceLabel!,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppColors.materialSky,
                               fontSize: 11,
                               fontWeight: FontWeight.w600,
@@ -119,7 +119,7 @@ class MaterialCard extends StatelessWidget {
                         ),
                         if (provenanceVerified) ...[
                           const SizedBox(width: 5),
-                          const Icon(
+                          Icon(
                             Icons.verified_rounded,
                             size: 14,
                             color: AppColors.materialSky,
@@ -132,9 +132,9 @@ class MaterialCard extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-            const Icon(
+            Icon(
               Icons.arrow_forward_ios_rounded,
-              color: Colors.white38,
+              color: AppColors.white38,
               size: 15,
             ),
           ],

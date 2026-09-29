@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fe/theme/nightTheme.dart';
 
 import '../social_models.dart';
 
@@ -665,7 +666,7 @@ class _RatingStars
             size:
                 21,
             color:
-                Colors.amber,
+                AppColors.amber,
           );
         },
       ),

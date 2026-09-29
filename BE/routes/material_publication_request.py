@@ -1,10 +1,12 @@
 from pathlib import Path
 from uuid import uuid4
+import json
 
 from pydantic import (
     BaseModel,
 )
 
+from services.public_material_access import can_read_public_material
 from fastapi import (
     APIRouter,
     Depends,
@@ -31,6 +33,7 @@ from core.security import (
 from models.user import (
     User,
 )
+from models.material_publication_request import MaterialPublicationRequest
 
 from schemas.material_publication_request import (
     MaterialDuplicateReviewRequest,
@@ -70,6 +73,11 @@ from services.private_blob import (
 from services.public_material import (
     get_public_material_by_id,
 )
+from core.config import settings
+from services.drive_material_catalog import clean_path, default_path
+from services.drive_material_storage import copy_public_material, preview_public_material, mark_retry, public_drive_response
+from services.admin_material_storage import record_storage_event, utc_now
+from services.public_drive_blob_retirement import retire_public_staging_blob_best_effort
 
 from services.upload_authorization import (
     create_upload_authorization,
@@ -209,6 +217,13 @@ def api_material_publication_upload_request(
         file_hash=file_hash,
     )
 
+    visible_duplicate = (
+        duplicate
+        if duplicate is not None
+        and can_read_public_material(db, duplicate, current_user.id)
+        else None
+    )
+
     stored_name = (
         generate_publication_stored_name(
             current_user.id,
@@ -252,13 +267,23 @@ def api_material_publication_upload_request(
         "max_file_size": MAX_PUBLIC_MATERIAL_SIZE,
         "upload_token": upload_token,
         "valid_until": expires_at * 1000,
-        "possible_duplicate": (
-            duplicate is not None
-        ),
+        # Il duplicato viene segnalato allo studente solo se è un materiale
+        # che può già leggere: altrimenti la risposta rivelerebbe l'esistenza
+        # di file nascosti o riservati. La revisione admin lo rileva comunque.
+        "possible_duplicate": visible_duplicate is not None,
         "possible_duplicate_material_id": (
-            duplicate.id
-            if duplicate is not None
-            else None
+            visible_duplicate.id if visible_duplicate is not None else None
+        ),
+        "possible_duplicate_exact": bool(
+            visible_duplicate is not None
+            and (visible_duplicate.file_hash or "").lower() == file_hash
+        ),
+        "possible_duplicate_title": (
+            visible_duplicate.title if visible_duplicate is not None else None
+        ),
+        "possible_duplicate_path": (
+            json.loads(visible_duplicate.catalog_path_json or "[]")
+            if visible_duplicate is not None else None
         ),
     }
 
@@ -419,6 +444,9 @@ async def api_material_publication_complete(
             ),
             expected_mime_type=(
                 request.mime_type
+            ),
+            expected_sha256=(
+                request.file_hash
             ),
         )
 
@@ -638,6 +666,14 @@ async def api_admin_material_publication_file(
             detail="Richiesta non trovata.",
         )
 
+    if publication_request.status == 'approved' and publication_request.approved_public_material_id:
+        material = get_public_material_by_id(db, publication_request.approved_public_material_id)
+        if (material is not None and material.drive_file_id and
+                material.stored_name == publication_request.stored_name):
+            return await public_drive_response(drive_file_id=material.drive_file_id,
+                original_name=material.original_name, mime_type=material.mime_type,
+                inline=True)
+
     return await private_blob_response(
         stored_name=(
             publication_request.stored_name
@@ -755,6 +791,11 @@ async def api_admin_possible_duplicate_material_file(
             ),
         )
 
+    if material.drive_file_id:
+        return await public_drive_response(drive_file_id=material.drive_file_id,
+            original_name=material.original_name, mime_type=material.mime_type,
+            inline=True)
+
     return await private_blob_response(
         stored_name=(
             material.stored_name
@@ -817,12 +858,41 @@ def api_admin_review_material_duplicate(
         )
 
 
+@router.post('/admin/material_publications/{request_id}/duplicate/recheck',
+             response_model=MaterialPublicationRequestAdminResponse)
+def api_admin_recheck_publication_duplicate(
+    request_id: int, current_user: User = Depends(get_admin_user),
+    db: Session = Depends(get_db),
+):
+    proposal = db.query(MaterialPublicationRequest).filter(
+        MaterialPublicationRequest.id == request_id).with_for_update().first()
+    if proposal is None:
+        raise HTTPException(404, 'Proposta non trovata.')
+    if proposal.status != 'pending':
+        return proposal
+    fresh = find_duplicate_candidate(db, subject_id=proposal.subject_id,
+        original_name=proposal.original_name, size=proposal.size,
+        file_hash=proposal.file_hash)
+    fresh_id = fresh.id if fresh else None
+    fresh_status = ('confirmed' if fresh and fresh.file_hash == proposal.file_hash
+        else 'suspected' if fresh else 'none')
+    if (fresh_id != proposal.possible_duplicate_material_id or
+            fresh_status != proposal.duplicate_status):
+        proposal.possible_duplicate_material_id = fresh_id
+        proposal.duplicate_status = fresh_status
+        proposal.comparison_status = ('same_material' if fresh_status == 'confirmed'
+            else 'pending' if fresh else 'not_required')
+        db.commit()
+        db.refresh(proposal)
+    return proposal
+
+
 @router.post(
     "/admin/material_publications/{request_id}/approve",
     response_model=
         PublicMaterialAdminResponse,
 )
-def api_admin_approve_material_publication(
+async def api_admin_approve_material_publication(
     request_id: int,
     request:
         MaterialPublicationApproveRequest,
@@ -846,8 +916,20 @@ def api_admin_approve_material_publication(
             detail="Richiesta non trovata.",
         )
 
+    drive_enabled = all((settings.drive_folder_id, settings.drive_client_id,
+        settings.drive_client_secret, settings.drive_refresh_token))
+    if drive_enabled and request.approved_action in {'publish_new', 'publish_separate'}:
+        selected = clean_path(request.drive_path_segments if request.drive_path_segments
+            is not None else default_path(publication_request))
+        inspection = await preview_public_material(publication_request, selected)
+        if any(item['same_folder'] and item['name'].casefold() ==
+               publication_request.original_name.casefold() for item in inspection['conflicts']):
+            raise HTTPException(409, 'Esiste un file omonimo nella cartella selezionata: scegli un altro percorso.')
+        if inspection['conflicts'] and not request.allow_drive_duplicate:
+            raise HTTPException(409, 'Possibile duplicato su Drive: confronta i file prima di approvare.')
+
     try:
-        return (
+        approved = (
             approve_material_publication_request(
                 db,
                 publication_request=(
@@ -857,6 +939,37 @@ def api_admin_approve_material_publication(
                 data=request,
             )
         )
+        if approved.drive_activation_pending:
+            if request.drive_path_segments is not None:
+                approved.drive_path_json = json.dumps(clean_path(request.drive_path_segments), ensure_ascii=False)
+            approved.drive_allow_duplicate = bool(request.allow_drive_duplicate)
+            db.commit()
+            try:
+                drive_id = await copy_public_material(approved)
+                approved.drive_file_id = drive_id
+                approved.drive_copied_at = utc_now()
+                approved.drive_activation_pending = False
+                approved.drive_retry_after = None
+                approved.status = 'published'
+                approved.is_visible = True
+                approved.visibility_state = 'visible'
+                approved.version = (approved.version or 1) + 1
+                approved.updated_at = utc_now()
+                record_storage_event(db, source='public', material_id=approved.id,
+                    action='drive_copied', actor_id=current_user.id,
+                    blob_path=approved.stored_name, original_name=approved.original_name,
+                    size=approved.size, details={'source': 'approval'}, commit=False)
+                db.commit()
+                await retire_public_staging_blob_best_effort(db, approved, current_user.id)
+            except Exception as exc:
+                db.rollback()
+                # Approved and hidden until a later automatic retry or admin decision.
+                state = mark_retry(approved, exc)
+                record_storage_event(db, source='public', material_id=approved.id,
+                    action='drive_copy_pending', actor_id=current_user.id,
+                    details={'state': state}, commit=True)
+            db.refresh(approved)
+        return approved
 
     except ValueError as exception:
         message = str(
@@ -893,6 +1006,19 @@ def api_admin_approve_material_publication(
                 "il materiale."
             ),
         )
+
+
+@router.post('/admin/material_publications/{request_id}/drive-preview')
+async def api_admin_preview_publication_drive(
+    request_id: int, request: dict,
+    current_user: User = Depends(get_admin_user), db: Session = Depends(get_db),
+):
+    publication = get_publication_request_by_id(db, request_id)
+    if publication is None or publication.status != 'pending':
+        raise HTTPException(404, 'Proposta in attesa non trovata.')
+    path = request.get('path')
+    selected = clean_path(path if path is not None else default_path(publication))
+    return await preview_public_material(publication, selected)
 
 
 @router.post(

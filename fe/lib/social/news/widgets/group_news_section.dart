@@ -298,7 +298,7 @@ class _GroupNewsSectionState extends State<GroupNewsSection> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text(
+              Text(
                 'Rispondi',
                 style: TextStyle(
                   color: AppColors.pureWhite,
@@ -313,7 +313,7 @@ class _GroupNewsSectionState extends State<GroupNewsSection> {
                 minLines: 3,
                 maxLines: 6,
                 maxLength: 5000,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.pureWhite,
                 ),
                 decoration: const InputDecoration(
@@ -435,7 +435,7 @@ class _GroupNewsSectionState extends State<GroupNewsSection> {
           ) {
             return AlertDialog(
               backgroundColor: AppColors.eleganceDeepNavy,
-              title: const Text(
+              title: Text(
                 'Rimuovi news',
                 style: TextStyle(
                   color: AppColors.pureWhite,
@@ -446,7 +446,7 @@ class _GroupNewsSectionState extends State<GroupNewsSection> {
                 minLines: 2,
                 maxLines: 5,
                 maxLength: 1000,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.pureWhite,
                 ),
                 decoration: InputDecoration(
@@ -477,10 +477,10 @@ class _GroupNewsSectionState extends State<GroupNewsSection> {
                       value,
                     );
                   },
-                  child: const Text(
+                  child: Text(
                     'Rimuovi',
                     style: TextStyle(
-                      color: Colors.redAccent,
+                      color: AppColors.redAccent,
                     ),
                   ),
                 ),
@@ -586,14 +586,14 @@ class _GroupNewsSectionState extends State<GroupNewsSection> {
                   color: AppColors.brandNightBlue,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.newspaper_rounded,
                   color: AppColors.skyBlue,
                   size: 22,
                 ),
               ),
               const SizedBox(width: 11),
-              const Expanded(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -609,7 +609,7 @@ class _GroupNewsSectionState extends State<GroupNewsSection> {
                     Text(
                       'Aggiornamenti del gruppo e comunicazioni private.',
                       style: TextStyle(
-                        color: Colors.white54,
+                        color: AppColors.white54,
                         fontSize: 10,
                       ),
                     ),
@@ -620,9 +620,9 @@ class _GroupNewsSectionState extends State<GroupNewsSection> {
                 IconButton(
                   tooltip: 'Aggiorna news',
                   onPressed: _loading ? null : _load,
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.refresh_rounded,
-                    color: Colors.white60,
+                    color: AppColors.white60,
                   ),
                 ),
             ],
@@ -709,9 +709,9 @@ class _GroupNewsSectionState extends State<GroupNewsSection> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Icon(
+        Icon(
           Icons.lock_outline_rounded,
-          color: Colors.white38,
+          color: AppColors.white38,
           size: 18,
         ),
         const SizedBox(width: 8),
@@ -761,13 +761,13 @@ class _GroupNewsSectionState extends State<GroupNewsSection> {
       ),
       child: Column(
         children: [
-          const Icon(
+          Icon(
             Icons.newspaper_outlined,
-            color: Colors.white30,
+            color: AppColors.white30,
             size: 38,
           ),
           const SizedBox(height: 9),
-          const Text(
+          Text(
             'Nessuna news',
             style: TextStyle(
               color: AppColors.pureWhite,
@@ -806,7 +806,7 @@ class _GroupNewsSectionState extends State<GroupNewsSection> {
           backgroundColor: AppColors.eleganceDeepNavy,
           title: Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.pureWhite,
             ),
           ),
@@ -832,7 +832,7 @@ class _GroupNewsSectionState extends State<GroupNewsSection> {
                 confirmLabel,
                 style: TextStyle(
                   color: destructive
-                      ? Colors.redAccent
+                      ? AppColors.redAccent
                       : AppColors.skyBlue,
                 ),
               ),
@@ -926,7 +926,7 @@ class _GroupNewsCard extends StatelessWidget {
         border: Border.all(
           color: news.isPrivate
               ? AppColors.materialSky.withValues(alpha: 0.20)
-              : Colors.white.withValues(alpha: 0.06),
+              : AppColors.white.withValues(alpha: 0.06),
         ),
       ),
       child: Column(
@@ -939,7 +939,7 @@ class _GroupNewsCard extends StatelessWidget {
                 backgroundColor: AppColors.eleganceDeepNavy,
                 child: Text(
                   _initials(news.author.fullName),
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.skyBlue,
                     fontSize: 11,
                     fontWeight: FontWeight.bold,
@@ -955,7 +955,7 @@ class _GroupNewsCard extends StatelessWidget {
                       news.author.fullName,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.pureWhite,
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
@@ -997,9 +997,9 @@ class _GroupNewsCard extends StatelessWidget {
                 PopupMenuButton<String>(
                   tooltip: 'Azioni',
                   color: AppColors.eleganceDeepNavy,
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.more_vert_rounded,
-                    color: Colors.white54,
+                    color: AppColors.white54,
                   ),
                   onSelected: (String value) {
                     if (value == 'delete') {
@@ -1022,12 +1022,12 @@ class _GroupNewsCard extends StatelessWidget {
                         child: Text('Rimuovi dal gruppo'),
                       ),
                     if (onDelete != null)
-                      const PopupMenuItem(
+                      PopupMenuItem(
                         value: 'delete',
                         child: Text(
                           'Elimina',
                           style: TextStyle(
-                            color: Colors.redAccent,
+                            color: AppColors.redAccent,
                           ),
                         ),
                       ),
@@ -1167,7 +1167,7 @@ class _ComposeNewsSheetState extends State<_ComposeNewsSheet> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text(
+            Text(
               'Nuova comunicazione',
               style: TextStyle(
                 color: AppColors.pureWhite,
@@ -1224,7 +1224,7 @@ class _ComposeNewsSheetState extends State<_ComposeNewsSheet> {
                         child: Text(
                           user.name,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.pureWhite,
                           ),
                         ),
@@ -1245,7 +1245,7 @@ class _ComposeNewsSheetState extends State<_ComposeNewsSheet> {
               minLines: 4,
               maxLines: 8,
               maxLength: 5000,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.pureWhite,
               ),
               decoration: InputDecoration(
@@ -1332,7 +1332,7 @@ class _ReportSheetState extends State<_ReportSheet> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text(
+            Text(
               'Segnala news',
               style: TextStyle(
                 color: AppColors.pureWhite,
@@ -1384,7 +1384,7 @@ class _ReportSheetState extends State<_ReportSheet> {
               minLines: 3,
               maxLines: 6,
               maxLength: 1000,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.pureWhite,
               ),
               decoration: const InputDecoration(
@@ -1444,7 +1444,7 @@ class _NewsBadge extends StatelessWidget {
           const SizedBox(width: 4),
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.materialSky,
               fontSize: 8,
               fontWeight: FontWeight.w600,

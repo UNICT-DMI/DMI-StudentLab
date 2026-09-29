@@ -1,0 +1,1764 @@
+{
+  "source": "DMI LM-18 · programmi 28/09/2026; orario primo semestre 15/09/2026",
+  "program_url": "https://web.dmi.unict.it/corsi/lm-18/programmi",
+  "timetable_url": "https://web.dmi.unict.it/corsi/lm-18/orario-delle-lezioni",
+  "subjects": [
+    {
+      "code": "9799580",
+      "name": "Advanced Computer Graphics",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=87A0CE05-BA03-40AC-B391-FA70416F84F1",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "GALLO GIOVANNI"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799582",
+      "name": "Advanced Robotics and Autonomous Systems",
+      "years": [
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=58DB8BC7-CA77-4859-8B86-FAC008109DBF",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "SANTORO CORRADO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "72368",
+      "name": "ALGORITMI E COMPLESSITA'",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=0C3D94DB-E70A-4515-AD3D-BB5567D79D46",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "CANTONE DOMENICO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799585",
+      "name": "Artificial and Evolutionary Intelligence",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=8BD4C32D-F63F-4F5E-97C0-057AD30694D9",
+      "offerings": [
+        {
+          "module": "Artificial and Swarn Intelligence",
+          "teachers": [
+            "PAVONE MARIO FRANCESCO"
+          ]
+        },
+        {
+          "module": "Heuristics and Metaheuristics for Optimization and Learning",
+          "teachers": [
+            "CUTELLO VINCENZO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799504",
+      "name": "Artificial Intelligence and Language Processing",
+      "years": [
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=3AA3E38F-D60C-4DFA-93B0-59EF5FB2756D",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "MONGIOVI' MISAEL"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799515",
+      "name": "Audio Processing",
+      "years": [
+        2
+      ],
+      "source_url": null,
+      "offerings": []
+    },
+    {
+      "code": "9799525",
+      "name": "Bioinformatic Foundations",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=9E438D62-9D16-4358-9854-622477FF34A1",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "ALAIMO SALVATORE",
+            "PULVIRENTI ALFREDO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9795444",
+      "name": "BLOCKCHAIN E CRYPTOCURRENCIES",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=A72FC93E-641B-4188-808A-1C776A72711C",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "CATALANO DARIO",
+            "DI RAIMONDO MARIO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "1014144",
+      "name": "COMPUTABILITA'",
+      "years": [
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=F98A55D2-08E0-404B-8A10-63424892F7F6",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "CANTONE DOMENICO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799528",
+      "name": "Computational Genomics",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=70B8D5D6-8700-4E7B-9135-65FD852F06E5",
+      "offerings": [
+        {
+          "module": "Computational Approaches for Precision Medicine in Oncology",
+          "teachers": [
+            "MARTORANA FEDERICA",
+            "PELLEGRITI GABRIELLA"
+          ]
+        },
+        {
+          "module": "Genomics Data Analysis",
+          "teachers": [
+            "FICHERA MARCO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799583",
+      "name": "Computational Molecular Diagnostics",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=BD92F0B0-1E44-4F9B-984E-1245EC6681A5",
+      "offerings": [
+        {
+          "module": "Analysis of Molecular Biomarkers",
+          "teachers": [
+            "MASSIMINO MICHELE"
+          ]
+        },
+        {
+          "module": "Tools and Models for Molecular Biomarkers Extraction",
+          "teachers": [
+            "STELLA STEFANIA"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799486",
+      "name": "Computer Security",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=03E5B3E8-9355-48C2-A475-FF23414AAEEB",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "BELLA GIAMPAOLO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "1014458",
+      "name": "COMPUTER SECURITY E LABORATORIO",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=CE6F67D3-CB69-40D4-B896-FC2AC3C8540F",
+      "offerings": [
+        {
+          "module": "COMPUTER SECURITY",
+          "teachers": [
+            "BELLA GIAMPAOLO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "1014421",
+      "name": "COMPUTER VISION",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=FC330B6E-3661-4174-B414-385C1D78D0D1",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "BATTIATO SEBASTIANO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9796006",
+      "name": "COMPUTER VISION E LABORATORIO",
+      "years": [
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=E96B515C-3282-4A05-9361-BA2B6D73D998",
+      "offerings": [
+        {
+          "module": "COMPUTER VISION",
+          "teachers": [
+            "BATTIATO SEBASTIANO"
+          ]
+        },
+        {
+          "module": "LABORATORIO",
+          "teachers": [
+            "GUARNERA FRANCESCO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "1015109",
+      "name": "CRITTOGRAFIA",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=6BF7E9F7-B38A-43DF-8DD2-DEF9AFB62E59",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "CATALANO DARIO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "1015622",
+      "name": "CRYPTOGRAPHIC ENGINEERING",
+      "years": [
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=74164D24-2FA7-47F8-91C0-30F80D1C86CF",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "DI RAIMONDO MARIO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799560",
+      "name": "Deep Learning",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=1DD0E199-0697-416B-805B-5E67A3A1A478",
+      "offerings": [
+        {
+          "module": "Advanced Models and Methods",
+          "teachers": [
+            "FURNARI ANTONINO"
+          ]
+        },
+        {
+          "module": "Core Models and Methods",
+          "teachers": [
+            "FARINELLA GIOVANNI MARIA",
+            "RAGUSA FRANCESCO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799579",
+      "name": "Fondamenti e Architetture della Computazione Quantistica",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=F07CE5D2-9605-4118-ACB2-18A8B161347F",
+      "offerings": [
+        {
+          "module": "Architettura degli Elaboratori Quantistici",
+          "teachers": [
+            "CHIRIACO' GIULIANO",
+            "GIANNELLI LUIGI"
+          ]
+        },
+        {
+          "module": "Introduzione alla Meccanica Quantistica",
+          "teachers": [
+            "GRIMAUDO ROBERTO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9796654",
+      "name": "FUNCTIONAL AND CONCURRENT PROGRAMMING PRINCIPLES",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=ABEE688D-1019-4EB9-8DB6-5D4B85699293",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "BARBANERA FRANCO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799545",
+      "name": "Game Theory",
+      "years": [
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=F6BF7004-AF42-4227-AEB3-D7F1808D4E3A",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "SCRIMALI LAURA ROSA MARIA"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799505",
+      "name": "Generative Artificial Intelligence",
+      "years": [
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=099958E8-F91F-4F72-BF7D-B04863C9F5CC",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "RUNDO FRANCESCO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799522",
+      "name": "GPU Computing for HPC",
+      "years": [
+        2
+      ],
+      "source_url": null,
+      "offerings": []
+    },
+    {
+      "code": "9799546",
+      "name": "Graphs and Hypergraphs",
+      "years": [
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=0CD8E650-D3DB-4A38-B9A8-F1C8B20E4BF8",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "GUARDO ELENA MARIA"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9796656",
+      "name": "HEURISTICS AND METAHEURISTICS FOR OPTIMIZATION AND LEARNING",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=9BD19A7E-2906-4A76-9C6A-53BA7F5AF3F2",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "CUTELLO VINCENZO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799584",
+      "name": "In Silico Medicine and Simulation",
+      "years": [
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=6787FE52-31CB-478D-A43B-E23E90E79979",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "DI SALVATORE VALENTINA",
+            "PAPPALARDO FRANCESCO",
+            "RUSSO GIULIA"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799517",
+      "name": "Information Technology Law",
+      "years": [
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=B3BEAF36-94BF-4B18-AEB8-C007D7FDACED",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "BATTIATO SEBASTIANO",
+            "FARGETTA GEORGIA"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799537",
+      "name": "Ingegneria dei Sistemi Distribuiti",
+      "years": [
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=FCCC9A02-7FB3-4688-BDA9-5DD84E2D2A6E",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "TRAMONTANA EMILIANO ALESSIO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "1015941",
+      "name": "INGEGNERIA DEI SISTEMI DISTRIBUITI E LABORATORIO",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=CD17E710-DDEF-463E-9D11-688FECAA6D67",
+      "offerings": [
+        {
+          "module": "INGEGNERIA DEI SISTEMI DISTRIBUITI",
+          "teachers": [
+            "TRAMONTANA EMILIANO ALESSIO"
+          ]
+        },
+        {
+          "module": "LABORATORIO",
+          "teachers": [
+            "TRAMONTANA EMILIANO ALESSIO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799502",
+      "name": "Knowledge Representation and Reasoning",
+      "years": [
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=2F06B95E-009E-4FAB-9BB2-E62F6863A8FA",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "SANTAMARIA DANIELE FRANCESCO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "1014420",
+      "name": "LINGUAGGI FORMALI",
+      "years": [
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=F999748E-4E21-4094-A227-D789B00125A0",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "MADONIA MARIA SERAFINA"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799559",
+      "name": "Logic and Formal Language Theory",
+      "years": [
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=EBADF903-4D81-4277-8CEC-AB63E7A891A0",
+      "offerings": [
+        {
+          "module": "Advanced Topics in Mathematical Logic for Computer Science",
+          "teachers": [
+            "NICOLOSI ASMUNDO MARIANNA"
+          ]
+        },
+        {
+          "module": "Linguaggi Formali",
+          "teachers": [
+            "MADONIA MARIA SERAFINA"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799541",
+      "name": "Logica Matematica per l'Informatica",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=09EAE54C-1E59-4449-94CE-E73E53983D0E",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "NICOLOSI ASMUNDO MARIANNA"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "1014450",
+      "name": "MACHINE LEARNING",
+      "years": [
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=46B33EB8-1ADA-4C94-BCB0-49C2E5A9845C",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "FARINELLA GIOVANNI MARIA"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799512",
+      "name": "Medical Imaging",
+      "years": [
+        1,
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=75CA7522-CB19-430E-8D81-2E9248AD9D16",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "BATTIATO SEBASTIANO",
+            "RUNDO FRANCESCO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799526",
+      "name": "Molecular and Computational Biology",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=FA27CE2F-80CD-4497-9B84-0CE3B3DB8038",
+      "offerings": [
+        {
+          "module": "Computational Biology",
+          "teachers": [
+            "BARBAGALLO DAVIDE",
+            "DI PIETRO CINZIA SANTA",
+            "RAGUSA MARCO"
+          ]
+        },
+        {
+          "module": "Molecular Biology",
+          "teachers": [
+            "DE PINTO VITO NICOLA"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799490",
+      "name": "Multimedia",
+      "years": [
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=1063CAAB-766A-42E6-84DE-05909DA4D4E8",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "ALLEGRA DARIO",
+            "STANCO FILIPPO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799513",
+      "name": "Multimedia Coding",
+      "years": [
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=D300B09A-84E3-4E21-95CD-916741A06F98",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "ALLEGRA DARIO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "1014444",
+      "name": "MULTIMEDIA E LABORATORIO",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=9AD9EC74-8283-4AD3-9DA5-2E44C386D50D",
+      "offerings": [
+        {
+          "module": "MULTIMEDIA",
+          "teachers": [
+            "ALLEGRA DARIO",
+            "STANCO FILIPPO"
+          ]
+        },
+        {
+          "module": "LABORATORIO",
+          "teachers": [
+            "ALLEGRA DARIO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799511",
+      "name": "Multimedia Forensics",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=DCAB4CD3-7AC4-4A01-89AF-3D06EC451DBB",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "GUARNERA FRANCESCO",
+            "GUARNERA LUCA"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799516",
+      "name": "Multimedia Security and Biometry",
+      "years": [
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=0D2965A8-3C19-4BFA-A9C9-06EDE3387845",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "ORTIS ALESSANDRO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9796702",
+      "name": "NATURAL LANGUAGE PROCESSING",
+      "years": [
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuidm=CC6B73F1-869E-4ED7-AE80-976411131863",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "MONGIOVI' MISAEL"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799562",
+      "name": "Network Based Big Data Analytics",
+      "years": [
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=172F3920-97FA-4FBF-90D8-E768C0719509",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "PULVIRENTI ALFREDO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799607",
+      "name": "Numerical Methods for Scientific Computing",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=399FAE10-0922-4F1E-ACFA-FDC7AC4D8175",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "BOSCARINO SEBASTIANO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799527",
+      "name": "Omics Data Analysis",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=28AF0B8C-6F72-4535-9D31-C0BC0AF4A826",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "ALAIMO SALVATORE",
+            "MICALE GIOVANNI"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "1014456",
+      "name": "OTTIMIZZAZIONE",
+      "years": [
+        1,
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=989B9D16-58E3-44F3-9FF2-FB922B40DBD2",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "SCRIMALI LAURA ROSA MARIA"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799520",
+      "name": "Principi della Programmazione Parallela",
+      "years": [
+        1
+      ],
+      "source_url": null,
+      "offerings": []
+    },
+    {
+      "code": "9799539",
+      "name": "Programmazione e Ottimizzazione HPC",
+      "years": [
+        2
+      ],
+      "source_url": null,
+      "offerings": []
+    },
+    {
+      "code": "9799538",
+      "name": "Quantum Algorithms e Laboratorio",
+      "years": [
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=09A2BB74-22CF-4C24-A061-C2FEBFE745DA",
+      "offerings": [
+        {
+          "module": "Laboratorio",
+          "teachers": [
+            "VIOLA CATERINA"
+          ]
+        },
+        {
+          "module": "Quantum Algorithms",
+          "teachers": [
+            "FARO SIMONE"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799540",
+      "name": "Quantum Machine Learning",
+      "years": [
+        2
+      ],
+      "source_url": null,
+      "offerings": []
+    },
+    {
+      "code": "9799485",
+      "name": "Semantic Web",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=4F41CE44-DAB4-4473-9DEB-4DAA3926E339",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "NICOLOSI ASMUNDO MARIANNA"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799531",
+      "name": "Sistemi Cloud",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=1E3E44C9-8B36-4058-8FF8-6FFAC5E9F3EF",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "PAPPALARDO GIUSEPPE"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "1015944",
+      "name": "SISTEMI CLOUD E LABORATORIO",
+      "years": [
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=70DCF343-05EE-46DA-BDA2-67A64AE58CF8",
+      "offerings": [
+        {
+          "module": "SISTEMI CLOUD",
+          "teachers": [
+            "PAPPALARDO GIUSEPPE"
+          ]
+        },
+        {
+          "module": "LABORATORIO",
+          "teachers": []
+        }
+      ]
+    },
+    {
+      "code": "9799543",
+      "name": "Sistemi Dinamici",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=1652F8AE-FA66-4FC7-8455-13308A3EBB49",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "ROMANO VITTORIO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799487",
+      "name": "Software Quality and Project Development",
+      "years": [
+        2
+      ],
+      "source_url": null,
+      "offerings": []
+    },
+    {
+      "code": "9799542",
+      "name": "Teoria dei Grafi",
+      "years": [
+        1
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=78875559-B34E-48BD-B41B-33BF5AE3357E",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "GUARDO ELENA MARIA"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799523",
+      "name": "Virtual Systems",
+      "years": [
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=54B56765-4E64-4333-9E77-23AF0020AB7E",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "MESSINA FABRIZIO"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "9799524",
+      "name": "Wireless Systems",
+      "years": [
+        2
+      ],
+      "source_url": "https://web.dmi.unict.it/corsi/lm-18/insegnamenti?seuid=263E3104-B29F-4786-8037-B09B720A3CF8",
+      "offerings": [
+        {
+          "module": null,
+          "teachers": [
+            "RICCOBENE SALVATORE ANTONIO"
+          ]
+        }
+      ]
+    }
+  ],
+  "curricula": [
+    "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING",
+    "COMPUTER VISION AND MULTIMEDIA TECHNOLOGIES",
+    "DISTRIBUTED ARCHITECTURES AND CYBERSECURITY",
+    "HEALTH INFORMATICS",
+    "QUANTUM PROGRAMMING AND HPC",
+    "THEORETICAL COMPUTER SCIENCE"
+  ],
+  "lessons": [
+    {
+      "subject": "Advanced Robotics and Autonomous Systems",
+      "years": [
+        2
+      ],
+      "weekday": 1,
+      "time": "15:00-17:00",
+      "room": "Aula 24",
+      "curricula": [
+        "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING"
+      ]
+    },
+    {
+      "subject": "Advanced Robotics and Autonomous Systems",
+      "years": [
+        2
+      ],
+      "weekday": 3,
+      "time": "15:00-17:00",
+      "room": "Aula 24",
+      "curricula": [
+        "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING"
+      ]
+    },
+    {
+      "subject": "Advanced Topics in Mathematical Logic for Computer Science",
+      "years": [
+        2
+      ],
+      "weekday": 2,
+      "time": "15:00-17:00",
+      "room": "Aula 36",
+      "curricula": [
+        "THEORETICAL COMPUTER SCIENCE"
+      ]
+    },
+    {
+      "subject": "Advanced Topics in Mathematical Logic for Computer Science",
+      "years": [
+        2
+      ],
+      "weekday": 4,
+      "time": "15:00-17:00",
+      "room": "Aula 36",
+      "curricula": [
+        "THEORETICAL COMPUTER SCIENCE"
+      ]
+    },
+    {
+      "subject": "Algoritmi e complessità",
+      "years": [
+        1
+      ],
+      "weekday": 0,
+      "time": "08:00-11:00",
+      "room": "Aula 25",
+      "curricula": [
+        "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING",
+        "COMPUTER VISION AND MULTIMEDIA TECHNOLOGIES",
+        "DISTRIBUTED ARCHITECTURES AND CYBERSECURITY",
+        "HEALTH INFORMATICS",
+        "QUANTUM PROGRAMMING AND HPC",
+        "THEORETICAL COMPUTER SCIENCE"
+      ]
+    },
+    {
+      "subject": "Algoritmi e complessità",
+      "years": [
+        1
+      ],
+      "weekday": 2,
+      "time": "08:00-11:00",
+      "room": "Aula 25",
+      "curricula": [
+        "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING",
+        "COMPUTER VISION AND MULTIMEDIA TECHNOLOGIES",
+        "DISTRIBUTED ARCHITECTURES AND CYBERSECURITY",
+        "HEALTH INFORMATICS",
+        "QUANTUM PROGRAMMING AND HPC",
+        "THEORETICAL COMPUTER SCIENCE"
+      ]
+    },
+    {
+      "subject": "Artificial and Swarm Intelligence",
+      "years": [
+        1
+      ],
+      "weekday": 1,
+      "time": "08:00-10:00",
+      "room": "Aula 124",
+      "curricula": [
+        "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING"
+      ]
+    },
+    {
+      "subject": "Artificial and Swarm Intelligence",
+      "years": [
+        1
+      ],
+      "weekday": 3,
+      "time": "08:00-10:00",
+      "room": "Aula 124",
+      "curricula": [
+        "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING"
+      ]
+    },
+    {
+      "subject": "Audio Processing",
+      "years": [
+        2
+      ],
+      "weekday": 0,
+      "time": "15:00-17:00",
+      "room": "Aula del CdS L31",
+      "curricula": [
+        "COMPUTER VISION AND MULTIMEDIA TECHNOLOGIES"
+      ]
+    },
+    {
+      "subject": "Audio Processing",
+      "years": [
+        2
+      ],
+      "weekday": 2,
+      "time": "15:00-17:00",
+      "room": "Aula del CdS L31",
+      "curricula": [
+        "COMPUTER VISION AND MULTIMEDIA TECHNOLOGIES"
+      ]
+    },
+    {
+      "subject": "Bioinformatics Foundations",
+      "years": [
+        1
+      ],
+      "weekday": 1,
+      "time": "17:00-19:00",
+      "room": "Aula 36",
+      "curricula": [
+        "HEALTH INFORMATICS"
+      ]
+    },
+    {
+      "subject": "Bioinformatics Foundations",
+      "years": [
+        1
+      ],
+      "weekday": 2,
+      "time": "17:00-19:00",
+      "room": "Aula 36",
+      "curricula": [
+        "HEALTH INFORMATICS"
+      ]
+    },
+    {
+      "subject": "Crittografia",
+      "years": [
+        1
+      ],
+      "weekday": 1,
+      "time": "15:00-17:00",
+      "room": "Aula 25",
+      "curricula": [
+        "DISTRIBUTED ARCHITECTURES AND CYBERSECURITY",
+        "QUANTUM PROGRAMMING AND HPC",
+        "THEORETICAL COMPUTER SCIENCE"
+      ]
+    },
+    {
+      "subject": "Crittografia",
+      "years": [
+        1
+      ],
+      "weekday": 2,
+      "time": "11:00-13:00",
+      "room": "Aula 25",
+      "curricula": [
+        "DISTRIBUTED ARCHITECTURES AND CYBERSECURITY",
+        "QUANTUM PROGRAMMING AND HPC",
+        "THEORETICAL COMPUTER SCIENCE"
+      ]
+    },
+    {
+      "subject": "Crittografia",
+      "years": [
+        1
+      ],
+      "weekday": 3,
+      "time": "15:00-17:00",
+      "room": "Aula 25",
+      "curricula": [
+        "DISTRIBUTED ARCHITECTURES AND CYBERSECURITY",
+        "QUANTUM PROGRAMMING AND HPC",
+        "THEORETICAL COMPUTER SCIENCE"
+      ]
+    },
+    {
+      "subject": "Cryptographic Engineering",
+      "years": [
+        2
+      ],
+      "weekday": 0,
+      "time": "15:00-17:00",
+      "room": "Aula 24",
+      "curricula": [
+        "DISTRIBUTED ARCHITECTURES AND CYBERSECURITY",
+        "QUANTUM PROGRAMMING AND HPC"
+      ]
+    },
+    {
+      "subject": "Cryptographic Engineering",
+      "years": [
+        2
+      ],
+      "weekday": 2,
+      "time": "15:00-17:00",
+      "room": "Aula 24",
+      "curricula": [
+        "DISTRIBUTED ARCHITECTURES AND CYBERSECURITY",
+        "QUANTUM PROGRAMMING AND HPC"
+      ]
+    },
+    {
+      "subject": "Deep Learning: Core Models and Methods",
+      "years": [
+        1
+      ],
+      "weekday": 1,
+      "time": "17:00-19:00",
+      "room": "Aula 25",
+      "curricula": [
+        "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING",
+        "COMPUTER VISION AND MULTIMEDIA TECHNOLOGIES"
+      ]
+    },
+    {
+      "subject": "Deep Learning: Core Models and Methods",
+      "years": [
+        1
+      ],
+      "weekday": 3,
+      "time": "17:00-19:00",
+      "room": "Aula 25",
+      "curricula": [
+        "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING",
+        "COMPUTER VISION AND MULTIMEDIA TECHNOLOGIES"
+      ]
+    },
+    {
+      "subject": "GPU Computing for HPC",
+      "years": [
+        2
+      ],
+      "weekday": 2,
+      "time": "17:00-19:00",
+      "room": "Aula 24",
+      "curricula": [
+        "DISTRIBUTED ARCHITECTURES AND CYBERSECURITY",
+        "QUANTUM PROGRAMMING AND HPC"
+      ]
+    },
+    {
+      "subject": "GPU Computing for HPC",
+      "years": [
+        2
+      ],
+      "weekday": 4,
+      "time": "09:00-11:00",
+      "room": "Aula 24",
+      "curricula": [
+        "DISTRIBUTED ARCHITECTURES AND CYBERSECURITY",
+        "QUANTUM PROGRAMMING AND HPC"
+      ]
+    },
+    {
+      "subject": "Game Theory",
+      "years": [
+        2
+      ],
+      "weekday": 1,
+      "time": "09:00-11:00",
+      "room": "Aula del CdS L35",
+      "curricula": [
+        "THEORETICAL COMPUTER SCIENCE"
+      ]
+    },
+    {
+      "subject": "Game Theory",
+      "years": [
+        2
+      ],
+      "weekday": 3,
+      "time": "10:00-12:00",
+      "room": "Aula del CdS L35",
+      "curricula": [
+        "THEORETICAL COMPUTER SCIENCE"
+      ]
+    },
+    {
+      "subject": "Information Technology Law",
+      "years": [
+        2
+      ],
+      "weekday": 1,
+      "time": "17:00-19:00",
+      "room": "Aula del CdS L31",
+      "curricula": [
+        "COMPUTER VISION AND MULTIMEDIA TECHNOLOGIES",
+        "HEALTH INFORMATICS"
+      ]
+    },
+    {
+      "subject": "Information Technology Law",
+      "years": [
+        2
+      ],
+      "weekday": 3,
+      "time": "17:00-19:00",
+      "room": "Aula del CdS L31",
+      "curricula": [
+        "COMPUTER VISION AND MULTIMEDIA TECHNOLOGIES",
+        "HEALTH INFORMATICS"
+      ]
+    },
+    {
+      "subject": "Ingegneria dei Sistemi distribuiti e Laboratorio",
+      "years": [
+        1,
+        2
+      ],
+      "weekday": 1,
+      "time": "09:00-12:00",
+      "room": "Aula 24",
+      "curricula": [
+        "DISTRIBUTED ARCHITECTURES AND CYBERSECURITY",
+        "QUANTUM PROGRAMMING AND HPC"
+      ]
+    },
+    {
+      "subject": "Ingegneria dei Sistemi distribuiti e Laboratorio",
+      "years": [
+        1,
+        2
+      ],
+      "weekday": 3,
+      "time": "09:00-12:00",
+      "room": "Aula 24",
+      "curricula": [
+        "DISTRIBUTED ARCHITECTURES AND CYBERSECURITY",
+        "QUANTUM PROGRAMMING AND HPC"
+      ]
+    },
+    {
+      "subject": "Introduzione alla Meccanica Quantistica",
+      "years": [
+        1
+      ],
+      "weekday": 1,
+      "time": "11:00-13:00",
+      "room": "Aula 41",
+      "curricula": [
+        "QUANTUM PROGRAMMING AND HPC"
+      ]
+    },
+    {
+      "subject": "Introduzione alla Meccanica Quantistica",
+      "years": [
+        1
+      ],
+      "weekday": 3,
+      "time": "11:00-13:00",
+      "room": "Aula 41",
+      "curricula": [
+        "QUANTUM PROGRAMMING AND HPC"
+      ]
+    },
+    {
+      "subject": "Knowledge Representation and Reasoning",
+      "years": [
+        2
+      ],
+      "weekday": 2,
+      "time": "17:00-19:00",
+      "room": "Aula 25",
+      "curricula": [
+        "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING",
+        "HEALTH INFORMATICS",
+        "THEORETICAL COMPUTER SCIENCE"
+      ]
+    },
+    {
+      "subject": "Knowledge Representation and Reasoning",
+      "years": [
+        2
+      ],
+      "weekday": 4,
+      "time": "11:00-13:00",
+      "room": "Aula 25",
+      "curricula": [
+        "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING",
+        "HEALTH INFORMATICS",
+        "THEORETICAL COMPUTER SCIENCE"
+      ]
+    },
+    {
+      "subject": "Linguaggi Formali",
+      "years": [
+        2
+      ],
+      "weekday": 0,
+      "time": "09:00-11:00",
+      "room": "Aula 41",
+      "curricula": [
+        "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING",
+        "QUANTUM PROGRAMMING AND HPC",
+        "THEORETICAL COMPUTER SCIENCE"
+      ]
+    },
+    {
+      "subject": "Linguaggi Formali",
+      "years": [
+        2
+      ],
+      "weekday": 2,
+      "time": "09:00-11:00",
+      "room": "Aula 41",
+      "curricula": [
+        "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING",
+        "QUANTUM PROGRAMMING AND HPC",
+        "THEORETICAL COMPUTER SCIENCE"
+      ]
+    },
+    {
+      "subject": "Logica Matematica per l’Informatica",
+      "years": [
+        1
+      ],
+      "weekday": 1,
+      "time": "10:00-12:00",
+      "room": "Aula del CdS LM40",
+      "curricula": [
+        "THEORETICAL COMPUTER SCIENCE"
+      ]
+    },
+    {
+      "subject": "Logica Matematica per l’Informatica",
+      "years": [
+        1
+      ],
+      "weekday": 3,
+      "time": "10:00-12:00",
+      "room": "Aula del CdS LM40",
+      "curricula": [
+        "THEORETICAL COMPUTER SCIENCE"
+      ]
+    },
+    {
+      "subject": "Machine Learning",
+      "years": [
+        1
+      ],
+      "weekday": 0,
+      "time": "17:00-19:00",
+      "room": "Aula 24",
+      "curricula": [
+        "COMPUTER VISION AND MULTIMEDIA TECHNOLOGIES"
+      ]
+    },
+    {
+      "subject": "Machine Learning",
+      "years": [
+        1
+      ],
+      "weekday": 0,
+      "time": "17:00-19:00",
+      "room": "Aula del CdS L31",
+      "curricula": [
+        "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING"
+      ]
+    },
+    {
+      "subject": "Machine Learning",
+      "years": [
+        1
+      ],
+      "weekday": 4,
+      "time": "17:00-19:00",
+      "room": "Aula 24",
+      "curricula": [
+        "COMPUTER VISION AND MULTIMEDIA TECHNOLOGIES"
+      ]
+    },
+    {
+      "subject": "Machine Learning",
+      "years": [
+        1
+      ],
+      "weekday": 4,
+      "time": "17:00-19:00",
+      "room": "Aula del CdS L31",
+      "curricula": [
+        "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING"
+      ]
+    },
+    {
+      "subject": "Molecular and Computational Biology",
+      "years": [
+        1
+      ],
+      "weekday": 0,
+      "time": "11:00-13:00",
+      "room": "Aula 41",
+      "curricula": [
+        "HEALTH INFORMATICS"
+      ]
+    },
+    {
+      "subject": "Molecular and Computational Biology",
+      "years": [
+        1
+      ],
+      "weekday": 2,
+      "time": "11:00-13:00",
+      "room": "Aula 41",
+      "curricula": [
+        "HEALTH INFORMATICS"
+      ]
+    },
+    {
+      "subject": "Molecular and Computational Biology",
+      "years": [
+        1
+      ],
+      "weekday": 4,
+      "time": "11:00-13:00",
+      "room": "Aula 41",
+      "curricula": [
+        "HEALTH INFORMATICS"
+      ]
+    },
+    {
+      "subject": "Multimedia Coding",
+      "years": [
+        2
+      ],
+      "weekday": 1,
+      "time": "12:00-14:00",
+      "room": "Aula 36",
+      "curricula": [
+        "COMPUTER VISION AND MULTIMEDIA TECHNOLOGIES"
+      ]
+    },
+    {
+      "subject": "Multimedia Coding",
+      "years": [
+        2
+      ],
+      "weekday": 3,
+      "time": "12:00-14:00",
+      "room": "Aula 36",
+      "curricula": [
+        "COMPUTER VISION AND MULTIMEDIA TECHNOLOGIES"
+      ]
+    },
+    {
+      "subject": "Multimedia Security and Biometry",
+      "years": [
+        2
+      ],
+      "weekday": 2,
+      "time": "11:00-13:00",
+      "room": "Aula del CdS L31",
+      "curricula": [
+        "COMPUTER VISION AND MULTIMEDIA TECHNOLOGIES"
+      ]
+    },
+    {
+      "subject": "Multimedia Security and Biometry",
+      "years": [
+        2
+      ],
+      "weekday": 4,
+      "time": "11:00-13:00",
+      "room": "Aula del CdS L31",
+      "curricula": [
+        "COMPUTER VISION AND MULTIMEDIA TECHNOLOGIES"
+      ]
+    },
+    {
+      "subject": "Multimedia e Laboratorio",
+      "years": [
+        1,
+        2
+      ],
+      "weekday": 0,
+      "time": "11:00-14:00",
+      "room": "Aula 41",
+      "curricula": [
+        "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING",
+        "COMPUTER VISION AND MULTIMEDIA TECHNOLOGIES",
+        "HEALTH INFORMATICS"
+      ]
+    },
+    {
+      "subject": "Multimedia e Laboratorio",
+      "years": [
+        1,
+        2
+      ],
+      "weekday": 2,
+      "time": "11:00-14:00",
+      "room": "Aula 41",
+      "curricula": [
+        "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING",
+        "COMPUTER VISION AND MULTIMEDIA TECHNOLOGIES",
+        "HEALTH INFORMATICS"
+      ]
+    },
+    {
+      "subject": "Natural Language Processing",
+      "years": [
+        2
+      ],
+      "weekday": 0,
+      "time": "15:00-17:00",
+      "room": "Aula del CdS L31",
+      "curricula": [
+        "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING"
+      ]
+    },
+    {
+      "subject": "Natural Language Processing",
+      "years": [
+        2
+      ],
+      "weekday": 2,
+      "time": "15:00-17:00",
+      "room": "Aula del CdS L31",
+      "curricula": [
+        "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING"
+      ]
+    },
+    {
+      "subject": "Network Based Big Data Analytics",
+      "years": [
+        2
+      ],
+      "weekday": 0,
+      "time": "16:00-18:00",
+      "room": "Aula 36",
+      "curricula": [
+        "HEALTH INFORMATICS"
+      ]
+    },
+    {
+      "subject": "Network Based Big Data Analytics",
+      "years": [
+        2
+      ],
+      "weekday": 4,
+      "time": "16:00-18:00",
+      "room": "Aula 41",
+      "curricula": [
+        "HEALTH INFORMATICS"
+      ]
+    },
+    {
+      "subject": "Ottimizzazione",
+      "years": [
+        1,
+        2
+      ],
+      "weekday": 0,
+      "time": "17:00-19:00",
+      "room": "Aula 25",
+      "curricula": [
+        "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING",
+        "COMPUTER VISION AND MULTIMEDIA TECHNOLOGIES",
+        "DISTRIBUTED ARCHITECTURES AND CYBERSECURITY",
+        "THEORETICAL COMPUTER SCIENCE"
+      ]
+    },
+    {
+      "subject": "Ottimizzazione",
+      "years": [
+        1,
+        2
+      ],
+      "weekday": 4,
+      "time": "09:00-11:00",
+      "room": "Aula 25",
+      "curricula": [
+        "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING",
+        "COMPUTER VISION AND MULTIMEDIA TECHNOLOGIES",
+        "DISTRIBUTED ARCHITECTURES AND CYBERSECURITY",
+        "THEORETICAL COMPUTER SCIENCE"
+      ]
+    },
+    {
+      "subject": "Quantum Computer Programming",
+      "years": [
+        1
+      ],
+      "weekday": 0,
+      "time": "15:00-18:00",
+      "room": "Aula 23",
+      "curricula": [
+        "QUANTUM PROGRAMMING AND HPC"
+      ]
+    },
+    {
+      "subject": "Quantum Computer Programming",
+      "years": [
+        1
+      ],
+      "weekday": 4,
+      "time": "15:00-18:00",
+      "room": "Aula 22",
+      "curricula": [
+        "QUANTUM PROGRAMMING AND HPC"
+      ]
+    },
+    {
+      "subject": "Software Quality and Project Development",
+      "years": [
+        2
+      ],
+      "weekday": 1,
+      "time": "08:00-10:00",
+      "room": "Aula MI6",
+      "curricula": [
+        "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING",
+        "COMPUTER VISION AND MULTIMEDIA TECHNOLOGIES",
+        "DISTRIBUTED ARCHITECTURES AND CYBERSECURITY"
+      ]
+    },
+    {
+      "subject": "Software Quality and Project Development",
+      "years": [
+        2
+      ],
+      "weekday": 3,
+      "time": "08:00-10:00",
+      "room": "Aula 25",
+      "curricula": [
+        "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING",
+        "COMPUTER VISION AND MULTIMEDIA TECHNOLOGIES",
+        "DISTRIBUTED ARCHITECTURES AND CYBERSECURITY"
+      ]
+    },
+    {
+      "subject": "Wireless Systems",
+      "years": [
+        2
+      ],
+      "weekday": 1,
+      "time": "17:00-19:00",
+      "room": "Aula 24",
+      "curricula": [
+        "DISTRIBUTED ARCHITECTURES AND CYBERSECURITY"
+      ]
+    },
+    {
+      "subject": "Wireless Systems",
+      "years": [
+        2
+      ],
+      "weekday": 3,
+      "time": "17:00-19:00",
+      "room": "Aula 24",
+      "curricula": [
+        "DISTRIBUTED ARCHITECTURES AND CYBERSECURITY"
+      ]
+    }
+  ]
+}

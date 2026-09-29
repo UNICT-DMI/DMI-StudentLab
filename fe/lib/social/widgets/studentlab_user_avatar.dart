@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../theme/studentlab_brand.dart';
+
 import '../../theme/nightTheme.dart';
 import '../social_models.dart';
 
@@ -22,10 +24,11 @@ class StudentLabUserAvatar extends StatelessWidget {
   bool get _isTeacher => type == SocialUserType.teacher;
   bool get _isGuest => type == null;
 
+  /// Immagine nel colore del tema attivo (con Notte, quelle originali).
   String get _assetPath {
-    if (_isGuest) return guestAsset;
-    if (_isTeacher) return teacherAsset;
-    return studentAsset;
+    if (_isGuest) return StudentLabBrand.guestAvatar;
+    if (_isTeacher) return StudentLabBrand.teacherAvatar;
+    return StudentLabBrand.studentAvatar;
   }
 
   Color get _accent {

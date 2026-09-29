@@ -138,16 +138,16 @@ class _AdminNewsReportsPageState extends State<AdminNewsReportsPage> {
       builder: (BuildContext dialogContext) {
         return AlertDialog(
           backgroundColor: AppColors.eleganceDeepNavy,
-          title: const Text(
+          title: Text(
             'Aprire il messaggio privato?',
             style: TextStyle(color: AppColors.pureWhite, fontSize: 16),
           ),
-          content: const Text(
+          content: Text(
             'Il segnalante ha condiviso la chiave di questo singolo '
             'messaggio: non potrai leggere il resto della conversazione. '
             'L’apertura viene registrata con il tuo account e resta '
             'consultabile.',
-            style: TextStyle(color: Colors.white70, fontSize: 12, height: 1.4),
+            style: TextStyle(color: AppColors.white70, fontSize: 12, height: 1.4),
           ),
           actions: [
             TextButton(
@@ -200,7 +200,7 @@ class _AdminNewsReportsPageState extends State<AdminNewsReportsPage> {
                   children: [
                     Text(
                       'Gestisci segnalazione #${report.id}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.pureWhite,
                         fontSize: 17,
                         fontWeight: FontWeight.w600,
@@ -261,7 +261,7 @@ class _AdminNewsReportsPageState extends State<AdminNewsReportsPage> {
                       minLines: 3,
                       maxLines: 6,
                       maxLength: NewsReportApiService.maxDescriptionLength,
-                      style: const TextStyle(color: AppColors.pureWhite),
+                      style: TextStyle(color: AppColors.pureWhite),
                       decoration: InputDecoration(
                         labelText: action == 'none'
                             ? 'Nota moderazione'
@@ -269,13 +269,13 @@ class _AdminNewsReportsPageState extends State<AdminNewsReportsPage> {
                       ),
                     ),
                     if (action != 'none')
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.only(bottom: 12),
                         child: Text(
                           'La motivazione resta salvata sul contenuto '
                           'moderato insieme al tuo identificativo.',
                           style: TextStyle(
-                            color: Colors.white54,
+                            color: AppColors.white54,
                             fontSize: 10,
                             height: 1.4,
                           ),
@@ -453,17 +453,17 @@ class _AdminNewsReportsPageState extends State<AdminNewsReportsPage> {
           child: Text(
             _error!,
             textAlign: TextAlign.center,
-            style: const TextStyle(color: Colors.white60),
+            style: TextStyle(color: AppColors.white60),
           ),
         ),
       );
     }
 
     if (_items.isEmpty) {
-      return const Center(
+      return Center(
         child: Text(
           'Nessuna segnalazione in questa sezione.',
-          style: TextStyle(color: Colors.white54),
+          style: TextStyle(color: AppColors.white54),
         ),
       );
     }
@@ -502,9 +502,9 @@ class _AdminNewsReportsPageState extends State<AdminNewsReportsPage> {
         children: [
           Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.flag_outlined,
-                color: Colors.orangeAccent,
+                color: AppColors.orangeAccent,
                 size: 20,
               ),
               const SizedBox(width: 8),
@@ -512,7 +512,7 @@ class _AdminNewsReportsPageState extends State<AdminNewsReportsPage> {
                 child: Text(
                   '${_categoryLabels[report.category] ?? report.category}'
                   ' · #${report.newsId}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.pureWhite,
                     fontSize: 13,
                     fontWeight: FontWeight.bold,
@@ -521,7 +521,7 @@ class _AdminNewsReportsPageState extends State<AdminNewsReportsPage> {
               ),
               Text(
                 _statusLabels[report.status] ?? report.status,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.materialSky,
                   fontSize: 9,
                 ),
@@ -531,7 +531,7 @@ class _AdminNewsReportsPageState extends State<AdminNewsReportsPage> {
           const SizedBox(height: 10),
           Text(
             report.reasonLabel,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.pureWhite,
               fontSize: 11,
               fontWeight: FontWeight.w600,
@@ -541,8 +541,8 @@ class _AdminNewsReportsPageState extends State<AdminNewsReportsPage> {
             const SizedBox(height: 6),
             Text(
               report.description,
-              style: const TextStyle(
-                color: Colors.white54,
+              style: TextStyle(
+                color: AppColors.white54,
                 fontSize: 10,
                 height: 1.4,
               ),
@@ -575,8 +575,8 @@ class _AdminNewsReportsPageState extends State<AdminNewsReportsPage> {
                   : 'Nessuna chiave condivisa: il contenuto non è leggibile.',
               style: TextStyle(
                 color: report.hasDisclosureConsent
-                    ? Colors.white54
-                    : Colors.orangeAccent,
+                    ? AppColors.white54
+                    : AppColors.orangeAccent,
                 fontSize: 10,
                 height: 1.4,
               ),
@@ -586,8 +586,8 @@ class _AdminNewsReportsPageState extends State<AdminNewsReportsPage> {
             const SizedBox(height: 8),
             Text(
               'Nota: ${report.moderationNote}',
-              style: const TextStyle(
-                color: Colors.white38,
+              style: TextStyle(
+                color: AppColors.white38,
                 fontSize: 10,
                 height: 1.4,
               ),
@@ -643,7 +643,7 @@ class _AdminNewsReportsPageState extends State<AdminNewsReportsPage> {
                 size: 16,
                 color: disclosure.verified
                     ? AppColors.materialSky
-                    : Colors.orangeAccent,
+                    : AppColors.orangeAccent,
               ),
               const SizedBox(width: 6),
               Expanded(
@@ -652,7 +652,7 @@ class _AdminNewsReportsPageState extends State<AdminNewsReportsPage> {
                       ? '${disclosure.authorName} · '
                           '${_formatDate(disclosure.createdAt)}'
                       : _formatDate(disclosure.createdAt),
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.pureWhite,
                     fontSize: 10,
                     fontWeight: FontWeight.w600,
@@ -664,7 +664,7 @@ class _AdminNewsReportsPageState extends State<AdminNewsReportsPage> {
           const SizedBox(height: 8),
           SelectableText(
             disclosure.content,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.pureWhite,
               fontSize: 12,
               height: 1.4,
@@ -677,8 +677,8 @@ class _AdminNewsReportsPageState extends State<AdminNewsReportsPage> {
                   ? 'Il tag di autenticazione conferma che il testo è quello '
                       'inviato dall’autore e non è stato alterato.'
                   : 'Contenuto non verificato.',
-              style: const TextStyle(
-                color: Colors.white54,
+              style: TextStyle(
+                color: AppColors.white54,
                 fontSize: 9,
                 height: 1.4,
               ),
@@ -688,8 +688,8 @@ class _AdminNewsReportsPageState extends State<AdminNewsReportsPage> {
               Text(
                 'Destinatari della chiave: '
                 '${disclosure.wrapTargets.join(', ')}',
-                style: const TextStyle(
-                  color: Colors.white38,
+                style: TextStyle(
+                  color: AppColors.white38,
                   fontSize: 9,
                   height: 1.4,
                 ),
@@ -704,8 +704,8 @@ class _AdminNewsReportsPageState extends State<AdminNewsReportsPage> {
   Widget _metaLabel(String text) {
     return Text(
       text,
-      style: const TextStyle(
-        color: Colors.white38,
+      style: TextStyle(
+        color: AppColors.white38,
         fontSize: 9,
       ),
     );

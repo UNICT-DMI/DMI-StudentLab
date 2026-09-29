@@ -14,6 +14,7 @@ from sqlalchemy.orm import (
 from models.public_material import (
     PublicMaterial,
 )
+from core.config import settings
 
 from models.subject import (
     Subject,
@@ -496,6 +497,16 @@ def replace_public_material_file(
         size
     )
 
+    changed_content = material.file_hash != normalized_hash
+    if changed_content:
+        # The existing Drive reference is to the previous bytes.
+        # Keep that backup in Drive; a new copy must be verified separately.
+        material.drive_file_id = None
+        material.drive_copied_at = None
+        material.drive_allow_duplicate = False
+        material.drive_retry_after = None
+        material.drive_retry_attempts = 0
+
     material.file_hash = (
         normalized_hash
     )
@@ -508,13 +519,11 @@ def replace_public_material_file(
         + 1
     )
 
-    material.status = (
-        "published"
-    )
-
-    material.is_visible = (
-        True
-    )
+    wait_for_drive = changed_content and bool(settings.drive_client_id and settings.drive_client_secret and settings.drive_refresh_token)
+    material.status = 'hidden' if wait_for_drive else 'published'
+    material.is_visible = not wait_for_drive
+    material.drive_activation_pending = wait_for_drive
+    material.visibility_state = 'in_review' if wait_for_drive else 'visible'
 
     material.approved_by = (
         current_admin.id
@@ -622,6 +631,13 @@ def restore_public_material(
         raise ValueError(
             "Il materiale è stato rimosso.",
         )
+
+    if material.drive_activation_pending or (
+        settings.drive_client_id and settings.drive_client_secret and
+        settings.drive_refresh_token and not material.drive_file_id and
+        material.visibility_state == 'in_review'
+    ):
+        raise ValueError("Completa prima il caricamento su Drive.")
 
     material.status = (
         "published"

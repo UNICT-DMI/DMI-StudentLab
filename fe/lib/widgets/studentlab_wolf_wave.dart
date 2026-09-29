@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fe/theme/nightTheme.dart';
+
+import '../theme/studentlab_brand.dart';
 
 class StudentLabWolfSplash extends StatelessWidget {
   final double size;
@@ -23,7 +26,7 @@ class StudentLabWolfSplash extends StatelessWidget {
           width: size,
           height: size,
           child: Image.asset(
-            'assets/mascot/studentlab_wolf.png',
+            StudentLabBrand.wolf,
             fit: BoxFit.contain,
             filterQuality: FilterQuality.high,
           ),
@@ -122,18 +125,14 @@ class _StudentLabTitleState
             ),
             boxShadow: [
               BoxShadow(
-                color: const Color(
-                  0xFF00D9FF,
-                ).withValues(
+                color: StudentLabBrand.glow[0].withValues(
                   alpha: _glowOpacity.value * 0.65,
                 ),
                 blurRadius: _glowBlur.value,
                 spreadRadius: _glowSpread.value,
               ),
               BoxShadow(
-                color: const Color(
-                  0xFF654DFF,
-                ).withValues(
+                color: StudentLabBrand.glow[1].withValues(
                   alpha: _glowOpacity.value * 0.45,
                 ),
                 blurRadius: _glowBlur.value * 1.35,
@@ -156,15 +155,10 @@ class _StudentLabTitleState
           shaderCallback: (
             bounds,
           ) {
-            return const LinearGradient(
+            return LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [
-                Color(0xFFFFFFFF),
-                Color(0xFFF3F9FF),
-                Color(0xFFDCEEFF),
-                Color(0xFFBFDDF7),
-              ],
+              colors: StudentLabBrand.studentGradient,
             ).createShader(
               bounds,
             );
@@ -172,7 +166,7 @@ class _StudentLabTitleState
           child: Text(
             'Student',
             style: TextStyle(
-              color: Colors.white,
+              color: AppColors.white,
               fontSize: widget.fontSize,
               fontWeight: FontWeight.w800,
               letterSpacing: -1.2,
@@ -185,16 +179,11 @@ class _StudentLabTitleState
           shaderCallback: (
             bounds,
           ) {
-            return const LinearGradient(
+            return LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [
-                Color(0xFF00E5FF),
-                Color(0xFF168CFF),
-                Color(0xFF654DFF),
-                Color(0xFFE13CFF),
-              ],
-              stops: [
+              colors: StudentLabBrand.labGradient,
+              stops: const [
                 0.0,
                 0.35,
                 0.68,
@@ -207,7 +196,7 @@ class _StudentLabTitleState
           child: Text(
             'Lab',
             style: TextStyle(
-              color: Colors.white,
+              color: AppColors.white,
               fontSize: widget.fontSize,
               fontWeight: FontWeight.w800,
               letterSpacing: -1.2,

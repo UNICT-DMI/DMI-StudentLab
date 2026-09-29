@@ -24,6 +24,7 @@ class _AcademicPathsPageState extends State<AcademicPathsPage> {
   SocialUser? _currentUser;
 
   List<SocialAcademicPath> _paths = [];
+  List<Map<String, dynamic>> _catalogRequests = [];
 
   bool _loading = true;
 
@@ -45,6 +46,7 @@ class _AcademicPathsPageState extends State<AcademicPathsPage> {
       _paths = List<SocialAcademicPath>.from(initialPaths);
 
       _loading = false;
+      _loadCatalogRequests();
     } else {
       _load();
     }
@@ -78,6 +80,7 @@ class _AcademicPathsPageState extends State<AcademicPathsPage> {
       });
 
       _authSession.updateUser(completeUser);
+      await _loadCatalogRequests();
     } catch (e) {
       if (!mounted) {
         return;
@@ -110,6 +113,16 @@ class _AcademicPathsPageState extends State<AcademicPathsPage> {
     });
 
     _authSession.updateUser(completeUser);
+    await _loadCatalogRequests();
+  }
+
+  Future<void> _loadCatalogRequests() async {
+    try {
+      final result = await _apiService.getAcademicCatalogRequests();
+      if (mounted) setState(() => _catalogRequests = result);
+    } catch (_) {
+      // The academic path list remains available if review status cannot load.
+    }
   }
 
   Future<void> _addPath() async {
@@ -214,7 +227,7 @@ class _AcademicPathsPageState extends State<AcademicPathsPage> {
         return AlertDialog(
           backgroundColor: AppColors.eleganceDeepNavy,
 
-          title: const Text(
+          title: Text(
             'Elimina percorso',
 
             style: TextStyle(color: AppColors.pureWhite),
@@ -240,10 +253,10 @@ class _AcademicPathsPageState extends State<AcademicPathsPage> {
                 Navigator.pop(dialogContext, true);
               },
 
-              child: const Text(
+              child: Text(
                 'Elimina',
 
-                style: TextStyle(color: Colors.redAccent),
+                style: TextStyle(color: AppColors.redAccent),
               ),
             ),
           ],
@@ -377,10 +390,10 @@ class _AcademicPathsPageState extends State<AcademicPathsPage> {
             mainAxisSize: MainAxisSize.min,
 
             children: [
-              const Icon(
+              Icon(
                 Icons.error_outline_rounded,
 
-                color: Colors.redAccent,
+                color: AppColors.redAccent,
 
                 size: 42,
               ),
@@ -427,7 +440,7 @@ class _AcademicPathsPageState extends State<AcademicPathsPage> {
                 padding: const EdgeInsets.fromLTRB(20, 20, 20, 110),
 
                 children: [
-                  const Text(
+                  Text(
                     'I tuoi percorsi',
 
                     style: TextStyle(
@@ -472,6 +485,17 @@ class _AcademicPathsPageState extends State<AcademicPathsPage> {
                   ],
 
                   const SizedBox(height: 22),
+                  for (final request in _catalogRequests.where((item) =>
+                      item['status'] == 'pending' || item['status'] == 'rejected'))
+                    Card(color: Colors.amber.withValues(alpha: 0.14), child: Padding(
+                      padding: const EdgeInsets.all(12), child: Text(
+                        request['status'] == 'pending'
+                          ? 'Corso ${request['course']}: registrazione completata. '
+                            'Stiamo associando il percorso al catalogo; riceverai una notifica.'
+                          : 'Corso ${request['course']}: verifica i dati e modifica il percorso. '
+                            '${request['admin_note'] ?? ''}',
+                        style: const TextStyle(color: Colors.amberAccent),
+                      ))),
 
                   if (_paths.isEmpty)
                     _EmptyPaths(onAdd: _addPath)
@@ -565,7 +589,7 @@ class _AcademicPathCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
 
-                child: const Icon(
+                child: Icon(
                   Icons.school_outlined,
 
                   color: AppColors.skyBlue,
@@ -582,7 +606,7 @@ class _AcademicPathCard extends StatelessWidget {
                     Text(
                       path.course,
 
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.pureWhite,
 
                         fontSize: 16,
@@ -597,7 +621,7 @@ class _AcademicPathCard extends StatelessWidget {
                       Text(
                         academicPathTypeLabel(path.degreeType),
 
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.skyBlue,
 
                           fontSize: 11,
@@ -615,7 +639,7 @@ class _AcademicPathCard extends StatelessWidget {
 
                 color: AppColors.eleganceDeepNavy,
 
-                icon: const Icon(Icons.more_vert, color: AppColors.pureWhite),
+                icon: Icon(Icons.more_vert, color: AppColors.pureWhite),
 
                 onSelected: (String value) {
                   switch (value) {
@@ -713,48 +737,48 @@ class _AcademicPathCard extends StatelessWidget {
               _StatusBadge(path: path),
 
               if (path.isCurrent)
-                const _Badge(
+                _Badge(
                   label: 'CORRENTE',
 
                   icon: Icons.location_on_rounded,
 
-                  color: Colors.greenAccent,
+                  color: AppColors.greenAccent,
                 ),
 
               if (path.isPrimary)
-                const _Badge(
+                _Badge(
                   label: 'PRINCIPALE',
 
                   icon: Icons.star_rounded,
 
-                  color: Colors.amber,
+                  color: AppColors.amber,
                 ),
 
               if (path.isGraduated && path.isVerified)
-                const _Badge(
+                _Badge(
                   label: 'VERIFICATO',
 
                   icon: Icons.verified_rounded,
 
-                  color: Colors.greenAccent,
+                  color: AppColors.greenAccent,
                 ),
 
               if (path.isVerificationPending)
-                const _Badge(
+                _Badge(
                   label: 'VERIFICA IN ATTESA',
 
                   icon: Icons.schedule_rounded,
 
-                  color: Colors.amber,
+                  color: AppColors.amber,
                 ),
 
               if (path.isVerificationRejected)
-                const _Badge(
+                _Badge(
                   label: 'VERIFICA RIFIUTATA',
 
                   icon: Icons.cancel_outlined,
 
-                  color: Colors.redAccent,
+                  color: AppColors.redAccent,
                 ),
             ],
           ),
@@ -1385,7 +1409,7 @@ class _AcademicPathEditorPageState extends State<AcademicPathEditorPage> {
                 padding: const EdgeInsets.all(20),
 
                 children: [
-                  const Text(
+                  Text(
                     'Percorso universitario',
 
                     style: TextStyle(
@@ -1441,7 +1465,7 @@ class _AcademicPathEditorPageState extends State<AcademicPathEditorPage> {
 
                           overflow: TextOverflow.ellipsis,
 
-                          style: const TextStyle(color: AppColors.pureWhite),
+                          style: TextStyle(color: AppColors.pureWhite),
                         ),
                       );
                     }).toList(),
@@ -1493,7 +1517,7 @@ class _AcademicPathEditorPageState extends State<AcademicPathEditorPage> {
 
                           overflow: TextOverflow.ellipsis,
 
-                          style: const TextStyle(color: AppColors.pureWhite),
+                          style: TextStyle(color: AppColors.pureWhite),
                         ),
                       );
                     }).toList(),
@@ -1552,7 +1576,7 @@ class _AcademicPathEditorPageState extends State<AcademicPathEditorPage> {
 
                           overflow: TextOverflow.ellipsis,
 
-                          style: const TextStyle(color: AppColors.pureWhite),
+                          style: TextStyle(color: AppColors.pureWhite),
                         ),
                       );
                     }).toList(),
@@ -1579,7 +1603,7 @@ class _AcademicPathEditorPageState extends State<AcademicPathEditorPage> {
                       icon: Icons.workspace_premium_outlined,
                     ),
 
-                    items: const [
+                    items: [
                       DropdownMenuItem(
                         value: AcademicPathStatus.enrolled,
 
@@ -1661,7 +1685,7 @@ class _AcademicPathEditorPageState extends State<AcademicPathEditorPage> {
 
                     enabled: !_saving,
 
-                    style: const TextStyle(color: AppColors.pureWhite),
+                    style: TextStyle(color: AppColors.pureWhite),
 
                     validator: _validateStartYear,
 
@@ -1684,7 +1708,7 @@ class _AcademicPathEditorPageState extends State<AcademicPathEditorPage> {
 
                       enabled: !_saving,
 
-                      style: const TextStyle(color: AppColors.pureWhite),
+                      style: TextStyle(color: AppColors.pureWhite),
 
                       validator: _validateGraduationYear,
 
@@ -1744,12 +1768,12 @@ class _AcademicPathEditorPageState extends State<AcademicPathEditorPage> {
                       padding: const EdgeInsets.all(13),
 
                       decoration: BoxDecoration(
-                        color: Colors.amber.withOpacity(0.07),
+                        color: AppColors.amber.withOpacity(0.07),
 
                         borderRadius: BorderRadius.circular(12),
 
                         border: Border.all(
-                          color: Colors.amber.withOpacity(0.18),
+                          color: AppColors.amber.withOpacity(0.18),
                         ),
                       ),
 
@@ -1757,10 +1781,10 @@ class _AcademicPathEditorPageState extends State<AcademicPathEditorPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
 
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.verified_outlined,
 
-                            color: Colors.amber,
+                            color: AppColors.amber,
 
                             size: 18,
                           ),
@@ -1794,7 +1818,7 @@ class _AcademicPathEditorPageState extends State<AcademicPathEditorPage> {
                       onPressed: _saving ? null : _save,
 
                       icon: _saving
-                          ? const SizedBox(
+                          ? SizedBox(
                               width: 18,
 
                               height: 18,
@@ -1882,7 +1906,7 @@ class _AcademicPathEditorPageState extends State<AcademicPathEditorPage> {
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(14),
 
-        borderSide: const BorderSide(color: AppColors.socialBlue),
+        borderSide: BorderSide(color: AppColors.socialBlue),
       ),
     );
   }
@@ -1906,11 +1930,11 @@ class _EmptyPaths extends StatelessWidget {
 
       child: Column(
         children: [
-          const Icon(Icons.school_outlined, color: AppColors.skyBlue, size: 42),
+          Icon(Icons.school_outlined, color: AppColors.skyBlue, size: 42),
 
           const SizedBox(height: 12),
 
-          const Text(
+          Text(
             'Nessun percorso',
 
             style: TextStyle(
@@ -2056,7 +2080,7 @@ class _StatusBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (path.status) {
       case AcademicPathStatus.enrolled:
-        return const _Badge(
+        return _Badge(
           label: 'ISCRITTO',
 
           icon: Icons.school_outlined,
@@ -2065,7 +2089,7 @@ class _StatusBadge extends StatelessWidget {
         );
 
       case AcademicPathStatus.graduated:
-        return const _Badge(
+        return _Badge(
           label: 'LAUREATO',
 
           icon: Icons.workspace_premium_outlined,
@@ -2074,7 +2098,7 @@ class _StatusBadge extends StatelessWidget {
         );
 
       case AcademicPathStatus.transferred:
-        return const _Badge(
+        return _Badge(
           label: 'TRASFERITO',
 
           icon: Icons.swap_horiz_rounded,
@@ -2083,21 +2107,21 @@ class _StatusBadge extends StatelessWidget {
         );
 
       case AcademicPathStatus.suspended:
-        return const _Badge(
+        return _Badge(
           label: 'SOSPESO',
 
           icon: Icons.pause_circle_outline_rounded,
 
-          color: Colors.amber,
+          color: AppColors.amber,
         );
 
       case AcademicPathStatus.withdrawn:
-        return const _Badge(
+        return _Badge(
           label: 'INTERROTTO',
 
           icon: Icons.remove_circle_outline,
 
-          color: Colors.orangeAccent,
+          color: AppColors.orangeAccent,
         );
     }
   }
@@ -2165,7 +2189,7 @@ class _MenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color color = danger ? Colors.redAccent : AppColors.pureWhite;
+    final Color color = danger ? AppColors.redAccent : AppColors.pureWhite;
 
     return Row(
       children: [

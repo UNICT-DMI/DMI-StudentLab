@@ -337,7 +337,7 @@ class _GroupParticipantsLayerState
 
         Row(
           children: [
-            const Expanded(
+            Expanded(
               child:
                   Text(
                 'Partecipanti',
@@ -382,7 +382,7 @@ class _GroupParticipantsLayerState
                 '${_participants.length}',
 
                 style:
-                    const TextStyle(
+                    TextStyle(
                   color:
                       AppColors.materialSky,
 
@@ -509,7 +509,7 @@ class _GroupParticipantsLayerState
                 ),
 
                 child:
-                    const Icon(
+                    Icon(
                   Icons.menu_book_rounded,
 
                   color:
@@ -542,7 +542,7 @@ class _GroupParticipantsLayerState
                           TextOverflow.ellipsis,
 
                       style:
-                          const TextStyle(
+                          TextStyle(
                         color:
                             AppColors.pureWhite,
 
@@ -623,7 +623,7 @@ class _GroupParticipantsLayerState
 
           Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.people_outline_rounded,
 
                 color:
@@ -660,11 +660,11 @@ class _GroupParticipantsLayerState
               const Spacer(),
 
               if (widget.group.isPrivate)
-                const Icon(
+                Icon(
                   Icons.lock_outline_rounded,
 
                   color:
-                      Colors.white38,
+                      AppColors.white38,
 
                   size:
                       18,
@@ -850,7 +850,7 @@ class _GroupParticipantsLayerState
               border:
                   Border.all(
                 color:
-                    Colors.redAccent
+                    AppColors.redAccent
                         .withOpacity(
                   0.20,
                 ),
@@ -860,11 +860,11 @@ class _GroupParticipantsLayerState
             child:
                 Column(
               children: [
-                const Icon(
+                Icon(
                   Icons.error_outline_rounded,
 
                   color:
-                      Colors.redAccent,
+                      AppColors.redAccent,
 
                   size:
                       42,
@@ -875,7 +875,7 @@ class _GroupParticipantsLayerState
                       12,
                 ),
 
-                const Text(
+                Text(
                   'Errore caricamento partecipanti',
 
                   textAlign:
@@ -988,7 +988,7 @@ class _GroupParticipantsLayerState
               ),
 
               child:
-                  const Icon(
+                  Icon(
                 Icons.people_outline_rounded,
 
                 color:
@@ -1004,7 +1004,7 @@ class _GroupParticipantsLayerState
                   18,
             ),
 
-            const Text(
+            Text(
               'Nessun partecipante',
 
               style:
@@ -1170,7 +1170,7 @@ class _ParticipantCard
                   48,
 
               decoration:
-                  const BoxDecoration(
+                  BoxDecoration(
                 color:
                     AppColors.brandNightBlue,
 
@@ -1187,7 +1187,7 @@ class _ParticipantCard
                   ),
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
                         AppColors.skyBlue,
 
@@ -1230,7 +1230,7 @@ class _ParticipantCard
                               TextOverflow.ellipsis,
 
                           style:
-                              const TextStyle(
+                              TextStyle(
                             color:
                                 AppColors.pureWhite,
 
@@ -1267,9 +1267,9 @@ class _ParticipantCard
                               7,
 
                           decoration:
-                              const BoxDecoration(
+                              BoxDecoration(
                             color:
-                                Colors.greenAccent,
+                                AppColors.greenAccent,
 
                             shape:
                                 BoxShape.circle,
@@ -1355,11 +1355,11 @@ class _ParticipantCard
                   8,
             ),
 
-            const Icon(
+            Icon(
               Icons.chevron_right_rounded,
 
               color:
-                  Colors.white38,
+                  AppColors.white38,
 
               size:
                   22,
@@ -1487,7 +1487,7 @@ class _RoleBadge
         label,
 
         style:
-            const TextStyle(
+            TextStyle(
           color:
               AppColors.materialSky,
 

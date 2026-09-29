@@ -328,7 +328,7 @@ class _TeacherQuizResultsPageState
               textAlign:
                   TextAlign.center,
               style:
-                  const TextStyle(
+                  TextStyle(
                 color:
                     AppColors.pureWhite,
                 fontSize:
@@ -346,9 +346,9 @@ class _TeacherQuizResultsPageState
               textAlign:
                   TextAlign.center,
               style:
-                  const TextStyle(
+                  TextStyle(
                 color:
-                    Colors.white54,
+                    AppColors.white54,
               ),
             ),
           ],
@@ -494,7 +494,7 @@ class _AssignmentResultsCard
           Text(
             title,
             style:
-                const TextStyle(
+                TextStyle(
               color:
                   AppColors.pureWhite,
               fontSize:
@@ -591,7 +591,7 @@ class _AssignmentResultsCard
           Text(
             value,
             style:
-                const TextStyle(
+                TextStyle(
               color:
                   AppColors.pureWhite,
               fontSize:
@@ -607,9 +607,9 @@ class _AssignmentResultsCard
           Text(
             label,
             style:
-                const TextStyle(
+                TextStyle(
               color:
-                  Colors.white54,
+                  AppColors.white54,
               fontSize:
                   9,
             ),
@@ -695,7 +695,7 @@ class _AttemptRow
         backgroundColor:
             AppColors.brandNightBlue,
         child:
-            const Icon(
+            Icon(
           Icons.person_outline_rounded,
           color:
               AppColors.skyBlue,
@@ -705,7 +705,7 @@ class _AttemptRow
           Text(
         label,
         style:
-            const TextStyle(
+            TextStyle(
           color:
               AppColors.pureWhite,
           fontSize:
@@ -724,9 +724,9 @@ class _AttemptRow
                 ? 'In corso'
                 : 'Non completato',
         style:
-            const TextStyle(
+            TextStyle(
           color:
-              Colors.white54,
+              AppColors.white54,
           fontSize:
               10,
         ),
@@ -742,7 +742,7 @@ class _AttemptRow
             Text(
               '${percentage.toStringAsFixed(1)}%',
               style:
-                  const TextStyle(
+                  TextStyle(
                 color:
                     AppColors.skyBlue,
                 fontWeight:
@@ -762,10 +762,10 @@ class _AttemptRow
                 label,
               ),
               icon:
-                  const Icon(
+                  Icon(
                 Icons.analytics_outlined,
                 color:
-                    Colors.white54,
+                    AppColors.white54,
               ),
             ),
         ],

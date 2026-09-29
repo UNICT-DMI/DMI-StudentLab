@@ -275,7 +275,7 @@ super.dispose();
 
                     const SizedBox(height: 8),
 
-                    const Text(
+                    Text(
 
                       'Il codice di recupero non ha una scadenza temporale. È monouso e viene invalidato quando ne richiedi uno nuovo.',
 
@@ -287,7 +287,7 @@ super.dispose();
 
                         color:
 
-                            Colors.white54,
+                            AppColors.white54,
 
                         fontSize: 12,
 
@@ -525,11 +525,11 @@ super.dispose();
 
                         style:
 
-                            const TextStyle(
+                            TextStyle(
 
                           color:
 
-                              Colors.redAccent,
+                              AppColors.redAccent,
 
                         ),
 
@@ -547,11 +547,11 @@ super.dispose();
 
                         style:
 
-                            const TextStyle(
+                            TextStyle(
 
                           color:
 
-                              Colors.greenAccent,
+                              AppColors.greenAccent,
 
                         ),
 

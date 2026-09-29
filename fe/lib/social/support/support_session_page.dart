@@ -95,19 +95,19 @@ class _SupportSessionPageState
         return AlertDialog(
           backgroundColor:
               AppColors.eleganceMidnight,
-          title: const Text(
+          title: Text(
             'Consenti diagnostica temporanea',
             style: TextStyle(
               color: AppColors.pureWhite,
             ),
           ),
-          content: const Text(
+          content: Text(
             'StudentLab potrà ricevere temporaneamente dati diagnostici '
             'della SQLite dell’app necessari alla risoluzione del problema. '
             'Password, token e percorsi locali dei file non vengono inviati. '
             'Puoi revocare il consenso in qualsiasi momento.',
             style: TextStyle(
-              color: Colors.white70,
+              color: AppColors.white70,
               height: 1.45,
             ),
           ),
@@ -365,8 +365,8 @@ class _SupportSessionPageState
                 ? Center(
                     child: Text(
                       _error!,
-                      style: const TextStyle(
-                        color: Colors.white70,
+                      style: TextStyle(
+                        color: AppColors.white70,
                       ),
                     ),
                   )
@@ -399,10 +399,10 @@ class _SupportSessionPageState
                         _session?['status'] ==
                             'active'
                       ) ...[
-                        const Text(
+                        Text(
                           'Mantieni questa schermata aperta fino alla conclusione dell’assistenza.',
                           style: TextStyle(
-                            color: Colors.amber,
+                            color: AppColors.amber,
                             height: 1.4,
                           ),
                         ),
@@ -465,7 +465,7 @@ class _SupportSessionPageState
             _session?['issue_summary']
                     ?.toString() ??
                 'Richiesta assistenza',
-            style: const TextStyle(
+            style: TextStyle(
               color:
                   AppColors.pureWhite,
               fontSize: 17,
@@ -478,7 +478,7 @@ class _SupportSessionPageState
           ),
           Text(
             'Stato: $status',
-            style: const TextStyle(
+            style: TextStyle(
               color:
                   AppColors.materialSky,
             ),
@@ -492,8 +492,8 @@ class _SupportSessionPageState
             ),
             Text(
               'Operatore assegnato: #${_session!['assigned_admin_id']}',
-              style: const TextStyle(
-                color: Colors.white54,
+              style: TextStyle(
+                color: AppColors.white54,
                 fontSize: 11,
               ),
             ),

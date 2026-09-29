@@ -238,6 +238,14 @@ def test_authenticated_user_can_get_notification_unread_count(
         "get_unread_notification_count",
         fake_get_unread_notification_count,
     )
+    def fake_process_expired_notifications(db):
+        assert db is not None
+
+    monkeypatch.setattr(
+        notification_routes,
+        "process_expired_notifications",
+        fake_process_expired_notifications,
+    )
 
     response = client.get(
         "/notifications/unread-count",

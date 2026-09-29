@@ -93,7 +93,7 @@ class _AdminPublicNewsReportsPageState
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const Text(
+                    Text(
                       'Gestisci segnalazione',
                       style: TextStyle(
                         color: AppColors.pureWhite,
@@ -169,7 +169,7 @@ class _AdminPublicNewsReportsPageState
                       minLines: 3,
                       maxLines: 6,
                       maxLength: 2000,
-                      style: const TextStyle(color: AppColors.pureWhite),
+                      style: TextStyle(color: AppColors.pureWhite),
                       decoration: const InputDecoration(
                         labelText: 'Nota moderazione',
                       ),
@@ -308,17 +308,17 @@ class _AdminPublicNewsReportsPageState
           child: Text(
             _error!,
             textAlign: TextAlign.center,
-            style: const TextStyle(color: Colors.white60),
+            style: TextStyle(color: AppColors.white60),
           ),
         ),
       );
     }
 
     if (_items.isEmpty) {
-      return const Center(
+      return Center(
         child: Text(
           'Nessuna segnalazione in questa sezione.',
-          style: TextStyle(color: Colors.white54),
+          style: TextStyle(color: AppColors.white54),
         ),
       );
     }
@@ -347,16 +347,16 @@ class _AdminPublicNewsReportsPageState
             children: [
               Row(
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.flag_outlined,
-                    color: Colors.orangeAccent,
+                    color: AppColors.orangeAccent,
                     size: 20,
                   ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
                       'News #${report.newsId}',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.pureWhite,
                         fontSize: 13,
                         fontWeight: FontWeight.bold,
@@ -365,7 +365,7 @@ class _AdminPublicNewsReportsPageState
                   ),
                   Text(
                     report.status,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.materialSky,
                       fontSize: 9,
                     ),
@@ -375,7 +375,7 @@ class _AdminPublicNewsReportsPageState
               const SizedBox(height: 10),
               Text(
                 report.reason,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.pureWhite,
                   fontSize: 11,
                   fontWeight: FontWeight.w600,
@@ -385,8 +385,8 @@ class _AdminPublicNewsReportsPageState
                 const SizedBox(height: 6),
                 Text(
                   report.description,
-                  style: const TextStyle(
-                    color: Colors.white54,
+                  style: TextStyle(
+                    color: AppColors.white54,
                     fontSize: 10,
                     height: 1.4,
                   ),
@@ -397,8 +397,8 @@ class _AdminPublicNewsReportsPageState
                 children: [
                   Text(
                     'Segnalante #${report.reporterUserId}',
-                    style: const TextStyle(
-                      color: Colors.white38,
+                    style: TextStyle(
+                      color: AppColors.white38,
                       fontSize: 9,
                     ),
                   ),

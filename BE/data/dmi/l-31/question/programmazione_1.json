@@ -1,0 +1,1442 @@
+[
+  {
+    "id_question": "1",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Strutture di controllo",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Qual è la funzione principale dell’istruzione switch in C?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Eseguire cicli ripetitivi"
+      },
+      {
+        "id": "b",
+        "text": "Selezionare tra più blocchi di codice"
+      },
+      {
+        "id": "c",
+        "text": "Dichiarare variabili"
+      },
+      {
+        "id": "d",
+        "text": "Terminare il programma"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "Le strutture di controllo condizionali nel linguaggio C regolano il flusso di esecuzione del codice in base al valore di un'espressione logica o aritmetica. I costrutti di selezione si dividono in selezioni binarie e selezioni multiple. La selezione condizionale multipla valuta un'espressione valutabile come valore intero (tipo int, char o enumerativi) e trasferisce il controllo del programma direttamente al blocco corrispondente alla costante associata, ottimizzando il flusso rispetto a una sequenza annidata di controlli logici discreti.",
+    "informal_explanation": "I costrutti di controllo servono a far prendere decisioni al computer durante l'esecuzione di un programma. Invece di controllare semplicemente se una condizione sia vera o falsa per biforcare il percorso, a volte è necessario valutare una variabile che può assumere molti valori diversi (come un menu di opzioni numeriche o un carattere specifico). In questi scenari si adotta una struttura a scelta multipla che legge il valore della variabile e salta direttamente alla sezione specifica di codice creata per quel determinato valore, rendendo il codice pulito e veloce.",
+    "question_response_explanation": "La risposta corretta è \"Selezionare tra più blocchi di codice\". Le strutture di controllo condizionali nel linguaggio C regolano il flusso di esecuzione del codice in base al valore di un'espressione logica o aritmetica. I costrutti di selezione si dividono in selezioni binarie e selezioni multiple. La selezione condizionale multipla valuta un'espressione valutabile come valore intero (tipo int, char o enumerativi) e trasferisce il controllo del programma direttamente al blocco corrispondente alla costante associata, ottimizzando il flusso rispetto a una sequenza annidata di controlli logici discreti. La risposta \"Eseguire cicli ripetitivi\" è errata. L'opzione \"Eseguire cicli ripetitivi\" è errata perché le strutture deputate all'iterazione e alla ripetizione dei blocchi di codice sono i cicli while, do-while e for. La risposta \"Dichiarare variabili\" è errata. L'opzione \"Dichiarare variabili\" è errata in quanto l'allocazione e la definizione delle variabili avviene tramite l'indicazione del tipo di dato seguito dall'identificatore e non tramite istruzioni di controllo del flusso. La risposta \"Terminare il programma\" è errata. L'opzione \"Terminare il programma\" è errata poiché l'arresto controllato dell'applicazione viene invocato tramite l'istruzione return nella funzione main o mediante la funzione di libreria standard exit()."
+  },
+  {
+    "id_question": "2",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Costanti e tipi",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Come si dichiara una variabile costante in C?",
+    "option": [
+      {
+        "id": "a",
+        "text": "const int x;"
+      },
+      {
+        "id": "b",
+        "text": "int x const;"
+      },
+      {
+        "id": "c",
+        "text": "const x int;"
+      },
+      {
+        "id": "d",
+        "text": "constant int x;"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "In C il qualificatore const può essere scritto prima o dopo il tipo di base; sia 'const int x;' sia 'int const x;' sono validi. Tra le opzioni qui proposte, 'const int x;' è la dichiarazione sintatticamente valida prevista.",
+    "informal_explanation": "const rende l'oggetto non modificabile attraverso quell'identificatore.",
+    "question_response_explanation": "La risposta corretta è \"const int x;\". In C il qualificatore const può essere scritto prima o dopo il tipo di base; sia 'const int x;' sia 'int const x;' sono validi. Tra le opzioni qui proposte, 'const int x;' è la dichiarazione sintatticamente valida prevista. La risposta \"int x const;\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"const int x;\". La risposta \"const x int;\" è errata. L'opzione \"const x int;\" è errata poiché inverte completamente l'ordine grammaticale della dichiarazione posizionando il nome della variabile prima del tipo. La risposta \"constant int x;\" è errata. L'opzione \"constant int x;\" è errata in quanto la parola chiave corretta definita dallo standard ANSI C è la forma abbreviata const e non il termine esteso constant, che genererebbe un errore di compilazione immediato."
+  },
+  {
+    "id_question": "3",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Cicli",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Qual è la funzione del break in un ciclo?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Interrompe immediatamente il ciclo"
+      },
+      {
+        "id": "b",
+        "text": "Salta all’iterazione successiva"
+      },
+      {
+        "id": "c",
+        "text": "Ripete il ciclo"
+      },
+      {
+        "id": "d",
+        "text": "Termina il programma"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "L'istruzione break è un comando di salto non condizionato utilizzato all'interno delle strutture di controllo iterative (for, while, do-while) o di selezione multipla (switch) nel linguaggio C. Quando il flusso del runtime incontra questa istruzione, il controllo del programma viene trasferito in modo immediato e incondizionato alla prima istruzione utile posizionata al di fuori e subito dopo il blocco del ciclo più interno che racchiude il comando, forzando l'uscita anticipata dalla struttura iterativa indipendentemente dallo stato della condizione logica di controllo.",
+    "informal_explanation": "I cicli servono a ripetere un blocco di istruzioni finché una determinata condizione rimane vera. A volte, però, si verifica un evento imprevisto o viene raggiunto un obiettivo specifico all'interno delle ripetizioni (come trovare l'elemento cercato in un array) che rende inutile continuare il ciclo. Per evitare di sprecare risorse computazionali, il linguaggio C fornisce un'istruzione che agisce come una via d'uscita di emergenza immediata: interrompe all'istante le ripetizioni correnti e fa saltare il programma subito dopo la fine del blocco del ciclo.",
+    "question_response_explanation": "La risposta corretta è \"Interrompe immediatamente il ciclo\". L'istruzione break è un comando di salto non condizionato utilizzato all'interno delle strutture di controllo iterative (for, while, do-while) o di selezione multipla (switch) nel linguaggio C. Quando il flusso del runtime incontra questa istruzione, il controllo del programma viene trasferito in modo immediato e incondizionato alla prima istruzione utile posizionata al di fuori e subito dopo il blocco del ciclo più interno che racchiude il comando, forzando l'uscita anticipata dalla struttura iterativa indipendentemente dallo stato della condizione logica di controllo. La risposta \"Salta all’iterazione successiva\" è errata. L'opzione \"Salta all’iterazione successiva\" è errata perché questa azione specifica è svolta dall'istruzione continue, la quale non esce dal ciclo ma interrompe solo il giro attuale. La risposta \"Ripete il ciclo\" è errata. L'opzione \"Ripete il ciclo\" è errata in quanto la ripetizione è governata dal superamento del controllo della condizione logica di test del ciclo stesso e non da un comando di interruzione anticipata. La risposta \"Termina il programma\" è errata. L'opzione \"Termina il programma\" è errata poiché il comando break influisce solo sulla struttura di controllo locale più vicina e non arresta l'intero processo dell'applicazione."
+  },
+  {
+    "id_question": "4",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Cicli",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Quale qual è la funzione del continue in un ciclo?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Salta l’iterazione corrente"
+      },
+      {
+        "id": "b",
+        "text": "Termina il ciclo"
+      },
+      {
+        "id": "c",
+        "text": "Ferma il programma"
+      },
+      {
+        "id": "d",
+        "text": "Ricrea il ciclo"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "L'istruzione continue è una struttura di controllo di salto nel linguaggio C operante esclusivamente all'interno dei costrutti iterativi (for, while, do-while). A differenza di altri comandi di interruzione, l'esecuzione di continue non provoca l'uscita dalla struttura di ciclo complessiva; essa si limita a interrompere istantaneamente l'esecuzione del blocco di istruzioni rimanenti all'interno del ciclo per l'iterazione corrente, trasferendo immediatamente il controllo del flusso al test della condizione logica di controllo (nei cicli while e do-while) o al passo di aggiornamento e incremento della variabile contatore (nel ciclo for).",
+    "informal_explanation": "Durante l'esecuzione di un ciclo ripetitivo, può capitare di incontrare un dato particolare che non ha bisogno di essere elaborato dal nostro algoritmo (ad esempio, se stiamo analizzando una lista di numeri e vogliamo ignorare lo zero). Invece di racchiudere tutto il codice dentro lunghe catene di costrutti if, il linguaggio C permette di usare un'istruzione di salto specifica: quando il computer la incontra, abbandona immediatamente il giro attuale, ignora le righe rimanenti scritte sotto di essa e vola direttamente all'inizio del ciclo per verificare se si può procedere con l'iterazione successiva.",
+    "question_response_explanation": "La risposta corretta è \"Salta l’iterazione corrente\". L'istruzione continue è una struttura di controllo di salto nel linguaggio C operante esclusivamente all'interno dei costrutti iterativi (for, while, do-while). A differenza di altri comandi di interruzione, l'esecuzione di continue non provoca l'uscita dalla struttura di ciclo complessiva; essa si limita a interrompere istantaneamente l'esecuzione del blocco di istruzioni rimanenti all'interno del ciclo per l'iterazione corrente, trasferendo immediatamente il controllo del flusso al test della condizione logica di controllo (nei cicli while e do-while) o al passo di aggiornamento e incremento della variabile contatore (nel ciclo for). La risposta \"Termina il ciclo\" è errata. L'opzione \"Termina il ciclo\" è errata perché l'interruzione completa e l'uscita forzata dalla struttura di controllo sono svolte dall'istruzione break. La risposta \"Ferma il programma\" è errata. L'opzione \"Ferma il programma\" è errata in quanto la terminazione complessiva dell'applicazione richiede l'uso del comando return nel main o l'invocazione della funzione exit(). La risposta \"Ricrea il ciclo\" è errata. L'opzione \"Ricrea il ciclo\" è errata poiché il comando non resetta né inizializza nuovamente la struttura o le variabili del ciclo, limitandosi a far avanzare il flusso al test successivo."
+  },
+  {
+    "id_question": "5",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Dichiarazioni",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Come si dichiarano più variabili dello stesso tipo in C?",
+    "option": [
+      {
+        "id": "a",
+        "text": "int a, b, c;"
+      },
+      {
+        "id": "b",
+        "text": "int: a b c;"
+      },
+      {
+        "id": "c",
+        "text": "a, b, c int;"
+      },
+      {
+        "id": "d",
+        "text": "int a; b; c;"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "La grammatica e la sintassi formale del linguaggio C impongono regole precise per la dichiarazione e l'allocazione delle variabili in memoria. Per allocare più variabili aventi lo stesso tipo di dato fondamentale o derivato all'interno della medesima istruzione, lo standard prevede di indicare inizialmente il descrittore del tipo (es. int, float, char), seguito da un elenco ordinato di identificatori univoci separati esplicitamente dall'operatore virgola (,), terminando tassativamente l'intera riga logica con il carattere punto e virgola (;).",
+    "informal_explanation": "Quando scriviamo un programma in C e abbiamo bisogno di creare molte variabili che contengono lo stesso genere di informazioni (ad esempio tre numeri interi separati), non siamo obbligati a scrivere una riga di codice distinta per ciascuna di esse. Per risparmiare spazio e rendere il codice più leggibile, la sintassi del linguaggio ci permette di dichiararle tutte insieme in un'unica istruzione: scriviamo il tipo di dato una sola volta all'inizio della riga e poi elenchiamo i nomi che vogliamo assegnare alle variabili separandoli semplicemente con una virgola.",
+    "question_response_explanation": "La risposta corretta è \"int a, b, c;\". La grammatica e la sintassi formale del linguaggio C impongono regole precise per la dichiarazione e l'allocazione delle variabili in memoria. Per allocare più variabili aventi lo stesso tipo di dato fondamentale o derivato all'interno della medesima istruzione, lo standard prevede di indicare inizialmente il descrittore del tipo (es. int, float, char), seguito da un elenco ordinato di identificatori univoci separati esplicitamente dall'operatore virgola (,), terminando tassativamente l'intera riga logica con il carattere punto e virgola (;). La risposta \"int: a b c;\" è errata. L'opzione \"int: a b c;\" è errata perché introduce il carattere due punti e omette gli operatori di separazione tra gli identificatori, violando la grammatica del compilatore. La risposta \"a, b, c int;\" è errata. L'opzione \"a, b, c int;\" è errata poiché inverte l'ordine dei costrutti posizionando il tipo alla fine, una sintassi non valida nel C. La risposta \"int a; b; c;\" è errata. L'opzione \"int a; b; c;\" è errata in quanto il punto e virgola dopo la variabile 'a' chiude definitivamente la prima istruzione indipendente; i successivi termini 'b' e 'c' verrebbero interpretati dal compilatore come istruzioni separate prive di tipo, generando errori di sintassi."
+  },
+  {
+    "id_question": "6",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Operatori",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Cosa rappresenta l’operatore % in C?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Divisione intera"
+      },
+      {
+        "id": "b",
+        "text": "Resto della divisione"
+      },
+      {
+        "id": "c",
+        "text": "Moltiplicazione"
+      },
+      {
+        "id": "d",
+        "text": "Potenza"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "Il linguaggio C classifica gli operatori aritmetici in base al tipo di trasformazione numerica eseguita sulle variabili. L'operatore percentuale (%) definisce l'operatore di modulo nel dominio dei numeri interi. Dal punto di vista algebrico, dati due operandi interi (dividendo e divisore), l'istruzione esegue la divisione aritmetica intera e restituisce come risultato esclusivo il valore del resto della divisione stessa. Per vincolo di specifica del linguaggio, questo operatore non può essere applicato a operandi in virgola mobile (come float o double), i quali richiederebbero invece funzioni matematiche dedicate della libreria standard.",
+    "informal_explanation": "Nelle espressioni matematiche scritte in C, oltre ai classici simboli per sommare, sottrarre, moltiplicare e dividere, esiste un operatore aritmetico speciale rappresentato dal simbolo della percentuale (%). Questo operatore serve quando lavoriamo con i numeri interi e vogliamo calcolare la divisione tenendo conto del resto: l'algoritmo esegue la divisione tra i due numeri ma, invece di darci il quoziente o calcolare i decimali, ci restituisce come risultato unicamente la quantità numerica che avanza (il resto).",
+    "question_response_explanation": "La risposta corretta è \"Resto della divisione\". Il linguaggio C classifica gli operatori aritmetici in base al tipo di trasformazione numerica eseguita sulle variabili. L'operatore percentuale (%) definisce l'operatore di modulo nel dominio dei numeri interi. Dal punto di vista algebrico, dati due operandi interi (dividendo e divisore), l'istruzione esegue la divisione aritmetica intera e restituisce come risultato esclusivo il valore del resto della divisione stessa. Per vincolo di specifica del linguaggio, questo operatore non può essere applicato a operandi in virgola mobile (come float o double), i quali richiederebbero invece funzioni matematiche dedicate della libreria standard. La risposta \"Divisione intera\" è errata. L'affermazione corretta è \"Resto della divisione\" perché l'operatore % (modulo) calcola e restituisce esattamente il resto derivante dalla divisione intera tra il primo e il secondo operando. La risposta \"Moltiplicazione\" è errata. L'opzione \"Moltiplicazione\" è errata in quanto l'operazione di moltiplicazione viene rappresentata graficamente dal simbolo dell'asterisco (*). La risposta \"Potenza\" è errata. L'opzione \"Potenza\" è errata poiché il linguaggio C non possiede un operatore nativo integrato nella sintassi per il calcolo delle potenze, operazione che richiede l'invocazione della funzione pow() inclusa nella libreria math.h."
+  },
+  {
+    "id_question": "7",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Operatori",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Qual è l’operatore di uguaglianza in C?",
+    "option": [
+      {
+        "id": "a",
+        "text": "=="
+      },
+      {
+        "id": "b",
+        "text": "="
+      },
+      {
+        "id": "c",
+        "text": "!="
+      },
+      {
+        "id": "d",
+        "text": "<="
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "Il sistema sintattico del C opera una distinzione netta tra gli operatori di assegnazione e gli operatori relazionali o di confronto. Gli operatori relazionali analizzano la relazione intercorrente tra due espressioni e restituiscono un valore booleano discreto (rappresentato interamente come 1 se la relazione è verificata o 0 se è falsa). Il controllo di equivalenza logica tra due entità numeriche o indirizzi di memoria richiede l'uso del token a doppio carattere di uguaglianza, il quale indica al compilatore l'esecuzione di un test di confronto simmetrico senza alterare lo stato o i valori memorizzati nelle variabili esaminate.",
+    "informal_explanation": "Uno degli errori più comuni quando si impara a programmare in C è confondere l'azione di assegnare un valore a una variabile con l'azione di confrontare due valori tra loro. Se scriviamo un solo simbolo di uguale, stiamo dicendo al computer di prendere il dato a destra e scriverlo (assegnarlo) dentro la variabile a sinistra, modificandola. Se invece vogliamo porre una domanda logica all'interno di un controllo (ad esempio per verificare se il valore di un contatore è uguale a dieci), dobbiamo usare una combinazione specifica a due simboli che si limita a leggere i dati e verificare se coincidono.",
+    "question_response_explanation": "La risposta corretta è \"==\". Il sistema sintattico del C opera una distinzione netta tra gli operatori di assegnazione e gli operatori relazionali o di confronto. Gli operatori relazionali analizzano la relazione intercorrente tra due espressioni e restituiscono un valore booleano discreto (rappresentato interamente come 1 se la relazione è verificata o 0 se è falsa). Il controllo di equivalenza logica tra due entità numeriche o indirizzi di memoria richiede l'uso del token a doppio carattere di uguaglianza, il quale indica al compilatore l'esecuzione di un test di confronto simmetrico senza alterare lo stato o i valori memorizzati nelle variabili esaminate. La risposta \"=\" è errata. L'affermazione corretta è \"==\" perché il token a doppio uguale rappresenta l'operatore relazionale di uguaglianza utilizzato nelle espressioni condizionali per confrontare due operandi. La risposta \"!=\" è errata. L'opzione \"!=\" è errata in quanto definisce l'operatore relazionale opposto, ovvero il controllo di diversità o disuguaglianza (diverso da). La risposta \"<=\" è errata. L'opzione \"<=\" è errata poiché rappresenta l'operatore relazionale di confronto minore o uguale."
+  },
+  {
+    "id_question": "8",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Errori runtime",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Cosa succede in caso di overflow in C?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Il valore supera il massimo rappresentabile"
+      },
+      {
+        "id": "b",
+        "text": "Il programma si ferma automaticamente"
+      },
+      {
+        "id": "c",
+        "text": "Il valore diventa 0"
+      },
+      {
+        "id": "d",
+        "text": "Viene generata un’eccezione obbligatoria"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "Nall'architettura dei calcolatori e nello standard del linguaggio C, ogni tipo di dato primitivo (come int, short o char) occupa uno spazio di memoria fisso espresso in bit, il quale determina un intervallo limitato di valori numerici rappresentabili. Il fenomeno dell'overflow (superamento del limite superiore) si verifica a runtime quando il risultato di un'operazione aritmetica genera un valore numerico che eccede la capacità massima del range del tipo di dato associato. Per le variabili intere con segno (signed), lo standard C definisce questo comportamento come comportamento indefinito (undefined behavior), che nella maggior parte delle architetture hardware si traduce in un fenomeno di rotazione o wrapping binario a causa del riporto sul bit di segno.",
+    "informal_explanation": "Nel computer ogni tipo di variabile ha un limite fisico di spazio predefinito e non può memorizzare numeri grandi a piacere. Immagina il tipo di dato come il contatore dei chilometri di un'automobile vecchia: ha un numero fisso di cifre e se provi ad avanzare oltre il limite massimo possibile, le cifre sforano e ricominciano a girare dall'inizio. Quando in C eseguiamo un calcolo (come una somma o una moltiplicazione) il cui risultato finale è matematicamente più grande del tetto massimo che quella specifica variabile può fisicamente contenere, andiamo incontro all'errore di overflow.",
+    "question_response_explanation": "La risposta corretta è \"Il valore supera il massimo rappresentabile\". Nall'architettura dei calcolatori e nello standard del linguaggio C, ogni tipo di dato primitivo (come int, short o char) occupa uno spazio di memoria fisso espresso in bit, il quale determina un intervallo limitato di valori numerici rappresentabili. Il fenomeno dell'overflow (superamento del limite superiore) si verifica a runtime quando il risultato di un'operazione aritmetica genera un valore numerico che eccede la capacità massima del range del tipo di dato associato. Per le variabili intere con segno (signed), lo standard C definisce questo comportamento come comportamento indefinito (undefined behavior), che nella maggior parte delle architetture hardware si traduce in un fenomeno di rotazione o wrapping binario a causa del riporto sul bit di segno. La risposta \"Il programma si ferma automaticamente\" è errata. L'opzione \"Il programma si ferma automaticamente\" è errata perché il linguaggio C non integra controlli automatici nativi a runtime per l'overflow aritmetico intero, di conseguenza l'esecuzione prosegue silenziosamente senza interruzioni ma con dati corrotti. La risposta \"Il valore diventa 0\" è errata. L'opzione \"Il valore diventa 0\" è errata in quanto il valore risultante dal wrapping dipende dai bit originali e in genere assume un valore negativo estremo (se signed) o ricomincia da numeri bassi, ma non si azzera in modo sistematico e predefinito. La risposta \"Viene generata un’eccezione obbligatoria\" è errata. L'opzione \"Viene generata un’eccezione obbligatoria\" è errata poiché l'architettura del C esclude la gestione nativa obbligatoria delle eccezioni hardware per gli overflow di interi, lasciando il flusso privo di segnalazioni d'errore automatiche."
+  },
+  {
+    "id_question": "9",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Errori runtime",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Cosa si intende per underflow in C?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Valore sotto il minimo rappresentabile"
+      },
+      {
+        "id": "b",
+        "text": "Valore sopra il massimo rappresentabile"
+      },
+      {
+        "id": "c",
+        "text": "Variabile non inizializzata"
+      },
+      {
+        "id": "d",
+        "text": "Errore di sintassi"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "Nello studio della precisione numerica e dell'aritmetica dei calcolatori applicata al linguaggio C, ogni tipo di dato definisce limiti inferiori e superiori invalicabili legati alla codifica binaria adoperata (come il complemento a due per gli interi o lo standard IEEE 754 per i numeri in virgola mobile). L'underflow si verifica quando il risultato finale di un'operazione matematica produce una quantità numerica inferiore al valore minimo assoluto che il tipo di dato può registrare. Nel contesto dei numeri reali a virgola mobile (float o double), il fenomeno si manifesta specificamente quando la grandezza di un numero positivo o negativo è talmente infinitesima da non poter essere distinta dallo zero, forzando l'algoritmo ad approssimare il dato a un valore nullo.",
+    "informal_explanation": "Così come esiste un limite per i numeri troppo grandi (overflow), i computer devono gestire anche il problema opposto, ovvero quando un calcolo genera un numero troppo piccolo o scende al di sotto del limite minimo che la variabile può contenere. Nei numeri interi questo significa scendere al di sotto del numero negativo più basso possibile. Nei numeri decimali con la virgola, invece, l'underflow si verifica quando un valore diventa così incredibilmente vicino allo zero che i bit del processore non hanno abbastanza precisione per rappresentare quella frazione minuscola, costringendo il sistema ad azzerare il valore.",
+    "question_response_explanation": "La risposta corretta è \"Valore sotto il minimo rappresentabile\". Nello studio della precisione numerica e dell'aritmetica dei calcolatori applicata al linguaggio C, ogni tipo di dato definisce limiti inferiori e superiori invalicabili legati alla codifica binaria adoperata (come il complemento a due per gli interi o lo standard IEEE 754 per i numeri in virgola mobile). L'underflow si verifica quando il risultato finale di un'operazione matematica produce una quantità numerica inferiore al valore minimo assoluto che il tipo di dato può registrare. Nel contesto dei numeri reali a virgola mobile (float o double), il fenomeno si manifesta specificamente quando la grandezza di un numero positivo o negativo è talmente infinitesima da non poter essere distinta dallo zero, forzando l'algoritmo ad approssimare il dato a un valore nullo. La risposta \"Valore sopra il massimo rappresentabile\" è errata. L'opzione \"Valore sopra il massimo rappresentabile\" è errata perché questa specifica condizione descrive il fenomeno opposto dell'overflow. La risposta \"Variabile non inizializzata\" è errata. L'opzione \"Variabile non inizializzata\" è errata in quanto descrive una variabile allocata in memoria a cui non è ancora stato assegnato un valore iniziale deterministico, lasciandola riempita con dati residui casuali (valori spazzatura o garbage values). La risposta \"Errore di sintassi\" è errata. L'opzione \"Errore di sintassi\" è errata poiché l'underflow è un errore logico e aritmetico che si verifica durante il runtime dell'applicazione e non una violazione della grammatica del codice rilevabile dal compilatore."
+  },
+  {
+    "id_question": "10",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Input",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Quale funzione permette di leggere una stringa in C in modo sicuro?",
+    "option": [
+      {
+        "id": "a",
+        "text": "scanf()"
+      },
+      {
+        "id": "b",
+        "text": "gets()"
+      },
+      {
+        "id": "c",
+        "text": "fgets()"
+      },
+      {
+        "id": "d",
+        "text": "read()"
+      }
+    ],
+    "id_correct": "c",
+    "formal_explanation": "fgets() permette di leggere stringhe specificando la dimensione del buffer, evitando overflow.",
+    "informal_explanation": "È il modo più sicuro per leggere una stringa senza rischiare di rompere la memoria.",
+    "question_response_explanation": "La risposta corretta è \"fgets()\". fgets() permette di leggere stringhe specificando la dimensione del buffer, evitando overflow. La risposta \"scanf()\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"fgets()\". La risposta \"fgets()\" è corretta perché fgets è la funzione sicura per input di stringhe. La risposta \"read()\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"fgets()\".",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "11",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Operatori e confronto",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Quale operatore viene utilizzato per il confronto di disuguaglianza in C?",
+    "option": [
+      {
+        "id": "a",
+        "text": "=="
+      },
+      {
+        "id": "b",
+        "text": "!="
+      },
+      {
+        "id": "c",
+        "text": "="
+      },
+      {
+        "id": "d",
+        "text": "<>"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "L’operatore != verifica che due valori siano diversi.",
+    "informal_explanation": "È il modo per dire: “non sono uguali”.",
+    "question_response_explanation": "La risposta corretta è \"!=\". L’operatore != verifica che due valori siano diversi. La risposta \"==\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"!=\". La risposta \"!=\" è corretta perché != rappresenta la disuguaglianza in C.",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "12",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Cicli",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Qual è la caratteristica principale del ciclo while in C?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Esegue il blocco almeno una volta"
+      },
+      {
+        "id": "b",
+        "text": "Controlla la condizione prima dell’esecuzione"
+      },
+      {
+        "id": "c",
+        "text": "Non ha condizioni"
+      },
+      {
+        "id": "d",
+        "text": "Esegue solo una volta"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "Il while verifica la condizione prima di eseguire il blocco.",
+    "informal_explanation": "Controlla prima e poi decide se entrare nel ciclo.",
+    "question_response_explanation": "La risposta corretta è \"Controlla la condizione prima dell’esecuzione\". Il while verifica la condizione prima di eseguire il blocco. La risposta \"Esegue il blocco almeno una volta\" non soddisfa la condizione richiesta, mentre \"Controlla la condizione prima dell’esecuzione\" identifica la proprietà necessaria. La risposta \"Non ha condizioni\" non soddisfa la condizione richiesta, mentre \"Controlla la condizione prima dell’esecuzione\" identifica la proprietà necessaria. La risposta \"Esegue solo una volta\" non soddisfa la condizione richiesta, mentre \"Controlla la condizione prima dell’esecuzione\" identifica la proprietà necessaria.",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "13",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Cicli",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Qual è la caratteristica del ciclo do-while?",
+    "option": [
+      {
+        "id": "a",
+        "text": "La condizione è verificata prima dell’esecuzione"
+      },
+      {
+        "id": "b",
+        "text": "Il ciclo non si esegue mai"
+      },
+      {
+        "id": "c",
+        "text": "Il ciclo viene eseguito almeno una volta"
+      },
+      {
+        "id": "d",
+        "text": "È identico al for"
+      }
+    ],
+    "id_correct": "c",
+    "formal_explanation": "Il do-while esegue il blocco almeno una volta prima di verificare la condizione.",
+    "informal_explanation": "Prima esegue, poi controlla.",
+    "question_response_explanation": "La risposta corretta è \"Il ciclo viene eseguito almeno una volta\". Il do-while esegue il blocco almeno una volta prima di verificare la condizione. La risposta \"La condizione è verificata prima dell’esecuzione\" non soddisfa la condizione richiesta, mentre \"Il ciclo viene eseguito almeno una volta\" identifica la proprietà necessaria. La risposta \"Il ciclo non si esegue mai\" non soddisfa la condizione richiesta, mentre \"Il ciclo viene eseguito almeno una volta\" identifica la proprietà necessaria. La risposta \"È identico al for\" non soddisfa la condizione richiesta, mentre \"Il ciclo viene eseguito almeno una volta\" identifica la proprietà necessaria.",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "14",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Array",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Qual è l’indice iniziale di un array in C?",
+    "option": [
+      {
+        "id": "a",
+        "text": "1"
+      },
+      {
+        "id": "b",
+        "text": "0"
+      },
+      {
+        "id": "c",
+        "text": "-1"
+      },
+      {
+        "id": "d",
+        "text": "Dipende dal compilatore"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "Gli array in C iniziano sempre dall’indice 0.",
+    "informal_explanation": "Il primo elemento parte da zero, non da uno.",
+    "question_response_explanation": "La risposta corretta è \"0\". Gli array in C iniziano sempre dall’indice 0. La risposta \"1\" è errata perché in C l'indicizzazione parte da zero, quindi 1 identifica il secondo elemento. La risposta \"Dipende dal compilatore\" è errata perché l'indicizzazione da zero è parte della semantica del linguaggio C e non dipende dal compilatore.",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "15",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Array",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Come si calcola la dimensione di un array statico in C?",
+    "option": [
+      {
+        "id": "a",
+        "text": "sizeof(array)"
+      },
+      {
+        "id": "b",
+        "text": "sizeof(array)/sizeof(array[0])"
+      },
+      {
+        "id": "c",
+        "text": "array.length()"
+      },
+      {
+        "id": "d",
+        "text": "count(array)"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "La dimensione si ottiene dividendo la dimensione totale per quella di un elemento.",
+    "informal_explanation": "Conti quanti elementi ci stanno dentro l’array.",
+    "question_response_explanation": "La risposta corretta è \"sizeof(array)/sizeof(array[0])\". La dimensione si ottiene dividendo la dimensione totale per quella di un elemento. La risposta \"sizeof(array)/sizeof(array[0])\" è corretta perché è la formula standard in C. La risposta \"array.length()\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"sizeof(array)/sizeof(array[0])\". La risposta \"count(array)\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"sizeof(array)/sizeof(array[0])\".",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "16",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Memoria",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Cosa succede se si accede a un indice fuori dai limiti di un array?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Errore di compilazione"
+      },
+      {
+        "id": "b",
+        "text": "Comportamento indefinito"
+      },
+      {
+        "id": "c",
+        "text": "Restituisce 0"
+      },
+      {
+        "id": "d",
+        "text": "Il programma si corregge automaticamente"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "L’accesso fuori dai limiti produce comportamento indefinito.",
+    "informal_explanation": "Il programma può fare qualsiasi cosa, anche crashare.",
+    "question_response_explanation": "La risposta corretta è \"Comportamento indefinito\". L’accesso fuori dai limiti produce comportamento indefinito. La risposta \"Errore di compilazione\" è errata perché il compilatore non è tenuto a rilevare un indice fuori dai limiti quando il valore è noto solo a runtime. La risposta \"Restituisce 0\" è errata perché il C non inserisce automaticamente un valore sentinella 0 per gli accessi fuori array; l'accesso è indefinito. La risposta \"Il programma si corregge automaticamente\" è errata perché il C non effettua bounds checking o correzione automatica degli indici degli array.",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "17",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Puntatori",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Cosa rappresenta il nome di un array quando viene passato a una funzione?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Una copia completa dell’array"
+      },
+      {
+        "id": "b",
+        "text": "Il puntatore al primo elemento"
+      },
+      {
+        "id": "c",
+        "text": "La dimensione dell’array"
+      },
+      {
+        "id": "d",
+        "text": "Un valore intero"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "Il nome di un array decae in un puntatore al primo elemento.",
+    "informal_explanation": "Non passa tutto l’array, ma solo l’indirizzo del primo elemento.",
+    "question_response_explanation": "La risposta corretta è \"Il puntatore al primo elemento\". Il nome di un array decae in un puntatore al primo elemento. La risposta \"Una copia completa dell’array\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Il puntatore al primo elemento\". La risposta \"La dimensione dell’array\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Il puntatore al primo elemento\". La risposta \"Un valore intero\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Il puntatore al primo elemento\".",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "18",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Puntatori",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Cosa significa *(array + i) in C?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Valore all’indice i dell’array"
+      },
+      {
+        "id": "b",
+        "text": "Indirizzo dell’elemento i"
+      },
+      {
+        "id": "c",
+        "text": "Dimensione dell’array"
+      },
+      {
+        "id": "d",
+        "text": "Errore di sintassi"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "*(array + i) dereferenzia il puntatore ottenendo l’elemento i-esimo.",
+    "informal_explanation": "È un modo alternativo per dire array[i].",
+    "question_response_explanation": "La risposta corretta è \"Valore all’indice i dell’array\". *(array + i) dereferenzia il puntatore ottenendo l’elemento i-esimo. La risposta \"Indirizzo dell’elemento i\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Valore all’indice i dell’array\". La risposta \"Dimensione dell’array\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Valore all’indice i dell’array\". La risposta \"Errore di sintassi\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Valore all’indice i dell’array\".",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "19",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Array",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Qual è la caratteristica degli array in C?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Possono contenere tipi diversi"
+      },
+      {
+        "id": "b",
+        "text": "Contengono elementi dello stesso tipo"
+      },
+      {
+        "id": "c",
+        "text": "Sono dinamici per default"
+      },
+      {
+        "id": "d",
+        "text": "Non hanno indici"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "Un array in C è una struttura omogenea.",
+    "informal_explanation": "È come una fila di scatole tutte uguali.",
+    "question_response_explanation": "La risposta corretta è \"Contengono elementi dello stesso tipo\". Un array in C è una struttura omogenea. La risposta \"Possono contenere tipi diversi\" non soddisfa la condizione richiesta, mentre \"Contengono elementi dello stesso tipo\" identifica la proprietà necessaria. La risposta \"Sono dinamici per default\" non soddisfa la condizione richiesta, mentre \"Contengono elementi dello stesso tipo\" identifica la proprietà necessaria. La risposta \"Non hanno indici\" non soddisfa la condizione richiesta, mentre \"Contengono elementi dello stesso tipo\" identifica la proprietà necessaria.",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "20",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Array",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Cosa succede se si inizializza un array con meno valori della sua dimensione?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Gli altri elementi vengono inizializzati a 0"
+      },
+      {
+        "id": "b",
+        "text": "Errore di compilazione"
+      },
+      {
+        "id": "c",
+        "text": "Valori casuali"
+      },
+      {
+        "id": "d",
+        "text": "Il programma si blocca"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "Gli elementi non inizializzati vengono posti automaticamente a zero.",
+    "informal_explanation": "Se non li riempi tutti, il resto diventa zero.",
+    "question_response_explanation": "La risposta corretta è \"Gli altri elementi vengono inizializzati a 0\". Gli elementi non inizializzati vengono posti automaticamente a zero. La risposta \"Errore di compilazione\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Gli altri elementi vengono inizializzati a 0\". La risposta \"Valori casuali\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Gli altri elementi vengono inizializzati a 0\". La risposta \"Il programma si blocca\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Gli altri elementi vengono inizializzati a 0\".",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "21",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Puntatori",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Cosa rappresenta un puntatore in C?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Un valore intero"
+      },
+      {
+        "id": "b",
+        "text": "Un indirizzo di memoria"
+      },
+      {
+        "id": "c",
+        "text": "Una funzione"
+      },
+      {
+        "id": "d",
+        "text": "Un tipo di ciclo"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "Un puntatore contiene l'indirizzo di memoria di una variabile.",
+    "informal_explanation": "È come un biglietto che ti dice dove si trova un valore.",
+    "question_response_explanation": "La risposta corretta è \"Un indirizzo di memoria\". Un puntatore contiene l'indirizzo di memoria di una variabile. La risposta \"Un valore intero\" è errata perché un puntatore rappresenta un indirizzo di memoria con un proprio tipo; non è semanticamente un normale valore intero. La risposta \"Una funzione\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Un indirizzo di memoria\". La risposta \"Un tipo di ciclo\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Un indirizzo di memoria\".",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "22",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Puntatori",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Cosa fa l’operatore & in C?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Restituisce il valore"
+      },
+      {
+        "id": "b",
+        "text": "Restituisce l’indirizzo di una variabile"
+      },
+      {
+        "id": "c",
+        "text": "Moltiplica valori"
+      },
+      {
+        "id": "d",
+        "text": "Confronta due valori"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "L’operatore & restituisce l’indirizzo di memoria di una variabile.",
+    "informal_explanation": "Ti dice dove si trova una variabile.",
+    "question_response_explanation": "La risposta corretta è \"Restituisce l’indirizzo di una variabile\". L’operatore & restituisce l’indirizzo di memoria di una variabile. La risposta \"Restituisce il valore\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Restituisce l’indirizzo di una variabile\". La risposta \"Moltiplica valori\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Restituisce l’indirizzo di una variabile\". La risposta \"Confronta due valori\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Restituisce l’indirizzo di una variabile\".",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "23",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Puntatori",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Cosa fa l’operatore * quando usato su un puntatore?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Moltiplica valori"
+      },
+      {
+        "id": "b",
+        "text": "Restituisce il valore puntato"
+      },
+      {
+        "id": "c",
+        "text": "Restituisce l’indirizzo"
+      },
+      {
+        "id": "d",
+        "text": "Crea un nuovo puntatore"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "L’operatore * dereferenzia il puntatore.",
+    "informal_explanation": "Ti dà il valore contenuto in quella posizione di memoria.",
+    "question_response_explanation": "La risposta corretta è \"Restituisce il valore puntato\". L’operatore * dereferenzia il puntatore. La risposta \"Moltiplica valori\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Restituisce il valore puntato\". La risposta \"Restituisce l’indirizzo\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Restituisce il valore puntato\". La risposta \"Crea un nuovo puntatore\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Restituisce il valore puntato\".",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "24",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Memoria dinamica",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Quale funzione si usa per allocare memoria dinamica in C?",
+    "option": [
+      {
+        "id": "a",
+        "text": "malloc()"
+      },
+      {
+        "id": "b",
+        "text": "free()"
+      },
+      {
+        "id": "c",
+        "text": "delete()"
+      },
+      {
+        "id": "d",
+        "text": "new()"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "malloc() alloca memoria dinamicamente nell’heap.",
+    "informal_explanation": "È il modo per chiedere memoria al sistema.",
+    "question_response_explanation": "La risposta corretta è \"malloc()\". malloc() alloca memoria dinamicamente nell’heap. La risposta \"free()\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"malloc()\". La risposta \"delete()\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"malloc()\". La risposta \"new()\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"malloc()\".",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "25",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Memoria dinamica",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Cosa succede se non si libera la memoria dinamica?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Memory leak"
+      },
+      {
+        "id": "b",
+        "text": "Errore di compilazione"
+      },
+      {
+        "id": "c",
+        "text": "Il programma si ottimizza"
+      },
+      {
+        "id": "d",
+        "text": "Null pointer automatico"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "La memoria non liberata causa perdita di memoria (leak).",
+    "informal_explanation": "Il programma continua a “consumare memoria” inutilmente.",
+    "question_response_explanation": "La risposta corretta è \"Memory leak\". La memoria non liberata causa perdita di memoria (leak). La risposta \"Errore di compilazione\" è errata perché la mancata free() è normalmente un problema di runtime/gestione delle risorse e non un errore sintattico rilevato obbligatoriamente dal compilatore. La risposta \"Il programma si ottimizza\" è errata perché la memoria non liberata resta occupata fino al termine del processo e può aumentare il consumo, non ottimizzarlo. La risposta \"Null pointer automatico\" è errata perché dimenticare free() non trasforma automaticamente il puntatore in NULL; il blocco di memoria rimane allocato.",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "26",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Stringhe",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Come termina una stringa in C?",
+    "option": [
+      {
+        "id": "a",
+        "text": "\\0"
+      },
+      {
+        "id": "b",
+        "text": "\\n"
+      },
+      {
+        "id": "c",
+        "text": "null"
+      },
+      {
+        "id": "d",
+        "text": "EOF"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "Le stringhe in C terminano con il carattere null '\\0'.",
+    "informal_explanation": "È il segnale che la stringa è finita.",
+    "question_response_explanation": "La risposta corretta è \"\\0\". Le stringhe in C terminano con il carattere null '\\0'. La risposta \"\\n\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"\\0\". La risposta \"null\" è errata perché in C una stringa termina con il byte nullo '\\0'; la parola 'null' non è il carattere terminatore memorizzato nell'array. La risposta \"EOF\" è errata perché eOF è un valore usato dalle funzioni di I/O per indicare la fine di un flusso/file, non il terminatore interno di una stringa.",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "27",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Stringhe",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Quale funzione copia una stringa in C?",
+    "option": [
+      {
+        "id": "a",
+        "text": "strcpy()"
+      },
+      {
+        "id": "b",
+        "text": "strcat()"
+      },
+      {
+        "id": "c",
+        "text": "strcmp()"
+      },
+      {
+        "id": "d",
+        "text": "strlen()"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "strcpy copia il contenuto di una stringa in un’altra.",
+    "informal_explanation": "È come duplicare una stringa.",
+    "question_response_explanation": "La risposta corretta è \"strcpy()\". strcpy copia il contenuto di una stringa in un’altra. La risposta \"strcat()\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"strcpy()\". La risposta \"strcmp()\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"strcpy()\". La risposta \"strlen()\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"strcpy()\".",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "28",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Funzioni",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Cosa rappresenta il return in una funzione?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Termina la funzione e restituisce un valore"
+      },
+      {
+        "id": "b",
+        "text": "Ripete la funzione"
+      },
+      {
+        "id": "c",
+        "text": "Dichiara variabili"
+      },
+      {
+        "id": "d",
+        "text": "Chiama la funzione"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "return termina l’esecuzione della funzione e restituisce un valore.",
+    "informal_explanation": "È il punto in cui la funzione “risponde”.",
+    "question_response_explanation": "La risposta corretta è \"Termina la funzione e restituisce un valore\". return termina l’esecuzione della funzione e restituisce un valore. La risposta \"Ripete la funzione\" è errata perché return interrompe la funzione corrente; la ripetizione richiederebbe un ciclo o una nuova chiamata, eventualmente ricorsiva. La risposta \"Dichiara variabili\" è errata perché la dichiarazione di variabili usa la sintassi dei tipi; return controlla invece l'uscita dalla funzione. La risposta \"Chiama la funzione\" è errata perché una funzione viene chiamata usando il suo identificatore seguito dagli argomenti; return termina la funzione corrente.",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "29",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Funzioni",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Cosa sono i parametri formali di una funzione?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Variabili definite nella funzione chiamante"
+      },
+      {
+        "id": "b",
+        "text": "Variabili dichiarate nella definizione della funzione"
+      },
+      {
+        "id": "c",
+        "text": "Costanti globali"
+      },
+      {
+        "id": "d",
+        "text": "Valori casuali"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "I parametri formali sono quelli dichiarati nella funzione.",
+    "informal_explanation": "Sono i “segnaposto” della funzione.",
+    "question_response_explanation": "La risposta corretta è \"Variabili dichiarate nella definizione della funzione\". I parametri formali sono quelli dichiarati nella funzione. La risposta \"Variabili definite nella funzione chiamante\" è errata perché i valori/variabili presenti nella funzione chiamante sono argomenti attuali; i parametri formali compaiono nella firma/definizione della funzione chiamata. La risposta \"Costanti globali\" è errata perché le costanti globali hanno durata e visibilità proprie e non rappresentano i parametri dichiarati dalla funzione. La risposta \"Valori casuali\" è errata perché i parametri formali sono identificatori dichiarati esplicitamente nella funzione, non valori generati casualmente.",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "30",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Funzioni",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Cosa sono i parametri attuali?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Variabili globali"
+      },
+      {
+        "id": "b",
+        "text": "Valori passati alla funzione durante la chiamata"
+      },
+      {
+        "id": "c",
+        "text": "Funzioni ricorsive"
+      },
+      {
+        "id": "d",
+        "text": "Tipi di dati"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "I parametri attuali sono i valori effettivi passati alla funzione.",
+    "informal_explanation": "Sono i dati reali che dai alla funzione.",
+    "question_response_explanation": "La risposta corretta è \"Valori passati alla funzione durante la chiamata\". I parametri attuali sono i valori effettivi passati alla funzione. La risposta \"Variabili globali\" è errata perché una variabile globale può eventualmente essere passata come argomento, ma non coincide per definizione con un parametro attuale. La risposta \"Funzioni ricorsive\" è errata perché la ricorsione riguarda una funzione che chiama se stessa; non definisce gli argomenti passati a una chiamata. La risposta \"Tipi di dati\" è errata perché i tipi descrivono la natura dei parametri, mentre i parametri attuali sono i valori/espressioni forniti nella chiamata.",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "31",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "File",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Quale funzione si usa per aprire un file in C?",
+    "option": [
+      {
+        "id": "a",
+        "text": "fopen()"
+      },
+      {
+        "id": "b",
+        "text": "openfile()"
+      },
+      {
+        "id": "c",
+        "text": "fileopen()"
+      },
+      {
+        "id": "d",
+        "text": "fread()"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "fopen() permette di aprire un file specificando modalità e nome.",
+    "informal_explanation": "È la funzione per dire al programma di aprire un file.",
+    "question_response_explanation": "La risposta corretta è \"fopen()\". fopen() permette di aprire un file specificando modalità e nome. La risposta \"openfile()\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"fopen()\". La risposta \"fileopen()\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"fopen()\". La risposta \"fread()\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"fopen()\".",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "32",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "File",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Quale modalità apre un file in scrittura in C?",
+    "option": [
+      {
+        "id": "a",
+        "text": "\"r\""
+      },
+      {
+        "id": "b",
+        "text": "\"w\""
+      },
+      {
+        "id": "c",
+        "text": "\"r+\""
+      },
+      {
+        "id": "d",
+        "text": "\"a\""
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "La modalità \"w\" apre un file in scrittura sovrascrivendo il contenuto.",
+    "informal_explanation": "Serve per scrivere da zero su un file.",
+    "question_response_explanation": "La risposta corretta è \"\"w\"\". La modalità \"w\" apre un file in scrittura sovrascrivendo il contenuto. La risposta \"\"r\"\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"\"w\"\". La risposta \"\"a\"\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"\"w\"\".",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "33",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "File",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Quale funzione si usa per leggere da un file?",
+    "option": [
+      {
+        "id": "a",
+        "text": "fread()"
+      },
+      {
+        "id": "b",
+        "text": "fwrite()"
+      },
+      {
+        "id": "c",
+        "text": "fscan()"
+      },
+      {
+        "id": "d",
+        "text": "readfile()"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "fread() permette la lettura di dati da un file binario.",
+    "informal_explanation": "Serve per leggere dati da un file.",
+    "question_response_explanation": "La risposta corretta è \"fread()\". fread() permette la lettura di dati da un file binario. La risposta \"fwrite()\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"fread()\". La risposta \"fscan()\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"fread()\". La risposta \"readfile()\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"fread()\".",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "34",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "File",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Quale funzione chiude un file in C?",
+    "option": [
+      {
+        "id": "a",
+        "text": "fclose()"
+      },
+      {
+        "id": "b",
+        "text": "fileclose()"
+      },
+      {
+        "id": "c",
+        "text": "closefile()"
+      },
+      {
+        "id": "d",
+        "text": "endfile()"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "fclose() chiude il file e libera le risorse.",
+    "informal_explanation": "Serve per chiudere un file aperto.",
+    "question_response_explanation": "La risposta corretta è \"fclose()\". fclose() chiude il file e libera le risorse. La risposta \"fileclose()\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"fclose()\". La risposta \"closefile()\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"fclose()\". La risposta \"endfile()\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"fclose()\".",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "35",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Strutture",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Come si accede a un campo di una struttura in C?",
+    "option": [
+      {
+        "id": "a",
+        "text": "."
+      },
+      {
+        "id": "b",
+        "text": "->"
+      },
+      {
+        "id": "c",
+        "text": "::"
+      },
+      {
+        "id": "d",
+        "text": "#"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "L’operatore '.' si usa per accedere ai membri di una struttura.",
+    "informal_explanation": "Serve per entrare nei campi della struct.",
+    "question_response_explanation": "La risposta corretta è \".\". L’operatore '.' si usa per accedere ai membri di una struttura. La risposta \"->\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \".\".",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "36",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Strutture",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Come si accede a un campo di una struttura tramite puntatore?",
+    "option": [
+      {
+        "id": "a",
+        "text": "."
+      },
+      {
+        "id": "b",
+        "text": "->"
+      },
+      {
+        "id": "c",
+        "text": "*"
+      },
+      {
+        "id": "d",
+        "text": "&"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "L’operatore '->' si usa con i puntatori a struct.",
+    "informal_explanation": "Serve quando hai un puntatore a una struttura.",
+    "question_response_explanation": "La risposta corretta è \"->\". L’operatore '->' si usa con i puntatori a struct. La risposta \"->\" è corretta perché -> accede ai campi tramite puntatore. La risposta \"*\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"->\".",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "37",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Ricorsione",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Cos’è una funzione ricorsiva?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Una funzione che si chiama da sola"
+      },
+      {
+        "id": "b",
+        "text": "Una funzione senza parametri"
+      },
+      {
+        "id": "c",
+        "text": "Una funzione che non restituisce valori"
+      },
+      {
+        "id": "d",
+        "text": "Una funzione globale"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "Una funzione ricorsiva richiama sé stessa durante l'esecuzione.",
+    "informal_explanation": "È una funzione che si ripete da sola.",
+    "question_response_explanation": "La risposta corretta è \"Una funzione che si chiama da sola\". Una funzione ricorsiva richiama sé stessa durante l'esecuzione. La risposta \"Una funzione senza parametri\" non soddisfa la condizione richiesta, mentre \"Una funzione che si chiama da sola\" identifica la proprietà necessaria. La risposta \"Una funzione che non restituisce valori\" non soddisfa la condizione richiesta, mentre \"Una funzione che si chiama da sola\" identifica la proprietà necessaria. La risposta \"Una funzione globale\" non soddisfa la condizione richiesta, mentre \"Una funzione che si chiama da sola\" identifica la proprietà necessaria.",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "38",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Ricorsione",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Cosa serve per evitare un ciclo infinito in una funzione ricorsiva?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Un caso base"
+      },
+      {
+        "id": "b",
+        "text": "Un ciclo for"
+      },
+      {
+        "id": "c",
+        "text": "Un puntatore"
+      },
+      {
+        "id": "d",
+        "text": "Una struct"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "Il caso base interrompe la ricorsione.",
+    "informal_explanation": "È la condizione che ferma la funzione.",
+    "question_response_explanation": "La risposta corretta è \"Un caso base\". Il caso base interrompe la ricorsione. La risposta \"Un ciclo for\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Un caso base\". La risposta \"Un puntatore\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Un caso base\". La risposta \"Una struct\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Un caso base\".",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "39",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Algoritmi",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Cos’è la complessità temporale di un algoritmo?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Il tempo di esecuzione rispetto all’input"
+      },
+      {
+        "id": "b",
+        "text": "La memoria usata dal programma"
+      },
+      {
+        "id": "c",
+        "text": "Il numero di variabili"
+      },
+      {
+        "id": "d",
+        "text": "Il numero di funzioni"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "La complessità temporale misura il tempo di esecuzione in funzione dell'input.",
+    "informal_explanation": "Ti dice quanto è veloce un algoritmo.",
+    "question_response_explanation": "La risposta corretta è \"Il tempo di esecuzione rispetto all’input\". La complessità temporale misura il tempo di esecuzione in funzione dell'input. La risposta \"La memoria usata dal programma\" non soddisfa la condizione richiesta, mentre \"Il tempo di esecuzione rispetto all’input\" identifica la proprietà necessaria. La risposta \"Il numero di variabili\" non soddisfa la condizione richiesta, mentre \"Il tempo di esecuzione rispetto all’input\" identifica la proprietà necessaria. La risposta \"Il numero di funzioni\" non soddisfa la condizione richiesta, mentre \"Il tempo di esecuzione rispetto all’input\" identifica la proprietà necessaria.",
+    "estimed_time": "15"
+  },
+  {
+    "id_question": "40",
+    "metadata": {
+      "city": "unict",
+      "department": "DMI",
+      "course": "L-31",
+      "sub": "Programmazione 1",
+      "argoment": "Algoritmi",
+      "teacher": "Giovanni Maria Farinella",
+      "year_of_validity": "2025"
+    },
+    "text": "Cos’è la complessità spaziale?",
+    "option": [
+      {
+        "id": "a",
+        "text": "La memoria utilizzata da un algoritmo"
+      },
+      {
+        "id": "b",
+        "text": "Il tempo di esecuzione"
+      },
+      {
+        "id": "c",
+        "text": "Il numero di cicli"
+      },
+      {
+        "id": "d",
+        "text": "La dimensione del codice"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "La complessità spaziale misura la memoria richiesta dall’algoritmo.",
+    "informal_explanation": "Dice quanta memoria serve per eseguire il programma.",
+    "question_response_explanation": "La risposta corretta è \"La memoria utilizzata da un algoritmo\". La complessità spaziale misura la memoria richiesta dall’algoritmo. La risposta \"Il tempo di esecuzione\" non soddisfa la condizione richiesta, mentre \"La memoria utilizzata da un algoritmo\" identifica la proprietà necessaria. La risposta \"Il numero di cicli\" non soddisfa la condizione richiesta, mentre \"La memoria utilizzata da un algoritmo\" identifica la proprietà necessaria. La risposta \"La dimensione del codice\" non soddisfa la condizione richiesta, mentre \"La memoria utilizzata da un algoritmo\" identifica la proprietà necessaria.",
+    "estimed_time": "15"
+  }
+]

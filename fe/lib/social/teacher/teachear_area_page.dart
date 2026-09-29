@@ -207,7 +207,7 @@ class _TeacherAreaPageState extends State<TeacherAreaPage> {
   @override
   Widget build(BuildContext context) {
     if (_loading) {
-      return const Scaffold(
+      return Scaffold(
         backgroundColor: AppColors.darkElegance,
         body: Center(
           child: CircularProgressIndicator(
@@ -303,7 +303,7 @@ class _TeacherAreaPageState extends State<TeacherAreaPage> {
               color: AppColors.teacherIndigo.withValues(alpha: 0.14),
               borderRadius: BorderRadius.circular(18),
             ),
-            child: const Icon(
+            child: Icon(
               Icons.cast_for_education_outlined,
               color: AppColors.teacherIndigo,
               size: 32,
@@ -314,7 +314,7 @@ class _TeacherAreaPageState extends State<TeacherAreaPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Area Docenti StudentLab',
                   style: TextStyle(
                     color: AppColors.pureWhite,
@@ -333,10 +333,10 @@ class _TeacherAreaPageState extends State<TeacherAreaPage> {
                   ),
                 ),
                 const SizedBox(height: 9),
-                const Text(
+                Text(
                   'Docente verificato dal server',
                   style: TextStyle(
-                    color: Colors.greenAccent,
+                    color: AppColors.greenAccent,
                     fontSize: 9,
                     fontWeight: FontWeight.bold,
                   ),
@@ -531,18 +531,18 @@ class _TeacherActionCard extends StatelessWidget {
                   ),
                   const Spacer(),
                   if (pending)
-                    const Text(
+                    Text(
                       'BACKEND DA COLLEGARE',
                       style: TextStyle(
-                        color: Colors.amber,
+                        color: AppColors.amber,
                         fontSize: 7,
                         fontWeight: FontWeight.bold,
                       ),
                     )
                   else
-                    const Icon(
+                    Icon(
                       Icons.arrow_forward_ios_rounded,
-                      color: Colors.white30,
+                      color: AppColors.white30,
                       size: 14,
                     ),
                 ],
@@ -550,7 +550,7 @@ class _TeacherActionCard extends StatelessWidget {
               const SizedBox(height: 13),
               Text(
                 title,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.pureWhite,
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -560,8 +560,8 @@ class _TeacherActionCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   description,
-                  style: const TextStyle(
-                    color: Colors.white54,
+                  style: TextStyle(
+                    color: AppColors.white54,
                     fontSize: 10,
                     height: 1.35,
                   ),
@@ -609,7 +609,7 @@ class _TeacherSubjectCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(
+              Icon(
                 Icons.school_outlined,
                 color: AppColors.teacherIndigo,
                 size: 25,
@@ -618,7 +618,7 @@ class _TeacherSubjectCard extends StatelessWidget {
               if (code.isNotEmpty)
                 Text(
                   code,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.materialSky,
                     fontSize: 9,
                     fontWeight: FontWeight.bold,
@@ -629,7 +629,7 @@ class _TeacherSubjectCard extends StatelessWidget {
                 name,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.pureWhite,
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -642,8 +642,8 @@ class _TeacherSubjectCard extends StatelessWidget {
                     .join(' • '),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  color: Colors.white54,
+                style: TextStyle(
+                  color: AppColors.white54,
                   fontSize: 9,
                 ),
               ),
@@ -671,7 +671,7 @@ class _TeacherSectionTitle extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.pureWhite,
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -703,11 +703,11 @@ class _EmptySubjectsCard extends StatelessWidget {
         color: AppColors.eleganceMidnight,
         borderRadius: BorderRadius.circular(17),
       ),
-      child: const Text(
+      child: Text(
         'Nessuna materia verificata disponibile.',
         textAlign: TextAlign.center,
         style: TextStyle(
-          color: Colors.white54,
+          color: AppColors.white54,
           fontSize: 11,
         ),
       ),
@@ -745,19 +745,19 @@ class _TeacherAccessDeniedPage extends StatelessWidget {
                 color: AppColors.eleganceMidnight,
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: Colors.redAccent.withValues(alpha: 0.16),
+                  color: AppColors.redAccent.withValues(alpha: 0.16),
                 ),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.gpp_bad_outlined,
-                    color: Colors.redAccent,
+                    color: AppColors.redAccent,
                     size: 44,
                   ),
                   const SizedBox(height: 18),
-                  const Text(
+                  Text(
                     'Accesso docente non autorizzato',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -771,8 +771,8 @@ class _TeacherAccessDeniedPage extends StatelessWidget {
                     error ??
                         'Il server non riconosce questa sessione come appartenente a un docente verificato e attivo.',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Colors.white54,
+                    style: TextStyle(
+                      color: AppColors.white54,
                       fontSize: 11,
                       height: 1.45,
                     ),

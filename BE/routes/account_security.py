@@ -98,6 +98,9 @@ def api_password_change(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
+    from services.verification_lock import has_pending_verifications, PENDING_MESSAGE
+    if has_pending_verifications(db, current_user):
+        raise HTTPException(status_code=409, detail=PENDING_MESSAGE)
     try:
         change_password(
             db,
@@ -126,6 +129,9 @@ def api_email_change_start(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
+    from services.verification_lock import has_pending_verifications, PENDING_MESSAGE
+    if has_pending_verifications(db, current_user):
+        raise HTTPException(status_code=409, detail=PENDING_MESSAGE)
     try:
         request_id, new_email = begin_email_change(
             db,
@@ -161,6 +167,9 @@ def api_email_change_complete(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
+    from services.verification_lock import has_pending_verifications, PENDING_MESSAGE
+    if has_pending_verifications(db, current_user):
+        raise HTTPException(status_code=409, detail=PENDING_MESSAGE)
     try:
         email = complete_email_change(
             db,

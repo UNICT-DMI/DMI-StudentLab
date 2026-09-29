@@ -356,7 +356,7 @@ class _ManageProfileSubjectsPageState
               AppColors.eleganceDeepNavy,
 
           title:
-              const Text(
+              Text(
             'Rimuovi materia',
 
             style:
@@ -406,13 +406,13 @@ class _ManageProfileSubjectsPageState
               },
 
               child:
-                  const Text(
+                  Text(
                 'Rimuovi',
 
                 style:
                     TextStyle(
                   color:
-                      Colors.redAccent,
+                      AppColors.redAccent,
                 ),
               ),
             ),
@@ -723,7 +723,7 @@ class _ManageProfileSubjectsPageState
 
           Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.menu_book_outlined,
 
                 color:
@@ -738,7 +738,7 @@ class _ManageProfileSubjectsPageState
                     8,
               ),
 
-              const Expanded(
+              Expanded(
                 child:
                     Text(
                   'Le tue materie',
@@ -761,7 +761,7 @@ class _ManageProfileSubjectsPageState
                 '${_user.subjects.length}',
 
                 style:
-                    const TextStyle(
+                    TextStyle(
                   color:
                       AppColors.materialSky,
 
@@ -875,7 +875,7 @@ class _ManageProfileSubjectsPageState
             ),
 
             child:
-                const Icon(
+                Icon(
               Icons.school_outlined,
 
               color:
@@ -898,7 +898,7 @@ class _ManageProfileSubjectsPageState
                   CrossAxisAlignment.start,
 
               children: [
-                const Text(
+                Text(
                   'Materie del profilo',
 
                   style:
@@ -952,7 +952,7 @@ class _ManageProfileSubjectsPageState
                         : '${path.department} • ${path.course} ${path.degreeType}',
 
                     style:
-                        const TextStyle(
+                        TextStyle(
                       color:
                           AppColors.materialSky,
 
@@ -969,13 +969,13 @@ class _ManageProfileSubjectsPageState
                         8,
                   ),
 
-                  const Text(
+                  Text(
                     'Nessun percorso accademico principale disponibile.',
 
                     style:
                         TextStyle(
                       color:
-                          Colors.amber,
+                          AppColors.amber,
 
                       fontSize:
                           9,
@@ -1069,7 +1069,7 @@ class _SubjectCard
                 ),
 
                 child:
-                    const Icon(
+                    Icon(
                   Icons.menu_book_outlined,
 
                   color:
@@ -1096,7 +1096,7 @@ class _SubjectCard
                       subject.name,
 
                       style:
-                          const TextStyle(
+                          TextStyle(
                         color:
                             AppColors.pureWhite,
 
@@ -1123,9 +1123,9 @@ class _SubjectCard
                         '${subject.department} • ${subject.course}',
 
                         style:
-                            const TextStyle(
+                            TextStyle(
                           color:
-                              Colors.white38,
+                              AppColors.white38,
 
                           fontSize:
                               9,
@@ -1146,11 +1146,11 @@ class _SubjectCard
                         : onRemove,
 
                 icon:
-                    const Icon(
+                    Icon(
                   Icons.delete_outline_rounded,
 
                   color:
-                      Colors.redAccent,
+                      AppColors.redAccent,
                 ),
               ),
             ],
@@ -1224,9 +1224,9 @@ class _SubjectCard
               subject.note,
 
               style:
-                  const TextStyle(
+                  TextStyle(
                 color:
-                    Colors.white54,
+                    AppColors.white54,
 
                 fontSize:
                     10,
@@ -1379,7 +1379,7 @@ class _AddSubjectSheetState
                 CrossAxisAlignment.start,
 
             children: [
-              const Text(
+              Text(
                 'Aggiungi materia',
 
                 style:
@@ -1436,7 +1436,7 @@ class _AddSubjectSheetState
                     AppColors.eleganceDeepNavy,
 
                 style:
-                    const TextStyle(
+                    TextStyle(
                   color:
                       AppColors.pureWhite,
                 ),
@@ -1509,7 +1509,7 @@ class _AddSubjectSheetState
                       TextInputType.number,
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
                         AppColors.pureWhite,
                   ),
@@ -1573,7 +1573,7 @@ class _AddSubjectSheetState
                     4,
 
                 style:
-                    const TextStyle(
+                    TextStyle(
                   color:
                       AppColors.pureWhite,
                 ),
@@ -1617,7 +1617,7 @@ class _AddSubjectSheetState
                     AppColors.skyBlue,
 
                 title:
-                    const Text(
+                    Text(
                   'Posso aiutare',
 
                   style:
@@ -1634,13 +1634,13 @@ class _AddSubjectSheetState
                 ),
 
                 subtitle:
-                    const Text(
+                    Text(
                   'Mostra agli altri utenti che puoi offrire supporto su questa materia.',
 
                   style:
                       TextStyle(
                     color:
-                        Colors.white38,
+                        AppColors.white38,
 
                     fontSize:
                         9,
@@ -1672,7 +1672,7 @@ class _AddSubjectSheetState
                     AppColors.skyBlue,
 
                 title:
-                    const Text(
+                    Text(
                   'Lezioni private',
 
                   style:
@@ -1689,13 +1689,13 @@ class _AddSubjectSheetState
                 ),
 
                 subtitle:
-                    const Text(
+                    Text(
                   'Mostra agli altri utenti che offri lezioni private su questa materia.',
 
                   style:
                       TextStyle(
                     color:
-                        Colors.white38,
+                        AppColors.white38,
 
                     fontSize:
                         9,
@@ -1780,15 +1780,15 @@ class _AddSubjectSheetState
       ),
 
       labelStyle:
-          const TextStyle(
+          TextStyle(
         color:
-            Colors.white54,
+            AppColors.white54,
       ),
 
       hintStyle:
-          const TextStyle(
+          TextStyle(
         color:
-            Colors.white24,
+            AppColors.white24,
       ),
 
       filled:
@@ -1935,7 +1935,7 @@ class _SubjectBadge
             label,
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
                   AppColors.materialSky,
 
@@ -1987,7 +1987,7 @@ class _GradeBadge
               '$grade/30 verificato',
 
           color:
-              Colors.greenAccent,
+              AppColors.greenAccent,
         );
 
       case GradeVerificationStatus.pending:
@@ -1999,7 +1999,7 @@ class _GradeBadge
               '$grade/30 in verifica',
 
           color:
-              Colors.amber,
+              AppColors.amber,
         );
 
       case GradeVerificationStatus.rejected:
@@ -2011,7 +2011,7 @@ class _GradeBadge
               '$grade/30 rifiutato',
 
           color:
-              Colors.redAccent,
+              AppColors.redAccent,
         );
 
       case GradeVerificationStatus.none:
@@ -2143,13 +2143,13 @@ class _EmptySubjects
       ),
 
       child:
-          const Column(
+          Column(
         children: [
           Icon(
             Icons.menu_book_outlined,
 
             color:
-                Colors.white30,
+                AppColors.white30,
 
             size:
                 36,
@@ -2190,7 +2190,7 @@ class _EmptySubjects
             style:
                 TextStyle(
               color:
-                  Colors.white38,
+                  AppColors.white38,
 
               fontSize:
                   10,
@@ -2231,7 +2231,7 @@ class _SubjectErrorCard
       decoration:
           BoxDecoration(
         color:
-            Colors.redAccent
+            AppColors.redAccent
                 .withOpacity(
           0.07,
         ),
@@ -2245,11 +2245,11 @@ class _SubjectErrorCard
       child:
           Row(
         children: [
-          const Icon(
+          Icon(
             Icons.error_outline_rounded,
 
             color:
-                Colors.redAccent,
+                AppColors.redAccent,
 
             size:
                 19,
@@ -2266,9 +2266,9 @@ class _SubjectErrorCard
               message,
 
               style:
-                  const TextStyle(
+                  TextStyle(
                 color:
-                    Colors.white60,
+                    AppColors.white60,
 
                 fontSize:
                     10,
@@ -2286,7 +2286,7 @@ class _SubjectErrorCard
             },
 
             icon:
-                const Icon(
+                Icon(
               Icons.refresh_rounded,
 
               color:

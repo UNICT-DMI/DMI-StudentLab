@@ -18,6 +18,8 @@ PublicMaterialStatus = Literal[
 class PublicMaterialResponse(
     BaseModel,
 ):
+    contributor_mode: str = "anonymous"
+    contributor_display_name: str | None = None
     model_config = ConfigDict(
         from_attributes=True,
     )
@@ -66,10 +68,14 @@ class PublicMaterialResponse(
 
     updated_at: datetime
 
-
 class PublicMaterialAdminResponse(
     PublicMaterialResponse,
 ):
+    visibility_state: str = 'visible'
+    audience_type: str = 'public'
+    drive_file_id: str | None = None
+    drive_activation_pending: bool = False
+
     stored_name: str
 
     file_path: str

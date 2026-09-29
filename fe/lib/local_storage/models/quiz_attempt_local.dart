@@ -11,6 +11,7 @@ class QuizAttemptLocal {
   final int wrongCount;
   final int unansweredCount;
   final bool isHiddenFromHistory;
+  final String? studySourceKey;
   final DateTime startedAt;
   final DateTime? completedAt;
   final DateTime createdAt;
@@ -29,6 +30,7 @@ class QuizAttemptLocal {
     required this.wrongCount,
     required this.unansweredCount,
     required this.isHiddenFromHistory,
+    this.studySourceKey,
     required this.startedAt,
     required this.completedAt,
     required this.createdAt,
@@ -50,6 +52,7 @@ class QuizAttemptLocal {
       'unanswered_count': unansweredCount,
       'is_hidden_from_history':
           isHiddenFromHistory ? 1 : 0,
+      'study_source_key': studySourceKey,
       'started_at': startedAt.toUtc().toIso8601String(),
       'completed_at':
           completedAt?.toUtc().toIso8601String(),
@@ -81,6 +84,7 @@ class QuizAttemptLocal {
           _int(map['unanswered_count']) ?? 0,
       isHiddenFromHistory:
           _int(map['is_hidden_from_history']) == 1,
+      studySourceKey: _nullable(map['study_source_key']),
       startedAt:
           _date(map['started_at']) ?? DateTime.now(),
       completedAt:
@@ -97,6 +101,11 @@ int? _int(dynamic value) {
   if (value is int) return value;
   if (value is num) return value.toInt();
   return int.tryParse(value?.toString() ?? '');
+}
+
+String? _nullable(dynamic value) {
+  final String text = value?.toString().trim() ?? '';
+  return text.isEmpty ? null : text;
 }
 
 DateTime? _date(dynamic value) {

@@ -225,7 +225,7 @@ class _AdminReviewsPageState
               AppColors.eleganceDeepNavy,
 
           title:
-              const Text(
+              Text(
             'Rifiuta recensione',
 
             style:
@@ -236,13 +236,13 @@ class _AdminReviewsPageState
           ),
 
           content:
-              const Text(
+              Text(
             'Vuoi rifiutare questa recensione?',
 
             style:
                 TextStyle(
               color:
-                  Colors.white70,
+                  AppColors.white70,
             ),
           ),
 
@@ -272,13 +272,13 @@ class _AdminReviewsPageState
               },
 
               child:
-                  const Text(
+                  Text(
                 'Rifiuta',
 
                 style:
                     TextStyle(
                   color:
-                      Colors.redAccent,
+                      AppColors.redAccent,
                 ),
               ),
             ),
@@ -336,7 +336,7 @@ class _AdminReviewsPageState
               AppColors.eleganceDeepNavy,
 
           title:
-              const Text(
+              Text(
             'Nascondi recensione',
 
             style:
@@ -347,13 +347,13 @@ class _AdminReviewsPageState
           ),
 
           content:
-              const Text(
+              Text(
             'La recensione non sarà più visibile pubblicamente. Vuoi continuare?',
 
             style:
                 TextStyle(
               color:
-                  Colors.white70,
+                  AppColors.white70,
             ),
           ),
 
@@ -383,13 +383,13 @@ class _AdminReviewsPageState
               },
 
               child:
-                  const Text(
+                  Text(
                 'Nascondi',
 
                 style:
                     TextStyle(
                   color:
-                      Colors.orangeAccent,
+                      AppColors.orangeAccent,
                 ),
               ),
             ),
@@ -557,7 +557,7 @@ class _AdminReviewsPageState
 
             icon:
                 _refreshing
-                    ? const SizedBox(
+                    ? SizedBox(
                         width:
                             19,
 
@@ -996,7 +996,7 @@ class _AdminReviewItem
                 style:
                     ElevatedButton.styleFrom(
                   backgroundColor:
-                      Colors.greenAccent,
+                      AppColors.greenAccent,
 
                   foregroundColor:
                       AppColors
@@ -1040,12 +1040,12 @@ class _AdminReviewItem
                 style:
                     OutlinedButton.styleFrom(
                   foregroundColor:
-                      Colors.redAccent,
+                      AppColors.redAccent,
 
                   side:
                       BorderSide(
                     color:
-                        Colors.redAccent
+                        AppColors.redAccent
                             .withOpacity(
                       0.40,
                     ),
@@ -1087,12 +1087,12 @@ class _AdminReviewItem
             style:
                 OutlinedButton.styleFrom(
               foregroundColor:
-                  Colors.orangeAccent,
+                  AppColors.orangeAccent,
 
               side:
                   BorderSide(
                 color:
-                    Colors.orangeAccent
+                    AppColors.orangeAccent
                         .withOpacity(
                   0.40,
                 ),
@@ -1131,7 +1131,7 @@ class _AdminReviewItem
                 style:
                     ElevatedButton.styleFrom(
                   backgroundColor:
-                      Colors.greenAccent,
+                      AppColors.greenAccent,
 
                   foregroundColor:
                       AppColors
@@ -1370,12 +1370,12 @@ class _EmptyAdminReviews
           child:
               Column(
             children: [
-              const Icon(
+              Icon(
                 Icons
                     .rate_review_outlined,
 
                 color:
-                    Colors.white38,
+                    AppColors.white38,
 
                 size:
                     44,
@@ -1393,9 +1393,9 @@ class _EmptyAdminReviews
                     TextAlign.center,
 
                 style:
-                    const TextStyle(
+                    TextStyle(
                   color:
-                      Colors.white60,
+                      AppColors.white60,
 
                   fontSize:
                       12,
@@ -1480,7 +1480,7 @@ class _AdminReviewsError
             border:
                 Border.all(
               color:
-                  Colors.redAccent
+                  AppColors.redAccent
                       .withOpacity(
                 0.18,
               ),
@@ -1493,11 +1493,11 @@ class _AdminReviewsError
                 MainAxisSize.min,
 
             children: [
-              const Icon(
+              Icon(
                 Icons.error_outline_rounded,
 
                 color:
-                    Colors.redAccent,
+                    AppColors.redAccent,
 
                 size:
                     40,
@@ -1508,7 +1508,7 @@ class _AdminReviewsError
                     12,
               ),
 
-              const Text(
+              Text(
                 'Impossibile caricare le recensioni',
 
                 textAlign:
@@ -1539,9 +1539,9 @@ class _AdminReviewsError
                     TextAlign.center,
 
                 style:
-                    const TextStyle(
+                    TextStyle(
                   color:
-                      Colors.white60,
+                      AppColors.white60,
 
                   fontSize:
                       11,

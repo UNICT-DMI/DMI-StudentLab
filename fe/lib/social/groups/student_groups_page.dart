@@ -502,7 +502,7 @@ class _CreateGroupPageState
             ),
 
             child:
-                const Icon(
+                Icon(
               Icons.groups_rounded,
 
               color:
@@ -525,7 +525,7 @@ class _CreateGroupPageState
                   CrossAxisAlignment.start,
 
               children: [
-                const Text(
+                Text(
                   'Crea il tuo gruppo di studio',
 
                   style:
@@ -587,7 +587,7 @@ class _CreateGroupPageState
           title,
 
           style:
-              const TextStyle(
+              TextStyle(
             color:
                 AppColors.pureWhite,
 
@@ -744,7 +744,7 @@ class _CreateGroupPageState
                 ),
 
                 child:
-                    const Icon(
+                    Icon(
                   Icons
                       .menu_book_outlined,
 
@@ -774,7 +774,7 @@ class _CreateGroupPageState
                           : _course,
 
                       style:
-                          const TextStyle(
+                          TextStyle(
                         color:
                             AppColors
                                 .pureWhite,
@@ -877,7 +877,7 @@ class _CreateGroupPageState
                   true,
 
               style:
-                  const TextStyle(
+                  TextStyle(
                 color:
                     AppColors
                         .pureWhite,
@@ -889,7 +889,7 @@ class _CreateGroupPageState
               decoration:
                   InputDecoration(
                 prefixIcon:
-                    const Icon(
+                    Icon(
                   Icons
                       .menu_book_outlined,
 
@@ -1094,7 +1094,7 @@ class _CreateGroupPageState
                 ),
 
                 child:
-                    const Icon(
+                    Icon(
                   Icons
                       .person_add_alt_1_rounded,
 
@@ -1118,7 +1118,7 @@ class _CreateGroupPageState
                       CrossAxisAlignment.start,
 
                   children: [
-                    const Text(
+                    Text(
                       'Invita partecipanti',
 
                       style:
@@ -1170,7 +1170,7 @@ class _CreateGroupPageState
                     _addParticipant,
 
                 icon:
-                    const Icon(
+                    Icon(
                   Icons.add_rounded,
 
                   color:
@@ -1273,7 +1273,7 @@ class _CreateGroupPageState
               ),
 
               child:
-                  const Row(
+                  Row(
                 children: [
                   _MaterialUploadIcon(),
 
@@ -1317,7 +1317,7 @@ class _CreateGroupPageState
                           style:
                               TextStyle(
                             color:
-                                Colors.white54,
+                                AppColors.white54,
 
                             fontSize:
                                 11,
@@ -1425,7 +1425,7 @@ class _CreateGroupPageState
             CrossAxisAlignment.start,
 
         children: [
-          const Text(
+          Text(
             'Riepilogo',
 
             style:
@@ -1593,7 +1593,7 @@ class _CreateGroupPageState
 
         icon:
             _creating
-                ? const SizedBox(
+                ? SizedBox(
                     width:
                         18,
 
@@ -1677,7 +1677,7 @@ class _CreateGroupPageState
           label,
 
           style:
-              const TextStyle(
+              TextStyle(
             color:
                 AppColors.pureWhite,
 
@@ -1690,7 +1690,7 @@ class _CreateGroupPageState
         ),
 
         if (required)
-          const Text(
+          Text(
             ' *',
 
             style:
@@ -1718,7 +1718,7 @@ class _CreateGroupPageState
           maxLines,
 
       style:
-          const TextStyle(
+          TextStyle(
         color:
             AppColors.pureWhite,
 
@@ -1784,7 +1784,7 @@ class _CreateGroupPageState
           ),
 
           borderSide:
-              const BorderSide(
+              BorderSide(
             color:
                 AppColors.skyBlue,
 
@@ -1944,7 +1944,7 @@ class _CreateGroupPageState
                     children: [
                       Row(
                         children: [
-                          const Expanded(
+                          Expanded(
                             child:
                                 Text(
                               'Invita partecipanti',
@@ -1973,12 +1973,12 @@ class _CreateGroupPageState
                             },
 
                             icon:
-                                const Icon(
+                                Icon(
                               Icons
                                   .close_rounded,
 
                               color:
-                                  Colors.white54,
+                                  AppColors.white54,
                             ),
                           ),
                         ],
@@ -2016,7 +2016,7 @@ class _CreateGroupPageState
                             _participantSearchController,
 
                         style:
-                            const TextStyle(
+                            TextStyle(
                           color:
                               AppColors
                                   .pureWhite,
@@ -2028,13 +2028,13 @@ class _CreateGroupPageState
                               'Cerca utente...',
 
                           hintStyle:
-                              const TextStyle(
+                              TextStyle(
                             color:
-                                Colors.white38,
+                                AppColors.white38,
                           ),
 
                           prefixIcon:
-                              const Icon(
+                              Icon(
                             Icons
                                 .search_rounded,
 
@@ -2654,7 +2654,7 @@ class _PrivacyOption
                         .withValues(alpha: 
                           0.30,
                         )
-                    : Colors.white
+                    : AppColors.white
                         .withValues(alpha: 
                           0.06,
                         ),
@@ -2718,7 +2718,7 @@ class _PrivacyOption
                     title,
 
                     style:
-                        const TextStyle(
+                        TextStyle(
                       color:
                           AppColors
                               .pureWhite,
@@ -2782,7 +2782,7 @@ class _PrivacyOption
                   selected
                       ? AppColors
                           .skyBlue
-                      : Colors.white30,
+                      : AppColors.white30,
 
               size:
                   21,
@@ -2832,7 +2832,7 @@ class _SocialUserOption
       ),
 
       leading:
-          const CircleAvatar(
+          CircleAvatar(
         backgroundColor:
             AppColors
                 .brandNightBlue,
@@ -2858,7 +2858,7 @@ class _SocialUserOption
             TextOverflow.ellipsis,
 
         style:
-            const TextStyle(
+            TextStyle(
           color:
               AppColors.pureWhite,
 
@@ -2881,9 +2881,9 @@ class _SocialUserOption
             TextOverflow.ellipsis,
 
         style:
-            const TextStyle(
+            TextStyle(
           color:
-              Colors.white54,
+              AppColors.white54,
 
           fontSize:
               10,
@@ -2891,7 +2891,7 @@ class _SocialUserOption
       ),
 
       trailing:
-          const Icon(
+          Icon(
         Icons.add_rounded,
 
         color:
@@ -2956,7 +2956,7 @@ class _InvitedUserTile
                 ),
 
             child:
-                const Icon(
+                Icon(
               Icons
                   .person_outline_rounded,
 
@@ -2984,7 +2984,7 @@ class _InvitedUserTile
                   user.name,
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
                         AppColors
                             .pureWhite,
@@ -3006,9 +3006,9 @@ class _InvitedUserTile
                   user.subtitle,
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
-                        Colors.white54,
+                        AppColors.white54,
 
                     fontSize:
                         10,
@@ -3026,11 +3026,11 @@ class _InvitedUserTile
                 onRemove,
 
             icon:
-                const Icon(
+                Icon(
               Icons.close_rounded,
 
               color:
-                  Colors.white38,
+                  AppColors.white38,
 
               size:
                   18,
@@ -3073,7 +3073,7 @@ class _MaterialUploadIcon
       ),
 
       child:
-          const Icon(
+          Icon(
         Icons.upload_file_rounded,
 
         color:
@@ -3188,7 +3188,7 @@ class _SelectedMaterialTile
                           .ellipsis,
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
                         AppColors
                             .pureWhite,
@@ -3210,9 +3210,9 @@ class _SelectedMaterialTile
                   '${material.type} • ${material.size}',
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
-                        Colors.white54,
+                        AppColors.white54,
 
                     fontSize:
                         10,
@@ -3230,11 +3230,11 @@ class _SelectedMaterialTile
                 onRemove,
 
             icon:
-                const Icon(
+                Icon(
               Icons.close_rounded,
 
               color:
-                  Colors.white38,
+                  AppColors.white38,
 
               size:
                   18,
@@ -3317,7 +3317,7 @@ class _SummaryRow
                 TextAlign.right,
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
                   AppColors
                       .pureWhite,
@@ -3374,7 +3374,7 @@ class _CreateGroupErrorCard
         border:
             Border.all(
           color:
-              Colors.redAccent
+              AppColors.redAccent
                   .withValues(alpha: 
             0.20,
           ),
@@ -3387,12 +3387,12 @@ class _CreateGroupErrorCard
             MainAxisSize.min,
 
         children: [
-          const Icon(
+          Icon(
             Icons
                 .error_outline_rounded,
 
             color:
-                Colors.redAccent,
+                AppColors.redAccent,
 
             size:
                 40,
@@ -3403,7 +3403,7 @@ class _CreateGroupErrorCard
                 12,
           ),
 
-          const Text(
+          Text(
             'Impossibile caricare i dati',
 
             style:
@@ -3431,9 +3431,9 @@ class _CreateGroupErrorCard
                 TextAlign.center,
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
-                  Colors.white60,
+                  AppColors.white60,
 
               fontSize:
                   11,

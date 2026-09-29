@@ -65,13 +65,16 @@ type UploadKind =
   | 'group_material'
   | 'question_attachment'
   | 'teacher_material'
-  | 'material_publication';
+  | 'material_publication'
+  | 'personal_material'
+  | 'material_share';
 
 
 type UploadRequestBody = {
   upload_kind?: UploadKind;
   group_id?: number;
   subject_id?: number;
+  recipient_user_id?: number;
   pathname: string;
   content_type: string;
   size: number;
@@ -221,13 +224,65 @@ export default async function handler(
   request: VercelRequest,
   response: VercelResponse,
 ) {
+  const origin =
+    typeof request.headers.origin === 'string'
+      ? request.headers.origin
+      : '';
+
+  const allowedOrigins = new Set([
+    'https://studentlab.net',
+    'https://www.studentlab.net',
+    'https://studentlab-487da.web.app',
+    'https://studentlab-487da.firebaseapp.com',
+    'http://localhost:3000',
+    'http://localhost:5000',
+    'http://localhost:8080',
+  ]);
+
+  if (origin && allowedOrigins.has(origin)) {
+    response.setHeader(
+      'Access-Control-Allow-Origin',
+      origin,
+    );
+  }
+
+  response.setHeader(
+    'Vary',
+    'Origin',
+  );
+
+  response.setHeader(
+    'Access-Control-Allow-Methods',
+    'POST, OPTIONS',
+  );
+
+  response.setHeader(
+    'Access-Control-Allow-Headers',
+    'Authorization, Content-Type, Accept',
+  );
+
+  response.setHeader(
+    'Access-Control-Max-Age',
+    '86400',
+  );
+
+  if (request.method === 'OPTIONS') {
+    if (origin && !allowedOrigins.has(origin)) {
+      return response.status(403).json({
+        error: 'Origine non autorizzata.',
+      });
+    }
+
+    return response.status(204).end();
+  }
+
   if (
     request.method !==
     'POST'
   ) {
     response.setHeader(
       'Allow',
-      'POST',
+      'POST, OPTIONS',
     );
 
     return response
@@ -384,7 +439,15 @@ export default async function handler(
                 'material-publication/',
               )
               ? 'material_publication'
-              : 'group_material'
+              : pathname.startsWith(
+                  'personal-sync/',
+                )
+                ? 'personal_material'
+                : pathname.startsWith(
+                    'material-shares/',
+                  )
+                  ? 'material_share'
+                  : 'group_material'
       );
 
     if (
@@ -726,6 +789,242 @@ export default async function handler(
                 : 'Caricamento non autorizzato.',
           });
       }
+    } else if (
+      uploadKind ===
+      'personal_material'
+    ) {
+      if (
+        !pathname.startsWith(
+          'personal-sync/',
+        )
+      ) {
+        return response
+          .status(400)
+          .json({
+            error:
+              'Percorso materiale personale non valido.',
+          });
+      }
+
+      if (
+        body.size >
+        GROUP_MAX_FILE_SIZE
+      ) {
+        return response
+          .status(413)
+          .json({
+            error:
+              'Il file supera la dimensione massima consentita di 250 MB.',
+          });
+      }
+
+      if (
+        !TEACHER_ALLOWED_CONTENT_TYPES.includes(
+          contentType,
+        )
+      ) {
+        return response
+          .status(400)
+          .json({
+            error:
+              'Tipo di file non supportato.',
+          });
+      }
+
+      if (
+        typeof body.upload_token !==
+          'string' ||
+        body.upload_token
+          .trim()
+          .length === 0
+      ) {
+        return response
+          .status(400)
+          .json({
+            error:
+              'Autorizzazione upload personale non valida.',
+          });
+      }
+
+      const verifyResponse =
+        await fetch(
+          `${backendUrl}/personal-materials/verify-upload`,
+          {
+            method:
+              'POST',
+            headers: {
+              Authorization:
+                authorization,
+              'Content-Type':
+                'application/json',
+            },
+            body:
+              JSON.stringify({
+                pathname,
+                mime_type:
+                  contentType,
+                size:
+                  body.size,
+                file_hash:
+                  fileHash,
+                upload_token:
+                  body.upload_token,
+              }),
+          },
+        );
+
+      const verified =
+        await parseJson(
+          verifyResponse,
+        );
+
+      if (
+        !verifyResponse.ok ||
+        verified.allowed !==
+          true ||
+        verified.pathname !==
+          pathname
+      ) {
+        return response
+          .status(
+            verifyResponse.status >=
+              400 &&
+            verifyResponse.status <
+              500
+              ? verifyResponse.status
+              : 403,
+          )
+          .json({
+            error:
+              typeof verified.detail ===
+                'string'
+                ? verified.detail
+                : 'Caricamento non autorizzato.',
+          });
+      }
+    } else if (
+      uploadKind ===
+      'material_share'
+    ) {
+      if (
+        !pathname.startsWith(
+          'material-shares/',
+        )
+      ) {
+        return response
+          .status(400)
+          .json({
+            error:
+              'Percorso condivisione materiale non valido.',
+          });
+      }
+
+      if (
+        body.size >
+        GROUP_MAX_FILE_SIZE
+      ) {
+        return response
+          .status(413)
+          .json({
+            error:
+              'Il file supera la dimensione massima consentita di 250 MB.',
+          });
+      }
+
+      if (
+        !TEACHER_ALLOWED_CONTENT_TYPES.includes(
+          contentType,
+        )
+      ) {
+        return response
+          .status(400)
+          .json({
+            error:
+              'Tipo di file non supportato.',
+          });
+      }
+
+      if (
+        !Number.isInteger(
+          body.recipient_user_id,
+        ) ||
+        !body.recipient_user_id ||
+        body.recipient_user_id <=
+          0 ||
+        typeof body.upload_token !==
+          'string' ||
+        body.upload_token
+          .trim()
+          .length === 0
+      ) {
+        return response
+          .status(400)
+          .json({
+            error:
+              'Autorizzazione condivisione non valida.',
+          });
+      }
+
+      const verifyResponse =
+        await fetch(
+          `${backendUrl}/material-shares/verify-upload`,
+          {
+            method:
+              'POST',
+            headers: {
+              Authorization:
+                authorization,
+              'Content-Type':
+                'application/json',
+            },
+            body:
+              JSON.stringify({
+                recipient_user_id:
+                  body.recipient_user_id,
+                pathname,
+                mime_type:
+                  contentType,
+                size:
+                  body.size,
+                file_hash:
+                  fileHash,
+                upload_token:
+                  body.upload_token,
+              }),
+          },
+        );
+
+      const verified =
+        await parseJson(
+          verifyResponse,
+        );
+
+      if (
+        !verifyResponse.ok ||
+        verified.allowed !==
+          true ||
+        verified.pathname !==
+          pathname ||
+        verified.recipient_user_id !==
+          body.recipient_user_id
+      ) {
+        return response
+          .status(
+            verifyResponse.status >=
+              400 &&
+            verifyResponse.status <
+              500
+              ? verifyResponse.status
+              : 403,
+          )
+          .json({
+            error:
+              typeof verified.detail ===
+                'string'
+                ? verified.detail
+                : 'Caricamento non autorizzato.',
+          });
+      }
     } else {
       if (
         !pathname.startsWith(
@@ -919,8 +1218,18 @@ export default async function handler(
           uploadKind ===
             'teacher_material' ||
           uploadKind ===
-            'material_publication'
+            'material_publication' ||
+          uploadKind ===
+            'personal_material' ||
+          uploadKind ===
+            'material_share'
             ? body.subject_id
+              ?? null
+            : null,
+        recipient_user_id:
+          uploadKind ===
+            'material_share'
+            ? body.recipient_user_id
               ?? null
             : null,
         presigned_url:

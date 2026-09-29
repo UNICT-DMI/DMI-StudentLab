@@ -1,0 +1,1839 @@
+{
+  "universities": [
+    {
+      "code": "UNICT",
+      "name": "Università degli Studi di Catania",
+      "departments": [
+        {
+          "code": "LEX",
+          "name": "Dipartimento di Giurisprudenza",
+          "courses": [
+            {
+              "code": "LMG-01",
+              "name": "Giurisprudenza",
+              "degree_type": "Laurea magistrale a ciclo unico",
+              "subjects": [
+                {
+                  "code": "DIRITTO_COSTITUZIONALE",
+                  "name": "DIRITTO COSTITUZIONALE",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "code": "23468",
+                      "module": null,
+                      "channel": "A/C",
+                      "semester": 1,
+                      "cfu": 12,
+                      "teachers": ["CARIOLA AGATINO"]
+                    },
+                    {
+                      "code": "23469",
+                      "module": null,
+                      "channel": "D/Le",
+                      "semester": 1,
+                      "cfu": 12,
+                      "teachers": ["CASTORINA EMILIO S."]
+                    },
+                    {
+                      "code": "23470",
+                      "module": null,
+                      "channel": "Li/Q",
+                      "semester": 1,
+                      "cfu": 12,
+                      "teachers": ["NICOTRA IDA ANGELA"]
+                    },
+                    {
+                      "code": "23471",
+                      "module": null,
+                      "channel": "R/Z",
+                      "semester": 1,
+                      "cfu": 12,
+                      "teachers": ["CIANCIO ADRIANA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "ISTITUZIONI_DIRITTO_PRIVATO_I",
+                  "name": "ISTITUZIONI DI DIRITTO PRIVATO I",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "code": "23461",
+                      "module": null,
+                      "channel": "A/C",
+                      "semester": 2,
+                      "cfu": 9,
+                      "teachers": ["MELI MARISA"]
+                    },
+                    {
+                      "code": "23462",
+                      "module": null,
+                      "channel": "D/Le",
+                      "semester": 2,
+                      "cfu": 9,
+                      "teachers": ["BIVONA ELSA"]
+                    },
+                    {
+                      "code": "23463",
+                      "module": null,
+                      "channel": "Li/Q",
+                      "semester": 2,
+                      "cfu": 9,
+                      "teachers": ["MAUCERI TOMMASO"]
+                    },
+                    {
+                      "code": "23464",
+                      "module": null,
+                      "channel": "R/Z",
+                      "semester": 2,
+                      "cfu": 9,
+                      "teachers": ["SALANITRO UGO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "ISTITUZIONI_DIRITTO_ROMANO",
+                  "name": "ISTITUZIONI DI DIRITTO ROMANO",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "code": "23472",
+                      "module": null,
+                      "channel": "A/C",
+                      "semester": 1,
+                      "cfu": 10,
+                      "teachers": ["LONGO ROSARIA"]
+                    },
+                    {
+                      "code": "23473",
+                      "module": null,
+                      "channel": "D/Le",
+                      "semester": 1,
+                      "cfu": 10,
+                      "teachers": ["GENOVESE MARIO"]
+                    },
+                    {
+                      "code": "23474",
+                      "module": null,
+                      "channel": "Li/Q",
+                      "semester": 1,
+                      "cfu": 10,
+                      "teachers": ["ARCARIA FRANCESCO"]
+                    },
+                    {
+                      "code": "23475",
+                      "module": null,
+                      "channel": "R/Z",
+                      "semester": 1,
+                      "cfu": 10,
+                      "teachers": ["SCIUTO PATRIZIA ANNA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "LINGUA_GIURIDICA_INGLESE",
+                  "name": "LINGUA GIURIDICA INGLESE",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "code": "23465",
+                      "module": null,
+                      "channel": "A/C",
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": []
+                    },
+                    {
+                      "code": "23466",
+                      "module": null,
+                      "channel": "D/Le",
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": []
+                    },
+                    {
+                      "code": "23467",
+                      "module": null,
+                      "channel": "Li/Q",
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["DI GREGORIO GIUSEPPINA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "STORIA_DIRITTO_MEDIEVALE_MODERNO",
+                  "name": "STORIA DEL DIRITTO MEDIEVALE E MODERNO",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "code": "23477",
+                      "module": null,
+                      "channel": "A/C",
+                      "semester": 2,
+                      "cfu": 10,
+                      "teachers": ["SORICE ROSALBA"]
+                    },
+                    {
+                      "code": "23478",
+                      "module": null,
+                      "channel": "D/Le",
+                      "semester": 2,
+                      "cfu": 10,
+                      "teachers": ["DE CRISTOFARO ERNESTO"]
+                    },
+                    {
+                      "code": "23479",
+                      "module": null,
+                      "channel": "Li/Q",
+                      "semester": 2,
+                      "cfu": 10,
+                      "teachers": ["TESTUZZA MARIA SOLE"]
+                    },
+                    {
+                      "code": "23480",
+                      "module": null,
+                      "channel": "R/Z",
+                      "semester": 2,
+                      "cfu": 10,
+                      "teachers": ["DI STEFANO ALESSIA MARIA"]
+                    }
+                  ]
+                },
+
+                {
+                  "code": "23569",
+                  "name": "BIODIRITTO",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23569",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["DI ROSA GIOVANNI"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23619",
+                  "name": "COMPARATIVE AND EUROPEAN LITIGATION",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23619",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["FABBI ALESSANDRO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23609",
+                  "name": "COMPARATIVE CRIMINAL PROCEDURE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23609",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["PATANE' VANIA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23577",
+                  "name": "COMPOSIZIONE NEGOZIATA DELLE LITI E MEDIAZIONE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23577",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["MARINO CONCETTA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23578",
+                  "name": "CONSUMER CONTRACT LAW",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23578",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["GUZZARDI GAETANO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23551",
+                  "name": "CRIMINOLOGIA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23551",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["SCALIA VALERIA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23579",
+                  "name": "DIRITTO ANTIDISCRIMINATORIO",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23579",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["MILITELLO MARIAGRAZIA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23552",
+                  "name": "DIRITTO BANCARIO",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23552",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["MIRONE AURELIO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23553",
+                  "name": "DIRITTO CANONICO",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23553",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["PETTINATO CRISTIANA MARIA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23554",
+                  "name": "DIRITTO COMUNE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23554",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["SPECIALE GIUSEPPE"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23570",
+                  "name": "DIRITTO DEI NUOVI CONTRATTI",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23570",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["MAUGERI MARIA ROSARIA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "DIRITTO_DEL_LAVORO",
+                  "name": "DIRITTO DEL LAVORO",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23538",
+                      "module": null,
+                      "channel": "A/Le",
+                      "semester": 2,
+                      "cfu": 12,
+                      "teachers": ["LO FARO ANTONIO"]
+                    },
+                    {
+                      "code": "23539",
+                      "module": null,
+                      "channel": "Li/Z",
+                      "semester": 2,
+                      "cfu": 12,
+                      "teachers": ["ALAIMO ANNA MARIA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23555",
+                  "name": "DIRITTO DEL LAVORO DELLE PUBBLICHE AMMINISTRAZIONI",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23555",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["RICCI GIANCARLO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23580",
+                  "name": "DIRITTO DEL LAVORO E IMMIGRAZIONE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23580",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["PAPA VERONICA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23581",
+                  "name": "DIRITTO DEL PATRIMONIO CULTURALE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23581",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["SPAMPINATO BIAGIO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23582",
+                  "name": "DIRITTO DELL'ARBITRATO",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23582",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["SANTANGELI FABIO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23568",
+                  "name": "DIRITTO DELL'ESECUZIONE CIVILE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23568",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["MARINO CONCETTA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "DIRITTO_UNIONE_EUROPEA",
+                  "name": "DIRITTO DELL'UNIONE EUROPEA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23545",
+                      "module": null,
+                      "channel": "A/Le",
+                      "semester": 2,
+                      "cfu": 9,
+                      "teachers": ["DI STEFANO ADRIANA"]
+                    },
+                    {
+                      "code": "23546",
+                      "module": null,
+                      "channel": "Li/Z",
+                      "semester": 2,
+                      "cfu": 9,
+                      "teachers": ["SAPIENZA ROSARIO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23583",
+                  "name": "DIRITTO DELLA CRISI D'IMPRESA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23583",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["MACRÌ ENRICO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23584",
+                  "name": "DIRITTO DELLA FINANZA PUBBLICA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23584",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": [
+                        "D'ALTERIO ELISA",
+                        "CHIARA GIUSEPPE"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "23585",
+                  "name": "DIRITTO DELLE ASSEMBLEE ELETTIVE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23585",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": [
+                        "CARIOLA AGATINO",
+                        "VOSA GIULIANO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "23586",
+                  "name": "DIRITTO DELLE SUCCESSIONI",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23586",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["SALANITRO UGO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23556",
+                  "name": "DIRITTO DI FAMIGLIA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23556",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["GRASSO ALFIO GUIDO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23614",
+                  "name": "DIRITTO E MANAGEMENT DEL LAVORO PUBBLICO E PRIVATO",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23614",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["NICOSIA GABRIELLA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23587",
+                  "name": "DIRITTO E RELIGIONE IN EUROPA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23587",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["PETTINATO CRISTIANA MARIA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23618",
+                  "name": "DIRITTO INDUSTRIALE: CONCORRENZA E PROPRIETÀ INTELLETTUALE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23618",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["PENNISI ROBERTO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "DIRITTO_INTERNAZIONALE",
+                  "name": "DIRITTO INTERNAZIONALE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23549",
+                      "module": null,
+                      "channel": "A/Le",
+                      "semester": 1,
+                      "cfu": 9,
+                      "teachers": ["ZAPPALÀ SALVATORE"]
+                    },
+                    {
+                      "code": "23550",
+                      "module": null,
+                      "channel": "Li/Z",
+                      "semester": 1,
+                      "cfu": 9,
+                      "teachers": ["PIRRONE PASQUALE"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23588",
+                  "name": "DIRITTO INTERNAZIONALE DEL MARE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23588",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["SAPIENZA ROSARIO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23557",
+                  "name": "DIRITTO INTERNAZIONALE PRIVATO",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23557",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["PIRRONE PASQUALE"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23589",
+                  "name": "DIRITTO PENALE DELL'AMBIENTE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23589",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["VAGLIASINDI GRAZIA MARIA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23558",
+                  "name": "DIRITTO PENALE DELL'ECONOMIA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23558",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": [
+                        "MAUGERI ANNA MARIA",
+                        "ORSINA AMALIA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "23559",
+                  "name": "DIRITTO PENALE EUROPEO",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23559",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["SICURELLA ROSARIA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23590",
+                  "name": "DIRITTO PENALE ROMANO",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23590",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["ARCARIA FRANCESCO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23560",
+                  "name": "DIRITTO PENITENZIARIO",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23560",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["SIRACUSANO FABRIZIO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23591",
+                  "name": "DIRITTO PRIVATO DELLO SPORT",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23591",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["MAUCERI TOMMASO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23592",
+                  "name": "DIRITTO PROCESSUALE DELLO SPORT",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23592",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["SANTANGELI FABIO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23561",
+                  "name": "DIRITTO PROCESSUALE PENALE COMPARATO",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23561",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["ZAPPULLA ANGELO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23617",
+                  "name": "DIRITTO PROCESSUALE TRIBUTARIO",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23617",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["GUIDARA ANTONIO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23593",
+                  "name": "DIRITTO REGIONALE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23593",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["SPADARO IGNAZIO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23594",
+                  "name": "DIRITTO ROMANO DELLE PERSONE E DELLA FAMIGLIA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23594",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["GENOVESE MARIO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23595",
+                  "name": "DIRITTO, MERCATO DEL LAVORO E NUOVE TECNOLOGIE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23595",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["ALAIMO ANNA MARIA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23542",
+                  "name": "ECONOMIA AZIENDALE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23542",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["LA ROSA FABIO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "ECONOMIA_POLITICA",
+                  "name": "ECONOMIA POLITICA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23547",
+                      "module": null,
+                      "channel": "A/Le",
+                      "semester": 2,
+                      "cfu": 9,
+                      "teachers": ["CASERTA MAURIZIO"]
+                    },
+                    {
+                      "code": "23548",
+                      "module": null,
+                      "channel": "Li/Z",
+                      "semester": 2,
+                      "cfu": 9,
+                      "teachers": ["PACELLA ANDREA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23610",
+                  "name": "EGUAGLIANZA, DONNE E DIRITTI",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23610",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 4,
+                      "teachers": ["CIANCIO ADRIANA"]
+                    },
+                    {
+                      "code": "23610",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 3,
+                      "teachers": ["SORICE ROSALBA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23608",
+                  "name": "ESEGESI DELLE FONTI DEL DIRITTO ROMANO",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23608",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["GENOVESE MARIO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23572",
+                  "name": "EUROPEAN INTELLECTUAL PROPERTY LAW",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23572",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["ARCIDIACONO DAVIDE"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23540",
+                  "name": "EUROPEAN LABOUR LAW",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23540",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["LO FARO ANTONIO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "FILOSOFIA_DEL_DIRITTO",
+                  "name": "FILOSOFIA DEL DIRITTO",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23543",
+                      "module": null,
+                      "channel": "A/Le",
+                      "semester": 1,
+                      "cfu": 10,
+                      "teachers": ["ANDRONICO ALBERTO"]
+                    },
+                    {
+                      "code": "23544",
+                      "module": null,
+                      "channel": "Li/Z",
+                      "semester": 1,
+                      "cfu": 10,
+                      "teachers": ["PORCIELLO ANDREA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23596",
+                  "name": "FISCALITÀ INTERNAZIONALE ED EUROPEA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23596",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["GUIDARA ANTONIO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23597",
+                  "name": "FONDAMENTI DEL DIRITTO EUROPEO",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23597",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["LONGO ROSARIA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23612",
+                  "name": "GIURISPRUDENZA ROMANA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23612",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["SCIUTO PATRIZIA ANNA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23598",
+                  "name": "GOVERNO E GESTIONE DEL TERRITORIO",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23598",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["IUDICA GIOVANNI"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23599",
+                  "name": "IL SISTEMA DI PREVENZIONE DELLA CORRUZIONE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23599",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["VOSA GIULIANO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23615",
+                  "name": "INTELLIGENZA ARTIFICIALE E DIRITTO",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23615",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 3,
+                      "teachers": ["PORCIELLO ANDREA"]
+                    },
+                    {
+                      "code": "23615",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 2,
+                      "teachers": ["GRASSO ALFIO GUIDO"]
+                    },
+                    {
+                      "code": "23615",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 2,
+                      "teachers": ["MAUGERI ANNA MARIA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23571",
+                  "name": "INTERNATIONAL JUDICIAL COOPERATION IN CRIMINAL MATTERS",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23571",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["BELFIORE ROSANNA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "ISTITUZIONI_DIRITTO_PRIVATO_II",
+                  "name": "ISTITUZIONI DI DIRITTO PRIVATO II",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23573",
+                      "module": null,
+                      "channel": "A/C",
+                      "semester": 1,
+                      "cfu": 9,
+                      "teachers": ["MELI MARISA"]
+                    },
+                    {
+                      "code": "23574",
+                      "module": null,
+                      "channel": "D/Le",
+                      "semester": 1,
+                      "cfu": 9,
+                      "teachers": ["BIVONA ELSA"]
+                    },
+                    {
+                      "code": "23575",
+                      "module": null,
+                      "channel": "Li/Q",
+                      "semester": 1,
+                      "cfu": 9,
+                      "teachers": ["MAUCERI TOMMASO"]
+                    },
+                    {
+                      "code": "23576",
+                      "module": null,
+                      "channel": "R/Z",
+                      "semester": 1,
+                      "cfu": 9,
+                      "teachers": ["SALANITRO UGO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23600",
+                  "name": "LE NUOVE RESPONSABILITÀ",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23600",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["BIVONA ELSA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23537",
+                  "name": "LEGAL THEORY",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23537",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["SILVESTRI PAOLO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23616",
+                  "name": "LEGGERE E SCRIVERE IL DIRITTO. TEORIA E PRASSI DELL’ARGOMENTAZIONE GIURIDICA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23616",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 3,
+                      "teachers": ["ANDRONICO ALBERTO"]
+                    },
+                    {
+                      "code": "23616",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 2,
+                      "teachers": ["LO FARO ANTONIO"]
+                    },
+                    {
+                      "code": "23616",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 2,
+                      "teachers": ["SALANITRO UGO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23562",
+                  "name": "LEGISLAZIONE MINORILE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23562",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["ZAPPULLA ANGELO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23611",
+                  "name": "LIBERTÀ FONDAMENTALI E DOVERI COSTITUZIONALI",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23611",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["VOSA GIULIANO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23563",
+                  "name": "MEDICINA LEGALE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23563",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": [
+                        "POMARA CRISTOFORO",
+                        "SALERNO MONICA",
+                        "BARBERA NUNZIATA GIUSEPPA ELISABETTA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "23541",
+                  "name": "MULTILEVEL CONSTITUTIONALISM",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23541",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": [
+                        "CIANCIO ADRIANA",
+                        "VOSA GIULIANO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "23564",
+                  "name": "POLITICA ECONOMICA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23564",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["CASERTA MAURIZIO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23601",
+                  "name": "PROCEDURA PENALE EUROPEA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23601",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["SIRACUSANO FABRIZIO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23602",
+                  "name": "REGOLAZIONE AMMINISTRATIVA DEI MERCATI",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23602",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["LICATA GIOVANNI FABIO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23603",
+                  "name": "ROMAN PUBLIC LAW",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23603",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["MAGGIO LUCIO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23565",
+                  "name": "SCIENZA DELLE FINANZE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23565",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["FERRARA PAOLO LORENZO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23535",
+                  "name": "SELECTED TOPICS IN INTERNATIONAL CRIMINAL LAW",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23535",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["VAGLIASINDI GRAZIA MARIA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23604",
+                  "name": "SISTEMI GIURIDICI COMPARATI",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23604",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["LAS CASAS ANTONIO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23566",
+                  "name": "STORIA DEL DIRITTO CANONICO",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23566",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["CONDORELLI ORAZIO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23605",
+                  "name": "STORIA DEL DIRITTO PENALE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23605",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["SORICE ROSALBA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23567",
+                  "name": "STORIA DEL DIRITTO ROMANO",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23567",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["ARCARIA FRANCESCO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23606",
+                  "name": "STORIA DELL’ECONOMIA POLITICA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23606",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["PACELLA ANDREA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23613",
+                  "name": "TEORIE DELLA GIUSTIZIA E REGOLAZIONE DEL MERCATO",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23613",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["SILVESTRI PAOLO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23536",
+                  "name": "TRANSNATIONAL LAW",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23536",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["DI STEFANO ADRIANA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23607",
+                  "name": "TUTELA INTERNAZIONALE DEI DIRITTI UMANI",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "23607",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["PIRRONE PASQUALE"]
+                    }
+                  ]
+                },
+
+                {
+                  "code": "DIRITTO_COMMERCIALE_I",
+                  "name": "DIRITTO COMMERCIALE I",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "code": "23627",
+                      "module": null,
+                      "channel": "A/Le",
+                      "semester": 2,
+                      "cfu": 10,
+                      "teachers": ["PENNISI ROBERTO"]
+                    },
+                    {
+                      "code": "23628",
+                      "module": null,
+                      "channel": "Li/Z",
+                      "semester": 2,
+                      "cfu": 10,
+                      "teachers": ["SANFILIPPO PIERPAOLO M."]
+                    }
+                  ]
+                },
+                {
+                  "code": "23622",
+                  "name": "DIRITTO ECCLESIASTICO",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "code": "23622",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 8,
+                      "teachers": ["CONDORELLI ORAZIO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "DIRITTO_PENALE_I",
+                  "name": "DIRITTO PENALE I",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "code": "23620",
+                      "module": null,
+                      "channel": "A/Le",
+                      "semester": 1,
+                      "cfu": 9,
+                      "teachers": ["MAUGERI ANNA MARIA"]
+                    },
+                    {
+                      "code": "23621",
+                      "module": null,
+                      "channel": "Li/Z",
+                      "semester": 1,
+                      "cfu": 9,
+                      "teachers": ["SICURELLA ROSARIA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "DIRITTO_PROCESSUALE_CIVILE",
+                  "name": "DIRITTO PROCESSUALE CIVILE",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "code": "23623",
+                      "module": null,
+                      "channel": "A/Le",
+                      "semester": "A",
+                      "cfu": 15,
+                      "teachers": ["RAITI GIOVANNI"]
+                    },
+                    {
+                      "code": "23624",
+                      "module": null,
+                      "channel": "Li/Z",
+                      "semester": "A",
+                      "cfu": 15,
+                      "teachers": ["ZINGALES IGNAZIO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23629",
+                  "name": "FILOSOFIA DELL’AMBIENTE E DIRITTO",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "code": "23629",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["PORCIELLO ANDREA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23626",
+                  "name": "GIUSTIZIA COSTITUZIONALE",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "code": "23626",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 8,
+                      "teachers": ["FERRO GIANCARLO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23625",
+                  "name": "TEORIA GENERALE DEL DIRITTO",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "code": "23625",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 7,
+                      "teachers": ["ANDRONICO ALBERTO"]
+                    }
+                  ]
+                },
+
+                {
+                  "code": "DIRITTO_AMMINISTRATIVO_I",
+                  "name": "DIRITTO AMMINISTRATIVO I",
+                  "study_year": 4,
+                  "offerings": [
+                    {
+                      "code": "23632",
+                      "module": null,
+                      "channel": "A/Le",
+                      "semester": 1,
+                      "cfu": 9,
+                      "teachers": ["LICCIARDELLO SEBASTIANO"]
+                    },
+                    {
+                      "code": "23633",
+                      "module": null,
+                      "channel": "Li/Z",
+                      "semester": 1,
+                      "cfu": 9,
+                      "teachers": ["D'ALTERIO ELISA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "DIRITTO_AMMINISTRATIVO_II",
+                  "name": "DIRITTO AMMINISTRATIVO II",
+                  "study_year": 4,
+                  "offerings": [
+                    {
+                      "code": "23634",
+                      "module": null,
+                      "channel": "A/Le",
+                      "semester": 2,
+                      "cfu": 9,
+                      "teachers": ["LICATA GIOVANNI FABIO"]
+                    },
+                    {
+                      "code": "23635",
+                      "module": null,
+                      "channel": "Li/Z",
+                      "semester": 2,
+                      "cfu": 9,
+                      "teachers": ["SPAMPINATO BIAGIO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "DIRITTO_CIVILE",
+                  "name": "DIRITTO CIVILE",
+                  "study_year": 4,
+                  "offerings": [
+                    {
+                      "code": "23636",
+                      "module": null,
+                      "channel": "A/Le",
+                      "semester": 2,
+                      "cfu": 10,
+                      "teachers": ["MAUGERI MARIA ROSARIA"]
+                    },
+                    {
+                      "code": "23637",
+                      "module": null,
+                      "channel": "Li/Z",
+                      "semester": 2,
+                      "cfu": 10,
+                      "teachers": ["DI ROSA GIOVANNI"]
+                    }
+                  ]
+                },
+                {
+                  "code": "DIRITTO_COMMERCIALE_II",
+                  "name": "DIRITTO COMMERCIALE II",
+                  "study_year": 4,
+                  "offerings": [
+                    {
+                      "code": "23640",
+                      "module": null,
+                      "channel": "A/Le",
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["MIRONE AURELIO"]
+                    },
+                    {
+                      "code": "23641",
+                      "module": null,
+                      "channel": "Li/Z",
+                      "semester": 1,
+                      "cfu": 7,
+                      "teachers": ["SANFILIPPO PIERPAOLO M."]
+                    }
+                  ]
+                },
+                {
+                  "code": "DIRITTO_PENALE_II",
+                  "name": "DIRITTO PENALE II",
+                  "study_year": 4,
+                  "offerings": [
+                    {
+                      "code": "23638",
+                      "module": null,
+                      "channel": "A/Le",
+                      "semester": 1,
+                      "cfu": 8,
+                      "teachers": ["VAGLIASINDI GRAZIA MARIA"]
+                    },
+                    {
+                      "code": "23639",
+                      "module": null,
+                      "channel": "Li/Z",
+                      "semester": 1,
+                      "cfu": 8,
+                      "teachers": ["SCALIA VALERIA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23630",
+                  "name": "DIRITTO ROMANO",
+                  "study_year": 4,
+                  "offerings": [
+                    {
+                      "code": "23630",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 8,
+                      "teachers": ["SCIUTO PATRIZIA ANNA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23631",
+                  "name": "STORIA DEL DIRITTO MODERNO E CONTEMPORANEO",
+                  "study_year": 4,
+                  "offerings": [
+                    {
+                      "code": "23631",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 8,
+                      "teachers": ["SPECIALE GIUSEPPE"]
+                    }
+                  ]
+                },
+
+                {
+                  "code": "23647",
+                  "name": "DIRITTO COSTITUZIONALE COMPARATO",
+                  "study_year": 5,
+                  "offerings": [
+                    {
+                      "code": "23647",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 9,
+                      "teachers": ["CHIARA GIUSEPPE"]
+                    }
+                  ]
+                },
+                {
+                  "code": "23646",
+                  "name": "DIRITTO PRIVATO COMPARATO",
+                  "study_year": 5,
+                  "offerings": [
+                    {
+                      "code": "23646",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 9,
+                      "teachers": ["LAS CASAS ANTONIO"]
+                    }
+                  ]
+                },
+                {
+                  "code": "DIRITTO_PROCESSUALE_PENALE",
+                  "name": "DIRITTO PROCESSUALE PENALE",
+                  "study_year": 5,
+                  "offerings": [
+                    {
+                      "code": "23642",
+                      "module": null,
+                      "channel": "A/Le",
+                      "semester": "A",
+                      "cfu": 15,
+                      "teachers": ["RAFARACI TOMMASO"]
+                    },
+                    {
+                      "code": "23643",
+                      "module": null,
+                      "channel": "Li/Z",
+                      "semester": "A",
+                      "cfu": 15,
+                      "teachers": ["PATANE' VANIA"]
+                    }
+                  ]
+                },
+                {
+                  "code": "DIRITTO_TRIBUTARIO",
+                  "name": "DIRITTO TRIBUTARIO",
+                  "study_year": 5,
+                  "offerings": [
+                    {
+                      "code": "23644",
+                      "module": null,
+                      "channel": "A/Le",
+                      "semester": 1,
+                      "cfu": 9,
+                      "teachers": ["GUIDARA ANTONIO"]
+                    },
+                    {
+                      "code": "23645",
+                      "module": null,
+                      "channel": "Li/Z",
+                      "semester": 1,
+                      "cfu": 9,
+                      "teachers": ["GUIDARA ANTONIO"]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -35,7 +35,7 @@ class DeveloperUiStyle {
     );
   }
 
-  static TextStyle get sectionTitle => const TextStyle(
+  static TextStyle get sectionTitle => TextStyle(
         color: AppColors.pureWhite,
         fontSize: 17,
         fontWeight: FontWeight.bold,
@@ -47,7 +47,7 @@ class DeveloperUiStyle {
         height: 1.4,
       );
 
-  static TextStyle get bodyStrong => const TextStyle(
+  static TextStyle get bodyStrong => TextStyle(
         color: AppColors.pureWhite,
         fontSize: 12,
         fontWeight: FontWeight.w600,

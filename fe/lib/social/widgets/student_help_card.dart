@@ -16,7 +16,8 @@ class StudentHelpCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return StudentLabProfileSearchCard(
       user: student,
-      typeLabel: 'Studente',
+      typeLabel: student.isVerifiedInstitutionalTutor ? 'Tutoraggio UNICT' :
+          student.availableForPrivateLessons ? 'Lezioni private' : 'Studente',
       accent: AppColors.studentBlue,
     );
   }

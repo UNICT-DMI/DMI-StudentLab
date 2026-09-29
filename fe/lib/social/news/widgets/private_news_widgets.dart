@@ -94,7 +94,7 @@ class PrivateMessageCard extends StatelessWidget {
                 backgroundColor: AppColors.brandNightBlue,
                 child: Text(
                   initialsFrom(mine ? 'Tu' : counterpart),
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.skyBlue,
                     fontWeight: FontWeight.w700,
                     fontSize: 13,
@@ -108,7 +108,7 @@ class PrivateMessageCard extends StatelessWidget {
                   children: [
                     Text(
                       mine ? 'Tu → $counterpart' : counterpart,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.pureWhite,
                         fontWeight: FontWeight.w700,
                         fontSize: 14,
@@ -126,10 +126,10 @@ class PrivateMessageCard extends StatelessWidget {
                 ),
               ),
               if (mine && message.isPendingDelivery)
-                const _StatusChip(
+                _StatusChip(
                   label: 'In attesa',
                   icon: Icons.schedule_rounded,
-                  color: Colors.orangeAccent,
+                  color: AppColors.orangeAccent,
                 )
               else
                 const EncryptedBadge(),
@@ -178,7 +178,7 @@ class PrivateMessageCard extends StatelessWidget {
             Text(
               'Messaggio in attesa di consegna.',
               style: TextStyle(
-                color: Colors.orangeAccent.withValues(alpha: 0.86),
+                color: AppColors.orangeAccent.withValues(alpha: 0.86),
                 fontSize: 11,
                 height: 1.4,
               ),
@@ -215,7 +215,7 @@ class PrivateMessageCard extends StatelessWidget {
                     icon: const Icon(Icons.delete_outline_rounded, size: 18),
                     label: const Text('Elimina'),
                     style: TextButton.styleFrom(
-                      foregroundColor: Colors.redAccent,
+                      foregroundColor: AppColors.redAccent,
                     ),
                   ),
               ],
@@ -232,7 +232,7 @@ class EncryptedBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const _StatusChip(
+    return _StatusChip(
       label: 'E2E',
       icon: Icons.lock_outline_rounded,
       color: AppColors.materialSky,
@@ -314,7 +314,7 @@ class PrivateNewsStateView extends StatelessWidget {
             Text(
               title,
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.pureWhite,
                 fontWeight: FontWeight.w700,
                 fontSize: 16,
@@ -379,7 +379,7 @@ class _ReportConsentDialogState extends State<ReportConsentDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: AppColors.eleganceDeepNavy,
-      title: const Text(
+      title: Text(
         'Segnala messaggio',
         style: TextStyle(color: AppColors.pureWhite),
       ),
@@ -419,7 +419,7 @@ class _ReportConsentDialogState extends State<ReportConsentDialog> {
             DropdownButtonFormField<String>(
               initialValue: _reason,
               dropdownColor: AppColors.brandNightBlue,
-              style: const TextStyle(color: AppColors.pureWhite),
+              style: TextStyle(color: AppColors.pureWhite),
               decoration: InputDecoration(
                 filled: true,
                 fillColor: AppColors.brandNightBlue,
@@ -453,7 +453,7 @@ class _ReportConsentDialogState extends State<ReportConsentDialog> {
               minLines: 2,
               maxLines: 5,
               maxLength: NewsReportApiService.maxDescriptionLength,
-              style: const TextStyle(color: AppColors.pureWhite),
+              style: TextStyle(color: AppColors.pureWhite),
               decoration: InputDecoration(
                 hintText: 'Dettagli per i moderatori (facoltativo)',
                 hintStyle: TextStyle(
@@ -505,9 +505,9 @@ class _ReportConsentDialogState extends State<ReportConsentDialog> {
                     ),
                   )
               : null,
-          child: const Text(
+          child: Text(
             'Invia segnalazione',
-            style: TextStyle(color: Colors.redAccent),
+            style: TextStyle(color: AppColors.redAccent),
           ),
         ),
       ],

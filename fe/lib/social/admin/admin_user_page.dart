@@ -146,13 +146,13 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
           backgroundColor: AppColors.eleganceDeepNavy,
           title: Text(
             newStatus ? 'Riattiva account' : 'Disabilita account',
-            style: const TextStyle(color: AppColors.pureWhite),
+            style: TextStyle(color: AppColors.pureWhite),
           ),
           content: Text(
             newStatus
                 ? 'Vuoi riattivare l\'account di ${user.name}?'
                 : 'Vuoi disabilitare l\'account di ${user.name}? L\'utente non potrà utilizzare le funzionalità riservate agli account attivi.',
-            style: const TextStyle(color: Colors.white70, height: 1.45),
+            style: TextStyle(color: AppColors.white70, height: 1.45),
           ),
           actions: [
             TextButton(
@@ -164,7 +164,7 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
               child: Text(
                 newStatus ? 'Riattiva' : 'Disabilita',
                 style: TextStyle(
-                  color: newStatus ? Colors.greenAccent : Colors.redAccent,
+                  color: newStatus ? AppColors.greenAccent : AppColors.redAccent,
                 ),
               ),
             ),
@@ -230,7 +230,7 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
       builder: (BuildContext dialogContext) {
         return AlertDialog(
           backgroundColor: AppColors.eleganceDeepNavy,
-          title: const Text(
+          title: Text(
             'Elimina account',
             style: TextStyle(color: AppColors.pureWhite),
           ),
@@ -238,7 +238,7 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
             'Vuoi eliminare definitivamente l\'account di ${user.name}?\n\n'
             'I dati personali verranno rimossi o anonimizzati dal backend. '
             'Se l\'utente possiede ancora gruppi, l\'operazione verrà bloccata.',
-            style: const TextStyle(color: Colors.white70, height: 1.45),
+            style: TextStyle(color: AppColors.white70, height: 1.45),
           ),
           actions: [
             TextButton(
@@ -247,9 +247,9 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
             ),
             TextButton(
               onPressed: () => Navigator.pop(dialogContext, true),
-              child: const Text(
+              child: Text(
                 'Continua',
-                style: TextStyle(color: Colors.redAccent),
+                style: TextStyle(color: AppColors.redAccent),
               ),
             ),
           ],
@@ -273,7 +273,7 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
           builder: (BuildContext context, StateSetter setDialogState) {
             return AlertDialog(
               backgroundColor: AppColors.eleganceDeepNavy,
-              title: const Text(
+              title: Text(
                 'Conferma eliminazione definitiva',
                 style: TextStyle(color: AppColors.pureWhite),
               ),
@@ -281,15 +281,15 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Scrivi ELIMINA per confermare.',
-                    style: TextStyle(color: Colors.white70),
+                    style: TextStyle(color: AppColors.white70),
                   ),
                   const SizedBox(height: 14),
                   TextField(
                     controller: confirmationController,
                     autofocus: true,
-                    style: const TextStyle(color: AppColors.pureWhite),
+                    style: TextStyle(color: AppColors.pureWhite),
                     decoration: InputDecoration(
                       labelText: 'Conferma',
                       errorText: validationError,
@@ -313,9 +313,9 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
 
                     Navigator.pop(dialogContext, true);
                   },
-                  child: const Text(
+                  child: Text(
                     'Elimina definitivamente',
-                    style: TextStyle(color: Colors.redAccent),
+                    style: TextStyle(color: AppColors.redAccent),
                   ),
                 ),
               ],
@@ -404,7 +404,7 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
                 ? null
                 : () => _loadUsers(refresh: true),
             icon: _refreshing
-                ? const SizedBox(
+                ? SizedBox(
                     width: 19,
                     height: 19,
                     child: CircularProgressIndicator(
@@ -453,17 +453,17 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 10),
       child: TextField(
         controller: _searchController,
-        style: const TextStyle(
+        style: TextStyle(
           color: AppColors.pureWhite,
           fontSize: 12,
         ),
         decoration: InputDecoration(
           hintText: 'Cerca per nome, email, corso, materia...',
-          hintStyle: const TextStyle(
-            color: Colors.white38,
+          hintStyle: TextStyle(
+            color: AppColors.white38,
             fontSize: 11,
           ),
-          prefixIcon: const Icon(
+          prefixIcon: Icon(
             Icons.search_rounded,
             color: AppColors.skyBlue,
           ),
@@ -471,9 +471,9 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
               ? IconButton(
                   tooltip: 'Cancella',
                   onPressed: _searchController.clear,
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.close_rounded,
-                    color: Colors.white38,
+                    color: AppColors.white38,
                   ),
                 )
               : null,
@@ -485,7 +485,7 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(14),
-            borderSide: const BorderSide(
+            borderSide: BorderSide(
               color: AppColors.skyBlue,
               width: 1,
             ),
@@ -519,14 +519,14 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
               icon: Icons.check_circle_outline_rounded,
               label: 'Attivi',
               value: '$active',
-              color: Colors.greenAccent,
+              color: AppColors.greenAccent,
             ),
             const SizedBox(width: 8),
             _AdminUserStat(
               icon: Icons.block_outlined,
               label: 'Disabilitati',
               value: '$disabled',
-              color: Colors.redAccent,
+              color: AppColors.redAccent,
             ),
             const SizedBox(width: 8),
             _AdminUserStat(
@@ -620,7 +620,7 @@ class _AdminUserCard extends StatelessWidget {
         border: Border.all(
           color: user.isActive
               ? AppColors.skyBlue.withOpacity(0.10)
-              : Colors.redAccent.withOpacity(0.18),
+              : AppColors.redAccent.withOpacity(0.18),
         ),
       ),
       child: Column(
@@ -641,7 +641,7 @@ class _AdminUserCard extends StatelessWidget {
                 ),
                 child: Text(
                   user.name.isNotEmpty ? user.name[0].toUpperCase() : '?',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.pureWhite,
                     fontSize: 19,
                     fontWeight: FontWeight.bold,
@@ -660,7 +660,7 @@ class _AdminUserCard extends StatelessWidget {
                             user.name,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppColors.pureWhite,
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
@@ -678,8 +678,8 @@ class _AdminUserCard extends StatelessWidget {
                       user.email,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        color: Colors.white54,
+                      style: TextStyle(
+                        color: AppColors.white54,
                         fontSize: 10,
                       ),
                     ),
@@ -741,9 +741,9 @@ class _AdminUserCard extends StatelessWidget {
                       ? OutlinedButton.icon(
                           onPressed: currentUser ? null : onToggleStatus,
                           style: OutlinedButton.styleFrom(
-                            foregroundColor: Colors.redAccent,
+                            foregroundColor: AppColors.redAccent,
                             side: BorderSide(
-                              color: Colors.redAccent.withOpacity(0.35),
+                              color: AppColors.redAccent.withOpacity(0.35),
                             ),
                             padding: const EdgeInsets.symmetric(vertical: 11),
                             shape: RoundedRectangleBorder(
@@ -760,7 +760,7 @@ class _AdminUserCard extends StatelessWidget {
                       : ElevatedButton.icon(
                           onPressed: currentUser ? null : onToggleStatus,
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.greenAccent,
+                            backgroundColor: AppColors.greenAccent,
                             foregroundColor: AppColors.eleganceSoftNight,
                             elevation: 0,
                             padding: const EdgeInsets.symmetric(vertical: 11),
@@ -780,9 +780,9 @@ class _AdminUserCard extends StatelessWidget {
                   child: OutlinedButton.icon(
                     onPressed: currentUser ? null : onDelete,
                     style: OutlinedButton.styleFrom(
-                      foregroundColor: Colors.redAccent,
+                      foregroundColor: AppColors.redAccent,
                       side: BorderSide(
-                        color: Colors.redAccent.withOpacity(0.55),
+                        color: AppColors.redAccent.withOpacity(0.55),
                       ),
                       padding: const EdgeInsets.symmetric(vertical: 11),
                       shape: RoundedRectangleBorder(
@@ -834,7 +834,7 @@ class _AdminUserStat extends StatelessWidget {
           const SizedBox(width: 6),
           Text(
             label,
-            style: const TextStyle(color: Colors.white54, fontSize: 9),
+            style: TextStyle(color: AppColors.white54, fontSize: 9),
           ),
           const SizedBox(width: 6),
           Text(
@@ -862,7 +862,7 @@ class _CurrentUserBadge extends StatelessWidget {
         color: AppColors.skyBlue.withOpacity(0.09),
         borderRadius: BorderRadius.circular(7),
       ),
-      child: const Text(
+      child: Text(
         'Tu',
         style: TextStyle(
           color: AppColors.materialSky,
@@ -901,7 +901,7 @@ class _UserStatusBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color color = active ? Colors.greenAccent : Colors.redAccent;
+    final Color color = active ? AppColors.greenAccent : AppColors.redAccent;
 
     return _CompactBadge(
       icon: active ? Icons.check_circle_outline_rounded : Icons.block_outlined,
@@ -920,22 +920,22 @@ class _TeacherVerificationBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (status) {
       case TeacherVerificationStatus.verified:
-        return const _CompactBadge(
+        return _CompactBadge(
           icon: Icons.verified_rounded,
           label: 'Docente verificato',
-          color: Colors.greenAccent,
+          color: AppColors.greenAccent,
         );
       case TeacherVerificationStatus.pending:
-        return const _CompactBadge(
+        return _CompactBadge(
           icon: Icons.schedule_rounded,
           label: 'Verifica in attesa',
-          color: Colors.amber,
+          color: AppColors.amber,
         );
       case TeacherVerificationStatus.rejected:
-        return const _CompactBadge(
+        return _CompactBadge(
           icon: Icons.cancel_outlined,
           label: 'Verifica rifiutata',
-          color: Colors.redAccent,
+          color: AppColors.redAccent,
         );
       case TeacherVerificationStatus.notRequired:
         return const SizedBox.shrink();
@@ -1003,15 +1003,15 @@ class _UserInfoRow extends StatelessWidget {
           width: 90,
           child: Text(
             label,
-            style: const TextStyle(color: Colors.white38, fontSize: 9),
+            style: TextStyle(color: AppColors.white38, fontSize: 9),
           ),
         ),
         Expanded(
           child: Text(
             value,
             textAlign: TextAlign.right,
-            style: const TextStyle(
-              color: Colors.white70,
+            style: TextStyle(
+              color: AppColors.white70,
               fontSize: 10,
               fontWeight: FontWeight.w500,
             ),
@@ -1038,17 +1038,17 @@ class _EmptyUsers extends StatelessWidget {
             color: AppColors.eleganceMidnight,
             borderRadius: BorderRadius.circular(18),
           ),
-          child: const Column(
+          child: Column(
             children: [
               Icon(
                 Icons.search_off_rounded,
-                color: Colors.white38,
+                color: AppColors.white38,
                 size: 44,
               ),
               SizedBox(height: 12),
               Text(
                 'Nessun utente trovato.',
-                style: TextStyle(color: Colors.white60, fontSize: 12),
+                style: TextStyle(color: AppColors.white60, fontSize: 12),
               ),
             ],
           ),
@@ -1079,19 +1079,19 @@ class _AdminUsersError extends StatelessWidget {
             color: AppColors.eleganceMidnight,
             borderRadius: BorderRadius.circular(18),
             border: Border.all(
-              color: Colors.redAccent.withOpacity(0.18),
+              color: AppColors.redAccent.withOpacity(0.18),
             ),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(
+              Icon(
                 Icons.error_outline_rounded,
-                color: Colors.redAccent,
+                color: AppColors.redAccent,
                 size: 40,
               ),
               const SizedBox(height: 12),
-              const Text(
+              Text(
                 'Impossibile caricare gli utenti',
                 style: TextStyle(
                   color: AppColors.pureWhite,
@@ -1103,8 +1103,8 @@ class _AdminUsersError extends StatelessWidget {
               Text(
                 message,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Colors.white60,
+                style: TextStyle(
+                  color: AppColors.white60,
                   fontSize: 11,
                 ),
               ),

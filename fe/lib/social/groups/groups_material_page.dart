@@ -207,7 +207,7 @@ class _GroupMaterialsPageState extends State<GroupMaterialsPage> {
                   color: AppColors.brandNightBlue,
                   borderRadius: BorderRadius.circular(15),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.folder_rounded,
                   color: AppColors.skyBlue,
                   size: 28,
@@ -222,7 +222,7 @@ class _GroupMaterialsPageState extends State<GroupMaterialsPage> {
                       widget.groupName,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.pureWhite,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -233,7 +233,7 @@ class _GroupMaterialsPageState extends State<GroupMaterialsPage> {
                       _subjectText(),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.materialSky,
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
@@ -256,7 +256,7 @@ class _GroupMaterialsPageState extends State<GroupMaterialsPage> {
           const SizedBox(height: 12),
           Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.folder_outlined,
                 color: AppColors.materialSky,
                 size: 16,
@@ -279,7 +279,7 @@ class _GroupMaterialsPageState extends State<GroupMaterialsPage> {
   Widget _buildSectionHeader() {
     return Row(
       children: [
-        const Expanded(
+        Expanded(
           child: Text(
             'File condivisi',
             style: TextStyle(
@@ -300,7 +300,7 @@ class _GroupMaterialsPageState extends State<GroupMaterialsPage> {
           ),
           child: Text(
             '${_materials.length}',
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.materialSky,
               fontSize: 11,
               fontWeight: FontWeight.bold,
@@ -350,7 +350,7 @@ class _GroupMaterialsPageState extends State<GroupMaterialsPage> {
                   material.originalName,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.pureWhite,
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
@@ -376,19 +376,19 @@ class _GroupMaterialsPageState extends State<GroupMaterialsPage> {
                 ],
                 if (downloaded) ...[
                   const SizedBox(height: 5),
-                  const Row(
+                  Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
                         Icons.offline_pin_outlined,
-                        color: Colors.greenAccent,
+                        color: AppColors.greenAccent,
                         size: 14,
                       ),
                       SizedBox(width: 4),
                       Text(
                         'Disponibile offline',
                         style: TextStyle(
-                          color: Colors.greenAccent,
+                          color: AppColors.greenAccent,
                           fontSize: 10,
                         ),
                       ),
@@ -417,7 +417,7 @@ class _GroupMaterialsPageState extends State<GroupMaterialsPage> {
                         ? Icons.check_circle_outline_rounded
                         : Icons.download_rounded,
                     color: downloaded
-                        ? Colors.greenAccent
+                        ? AppColors.greenAccent
                         : AppColors.materialSky,
                   ),
           ),
@@ -532,18 +532,18 @@ class _GroupMaterialsPageState extends State<GroupMaterialsPage> {
         color: AppColors.charcoalGrey,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: Colors.redAccent.withValues(alpha: 0.20),
+          color: AppColors.redAccent.withValues(alpha: 0.20),
         ),
       ),
       child: Column(
         children: [
-          const Icon(
+          Icon(
             Icons.error_outline_rounded,
-            color: Colors.redAccent,
+            color: AppColors.redAccent,
             size: 42,
           ),
           const SizedBox(height: 12),
-          const Text(
+          Text(
             'Impossibile caricare i materiali',
             textAlign: TextAlign.center,
             style: TextStyle(

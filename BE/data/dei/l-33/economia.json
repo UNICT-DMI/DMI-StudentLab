@@ -1,0 +1,557 @@
+{
+  "universities": [
+    {
+      "code": "UNICT",
+      "name": "Università degli Studi di Catania",
+      "departments": [
+        {
+          "code": "DEI",
+          "name": "Dipartimento di Economia e Impresa",
+          "courses": [
+            {
+              "code": "L-33",
+              "name": "Economia",
+              "degree_type": "Laurea triennale",
+              "subjects": [
+                {
+                  "code": "9798807",
+                  "name": "CONTABILITÀ E BILANCIO",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "code": "9798807",
+                      "module": null,
+                      "channel": "A-L",
+                      "semester": 1,
+                      "cfu": 9,
+                      "teachers": [
+                        "ELEONORA CARDILLO"
+                      ]
+                    },
+                    {
+                      "code": "9798807",
+                      "module": null,
+                      "channel": "M-Z",
+                      "semester": 1,
+                      "cfu": 9,
+                      "teachers": [
+                        "ANGELA MARIA GRECO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9798811",
+                  "name": "ECONOMIA E GESTIONE DELLE IMPRESE",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "code": "9798811",
+                      "module": null,
+                      "channel": "A-L",
+                      "semester": 2,
+                      "cfu": 9,
+                      "teachers": [
+                        "GIORGIA MARIA D'ALLURA"
+                      ]
+                    },
+                    {
+                      "code": "9798811",
+                      "module": null,
+                      "channel": "M-Z",
+                      "semester": 2,
+                      "cfu": 9,
+                      "teachers": [
+                        "SONIA CATERINA GIACCONE"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9798805",
+                  "name": "ISTITUZIONI DI DIRITTO PRIVATO",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "code": "9798805",
+                      "module": null,
+                      "channel": "A-L",
+                      "semester": 2,
+                      "cfu": 9,
+                      "teachers": [
+                        "MICHELA CAVALLARO"
+                      ]
+                    },
+                    {
+                      "code": "9798805",
+                      "module": null,
+                      "channel": "M-Z",
+                      "semester": 2,
+                      "cfu": 9,
+                      "teachers": [
+                        "GIULIANA AMORE"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1004446",
+                  "name": "LINGUA FRANCESE",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "code": "1004446",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 9,
+                      "teachers": [
+                        "VERONICA BENZO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9798965",
+                  "name": "LINGUA INGLESE",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "code": "9798965",
+                      "module": null,
+                      "channel": "A-L",
+                      "semester": 2,
+                      "cfu": 9,
+                      "teachers": [
+                        "MASSIMILIANO DEMATA"
+                      ]
+                    },
+                    {
+                      "code": "9798965",
+                      "module": null,
+                      "channel": "M-Z",
+                      "semester": 2,
+                      "cfu": 9,
+                      "teachers": []
+                    }
+                  ]
+                },
+                {
+                  "code": "9798814",
+                  "name": "MATEMATICA GENERALE",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "code": "9798814",
+                      "module": null,
+                      "channel": "A-L",
+                      "semester": 1,
+                      "cfu": 9,
+                      "teachers": [
+                        "SALVATORE CORRENTE"
+                      ]
+                    },
+                    {
+                      "code": "9798814",
+                      "module": null,
+                      "channel": "M-Z",
+                      "semester": 1,
+                      "cfu": 9,
+                      "teachers": [
+                        "ANTONINO DAMIANO ROSSELLO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "72898",
+                  "name": "MICROECONOMIA",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "code": "72898",
+                      "module": null,
+                      "channel": "A-L",
+                      "semester": 2,
+                      "cfu": 9,
+                      "teachers": [
+                        "ROBERTO CELLINI"
+                      ]
+                    },
+                    {
+                      "code": "72898",
+                      "module": null,
+                      "channel": "M-Z",
+                      "semester": 2,
+                      "cfu": 9,
+                      "teachers": [
+                        "GIANLUCA CAFISO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1016162",
+                  "name": "SISTEMI DI ELABORAZIONE DATI PER L'ECONOMIA",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "code": "1016162",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 6,
+                      "teachers": [
+                        "BENEDETTO TORRISI"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "72882",
+                  "name": "STORIA DEL PENSIERO ECONOMICO",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "code": "72882",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 9,
+                      "teachers": [
+                        "COSMA EMILIO ERNESTO ORSI"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9798804",
+                  "name": "STORIA ECONOMICA",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "code": "9798804",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 9,
+                      "teachers": [
+                        "MARIO PERUGINI"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000056",
+                  "name": "DIRITTO PUBBLICO",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "1000056",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 9,
+                      "teachers": [
+                        "ANTONIO BARONE"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "72900",
+                  "name": "GEOGRAFIA ECONOMICA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "72900",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 6,
+                      "teachers": [
+                        "LUIGI SCROFANI"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000060",
+                  "name": "MACROECONOMIA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "1000060",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 9,
+                      "teachers": [
+                        "ANDREA PACELLA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1014516",
+                  "name": "MACROECONOMIC POLICY",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "1014516",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 9,
+                      "teachers": [
+                        "TIZIANA MARIA STELLA CUCCIA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9794211",
+                  "name": "MATEMATICA FINANZIARIA E ATTUARIALE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "9794211",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 9,
+                      "teachers": [
+                        "SALVATORE GRECO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000065",
+                  "name": "POLITICA ECONOMICA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "1000065",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 9,
+                      "teachers": [
+                        "ALESSIO EMANUELE BIONDO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9798809",
+                  "name": "STATISTICA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "code": "9798809",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 9,
+                      "teachers": [
+                        "ROBERTO DI MARI"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000063",
+                  "name": "DIRITTO COMMERCIALE",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "code": "1000063",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 9,
+                      "teachers": [
+                        "CARLA VASTA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1014499",
+                  "name": "ECONOMIA DEL LAVORO",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "code": "1014499",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 6,
+                      "teachers": [
+                        "LUIGI BONAVENTURA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1014496",
+                  "name": "ECONOMIA E GESTIONE DEGLI INTERMEDIARI FINANZIARI",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "code": "1014496",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 9,
+                      "teachers": [
+                        "MARIO PALMISCIANO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1014470",
+                  "name": "ECONOMIA REGIONALE",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "code": "1014470",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 6,
+                      "teachers": [
+                        "GIANPIERO TORRISI"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9796122",
+                  "name": "ENVIRONMENTAL ECONOMICS AND POLICY",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "code": "9796122",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 6,
+                      "teachers": [
+                        "LEA NICITA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1015234",
+                  "name": "FINANZA PER L'AZIENDA",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "code": "1015234",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 6,
+                      "teachers": [
+                        "CLAUDIA FRISENNA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000057",
+                  "name": "POLITICHE COMUNITARIE E SVILUPPO RURALE",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "code": "1000057",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 6,
+                      "teachers": [
+                        "GAETANO CHINNICI"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9794502",
+                  "name": "PRINCIPI DI ECONOMETRIA",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "code": "9794502",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 6,
+                      "teachers": [
+                        "LIVIO FERRANTE"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1014512",
+                  "name": "PUBLIC ECONOMICS",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "code": "1014512",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 9,
+                      "teachers": [
+                        "MARCO FERDINANDO MARTORANA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000140",
+                  "name": "SCIENZA DELLE FINANZE",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "code": "1000140",
+                      "module": null,
+                      "channel": null,
+                      "semester": 2,
+                      "cfu": 9,
+                      "teachers": [
+                        "CALOGERO GUCCIO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000058",
+                  "name": "STATISTICA ECONOMICA",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "code": "1000058",
+                      "module": null,
+                      "channel": null,
+                      "semester": 1,
+                      "cfu": 6,
+                      "teachers": [
+                        "BENEDETTO TORRISI"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

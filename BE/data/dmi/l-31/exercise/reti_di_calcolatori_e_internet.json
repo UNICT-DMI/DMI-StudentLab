@@ -1,0 +1,910 @@
+[
+  {
+    "id_exercise": "1",
+    "type": "ordina",
+    "text": "Metti in ordine i passi dell’algoritmo di Dijkstra.",
+    "hint": "Il nodo scelto si chiude prima di aggiornare i vicini.",
+    "explanation": "Dijkstra chiude a ogni passo il nodo con distanza provvisoria minima: quella distanza è definitiva perché i pesi non sono negativi. Poi rilassa gli archi uscenti.",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Livello di rete — Control plane",
+      "teacher": [
+        "Francesco Rundo",
+        "Federico Fausto Santoro"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "data": {
+      "items": [
+        {
+          "id": "pe8083bfadc",
+          "text": "Inizializza D(v) = ∞ per ogni nodo e D(s) = 0 per la sorgente"
+        },
+        {
+          "id": "p2114027314",
+          "text": "Scegli il nodo non visitato con D minima"
+        },
+        {
+          "id": "pc2c2182b3f",
+          "text": "Segna il nodo scelto come visitato"
+        },
+        {
+          "id": "pc2124cbe20",
+          "text": "Aggiorna le distanze dei vicini non visitati"
+        },
+        {
+          "id": "pcd736d8775",
+          "text": "Ripeti finché restano nodi non visitati"
+        }
+      ],
+      "order": [
+        "pe8083bfadc",
+        "p2114027314",
+        "pc2c2182b3f",
+        "pc2124cbe20",
+        "pcd736d8775"
+      ],
+      "accepted_orders": []
+    },
+    "created_at": "2026-09-27T16:23:55.705855+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.705855+00:00",
+    "updated_by": "StudentLab (esempi)"
+  },
+  {
+    "id_exercise": "2",
+    "type": "ordina",
+    "text": "Metti in ordine i messaggi dell’apertura di una connessione TCP (three-way handshake).",
+    "hint": "",
+    "explanation": "Il three-way handshake sincronizza i numeri di sequenza dei due lati prima dello scambio di dati.",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Livello di trasporto",
+      "teacher": [
+        "Francesco Rundo",
+        "Federico Fausto Santoro"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "data": {
+      "items": [
+        {
+          "id": "pc5af2f0dc6",
+          "text": "Il client invia SYN con il suo numero di sequenza iniziale"
+        },
+        {
+          "id": "p5ee5cee93c",
+          "text": "Il server risponde con SYN-ACK"
+        },
+        {
+          "id": "p102ff928f0",
+          "text": "Il client invia ACK: la connessione è stabilita"
+        },
+        {
+          "id": "pfa599d840d",
+          "text": "Il client inizia a inviare dati"
+        }
+      ],
+      "order": [
+        "pc5af2f0dc6",
+        "p5ee5cee93c",
+        "p102ff928f0",
+        "pfa599d840d"
+      ],
+      "accepted_orders": []
+    },
+    "created_at": "2026-09-27T16:23:55.705934+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.705934+00:00",
+    "updated_by": "StudentLab (esempi)"
+  },
+  {
+    "id_exercise": "3",
+    "type": "abbina",
+    "text": "Abbina ogni protocollo alla sua descrizione.",
+    "hint": "Tocca un elemento a sinistra, poi quello giusto a destra.",
+    "explanation": "",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Livello di trasporto",
+      "teacher": [
+        "Francesco Rundo",
+        "Federico Fausto Santoro"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "data": {
+      "left": [
+        {
+          "id": "l2e9430507b",
+          "text": "TCP"
+        },
+        {
+          "id": "ldc4030f968",
+          "text": "UDP"
+        },
+        {
+          "id": "l39d4e9fd27",
+          "text": "ICMP"
+        },
+        {
+          "id": "ld8ef8078c0",
+          "text": "ARP"
+        }
+      ],
+      "right": [
+        {
+          "id": "rc575dd5f44",
+          "text": "Affidabile e orientato alla connessione"
+        },
+        {
+          "id": "ra75a935ffe",
+          "text": "Senza connessione, nessuna garanzia di consegna"
+        },
+        {
+          "id": "rc301dfea85",
+          "text": "Messaggi di errore e di controllo del livello di rete"
+        },
+        {
+          "id": "re63dcd7e60",
+          "text": "Trova l’indirizzo MAC a partire dall’indirizzo IP"
+        },
+        {
+          "id": "rd4698cb48c",
+          "text": "Assegna automaticamente gli indirizzi IP"
+        }
+      ],
+      "pairs": {
+        "l2e9430507b": "rc575dd5f44",
+        "ldc4030f968": "ra75a935ffe",
+        "l39d4e9fd27": "rc301dfea85",
+        "ld8ef8078c0": "re63dcd7e60"
+      }
+    },
+    "created_at": "2026-09-27T16:23:55.706101+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.706101+00:00",
+    "updated_by": "StudentLab (esempi)"
+  },
+  {
+    "id_exercise": "4",
+    "type": "abbina",
+    "text": "Abbina ogni livello della pila Internet al nome della sua unità di dati (PDU).",
+    "hint": "",
+    "explanation": "",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Reti di calcolatori e Internet",
+      "teacher": [
+        "Francesco Rundo",
+        "Federico Fausto Santoro"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "data": {
+      "left": [
+        {
+          "id": "l735222532f",
+          "text": "Applicazione"
+        },
+        {
+          "id": "l0228da1663",
+          "text": "Trasporto"
+        },
+        {
+          "id": "la0dd274e04",
+          "text": "Rete"
+        },
+        {
+          "id": "lebd7dc0ecb",
+          "text": "Collegamento"
+        }
+      ],
+      "right": [
+        {
+          "id": "r17a893e335",
+          "text": "Messaggio"
+        },
+        {
+          "id": "r50223ef28c",
+          "text": "Segmento"
+        },
+        {
+          "id": "r68174dd4f6",
+          "text": "Datagramma"
+        },
+        {
+          "id": "rd0b50e064a",
+          "text": "Frame"
+        }
+      ],
+      "pairs": {
+        "l735222532f": "r17a893e335",
+        "l0228da1663": "r50223ef28c",
+        "la0dd274e04": "r68174dd4f6",
+        "lebd7dc0ecb": "rd0b50e064a"
+      }
+    },
+    "created_at": "2026-09-27T16:23:55.706141+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.706141+00:00",
+    "updated_by": "StudentLab (esempi)"
+  },
+  {
+    "id_exercise": "5",
+    "type": "completa",
+    "text": "Completa la frase sul subnetting.",
+    "hint": "32 − 26 bit restano agli host; togli indirizzo di rete e broadcast.",
+    "explanation": "2^6 = 64 indirizzi, meno rete e broadcast: 62 host.",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Livello di rete — Data plane",
+      "teacher": [
+        "Francesco Rundo",
+        "Federico Fausto Santoro"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "data": {
+      "text": "Un indirizzo /26 lascia [[1]] bit per gli host, cioè [[2]] indirizzi utilizzabili.",
+      "blanks": [
+        {
+          "id": "1",
+          "accepted": [
+            "6"
+          ],
+          "numeric": true,
+          "tolerance": 0.0
+        },
+        {
+          "id": "2",
+          "accepted": [
+            "62"
+          ],
+          "numeric": true,
+          "tolerance": 0.0
+        }
+      ],
+      "bank": [
+        "6",
+        "62",
+        "64",
+        "8",
+        "30"
+      ],
+      "case_sensitive": false
+    },
+    "created_at": "2026-09-27T16:23:55.706382+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.706382+00:00",
+    "updated_by": "StudentLab (esempi)"
+  },
+  {
+    "id_exercise": "6",
+    "type": "completa",
+    "text": "Completa con le porte predefinite.",
+    "hint": "",
+    "explanation": "",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Livello di applicazione",
+      "teacher": [
+        "Francesco Rundo",
+        "Federico Fausto Santoro"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "data": {
+      "text": "HTTP usa la porta [[a]], HTTPS la porta [[b]] e DNS la porta [[c]].",
+      "blanks": [
+        {
+          "id": "a",
+          "accepted": [
+            "80"
+          ],
+          "numeric": true,
+          "tolerance": 0.0
+        },
+        {
+          "id": "b",
+          "accepted": [
+            "443"
+          ],
+          "numeric": true,
+          "tolerance": 0.0
+        },
+        {
+          "id": "c",
+          "accepted": [
+            "53"
+          ],
+          "numeric": true,
+          "tolerance": 0.0
+        }
+      ],
+      "bank": [
+        "80",
+        "443",
+        "53",
+        "25",
+        "22"
+      ],
+      "case_sensitive": false
+    },
+    "created_at": "2026-09-27T16:23:55.706430+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.706430+00:00",
+    "updated_by": "StudentLab (esempi)"
+  },
+  {
+    "id_exercise": "7",
+    "type": "errore",
+    "text": "Nel calcolo c’è un errore: tocca la riga sbagliata e scegli il motivo.",
+    "hint": "",
+    "explanation": "",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Livello di rete — Data plane",
+      "teacher": [
+        "Francesco Rundo",
+        "Federico Fausto Santoro"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "data": {
+      "lines": [
+        "Rete: 10.0.0.0/22",
+        "Maschera: 255.255.252.0",
+        "Indirizzi totali: 2^10 = 1024",
+        "Host utilizzabili: 1024 − 2 = 1022",
+        "Broadcast: 10.0.3.254"
+      ],
+      "language": "",
+      "error_lines": [
+        5
+      ],
+      "reasons": [
+        {
+          "id": "m08e505736c",
+          "text": "Il broadcast è l’ultimo indirizzo del blocco: 10.0.3.255"
+        },
+        {
+          "id": "m1804a892cc",
+          "text": "La maschera di un /22 è 255.255.255.0"
+        },
+        {
+          "id": "mc61f7ea6d9",
+          "text": "Gli host utilizzabili sono 1024"
+        }
+      ],
+      "correct_reason": "m08e505736c",
+      "fix": "Broadcast: 10.0.3.255"
+    },
+    "created_at": "2026-09-27T16:23:55.706477+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.706477+00:00",
+    "updated_by": "StudentLab (esempi)"
+  },
+  {
+    "id_exercise": "8",
+    "type": "diagramma",
+    "text": "Tocca il dispositivo che collega la rete locale a Internet.",
+    "hint": "",
+    "explanation": "",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Reti di calcolatori e Internet",
+      "teacher": [
+        "Francesco Rundo",
+        "Federico Fausto Santoro"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "data": {
+      "scene": {
+        "nodes": [
+          {
+            "id": "pc1",
+            "label": "PC 1",
+            "x": 0.12,
+            "y": 0.25,
+            "shape": "device",
+            "icon": "computer"
+          },
+          {
+            "id": "pc2",
+            "label": "PC 2",
+            "x": 0.12,
+            "y": 0.75,
+            "shape": "device",
+            "icon": "computer"
+          },
+          {
+            "id": "sw",
+            "label": "Switch",
+            "x": 0.38,
+            "y": 0.5,
+            "shape": "rect",
+            "icon": "switch"
+          },
+          {
+            "id": "rt",
+            "label": "Router",
+            "x": 0.62,
+            "y": 0.5,
+            "shape": "circle",
+            "icon": "router"
+          },
+          {
+            "id": "net",
+            "label": "Internet",
+            "x": 0.88,
+            "y": 0.5,
+            "shape": "cloud",
+            "icon": "cloud"
+          }
+        ],
+        "edges": [
+          {
+            "from": "pc1",
+            "to": "sw",
+            "label": ""
+          },
+          {
+            "from": "pc2",
+            "to": "sw",
+            "label": ""
+          },
+          {
+            "from": "sw",
+            "to": "rt",
+            "label": ""
+          },
+          {
+            "from": "rt",
+            "to": "net",
+            "label": ""
+          }
+        ],
+        "ratio": 1.8
+      },
+      "image_attachment_id": null,
+      "regions": [
+        {
+          "id": "pc1",
+          "x": 0.039999999999999994,
+          "y": 0.16999999999999998,
+          "w": 0.16,
+          "h": 0.16
+        },
+        {
+          "id": "pc2",
+          "x": 0.039999999999999994,
+          "y": 0.67,
+          "w": 0.16,
+          "h": 0.16
+        },
+        {
+          "id": "sw",
+          "x": 0.3,
+          "y": 0.42,
+          "w": 0.16,
+          "h": 0.16
+        },
+        {
+          "id": "rt",
+          "x": 0.54,
+          "y": 0.42,
+          "w": 0.16,
+          "h": 0.16
+        },
+        {
+          "id": "net",
+          "x": 0.8,
+          "y": 0.42,
+          "w": 0.16,
+          "h": 0.16
+        }
+      ],
+      "correct": [
+        "rt"
+      ],
+      "multiple": false,
+      "feedback": {
+        "rt": "È il router: separa la LAN da Internet e instrada tra reti diverse.",
+        "sw": "Lo switch collega i dispositivi della stessa LAN (livello 2), non instrada verso Internet."
+      }
+    },
+    "created_at": "2026-09-27T16:23:55.706595+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.706595+00:00",
+    "updated_by": "StudentLab (esempi)"
+  },
+  {
+    "id_exercise": "9",
+    "type": "grafo",
+    "text": "",
+    "hint": "",
+    "explanation": "A ogni passo si chiude il nodo con la distanza provvisoria minima e si aggiornano i vicini.",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Livello di rete — Control plane",
+      "teacher": [
+        "Francesco Rundo",
+        "Federico Fausto Santoro"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "generator": {
+      "name": "dijkstra",
+      "difficulty": 2
+    },
+    "created_at": "2026-09-27T16:23:55.706611+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.706611+00:00",
+    "updated_by": "StudentLab (esempi)"
+  },
+  {
+    "id_exercise": "10",
+    "type": "grafo",
+    "text": "",
+    "hint": "",
+    "explanation": "",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Livello di rete — Control plane",
+      "teacher": [
+        "Francesco Rundo",
+        "Federico Fausto Santoro"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 1
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "generator": {
+      "name": "bfs",
+      "difficulty": 1
+    },
+    "created_at": "2026-09-27T16:23:55.706621+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.706621+00:00",
+    "updated_by": "StudentLab (esempi)"
+  },
+  {
+    "id_exercise": "11",
+    "type": "traccia",
+    "text": "Segui apertura e chiusura di una connessione TCP e completa il lato client.",
+    "hint": "",
+    "explanation": "Chi chiude per primo passa da FIN_WAIT_1 e FIN_WAIT_2 e resta in TIME_WAIT per 2·MSL prima di CLOSED.",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Livello di trasporto",
+      "teacher": [
+        "Francesco Rundo",
+        "Federico Fausto Santoro"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "data": {
+      "columns": [
+        "T",
+        "Ricevuto",
+        "Inviato",
+        "Stato del client"
+      ],
+      "rows": [
+        [
+          "0",
+          "–",
+          "SYN",
+          {
+            "blank": true,
+            "accepted": [
+              "SYN_SENT"
+            ],
+            "options": [
+              "SYN_SENT",
+              "LISTEN",
+              "ESTABLISHED",
+              "SYN_RCVD"
+            ]
+          }
+        ],
+        [
+          "1",
+          "SYN-ACK",
+          {
+            "blank": true,
+            "accepted": [
+              "ACK"
+            ],
+            "options": [
+              "ACK",
+              "SYN",
+              "FIN",
+              "RST"
+            ]
+          },
+          {
+            "blank": true,
+            "accepted": [
+              "ESTABLISHED"
+            ],
+            "options": [
+              "ESTABLISHED",
+              "SYN_RCVD",
+              "FIN_WAIT_1",
+              "CLOSED"
+            ]
+          }
+        ],
+        [
+          "2",
+          "–",
+          "FIN",
+          {
+            "blank": true,
+            "accepted": [
+              "FIN_WAIT_1"
+            ],
+            "options": [
+              "FIN_WAIT_1",
+              "CLOSE_WAIT",
+              "LAST_ACK",
+              "TIME_WAIT"
+            ]
+          }
+        ],
+        [
+          "3",
+          "ACK",
+          "–",
+          {
+            "blank": true,
+            "accepted": [
+              "FIN_WAIT_2"
+            ],
+            "options": [
+              "FIN_WAIT_2",
+              "CLOSED",
+              "TIME_WAIT",
+              "CLOSE_WAIT"
+            ]
+          }
+        ],
+        [
+          "4",
+          "FIN",
+          {
+            "blank": true,
+            "accepted": [
+              "ACK"
+            ],
+            "options": [
+              "ACK",
+              "FIN",
+              "SYN",
+              "RST"
+            ]
+          },
+          {
+            "blank": true,
+            "accepted": [
+              "TIME_WAIT"
+            ],
+            "options": [
+              "TIME_WAIT",
+              "CLOSED",
+              "LAST_ACK",
+              "FIN_WAIT_2"
+            ]
+          }
+        ]
+      ],
+      "row_by_row": true
+    },
+    "created_at": "2026-09-27T16:23:55.706657+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.706657+00:00",
+    "updated_by": "StudentLab (esempi)"
+  },
+  {
+    "id_exercise": "12",
+    "type": "numerica",
+    "text": "",
+    "hint": "Il più piccolo n con 2^n ≥ numero di sottoreti.",
+    "explanation": "",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Livello di rete — Data plane",
+      "teacher": [
+        "Francesco Rundo",
+        "Federico Fausto Santoro"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "generator": {
+      "name": "subnet",
+      "difficulty": 2
+    },
+    "created_at": "2026-09-27T16:23:55.706667+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.706667+00:00",
+    "updated_by": "StudentLab (esempi)"
+  },
+  {
+    "id_exercise": "13",
+    "type": "numerica",
+    "text": "Un pacchetto di 1500 byte viene trasmesso su un collegamento a 10 Mbps.",
+    "hint": "",
+    "explanation": "",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Reti di calcolatori e Internet",
+      "teacher": [
+        "Francesco Rundo",
+        "Federico Fausto Santoro"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "data": {
+      "steps": [
+        {
+          "id": "bit",
+          "label": "Bit da trasmettere",
+          "answer": 12000.0,
+          "tolerance": 0.0,
+          "tolerance_pct": 0.0,
+          "unit": "",
+          "hint": "1 byte = 8 bit",
+          "check": ""
+        },
+        {
+          "id": "ms",
+          "label": "Ritardo di trasmissione",
+          "answer": 1.2,
+          "tolerance": 0.01,
+          "tolerance_pct": 0.0,
+          "unit": "ms",
+          "hint": "",
+          "check": "L/R = 12 000 / 10 000 000 s"
+        }
+      ]
+    },
+    "created_at": "2026-09-27T16:23:55.706690+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.706690+00:00",
+    "updated_by": "StudentLab (esempi)"
+  },
+  {
+    "id_exercise": "14",
+    "type": "scelta",
+    "text": "Quali di questi sono protocolli del livello di trasporto? (più risposte)",
+    "hint": "",
+    "explanation": "",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Livello di trasporto",
+      "teacher": [
+        "Francesco Rundo",
+        "Federico Fausto Santoro"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "data": {
+      "options": [
+        {
+          "id": "o20c13dfccf",
+          "text": "TCP"
+        },
+        {
+          "id": "o7858d2985d",
+          "text": "UDP"
+        },
+        {
+          "id": "o5c35aee418",
+          "text": "IP"
+        },
+        {
+          "id": "o504e212c7b",
+          "text": "ARP"
+        }
+      ],
+      "correct": [
+        "o20c13dfccf",
+        "o7858d2985d"
+      ],
+      "multiple": true,
+      "explanations": {
+        "o5c35aee418": "IP è del livello di rete.",
+        "o504e212c7b": "ARP lavora tra rete e collegamento."
+      }
+    },
+    "created_at": "2026-09-27T16:23:55.706733+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.706733+00:00",
+    "updated_by": "StudentLab (esempi)"
+  },
+  {
+    "id_exercise": "15",
+    "type": "flashcard",
+    "text": "Ricordi il significato?",
+    "hint": "",
+    "explanation": "",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Livello di trasporto",
+      "teacher": [
+        "Francesco Rundo",
+        "Federico Fausto Santoro"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "data": {
+      "front": "Three-way handshake",
+      "back": "Apertura di una connessione TCP in tre messaggi: SYN, SYN-ACK, ACK. Sincronizza i numeri di sequenza dei due lati."
+    },
+    "created_at": "2026-09-27T16:23:55.706745+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.706745+00:00",
+    "updated_by": "StudentLab (esempi)"
+  }
+]

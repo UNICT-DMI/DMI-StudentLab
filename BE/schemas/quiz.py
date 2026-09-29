@@ -7,6 +7,7 @@ class QuizFilterRequest(BaseModel):
     subject: str
 
     arguments: list[str] = Field(default_factory=list)
+    question_ids: list[str] = Field(default_factory=list, max_length=30)
 
     all_arguments: bool = False
 

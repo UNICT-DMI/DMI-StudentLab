@@ -137,10 +137,38 @@ class PublicMaterial(Base):
         nullable=False,
     )
 
+    # Logical folders relative to the catalog subject. Physical Blob paths stay put.
+    catalog_path_json = Column(Text, nullable=False, default='[]', server_default='[]')
+    visibility_state = Column(String(20), nullable=False, default='visible', server_default='visible')
+    drive_file_id = Column(String(128), nullable=True)
+    drive_copied_at = Column(DateTime(timezone=True), nullable=True)
+    drive_path_json = Column(Text, nullable=True)
+    drive_allow_duplicate = Column(Boolean, nullable=False, default=False,
+                                   server_default='false')
+    drive_retry_after = Column(DateTime(timezone=True), nullable=True)
+    drive_retry_attempts = Column(Integer, nullable=False, default=0,
+                                  server_default='0')
+    drive_activation_pending = Column(Boolean, nullable=False, default=False,
+                                      server_default='false')
+    audience_type = Column(String(20), nullable=False, default='public', server_default='public')
+    audience_id = Column(Integer, nullable=True)
+
     file_hash = Column(
         String(64),
         nullable=False,
         index=True,
+    )
+
+    contributor_mode = Column(
+        String(20),
+        nullable=False,
+        default="anonymous",
+        server_default="anonymous",
+    )
+
+    contributor_display_name = Column(
+        String(255),
+        nullable=True,
     )
 
     version = Column(

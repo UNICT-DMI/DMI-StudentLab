@@ -184,7 +184,7 @@ class _AdminTeacherAssignmentsPageState
           'Verifica',
 
       confirmColor:
-          Colors.greenAccent,
+          AppColors.greenAccent,
 
       successMessage:
           'Insegnamento verificato.',
@@ -213,7 +213,7 @@ class _AdminTeacherAssignmentsPageState
           'Rifiuta',
 
       confirmColor:
-          Colors.redAccent,
+          AppColors.redAccent,
 
       successMessage:
           'Insegnamento rifiutato.',
@@ -242,7 +242,7 @@ class _AdminTeacherAssignmentsPageState
           'Rimetti in attesa',
 
       confirmColor:
-          Colors.amber,
+          AppColors.amber,
 
       successMessage:
           'Insegnamento rimesso in attesa.',
@@ -359,7 +359,7 @@ class _AdminTeacherAssignmentsPageState
             title,
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
                   AppColors.pureWhite,
             ),
@@ -370,9 +370,9 @@ class _AdminTeacherAssignmentsPageState
             message,
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
-                  Colors.white70,
+                  AppColors.white70,
 
               height:
                   1.45,
@@ -486,7 +486,7 @@ class _AdminTeacherAssignmentsPageState
 
             icon:
                 _refreshing
-                    ? const SizedBox(
+                    ? SizedBox(
                         width:
                             19,
 
@@ -898,7 +898,7 @@ class _TeacherAssignmentVerificationCard
                 ),
 
                 child:
-                    const Icon(
+                    Icon(
                   Icons.school_outlined,
 
                   color:
@@ -922,7 +922,7 @@ class _TeacherAssignmentVerificationCard
                       assignment.subject.name,
 
                       style:
-                          const TextStyle(
+                          TextStyle(
                         color:
                             AppColors.pureWhite,
 
@@ -1052,7 +1052,7 @@ class _TeacherAssignmentVerificationCard
 
   Widget _buildActions() {
     if (processing) {
-      return const Center(
+      return Center(
         child:
             Padding(
           padding:
@@ -1151,12 +1151,12 @@ class _TeacherAssignmentVerificationCard
             style:
                 OutlinedButton.styleFrom(
               foregroundColor:
-                  Colors.amber,
+                  AppColors.amber,
 
               side:
                   BorderSide(
                 color:
-                    Colors.amber
+                    AppColors.amber
                         .withValues(alpha: 0.40),
               ),
             ),
@@ -1189,12 +1189,12 @@ class _TeacherAssignmentVerificationCard
             style:
                 OutlinedButton.styleFrom(
               foregroundColor:
-                  Colors.redAccent,
+                  AppColors.redAccent,
 
               side:
                   BorderSide(
                 color:
-                    Colors.redAccent
+                    AppColors.redAccent
                         .withValues(alpha: 0.40),
               ),
             ),
@@ -1251,17 +1251,17 @@ class _StatusBadge
 
     switch (status) {
       case TeacherAssignmentVerificationStatus.verified:
-        color = Colors.greenAccent;
+        color = AppColors.greenAccent;
         icon = Icons.verified_rounded;
         label = 'VERIFICATO';
 
       case TeacherAssignmentVerificationStatus.rejected:
-        color = Colors.redAccent;
+        color = AppColors.redAccent;
         icon = Icons.cancel_rounded;
         label = 'RIFIUTATO';
 
       case TeacherAssignmentVerificationStatus.pending:
-        color = Colors.amber;
+        color = AppColors.amber;
         icon = Icons.schedule_rounded;
         label = 'DA VERIFICARE';
     }
@@ -1393,7 +1393,7 @@ class _InfoBadge
             label,
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
                   AppColors.materialSky,
 
@@ -1499,11 +1499,11 @@ class _AdminAssignmentError
               100,
         ),
 
-        const Icon(
+        Icon(
           Icons.error_outline_rounded,
 
           color:
-              Colors.redAccent,
+              AppColors.redAccent,
 
           size:
               46,

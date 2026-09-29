@@ -210,13 +210,13 @@ class _TeacherMaterialAssignmentsSectionState
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: AppColors.eleganceMidnight,
-        title: const Text(
+        title: Text(
           'Revoca assegnazione',
           style: TextStyle(color: AppColors.pureWhite),
         ),
-        content: const Text(
+        content: Text(
           'Il destinatario non avrà più questa assegnazione attiva. Vuoi continuare?',
-          style: TextStyle(color: Colors.white70),
+          style: TextStyle(color: AppColors.white70),
         ),
         actions: [
           TextButton(
@@ -225,9 +225,9 @@ class _TeacherMaterialAssignmentsSectionState
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text(
+            child: Text(
               'Revoca',
-              style: TextStyle(color: Colors.redAccent),
+              style: TextStyle(color: AppColors.redAccent),
             ),
           ),
         ],
@@ -268,7 +268,7 @@ class _TeacherMaterialAssignmentsSectionState
   Widget build(BuildContext context) {
     if (_loading) {
       return _card(
-        child: const SizedBox(
+        child: SizedBox(
           height: 100,
           child: Center(
             child: CircularProgressIndicator(
@@ -285,16 +285,16 @@ class _TeacherMaterialAssignmentsSectionState
           padding: const EdgeInsets.all(16),
           child: Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.error_outline_rounded,
-                color: Colors.redAccent,
+                color: AppColors.redAccent,
               ),
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
                   _error!,
-                  style: const TextStyle(
-                    color: Colors.white60,
+                  style: TextStyle(
+                    color: AppColors.white60,
                     fontSize: 10,
                   ),
                 ),
@@ -337,14 +337,14 @@ class _TeacherMaterialAssignmentsSectionState
                             AppColors.teacherIndigo.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(11),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.assignment_ind_outlined,
                         color: AppColors.materialSky,
                         size: 21,
                       ),
                     ),
                     const SizedBox(width: 10),
-                    const Expanded(
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -360,7 +360,7 @@ class _TeacherMaterialAssignmentsSectionState
                           Text(
                             'Assegna i tuoi materiali a singoli studenti o gruppi.',
                             style: TextStyle(
-                              color: Colors.white54,
+                              color: AppColors.white54,
                               fontSize: 11,
                               height: 1.3,
                             ),
@@ -381,7 +381,7 @@ class _TeacherMaterialAssignmentsSectionState
                       ),
                       child: Text(
                         '$activeCount attive',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.teacherIndigo,
                           fontSize: 9,
                           fontWeight: FontWeight.bold,
@@ -424,7 +424,7 @@ class _TeacherMaterialAssignmentsSectionState
               },
             ),
           ),
-          const Divider(height: 1, color: Colors.white10),
+          Divider(height: 1, color: AppColors.white10),
           SwitchListTile(
             value: _includeRevoked,
             onChanged: _processing
@@ -435,17 +435,17 @@ class _TeacherMaterialAssignmentsSectionState
                     });
                     await _load();
                   },
-            title: const Text(
+            title: Text(
               'Mostra anche revocate',
               style: TextStyle(
-                color: Colors.white70,
+                color: AppColors.white70,
                 fontSize: 10,
               ),
             ),
             activeThumbColor: AppColors.teacherIndigo,
             dense: true,
           ),
-          const Divider(height: 1, color: Colors.white10),
+          Divider(height: 1, color: AppColors.white10),
           if (widget.materials.isEmpty)
             const _AssignmentEmpty(
               text: 'Carica prima un materiale docente.',
@@ -480,10 +480,10 @@ class _TeacherMaterialAssignmentsSectionState
 
     return ExpansionTile(
       iconColor: AppColors.materialSky,
-      collapsedIconColor: Colors.white38,
+      collapsedIconColor: AppColors.white38,
       title: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           color: AppColors.pureWhite,
           fontSize: 11,
           fontWeight: FontWeight.w600,
@@ -491,8 +491,8 @@ class _TeacherMaterialAssignmentsSectionState
       ),
       subtitle: Text(
         '${assignments.length} ${assignments.length == 1 ? 'assegnazione' : 'assegnazioni'}',
-        style: const TextStyle(
-          color: Colors.white38,
+        style: TextStyle(
+          color: AppColors.white38,
           fontSize: 8,
         ),
       ),
@@ -670,7 +670,7 @@ class _AssignmentCreateSheetState extends State<_AssignmentCreateSheet> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'Assegna materiale',
                 style: TextStyle(
                   color: AppColors.pureWhite,
@@ -679,9 +679,9 @@ class _AssignmentCreateSheetState extends State<_AssignmentCreateSheet> {
                 ),
               ),
               const SizedBox(height: 5),
-              const Text(
+              Text(
                 'Puoi selezionare uno o più studenti e gruppi.',
-                style: TextStyle(color: Colors.white54, fontSize: 10),
+                style: TextStyle(color: AppColors.white54, fontSize: 10),
               ),
               const SizedBox(height: 16),
               DropdownButtonFormField<int>(
@@ -746,7 +746,7 @@ class _AssignmentCreateSheetState extends State<_AssignmentCreateSheet> {
                           },
                           title: Text(
                             user.name.isEmpty ? 'Studente #${user.id}' : user.name,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: AppColors.pureWhite,
                               fontSize: 11,
                             ),
@@ -755,8 +755,8 @@ class _AssignmentCreateSheetState extends State<_AssignmentCreateSheet> {
                               ? null
                               : Text(
                                   user.course,
-                                  style: const TextStyle(
-                                    color: Colors.white38,
+                                  style: TextStyle(
+                                    color: AppColors.white38,
                                     fontSize: 8,
                                   ),
                                 ),
@@ -822,7 +822,7 @@ class _AssignmentCreateSheetState extends State<_AssignmentCreateSheet> {
       },
       title: Text(
         _TeacherMaterialAssignmentsSectionState._groupName(group),
-        style: const TextStyle(
+        style: TextStyle(
           color: AppColors.pureWhite,
           fontSize: 11,
         ),
@@ -885,7 +885,7 @@ class _AssignmentRow extends StatelessWidget {
               children: [
                 Text(
                   targetName,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.pureWhite,
                     fontSize: 10,
                     fontWeight: FontWeight.w600,
@@ -914,15 +914,15 @@ class _AssignmentRow extends StatelessWidget {
           if (onRevoke != null)
             TextButton.icon(
               onPressed: processing ? null : onRevoke,
-              icon: const Icon(
+              icon: Icon(
                 Icons.block_outlined,
                 size: 15,
-                color: Colors.redAccent,
+                color: AppColors.redAccent,
               ),
-              label: const Text(
+              label: Text(
                 'Revoca',
                 style: TextStyle(
-                  color: Colors.redAccent,
+                  color: AppColors.redAccent,
                   fontSize: 9,
                 ),
               ),
@@ -952,13 +952,13 @@ class _AssignmentBadge extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.04),
+        color: AppColors.white.withValues(alpha: 0.04),
         borderRadius: BorderRadius.circular(7),
       ),
       child: Text(
         label,
-        style: const TextStyle(
-          color: Colors.white54,
+        style: TextStyle(
+          color: AppColors.white54,
           fontSize: 7,
         ),
       ),
@@ -979,16 +979,16 @@ class _AssignmentEmpty extends StatelessWidget {
       padding: const EdgeInsets.all(18),
       child: Row(
         children: [
-          const Icon(
+          Icon(
             Icons.assignment_outlined,
-            color: Colors.white24,
+            color: AppColors.white24,
           ),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(
-                color: Colors.white38,
+              style: TextStyle(
+                color: AppColors.white38,
                 fontSize: 10,
               ),
             ),
@@ -1022,7 +1022,7 @@ class _TargetHeader extends StatelessWidget {
           const SizedBox(width: 7),
           Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.pureWhite,
               fontSize: 12,
               fontWeight: FontWeight.bold,
@@ -1047,8 +1047,8 @@ class _TargetEmpty extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       child: Text(
         text,
-        style: const TextStyle(
-          color: Colors.white38,
+        style: TextStyle(
+          color: AppColors.white38,
           fontSize: 9,
         ),
       ),

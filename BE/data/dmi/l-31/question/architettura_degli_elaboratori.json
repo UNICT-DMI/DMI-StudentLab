@@ -1,0 +1,2810 @@
+[
+  {
+    "id_question": "1",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Algebra booleana",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Quali sono le tre funzioni logiche fondamentali dell'algebra booleana?",
+    "option": [
+      {
+        "id": "a",
+        "text": "SOP, POS, KMAP"
+      },
+      {
+        "id": "b",
+        "text": "AND, XOR, NAND"
+      },
+      {
+        "id": "c",
+        "text": "NOR, NAND, XOR"
+      },
+      {
+        "id": "d",
+        "text": "OR, AND, NOT"
+      }
+    ],
+    "id_correct": "d",
+    "formal_explanation": "Le operazioni fondamentali dell'algebra booleana sono OR, AND e NOT.",
+    "informal_explanation": "In breve, la risposta da ricordare è: OR, AND, NOT.",
+    "question_response_explanation": "La risposta corretta è \"OR, AND, NOT\". Le operazioni fondamentali dell'algebra booleana sono OR, AND e NOT. La risposta \"SOP, POS, KMAP\" è errata perché SOP e POS sono forme di rappresentazione canonica delle funzioni booleane, mentre K-map è una tecnica grafica di minimizzazione; non sono le tre operazioni logiche fondamentali. La risposta \"AND, XOR, NAND\" è errata perché AND è fondamentale, ma XOR e NAND sono operatori derivati: XOR combina più operazioni logiche e NAND è la negazione di AND. La risposta \"NOR, NAND, XOR\" è errata perché NOR, NAND e XOR sono operatori derivati; possono essere espressi usando le operazioni fondamentali AND, OR e NOT."
+  },
+  {
+    "id_question": "2",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Aritmetica binaria",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Nell'algoritmo di Booth, come viene ricodificato il moltiplicatore?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Convertendolo prima in virgola mobile"
+      },
+      {
+        "id": "b",
+        "text": "Come somma diretta di tutti i suoi bit"
+      },
+      {
+        "id": "c",
+        "text": "Estraendo solo i bit dispari"
+      },
+      {
+        "id": "d",
+        "text": "Come somma e sottrazione di potenze di 2, riducendo il numero di addizioni"
+      }
+    ],
+    "id_correct": "d",
+    "formal_explanation": "L'algoritmo di Booth ricodifica sequenze del moltiplicatore usando somme e sottrazioni di potenze di due, riducendo il numero di operazioni.",
+    "informal_explanation": "In breve, la risposta da ricordare è: Come somma e sottrazione di potenze di 2, riducendo il numero di addizioni.",
+    "question_response_explanation": "La risposta corretta è \"Come somma e sottrazione di potenze di 2, riducendo il numero di addizioni\". L'algoritmo di Booth ricodifica sequenze del moltiplicatore usando somme e sottrazioni di potenze di due, riducendo il numero di operazioni. La risposta \"Convertendolo prima in virgola mobile\" è errata perché l'algoritmo di Booth opera sulla rappresentazione binaria intera con segno; non richiede una conversione preliminare in virgola mobile. La risposta \"Come somma diretta di tutti i suoi bit\" è errata perché booth sfrutta transizioni e sequenze di bit per sostituire lunghe serie di addizioni con addizioni e sottrazioni più efficienti. La risposta \"Estraendo solo i bit dispari\" è errata perché la ricodifica di Booth considera coppie/transizioni di bit del moltiplicatore, non seleziona semplicemente i bit in posizione dispari."
+  },
+  {
+    "id_question": "3",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "RISC e CISC",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Qual è una differenza chiave tra RISC e CISC riguardo agli operandi delle istruzioni aritmetiche?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Nei RISC non esistono operandi"
+      },
+      {
+        "id": "b",
+        "text": "Nei RISC gli operandi devono trovarsi nei registri, nei CISC possono trovarsi anche in memoria"
+      },
+      {
+        "id": "c",
+        "text": "Non c'è alcuna differenza"
+      },
+      {
+        "id": "d",
+        "text": "Nei CISC gli operandi sono sempre immediati"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "Nelle architetture RISC le operazioni aritmetiche sono tipicamente register-to-register, mentre molte ISA CISC consentono anche operandi in memoria.",
+    "informal_explanation": "In breve, la risposta da ricordare è: nei RISC gli operandi delle operazioni aritmetiche si trovano tipicamente nei registri, mentre nei CISC possono essere presenti anche in memoria.",
+    "question_response_explanation": "La risposta corretta è \"Nei RISC gli operandi devono trovarsi nei registri, nei CISC possono trovarsi anche in memoria\". Nelle architetture RISC le operazioni aritmetiche sono tipicamente register-to-register, mentre molte ISA CISC consentono anche operandi in memoria. La risposta \"Nei RISC non esistono operandi\" è errata perché le istruzioni RISC possiedono operandi; nelle operazioni aritmetiche essi sono tipicamente registri. La risposta \"Non c'è alcuna differenza\" è errata perché la filosofia load/store RISC distingue chiaramente le operazioni sui registri dagli accessi in memoria, mentre molte ISA CISC permettono operandi in memoria. La risposta \"Nei CISC gli operandi sono sempre immediati\" è errata perché le istruzioni CISC possono usare diversi modi di indirizzamento, inclusi registri e memoria; gli operandi non sono sempre immediati."
+  },
+  {
+    "id_question": "4",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Bus e memoria",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Con un address bus a 20 linee, quanti byte di memoria sono indirizzabili?",
+    "option": [
+      {
+        "id": "a",
+        "text": "1 MB"
+      },
+      {
+        "id": "b",
+        "text": "1 GB"
+      },
+      {
+        "id": "c",
+        "text": "1 KB"
+      },
+      {
+        "id": "d",
+        "text": "20 KB"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "Con 20 linee di indirizzo si possono rappresentare 2^20 indirizzi; con memoria byte-addressable ciò corrisponde a 1 MiB, comunemente indicato come 1 MB.",
+    "informal_explanation": "Con 20 bit puoi rappresentare 2^20 indirizzi, cioè circa un milione di byte.",
+    "question_response_explanation": "La risposta corretta è \"1 MB\". Con 20 linee di indirizzo si possono rappresentare 2^20 indirizzi; con memoria byte-addressable ciò corrisponde a 1 MiB, comunemente indicato come 1 MB. La risposta \"1 GB\" è errata. 1 GB richiederebbe uno spazio di indirizzamento molto più grande, mentre 1 KB corrisponde a soli 2^10 byte. La risposta \"1 KB\" è errata. 1 GB richiederebbe uno spazio di indirizzamento molto più grande, mentre 1 KB corrisponde a soli 2^10 byte. La risposta \"20 KB\" è errata perché 20 KB non deriva da 20 linee di indirizzo: con n linee gli indirizzi possibili sono 2^n, non n kilobyte."
+  },
+  {
+    "id_question": "5",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Circuiti aritmetici",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Cosa prende in input e cosa restituisce in output un addizionatore completo (full adder)?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Prende 4 bit, restituisce 1 bit"
+      },
+      {
+        "id": "b",
+        "text": "Prende 2 bit + riporto in entrata, restituisce somma e riporto in uscita"
+      },
+      {
+        "id": "c",
+        "text": "Prende un byte, restituisce un byte"
+      },
+      {
+        "id": "d",
+        "text": "Prende solo 2 bit, restituisce solo la somma"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "Un full adder riceve due bit e un carry-in e produce un bit di somma e un carry-out.",
+    "informal_explanation": "Somma due bit tenendo conto anche del riporto proveniente dallo stadio precedente.",
+    "question_response_explanation": "La risposta corretta è \"Prende 2 bit + riporto in entrata, restituisce somma e riporto in uscita\". Un full adder riceve due bit e un carry-in e produce un bit di somma e un carry-out. La risposta \"Prende 4 bit, restituisce 1 bit\" è errata perché un singolo full adder opera su due bit più un carry-in; quattro bit richiederebbero una struttura composta da più stadi. La risposta \"Prende un byte, restituisce un byte\" è errata perché la somma di byte completi richiede una catena di più full adder, non un singolo full adder elementare. La risposta \"Prende solo 2 bit, restituisce solo la somma\" è errata perché un circuito con due soli ingressi di dato e senza carry-in descrive un half adder, non un full adder."
+  },
+  {
+    "id_question": "6",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Processori superscalari",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "A cosa serve il 'buffer di riordino' (reorder buffer) nei processori superscalari?",
+    "option": [
+      {
+        "id": "a",
+        "text": "A prevedere i salti condizionati"
+      },
+      {
+        "id": "b",
+        "text": "A memorizzare le istruzioni in attesa di essere decodificate"
+      },
+      {
+        "id": "c",
+        "text": "A gestire il refresh della DRAM"
+      },
+      {
+        "id": "d",
+        "text": "A garantire che i risultati vengano scritti nei registri nell'ordine originale di prelievo, anche se eseguiti fuori ordine"
+      }
+    ],
+    "id_correct": "d",
+    "formal_explanation": "Il reorder buffer consente l'esecuzione fuori ordine mantenendo il completamento architetturale delle istruzioni nell'ordine corretto.",
+    "informal_explanation": "Le istruzioni possono essere eseguite fuori ordine, ma devono sembrare completate nell'ordine previsto dal programma.",
+    "question_response_explanation": "La risposta corretta è \"A garantire che i risultati vengano scritti nei registri nell'ordine originale di prelievo, anche se eseguiti fuori ordine\". Il reorder buffer consente l'esecuzione fuori ordine mantenendo il completamento architetturale delle istruzioni nell'ordine corretto. La risposta \"A prevedere i salti condizionati\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"A garantire che i risultati vengano scritti nei registri nell'ordine originale di prelievo, anche se eseguiti fuori ordine\". La risposta \"A memorizzare le istruzioni in attesa di essere decodificate\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"A garantire che i risultati vengano scritti nei registri nell'ordine originale di prelievo, anche se eseguiti fuori ordine\". La risposta \"A gestire il refresh della DRAM\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"A garantire che i risultati vengano scritti nei registri nell'ordine originale di prelievo, anche se eseguiti fuori ordine\"."
+  },
+  {
+    "id_question": "7",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Algebra booleana",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Cosa rappresenta un 'minitermine' in una funzione logica a n variabili?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Un termine sempre vero indipendentemente dagli ingressi"
+      },
+      {
+        "id": "b",
+        "text": "Una configurazione per cui la funzione vale 1"
+      },
+      {
+        "id": "c",
+        "text": "Una configurazione per cui la funzione vale 0"
+      },
+      {
+        "id": "d",
+        "text": "Il numero minimo di porte necessarie"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "Un mintermine identifica una singola combinazione degli ingressi associata al valore 1 della funzione nella forma canonica SOP.",
+    "informal_explanation": "Ogni mintermine corrisponde a una riga della tabella di verità in cui la funzione vale 1.",
+    "question_response_explanation": "La risposta corretta è \"Una configurazione per cui la funzione vale 1\". Un mintermine identifica una singola combinazione degli ingressi associata al valore 1 della funzione nella forma canonica SOP. La risposta \"Un termine sempre vero indipendentemente dagli ingressi\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Una configurazione per cui la funzione vale 1\". La risposta \"Una configurazione per cui la funzione vale 0\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Una configurazione per cui la funzione vale 1\". La risposta \"Il numero minimo di porte necessarie\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Una configurazione per cui la funzione vale 1\"."
+  },
+  {
+    "id_question": "8",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Complemento a due",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "In quale caso si verifica overflow sommando due numeri in complemento a due?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Solo quando si sottrae, mai quando si somma"
+      },
+      {
+        "id": "b",
+        "text": "Quando i due addendi sono discordi di segno"
+      },
+      {
+        "id": "c",
+        "text": "Quando i due addendi sono concordi di segno e il segno del risultato è diverso dal loro"
+      },
+      {
+        "id": "d",
+        "text": "Sempre, indipendentemente dai segni"
+      }
+    ],
+    "id_correct": "c",
+    "formal_explanation": "Nella somma in complemento a due l'overflow si verifica quando due operandi con lo stesso segno producono un risultato con segno opposto.",
+    "informal_explanation": "Se sommi due positivi e ottieni un negativo, oppure due negativi e ottieni un positivo, hai superato il range disponibile.",
+    "question_response_explanation": "La risposta corretta è \"Quando i due addendi sono concordi di segno e il segno del risultato è diverso dal loro\". Nella somma in complemento a due l'overflow si verifica quando due operandi con lo stesso segno producono un risultato con segno opposto. La risposta \"Solo quando si sottrae, mai quando si somma\" è errata perché l'overflow può verificarsi anche durante una somma, ad esempio sommando due positivi che eccedono il massimo rappresentabile. La risposta \"Quando i due addendi sono discordi di segno\" è errata perché sommando numeri di segno opposto il risultato resta compreso tra i due operandi, quindi non si produce overflow di segno. La risposta \"Sempre, indipendentemente dai segni\" è errata perché l'overflow dipende dai valori e dai segni degli operandi e dal range disponibile; molte somme sono perfettamente rappresentabili."
+  },
+  {
+    "id_question": "9",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Pipeline",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Pipeline a 5 stadi, una istruzione entra ogni ciclo dal ciclo 1: quante sono completate al ciclo 9?",
+    "option": [
+      {
+        "id": "a",
+        "text": "1"
+      },
+      {
+        "id": "b",
+        "text": "5"
+      },
+      {
+        "id": "c",
+        "text": "9"
+      },
+      {
+        "id": "d",
+        "text": "4"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "In una pipeline ideale a 5 stadi la prima istruzione termina al ciclo 5; dal ciclo 5 al ciclo 9 terminano complessivamente cinque istruzioni.",
+    "informal_explanation": "Dopo aver riempito la pipeline, esce un'istruzione completata a ogni ciclo.",
+    "question_response_explanation": "La risposta corretta è \"5\". In una pipeline ideale a 5 stadi la prima istruzione termina al ciclo 5; dal ciclo 5 al ciclo 9 terminano complessivamente cinque istruzioni. La risposta \"1\" non soddisfa la condizione richiesta, mentre \"5\" identifica la proprietà necessaria. La risposta \"9\" non soddisfa la condizione richiesta, mentre \"5\" identifica la proprietà necessaria. La risposta \"4\" non soddisfa la condizione richiesta, mentre \"5\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "10",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Algebra booleana",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Cosa rappresenta una condizione di indifferenza (don't care, 'X') in una funzione logica?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Un errore nella tabella di verità"
+      },
+      {
+        "id": "b",
+        "text": "Un valore che è sempre 1"
+      },
+      {
+        "id": "c",
+        "text": "Un valore che è sempre 0"
+      },
+      {
+        "id": "d",
+        "text": "Un valore delle variabili per cui la funzione non è definita, il cui valore può essere scelto per minimizzare l'espressione"
+      }
+    ],
+    "id_correct": "d",
+    "formal_explanation": "Una condizione don't care può essere trattata come 0 oppure 1 durante la minimizzazione, scegliendo il valore più conveniente.",
+    "informal_explanation": "È un caso in cui l'uscita non interessa e quindi può essere sfruttato per semplificare il circuito.",
+    "question_response_explanation": "La risposta corretta è \"Un valore delle variabili per cui la funzione non è definita, il cui valore può essere scelto per minimizzare l'espressione\". Una condizione don't care può essere trattata come 0 oppure 1 durante la minimizzazione, scegliendo il valore più conveniente. La risposta \"Un errore nella tabella di verità\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Un valore delle variabili per cui la funzione non è definita, il cui valore può essere scelto per minimizzare l'espressione\". La risposta \"Un valore che è sempre 1\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Un valore delle variabili per cui la funzione non è definita, il cui valore può essere scelto per minimizzare l'espressione\". La risposta \"Un valore che è sempre 0\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Un valore delle variabili per cui la funzione non è definita, il cui valore può essere scelto per minimizzare l'espressione\"."
+  },
+  {
+    "id_question": "11",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "RISC e CISC",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Perché nei processori CISC non è possibile un approccio a stadi come nei RISC?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Perché il CISC non ha un program counter"
+      },
+      {
+        "id": "b",
+        "text": "Perché le istruzioni CISC possono occupare più di una parola di memoria"
+      },
+      {
+        "id": "c",
+        "text": "Perché il CISC non usa un'ALU"
+      },
+      {
+        "id": "d",
+        "text": "Perché il CISC non ha registri"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "La lunghezza e la complessità variabile delle istruzioni CISC rendono meno regolare la suddivisione in stadi tipica di una pipeline RISC.",
+    "informal_explanation": "Le istruzioni CISC possono avere dimensioni e strutture differenti, quindi sono più difficili da inserire in una pipeline regolare.",
+    "question_response_explanation": "La risposta corretta è \"Perché le istruzioni CISC possono occupare più di una parola di memoria\". La lunghezza e la complessità variabile delle istruzioni CISC rendono meno regolare la suddivisione in stadi tipica di una pipeline RISC. La risposta \"Perché il CISC non ha un program counter\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Perché le istruzioni CISC possono occupare più di una parola di memoria\". La risposta \"Perché il CISC non usa un'ALU\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Perché le istruzioni CISC possono occupare più di una parola di memoria\". La risposta \"Perché il CISC non ha registri\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Perché le istruzioni CISC possono occupare più di una parola di memoria\"."
+  },
+  {
+    "id_question": "12",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Logica digitale",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "In una porta tri-state, quando l'uscita si trova in stato di alta impedenza (Z)?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Solo durante il clock negativo"
+      },
+      {
+        "id": "b",
+        "text": "Quando il segnale di abilitazione è 0"
+      },
+      {
+        "id": "c",
+        "text": "Sempre, indipendentemente dall'abilitazione"
+      },
+      {
+        "id": "d",
+        "text": "Quando il segnale di abilitazione è 1"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "Con un enable attivo alto, quando l'abilitazione è disattivata l'uscita viene posta in alta impedenza e risulta logicamente scollegata dal bus.",
+    "informal_explanation": "Quando l'enable è spento, la porta si comporta come se fosse scollegata.",
+    "question_response_explanation": "La risposta corretta è \"Quando il segnale di abilitazione è 0\". Con un enable attivo alto, quando l'abilitazione è disattivata l'uscita viene posta in alta impedenza e risulta logicamente scollegata dal bus. La risposta \"Solo durante il clock negativo\" non soddisfa la condizione richiesta, mentre \"Quando il segnale di abilitazione è 0\" identifica la proprietà necessaria. La risposta \"Sempre, indipendentemente dall'abilitazione\" non soddisfa la condizione richiesta, mentre \"Quando il segnale di abilitazione è 0\" identifica la proprietà necessaria. La risposta \"Quando il segnale di abilitazione è 1\" non soddisfa la condizione richiesta, mentre \"Quando il segnale di abilitazione è 0\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "13",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Branch prediction",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Nella predizione dinamica dei salti, da cosa dipende la previsione?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Dalla frequenza di clock del processore"
+      },
+      {
+        "id": "b",
+        "text": "Solo dalla direzione del salto (avanti o indietro)"
+      },
+      {
+        "id": "c",
+        "text": "Da un'analisi statica del codice fatta dal compilatore"
+      },
+      {
+        "id": "d",
+        "text": "Dal comportamento storico/statistico dei salti precedenti"
+      }
+    ],
+    "id_correct": "d",
+    "formal_explanation": "La predizione dinamica usa informazioni raccolte durante l'esecuzione, come lo storico degli esiti dei branch.",
+    "informal_explanation": "Il processore osserva cosa è successo alle esecuzioni precedenti del salto e usa questa informazione per prevedere quella successiva.",
+    "question_response_explanation": "La risposta corretta è \"Dal comportamento storico/statistico dei salti precedenti\". La predizione dinamica usa informazioni raccolte durante l'esecuzione, come lo storico degli esiti dei branch. La risposta \"Dalla frequenza di clock del processore\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Dal comportamento storico/statistico dei salti precedenti\". La risposta \"Solo dalla direzione del salto (avanti o indietro)\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Dal comportamento storico/statistico dei salti precedenti\". La risposta \"Da un'analisi statica del codice fatta dal compilatore\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Dal comportamento storico/statistico dei salti precedenti\"."
+  },
+  {
+    "id_question": "14",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Complemento a due",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "A cosa serve il complemento a due?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Velocizzare gli accessi alla cache"
+      },
+      {
+        "id": "b",
+        "text": "Rappresentare numeri interi con segno permettendo somma/sottrazione con lo stesso circuito"
+      },
+      {
+        "id": "c",
+        "text": "Comprimere i dati in memoria"
+      },
+      {
+        "id": "d",
+        "text": "Correggere errori di trasmissione sul bus"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "Il complemento a due rappresenta interi con segno e permette di riutilizzare sostanzialmente lo stesso circuito per somma e sottrazione.",
+    "informal_explanation": "È il modo standard usato dall'hardware per rappresentare numeri positivi e negativi.",
+    "question_response_explanation": "La risposta corretta è \"Rappresentare numeri interi con segno permettendo somma/sottrazione con lo stesso circuito\". Il complemento a due rappresenta interi con segno e permette di riutilizzare sostanzialmente lo stesso circuito per somma e sottrazione. La risposta \"Velocizzare gli accessi alla cache\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Rappresentare numeri interi con segno permettendo somma/sottrazione con lo stesso circuito\". La risposta \"Comprimere i dati in memoria\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Rappresentare numeri interi con segno permettendo somma/sottrazione con lo stesso circuito\". La risposta \"Correggere errori di trasmissione sul bus\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Rappresentare numeri interi con segno permettendo somma/sottrazione con lo stesso circuito\"."
+  },
+  {
+    "id_question": "15",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Ciclo del processore",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Metti in ordine corretto le 4 fasi del ciclo del processore:",
+    "option": [
+      {
+        "id": "a",
+        "text": "Execute → Fetch → Decode → Store"
+      },
+      {
+        "id": "b",
+        "text": "Decode → Fetch → Store → Execute"
+      },
+      {
+        "id": "c",
+        "text": "Fetch → Decode → Execute → Store"
+      },
+      {
+        "id": "d",
+        "text": "Fetch → Execute → Decode → Store"
+      }
+    ],
+    "id_correct": "c",
+    "formal_explanation": "Nel modello semplificato il ciclo segue l'ordine Fetch, Decode, Execute e Store.",
+    "informal_explanation": "Prima prendi l'istruzione, poi la interpreti, la esegui e infine salvi il risultato.",
+    "question_response_explanation": "La risposta corretta è \"Fetch → Decode → Execute → Store\". Nel modello semplificato il ciclo segue l'ordine Fetch, Decode, Execute e Store. La risposta \"Execute → Fetch → Decode → Store\" è errata perché la sequenza \"Execute → Fetch → Decode → Store\" è errata perché il processore deve prima prelevare l’istruzione (Fetch), poi decodificarla (Decode), quindi eseguirla (Execute) e infine memorizzare il risultato quando previsto. La risposta \"Decode → Fetch → Store → Execute\" è errata perché la sequenza \"Decode → Fetch → Store → Execute\" è errata perché il processore deve prima prelevare l’istruzione (Fetch), poi decodificarla (Decode), quindi eseguirla (Execute) e infine memorizzare il risultato quando previsto. La risposta \"Fetch → Execute → Decode → Store\" è errata perché la sequenza \"Fetch → Execute → Decode → Store\" è errata perché il processore deve prima prelevare l’istruzione (Fetch), poi decodificarla (Decode), quindi eseguirla (Execute) e infine memorizzare il risultato quando previsto."
+  },
+  {
+    "id_question": "16",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Memoria",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Qual è il ruolo della memoria centrale in un calcolatore?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Depositare dati e istruzioni da eseguire"
+      },
+      {
+        "id": "b",
+        "text": "Convertire segnali analogici in digitali"
+      },
+      {
+        "id": "c",
+        "text": "Solo eseguire calcoli aritmetici"
+      },
+      {
+        "id": "d",
+        "text": "Gestire l'alimentazione"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "La memoria centrale conserva dati e istruzioni che il processore utilizza durante l'esecuzione.",
+    "informal_explanation": "È lo spazio di lavoro principale in cui la CPU trova programmi e dati.",
+    "question_response_explanation": "La risposta corretta è \"Depositare dati e istruzioni da eseguire\". La memoria centrale conserva dati e istruzioni che il processore utilizza durante l'esecuzione. La risposta \"Convertire segnali analogici in digitali\" non soddisfa la condizione richiesta, mentre \"Depositare dati e istruzioni da eseguire\" identifica la proprietà necessaria. La risposta \"Solo eseguire calcoli aritmetici\" non soddisfa la condizione richiesta, mentre \"Depositare dati e istruzioni da eseguire\" identifica la proprietà necessaria. La risposta \"Gestire l'alimentazione\" non soddisfa la condizione richiesta, mentre \"Depositare dati e istruzioni da eseguire\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "17",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "RISC e CISC",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Da cosa è causato il bottleneck tipico nei processori CISC?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Il tempo di decodifica di istruzioni lunghe supera la capacità di trasporto del bus, che ha clock più basso"
+      },
+      {
+        "id": "b",
+        "text": "Dalla mancanza di registri"
+      },
+      {
+        "id": "c",
+        "text": "Dall'assenza dell'ALU"
+      },
+      {
+        "id": "d",
+        "text": "Dalla presenza di troppa cache"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "Nel modello presentato, la complessità e la lunghezza delle istruzioni CISC possono aumentare il costo di prelievo e decodifica e creare un collo di bottiglia.",
+    "informal_explanation": "Le istruzioni più complesse richiedono più lavoro per essere lette e decodificate.",
+    "question_response_explanation": "La risposta corretta è \"Il tempo di decodifica di istruzioni lunghe supera la capacità di trasporto del bus, che ha clock più basso\". Nel modello presentato, la complessità e la lunghezza delle istruzioni CISC possono aumentare il costo di prelievo e decodifica e creare un collo di bottiglia. La risposta \"Dalla mancanza di registri\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Il tempo di decodifica di istruzioni lunghe supera la capacità di trasporto del bus, che ha clock più basso\". La risposta \"Dall'assenza dell'ALU\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Il tempo di decodifica di istruzioni lunghe supera la capacità di trasporto del bus, che ha clock più basso\". La risposta \"Dalla presenza di troppa cache\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Il tempo di decodifica di istruzioni lunghe supera la capacità di trasporto del bus, che ha clock più basso\"."
+  },
+  {
+    "id_question": "18",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Circuiti aritmetici",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "In un Ripple Carry Adder a 8 bit, dopo quanti ritardi di porta (r) viene generato il riporto finale c8?",
+    "option": [
+      {
+        "id": "a",
+        "text": "4r"
+      },
+      {
+        "id": "b",
+        "text": "16r"
+      },
+      {
+        "id": "c",
+        "text": "2r"
+      },
+      {
+        "id": "d",
+        "text": "8r"
+      }
+    ],
+    "id_correct": "d",
+    "formal_explanation": "Nel modello della domanda il carry deve propagarsi attraverso otto stadi consecutivi, quindi il ritardo del riporto finale è 8r.",
+    "informal_explanation": "Il riporto attraversa uno dopo l'altro tutti gli otto full adder.",
+    "question_response_explanation": "La risposta corretta è \"8r\". Nel modello della domanda il carry deve propagarsi attraverso otto stadi consecutivi, quindi il ritardo del riporto finale è 8r. La risposta \"4r\" non soddisfa la condizione richiesta, mentre \"8r\" identifica la proprietà necessaria. La risposta \"16r\" non soddisfa la condizione richiesta, mentre \"8r\" identifica la proprietà necessaria. La risposta \"2r\" non soddisfa la condizione richiesta, mentre \"8r\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "19",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Cache",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Cosa succede in caso di 'cache miss'?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Il dato viene comunque trovato istantaneamente"
+      },
+      {
+        "id": "b",
+        "text": "Si accede alla memoria e si carica una nuova linea di cache"
+      },
+      {
+        "id": "c",
+        "text": "Viene generato un errore di trabocco"
+      },
+      {
+        "id": "d",
+        "text": "Il processore si blocca definitivamente"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "In caso di cache miss il dato viene recuperato da un livello inferiore della gerarchia di memoria e la linea corrispondente viene caricata in cache.",
+    "informal_explanation": "La CPU non trova il dato nella cache e deve cercarlo più lontano.",
+    "question_response_explanation": "La risposta corretta è \"Si accede alla memoria e si carica una nuova linea di cache\". In caso di cache miss il dato viene recuperato da un livello inferiore della gerarchia di memoria e la linea corrispondente viene caricata in cache. La risposta \"Il dato viene comunque trovato istantaneamente\" è errata perché un cache miss significa proprio che il dato non è presente nel livello di cache consultato, quindi occorre accedere a un livello inferiore e più lento. La risposta \"Viene generato un errore di trabocco\" è errata perché l'overflow riguarda il superamento del range numerico di un'operazione aritmetica e non la gerarchia di memoria. La risposta \"Il processore si blocca definitivamente\" è errata perché il processore può stallare temporaneamente in attesa del dato, ma riprende quando la linea viene recuperata; non si blocca definitivamente."
+  },
+  {
+    "id_question": "20",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Processore",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Quale tra questi NON è un componente base del processore descritto nel documento?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Generatore di indirizzi"
+      },
+      {
+        "id": "b",
+        "text": "Banco dei registri"
+      },
+      {
+        "id": "c",
+        "text": "ALU"
+      },
+      {
+        "id": "d",
+        "text": "Hard disk"
+      }
+    ],
+    "id_correct": "d",
+    "formal_explanation": "L'hard disk è una memoria secondaria esterna alla CPU, mentre gli altri elementi appartengono al datapath o alla logica del processore.",
+    "informal_explanation": "ALU e registri sono dentro la CPU; l'hard disk è una periferica di memorizzazione.",
+    "question_response_explanation": "La risposta corretta è \"Hard disk\". L'hard disk è una memoria secondaria esterna alla CPU, mentre gli altri elementi appartengono al datapath o alla logica del processore. La risposta \"Generatore di indirizzi\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Hard disk\". La risposta \"Banco dei registri\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Hard disk\". La risposta \"ALU\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Hard disk\"."
+  },
+  {
+    "id_question": "21",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Aritmetica binaria",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Nella moltiplicazione di numeri con segno (senza algoritmo di Booth), cosa si fa se il moltiplicatore è negativo?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Si effettua il complemento a due di moltiplicando e moltiplicatore, riportandosi al caso di moltiplicatore positivo"
+      },
+      {
+        "id": "b",
+        "text": "Si ignora il segno e si moltiplica normalmente"
+      },
+      {
+        "id": "c",
+        "text": "Non è possibile moltiplicare numeri negativi"
+      },
+      {
+        "id": "d",
+        "text": "Si estende solo il segno del moltiplicatore"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "Nel procedimento indicato si complementano entrambi gli operandi in modo da ricondurre il moltiplicatore al caso positivo preservando il prodotto.",
+    "informal_explanation": "Si trasformano entrambi i valori così da lavorare con un moltiplicatore positivo.",
+    "question_response_explanation": "La risposta corretta è \"Si effettua il complemento a due di moltiplicando e moltiplicatore, riportandosi al caso di moltiplicatore positivo\". Nel procedimento indicato si complementano entrambi gli operandi in modo da ricondurre il moltiplicatore al caso positivo preservando il prodotto. La risposta \"Si ignora il segno e si moltiplica normalmente\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Si effettua il complemento a due di moltiplicando e moltiplicatore, riportandosi al caso di moltiplicatore positivo\". La risposta \"Non è possibile moltiplicare numeri negativi\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Si effettua il complemento a due di moltiplicando e moltiplicatore, riportandosi al caso di moltiplicatore positivo\". La risposta \"Si estende solo il segno del moltiplicatore\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Si effettua il complemento a due di moltiplicando e moltiplicatore, riportandosi al caso di moltiplicatore positivo\"."
+  },
+  {
+    "id_question": "22",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Registri speciali",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "A cosa serve il Program Counter (PC)?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Contare il numero di istruzioni eseguite"
+      },
+      {
+        "id": "b",
+        "text": "Gestire gli interrupt"
+      },
+      {
+        "id": "c",
+        "text": "Contenere il risultato dell'ALU"
+      },
+      {
+        "id": "d",
+        "text": "Contenere l'indirizzo dell'istruzione da eseguire"
+      }
+    ],
+    "id_correct": "d",
+    "formal_explanation": "Il Program Counter contiene l'indirizzo dell'istruzione successiva da prelevare o eseguire.",
+    "informal_explanation": "È il registro che indica alla CPU dove si trova la prossima istruzione.",
+    "question_response_explanation": "La risposta corretta è \"Contenere l'indirizzo dell'istruzione da eseguire\". Il Program Counter contiene l'indirizzo dell'istruzione successiva da prelevare o eseguire. La risposta \"Contare il numero di istruzioni eseguite\" è errata perché il nome può trarre in inganno: il Program Counter non conta quante istruzioni sono state eseguite, ma memorizza un indirizzo di istruzione. La risposta \"Gestire gli interrupt\" è errata perché la gestione degli interrupt coinvolge registri e logica dedicata; il PC può essere salvato/ripristinato, ma non ha come funzione principale gestire gli interrupt. La risposta \"Contenere il risultato dell'ALU\" è errata perché i risultati dell'ALU vengono memorizzati in registri generali o specifici; il PC contiene invece un indirizzo di controllo del flusso."
+  },
+  {
+    "id_question": "23",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Memoria",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "A cosa serve il segnale MFC nella gestione dei ritardi di memoria?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Avvia il refresh della DRAM"
+      },
+      {
+        "id": "b",
+        "text": "Gestisce solo gli interrupt esterni"
+      },
+      {
+        "id": "c",
+        "text": "Segnala che l'operazione di memoria richiesta si è conclusa, permettendo al circuito di controllo di proseguire"
+      },
+      {
+        "id": "d",
+        "text": "Indica un errore di trabocco"
+      }
+    ],
+    "id_correct": "c",
+    "formal_explanation": "MFC significa Memory Function Complete e segnala al controllo che l'operazione di memoria richiesta è terminata.",
+    "informal_explanation": "La memoria comunica alla CPU che ha terminato e che può proseguire.",
+    "question_response_explanation": "La risposta corretta è \"Segnala che l'operazione di memoria richiesta si è conclusa, permettendo al circuito di controllo di proseguire\". MFC significa Memory Function Complete e segnala al controllo che l'operazione di memoria richiesta è terminata. La risposta \"Avvia il refresh della DRAM\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Segnala che l'operazione di memoria richiesta si è conclusa, permettendo al circuito di controllo di proseguire\". La risposta \"Gestisce solo gli interrupt esterni\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Segnala che l'operazione di memoria richiesta si è conclusa, permettendo al circuito di controllo di proseguire\". La risposta \"Indica un errore di trabocco\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Segnala che l'operazione di memoria richiesta si è conclusa, permettendo al circuito di controllo di proseguire\"."
+  },
+  {
+    "id_question": "24",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Calcolabilità",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Come si formula in breve il problema della fermata (Halting Problem)?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Calcolare il tempo massimo di esecuzione di un algoritmo"
+      },
+      {
+        "id": "b",
+        "text": "Verificare se un algoritmo è scritto in linguaggio ad alto livello"
+      },
+      {
+        "id": "c",
+        "text": "Stabilire se un programma userà più memoria del previsto"
+      },
+      {
+        "id": "d",
+        "text": "Determinare se un programma, con un dato input, si fermerà o girerà per sempre"
+      }
+    ],
+    "id_correct": "d",
+    "formal_explanation": "Il problema della fermata chiede di stabilire se un programma terminerà oppure continuerà indefinitamente su un determinato input.",
+    "informal_explanation": "La domanda è: questo programma prima o poi finisce oppure gira per sempre?",
+    "question_response_explanation": "La risposta corretta è \"Determinare se un programma, con un dato input, si fermerà o girerà per sempre\". Il problema della fermata chiede di stabilire se un programma terminerà oppure continuerà indefinitamente su un determinato input. La risposta \"Calcolare il tempo massimo di esecuzione di un algoritmo\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Determinare se un programma, con un dato input, si fermerà o girerà per sempre\". La risposta \"Verificare se un algoritmo è scritto in linguaggio ad alto livello\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Determinare se un programma, con un dato input, si fermerà o girerà per sempre\". La risposta \"Stabilire se un programma userà più memoria del previsto\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Determinare se un programma, con un dato input, si fermerà o girerà per sempre\"."
+  },
+  {
+    "id_question": "25",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Sistemi di numerazione",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "In un sistema di numerazione posizionale, da cosa dipende il valore di una cifra?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Dalla sua posizione (moltiplicata per una potenza della base)"
+      },
+      {
+        "id": "b",
+        "text": "Dal colore della cifra"
+      },
+      {
+        "id": "c",
+        "text": "Solo dal simbolo usato"
+      },
+      {
+        "id": "d",
+        "text": "Dalla lunghezza totale del numero"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "In una rappresentazione posizionale ogni cifra è pesata da una potenza della base determinata dalla posizione occupata.",
+    "informal_explanation": "La stessa cifra può valere quantità diverse in base alla posizione in cui si trova.",
+    "question_response_explanation": "La risposta corretta è \"Dalla sua posizione (moltiplicata per una potenza della base)\". In una rappresentazione posizionale ogni cifra è pesata da una potenza della base determinata dalla posizione occupata. La risposta \"Dal colore della cifra\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Dalla sua posizione (moltiplicata per una potenza della base)\". La risposta \"Solo dal simbolo usato\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Dalla sua posizione (moltiplicata per una potenza della base)\". La risposta \"Dalla lunghezza totale del numero\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Dalla sua posizione (moltiplicata per una potenza della base)\"."
+  },
+  {
+    "id_question": "26",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Indirizzamento",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Nel modo di indirizzamento 'indiretto da registro', cosa contiene il registro indicato nell'istruzione?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Direttamente il valore dell'operando"
+      },
+      {
+        "id": "b",
+        "text": "Lo spiazzamento da sommare al PC"
+      },
+      {
+        "id": "c",
+        "text": "L'indirizzo di memoria dove si trova l'operando"
+      },
+      {
+        "id": "d",
+        "text": "Il codice operativo dell'istruzione"
+      }
+    ],
+    "id_correct": "c",
+    "formal_explanation": "Nell'indirizzamento indiretto da registro il registro contiene l'indirizzo della locazione di memoria che contiene l'operando.",
+    "informal_explanation": "Il registro non contiene il dato finale, ma l'indirizzo in cui andare a cercarlo.",
+    "question_response_explanation": "La risposta corretta è \"L'indirizzo di memoria dove si trova l'operando\". Nell'indirizzamento indiretto da registro il registro contiene l'indirizzo della locazione di memoria che contiene l'operando. La risposta \"Direttamente il valore dell'operando\" è errata perché se il registro contenesse direttamente l'operando si avrebbe un operando in registro; nell'indiretto da registro esso contiene invece un indirizzo. La risposta \"Lo spiazzamento da sommare al PC\" è errata perché uno spiazzamento sommato al PC appartiene a modalità relative/PC-relative, non all'indirizzamento indiretto da registro. La risposta \"Il codice operativo dell'istruzione\" è errata perché il codice operativo è contenuto nell'istruzione e identifica l'operazione da eseguire; non è il contenuto del registro usato come puntatore."
+  },
+  {
+    "id_question": "27",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "RISC e CISC",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Cosa significa RISC?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Rapid Instruction Set Computer"
+      },
+      {
+        "id": "b",
+        "text": "Reduced Instruction Set Computer"
+      },
+      {
+        "id": "c",
+        "text": "Register Instruction Set Computer"
+      },
+      {
+        "id": "d",
+        "text": "Real Instruction Set Code"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "RISC è l'acronimo di Reduced Instruction Set Computer.",
+    "informal_explanation": "Indica un'architettura basata su istruzioni relativamente semplici e regolari.",
+    "question_response_explanation": "La risposta corretta è \"Reduced Instruction Set Computer\". RISC è l'acronimo di Reduced Instruction Set Computer. La risposta \"Rapid Instruction Set Computer\" è errata perché RISC non significa Rapid Instruction Set Computer: l'acronimo espande la parola Reduced. La risposta \"Register Instruction Set Computer\" è errata perché RISC non significa Register Instruction Set Computer: i registri sono importanti nelle architetture RISC, ma non definiscono l'acronimo. La risposta \"Real Instruction Set Code\" è errata perché RISC non significa Real Instruction Set Code; non è l'espansione standard dell'acronimo."
+  },
+  {
+    "id_question": "28",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Unità di controllo",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Qual è la differenza tra controllo cablato e controllo microprogrammato?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Sono la stessa cosa con nomi diversi"
+      },
+      {
+        "id": "b",
+        "text": "Il controllo microprogrammato non gestisce i salti condizionati"
+      },
+      {
+        "id": "c",
+        "text": "Il controllo cablato è usato solo nei CISC"
+      },
+      {
+        "id": "d",
+        "text": "Il cablato usa un contatore di stadi hardware fisso; il microprogrammato usa microistruzioni in una memoria di controllo, gestite da μPC"
+      }
+    ],
+    "id_correct": "d",
+    "formal_explanation": "Il controllo cablato genera i segnali tramite logica hardware, mentre quello microprogrammato esegue microistruzioni memorizzate in una memoria di controllo.",
+    "informal_explanation": "Nel controllo cablato il comportamento è costruito nei circuiti; in quello microprogrammato è descritto da un piccolo programma interno.",
+    "question_response_explanation": "La risposta corretta è \"Il cablato usa un contatore di stadi hardware fisso; il microprogrammato usa microistruzioni in una memoria di controllo, gestite da μPC\". Il controllo cablato genera i segnali tramite logica hardware, mentre quello microprogrammato esegue microistruzioni memorizzate in una memoria di controllo. La risposta \"Sono la stessa cosa con nomi diversi\" non soddisfa la condizione richiesta, mentre \"Il cablato usa un contatore di stadi hardware fisso; il microprogrammato usa microistruzioni in una memoria di controllo, gestite da μPC\" identifica la proprietà necessaria. La risposta \"Il controllo microprogrammato non gestisce i salti condizionati\" non soddisfa la condizione richiesta, mentre \"Il cablato usa un contatore di stadi hardware fisso; il microprogrammato usa microistruzioni in una memoria di controllo, gestite da μPC\" identifica la proprietà necessaria. La risposta \"Il controllo cablato è usato solo nei CISC\" non soddisfa la condizione richiesta, mentre \"Il cablato usa un contatore di stadi hardware fisso; il microprogrammato usa microistruzioni in una memoria di controllo, gestite da μPC\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "29",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Complemento a due",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Rappresenta il numero -13 in complemento a due su 8 bit.",
+    "option": [
+      {
+        "id": "a",
+        "text": "10001101"
+      },
+      {
+        "id": "b",
+        "text": "11110010"
+      },
+      {
+        "id": "c",
+        "text": "11101101"
+      },
+      {
+        "id": "d",
+        "text": "11110011"
+      }
+    ],
+    "id_correct": "d",
+    "formal_explanation": "13 su 8 bit è 00001101; invertendo si ottiene 11110010 e aggiungendo 1 si ottiene 11110011.",
+    "informal_explanation": "Scrivi +13, inverti tutti i bit e aggiungi uno.",
+    "question_response_explanation": "La risposta corretta è \"11110011\". 13 su 8 bit è 00001101; invertendo si ottiene 11110010 e aggiungendo 1 si ottiene 11110011. La risposta \"10001101\" non soddisfa la condizione richiesta, mentre \"11110011\" identifica la proprietà necessaria. La risposta \"11110010\" non soddisfa la condizione richiesta, mentre \"11110011\" identifica la proprietà necessaria. La risposta \"11101101\" non soddisfa la condizione richiesta, mentre \"11110011\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "30",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Pipeline",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Perché il pipelining è più complesso nei CISC rispetto ai RISC?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Perché il CISC ha meno registri"
+      },
+      {
+        "id": "b",
+        "text": "Perché le istruzioni CISC hanno codifica complessa e lunghezza variabile; i processori moderni (es. i7) le convertono in micro-operazioni stile RISC"
+      },
+      {
+        "id": "c",
+        "text": "Perché il CISC non usa il program counter"
+      },
+      {
+        "id": "d",
+        "text": "Perché il CISC non ha una ALU dedicata"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "La codifica complessa e la lunghezza variabile delle istruzioni CISC rendono più difficile una pipeline regolare; molte CPU moderne le decodificano in micro-operazioni interne.",
+    "informal_explanation": "Le istruzioni CISC vengono spesso trasformate internamente in operazioni più semplici prima di essere eseguite.",
+    "question_response_explanation": "La risposta corretta è \"Perché le istruzioni CISC hanno codifica complessa e lunghezza variabile; i processori moderni (es. i7) le convertono in micro-operazioni stile RISC\". La codifica complessa e la lunghezza variabile delle istruzioni CISC rendono più difficile una pipeline regolare; molte CPU moderne le decodificano in micro-operazioni interne. La risposta \"Perché il CISC ha meno registri\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Perché le istruzioni CISC hanno codifica complessa e lunghezza variabile; i processori moderni (es. i7) le convertono in micro-operazioni stile RISC\". La risposta \"Perché il CISC non usa il program counter\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Perché le istruzioni CISC hanno codifica complessa e lunghezza variabile; i processori moderni (es. i7) le convertono in micro-operazioni stile RISC\". La risposta \"Perché il CISC non ha una ALU dedicata\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Perché le istruzioni CISC hanno codifica complessa e lunghezza variabile; i processori moderni (es. i7) le convertono in micro-operazioni stile RISC\"."
+  },
+  {
+    "id_question": "31",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Virgola mobile",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Nello standard IEEE 754 a 32 bit, come sono suddivisi i bit?",
+    "option": [
+      {
+        "id": "a",
+        "text": "1 segno, 11 esponente, 20 mantissa"
+      },
+      {
+        "id": "b",
+        "text": "1 segno, 8 esponente, 23 mantissa"
+      },
+      {
+        "id": "c",
+        "text": "2 segno, 7 esponente, 23 mantissa"
+      },
+      {
+        "id": "d",
+        "text": "1 segno, 23 esponente, 8 mantissa"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "IEEE 754 single precision usa 1 bit di segno, 8 bit di esponente e 23 bit di frazione.",
+    "informal_explanation": "I 32 bit sono suddivisi in 1 + 8 + 23.",
+    "question_response_explanation": "La risposta corretta è \"1 segno, 8 esponente, 23 mantissa\". IEEE 754 single precision usa 1 bit di segno, 8 bit di esponente e 23 bit di frazione. La risposta \"1 segno, 11 esponente, 20 mantissa\" è errata perché gli 11 bit di esponente appartengono alla precisione doppia IEEE 754; nella precisione singola l'esponente usa 8 bit e la frazione 23. La risposta \"2 segno, 7 esponente, 23 mantissa\" è errata perché iEEE 754 usa un solo bit di segno; due bit di segno non fanno parte del formato single precision. La risposta \"1 segno, 23 esponente, 8 mantissa\" è errata perché questa suddivisione scambia i campi di esponente e frazione: nella precisione singola l'esponente occupa 8 bit e la frazione 23."
+  },
+  {
+    "id_question": "32",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Bus e periferiche",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Cosa ha introdotto lo standard PCI rispetto alla configurazione manuale precedente?",
+    "option": [
+      {
+        "id": "a",
+        "text": "L'eliminazione totale del bus di sistema"
+      },
+      {
+        "id": "b",
+        "text": "Un nuovo tipo di RAM"
+      },
+      {
+        "id": "c",
+        "text": "La necessità di ponticelli hardware per ogni scheda"
+      },
+      {
+        "id": "d",
+        "text": "Una tecnologia plug & play che assegna automaticamente canali e linee"
+      }
+    ],
+    "id_correct": "d",
+    "formal_explanation": "PCI supporta meccanismi di configurazione automatica delle periferiche, riducendo la necessità di impostazioni manuali tramite jumper.",
+    "informal_explanation": "Le periferiche possono essere riconosciute e configurate automaticamente.",
+    "question_response_explanation": "La risposta corretta è \"Una tecnologia plug & play che assegna automaticamente canali e linee\". PCI supporta meccanismi di configurazione automatica delle periferiche, riducendo la necessità di impostazioni manuali tramite jumper. La risposta \"L'eliminazione totale del bus di sistema\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Una tecnologia plug & play che assegna automaticamente canali e linee\". La risposta \"Un nuovo tipo di RAM\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Una tecnologia plug & play che assegna automaticamente canali e linee\". La risposta \"La necessità di ponticelli hardware per ogni scheda\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Una tecnologia plug & play che assegna automaticamente canali e linee\"."
+  },
+  {
+    "id_question": "33",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Bus",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Se il bus dati (DBus) ha 64 linee, quanti byte può trasferire in una singola operazione?",
+    "option": [
+      {
+        "id": "a",
+        "text": "4 byte"
+      },
+      {
+        "id": "b",
+        "text": "64 byte"
+      },
+      {
+        "id": "c",
+        "text": "8 byte"
+      },
+      {
+        "id": "d",
+        "text": "16 byte"
+      }
+    ],
+    "id_correct": "c",
+    "formal_explanation": "64 linee trasferiscono 64 bit in parallelo, equivalenti a 8 byte.",
+    "informal_explanation": "Basta dividere 64 bit per 8 bit per byte.",
+    "question_response_explanation": "La risposta corretta è \"8 byte\". 64 linee trasferiscono 64 bit in parallelo, equivalenti a 8 byte. La risposta \"4 byte\" è errata perché 4 byte corrispondono a 32 bit; un bus dati a 64 linee trasferisce il doppio, cioè 8 byte. La risposta \"64 byte\" è errata perché 64 linee dati trasportano 64 bit, cioè 64/8 = 8 byte, non 64 byte. La risposta \"16 byte\" è errata perché 16 byte corrispondono a 128 bit; un bus a 64 linee trasferisce 64 bit, cioè 8 byte."
+  },
+  {
+    "id_question": "34",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Tecnologia CMOS",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Qual è il principale vantaggio del CMOS rispetto al solo NMOS?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Consumo energetico ridotto, perché non c'è mai continuità tra massa e alimentazione in stato stabile"
+      },
+      {
+        "id": "b",
+        "text": "Il CMOS non richiede transistori PMOS"
+      },
+      {
+        "id": "c",
+        "text": "Il CMOS ha dimensioni maggiori quindi più affidabile"
+      },
+      {
+        "id": "d",
+        "text": "Il CMOS è più economico da produrre"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "Nella logica CMOS ideale non esiste un percorso continuo tra alimentazione e massa negli stati statici, quindi il consumo statico è molto ridotto.",
+    "informal_explanation": "Quando il circuito non sta commutando, consuma pochissima corrente.",
+    "question_response_explanation": "La risposta corretta è \"Consumo energetico ridotto, perché non c'è mai continuità tra massa e alimentazione in stato stabile\". Nella logica CMOS ideale non esiste un percorso continuo tra alimentazione e massa negli stati statici, quindi il consumo statico è molto ridotto. La risposta \"Il CMOS non richiede transistori PMOS\" non soddisfa la condizione richiesta, mentre \"Consumo energetico ridotto, perché non c'è mai continuità tra massa e alimentazione in stato stabile\" identifica la proprietà necessaria. La risposta \"Il CMOS ha dimensioni maggiori quindi più affidabile\" non soddisfa la condizione richiesta, mentre \"Consumo energetico ridotto, perché non c'è mai continuità tra massa e alimentazione in stato stabile\" identifica la proprietà necessaria. La risposta \"Il CMOS è più economico da produrre\" non soddisfa la condizione richiesta, mentre \"Consumo energetico ridotto, perché non c'è mai continuità tra massa e alimentazione in stato stabile\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "35",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Circuiti aritmetici",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Come si ottiene un addizionatore capace di sommare numeri a n bit collegando dei full adder?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Collegando n full adder in modo da propagare il riporto (ripple carry adder)"
+      },
+      {
+        "id": "b",
+        "text": "Collegando n full adder in parallelo senza propagazione"
+      },
+      {
+        "id": "c",
+        "text": "Usando un solo full adder per tutti i bit"
+      },
+      {
+        "id": "d",
+        "text": "Non è possibile, serve un circuito diverso"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "Collegando il carry-out di ciascun full adder al carry-in del successivo si realizza un ripple carry adder a n bit.",
+    "informal_explanation": "Ogni stadio somma un bit e passa il proprio riporto allo stadio successivo.",
+    "question_response_explanation": "La risposta corretta è \"Collegando n full adder in modo da propagare il riporto (ripple carry adder)\". Collegando il carry-out di ciascun full adder al carry-in del successivo si realizza un ripple carry adder a n bit. La risposta \"Collegando n full adder in parallelo senza propagazione\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Collegando n full adder in modo da propagare il riporto (ripple carry adder)\". La risposta \"Usando un solo full adder per tutti i bit\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Collegando n full adder in modo da propagare il riporto (ripple carry adder)\". La risposta \"Non è possibile, serve un circuito diverso\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Collegando n full adder in modo da propagare il riporto (ripple carry adder)\"."
+  },
+  {
+    "id_question": "36",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Virgola mobile",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Nell'algoritmo di addizione/sottrazione algebrica in virgola mobile, qual è il primo passo?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Normalizzare subito il risultato"
+      },
+      {
+        "id": "b",
+        "text": "Sommare direttamente le mantisse senza allineamento"
+      },
+      {
+        "id": "c",
+        "text": "Scegliere il numero con esponente minore e shiftare la sua mantissa a destra della differenza degli esponenti"
+      },
+      {
+        "id": "d",
+        "text": "Sottrarre 127 dagli esponenti"
+      }
+    ],
+    "id_correct": "c",
+    "formal_explanation": "Prima di sommare o sottrarre le mantisse occorre allineare gli esponenti spostando a destra la mantissa associata all'esponente minore.",
+    "informal_explanation": "Prima devi portare i due numeri alla stessa scala.",
+    "question_response_explanation": "La risposta corretta è \"Scegliere il numero con esponente minore e shiftare la sua mantissa a destra della differenza degli esponenti\". Prima di sommare o sottrarre le mantisse occorre allineare gli esponenti spostando a destra la mantissa associata all'esponente minore. La risposta \"Normalizzare subito il risultato\" non soddisfa la condizione richiesta, mentre \"Scegliere il numero con esponente minore e shiftare la sua mantissa a destra della differenza degli esponenti\" identifica la proprietà necessaria. La risposta \"Sommare direttamente le mantisse senza allineamento\" non soddisfa la condizione richiesta, mentre \"Scegliere il numero con esponente minore e shiftare la sua mantissa a destra della differenza degli esponenti\" identifica la proprietà necessaria. La risposta \"Sottrarre 127 dagli esponenti\" non soddisfa la condizione richiesta, mentre \"Scegliere il numero con esponente minore e shiftare la sua mantissa a destra della differenza degli esponenti\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "37",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Traduzione e linking",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Qual è la differenza principale tra assemblatore e linker?",
+    "option": [
+      {
+        "id": "a",
+        "text": "L'assemblatore si occupa solo del debug"
+      },
+      {
+        "id": "b",
+        "text": "Sono sinonimi dello stesso strumento"
+      },
+      {
+        "id": "c",
+        "text": "Il linker traduce il codice ad alto livello"
+      },
+      {
+        "id": "d",
+        "text": "L'assemblatore traduce il sorgente in binario; il linker combina più file oggetto risolvendo i riferimenti a nomi esterni"
+      }
+    ],
+    "id_correct": "d",
+    "formal_explanation": "L'assemblatore traduce il codice assembly in oggetto; il linker combina moduli oggetto e risolve i simboli esterni.",
+    "informal_explanation": "L'assembler traduce un modulo, il linker mette insieme i vari pezzi del programma.",
+    "question_response_explanation": "La risposta corretta è \"L'assemblatore traduce il sorgente in binario; il linker combina più file oggetto risolvendo i riferimenti a nomi esterni\". L'assemblatore traduce il codice assembly in oggetto; il linker combina moduli oggetto e risolve i simboli esterni. La risposta \"L'assemblatore si occupa solo del debug\" non soddisfa la condizione richiesta, mentre \"L'assemblatore traduce il sorgente in binario; il linker combina più file oggetto risolvendo i riferimenti a nomi esterni\" identifica la proprietà necessaria. La risposta \"Sono sinonimi dello stesso strumento\" non soddisfa la condizione richiesta, mentre \"L'assemblatore traduce il sorgente in binario; il linker combina più file oggetto risolvendo i riferimenti a nomi esterni\" identifica la proprietà necessaria. La risposta \"Il linker traduce il codice ad alto livello\" non soddisfa la condizione richiesta, mentre \"L'assemblatore traduce il sorgente in binario; il linker combina più file oggetto risolvendo i riferimenti a nomi esterni\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "38",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Calcolabilità",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Secondo la definizione alternativa vista a lezione, un algoritmo è equivalente a...",
+    "option": [
+      {
+        "id": "a",
+        "text": "Una macchina di Turing oppure un programma della macchina di Von Neumann"
+      },
+      {
+        "id": "b",
+        "text": "Un sistema operativo"
+      },
+      {
+        "id": "c",
+        "text": "Una rete neurale"
+      },
+      {
+        "id": "d",
+        "text": "Un compilatore"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "Nel contesto della domanda, l'algoritmo viene formalizzato tramite una macchina di Turing oppure un programma per una macchina di Von Neumann.",
+    "informal_explanation": "Un algoritmo può essere rappresentato attraverso modelli formali di calcolo.",
+    "question_response_explanation": "La risposta corretta è \"Una macchina di Turing oppure un programma della macchina di Von Neumann\". Nel contesto della domanda, l'algoritmo viene formalizzato tramite una macchina di Turing oppure un programma per una macchina di Von Neumann. La risposta \"Un sistema operativo\" non soddisfa la condizione richiesta, mentre \"Una macchina di Turing oppure un programma della macchina di Von Neumann\" identifica la proprietà necessaria. La risposta \"Una rete neurale\" non soddisfa la condizione richiesta, mentre \"Una macchina di Turing oppure un programma della macchina di Von Neumann\" identifica la proprietà necessaria. La risposta \"Un compilatore\" non soddisfa la condizione richiesta, mentre \"Una macchina di Turing oppure un programma della macchina di Von Neumann\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "39",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Calcolabilità",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Secondo la Tesi di Turing, quale relazione lega funzione calcolabile con algoritmo e macchina di Turing?",
+    "option": [
+      {
+        "id": "a",
+        "text": "La Tesi di Turing riguarda solo i numeri interi"
+      },
+      {
+        "id": "b",
+        "text": "Ogni funzione parziale calcolabile con un algoritmo è calcolabile da una macchina di Turing"
+      },
+      {
+        "id": "c",
+        "text": "Le mdT possono calcolare più funzioni di quante un algoritmo possa definire"
+      },
+      {
+        "id": "d",
+        "text": "Solo alcune funzioni calcolabili con un algoritmo sono calcolabili da una mdT"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "La tesi di Church-Turing identifica le funzioni effettivamente calcolabili mediante algoritmo con quelle calcolabili da una macchina di Turing.",
+    "informal_explanation": "Se qualcosa può essere calcolato effettivamente da un algoritmo, può essere calcolato anche da una macchina di Turing.",
+    "question_response_explanation": "La risposta corretta è \"Ogni funzione parziale calcolabile con un algoritmo è calcolabile da una macchina di Turing\". La tesi di Church-Turing identifica le funzioni effettivamente calcolabili mediante algoritmo con quelle calcolabili da una macchina di Turing. La risposta \"La Tesi di Turing riguarda solo i numeri interi\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Ogni funzione parziale calcolabile con un algoritmo è calcolabile da una macchina di Turing\". La risposta \"Le mdT possono calcolare più funzioni di quante un algoritmo possa definire\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Ogni funzione parziale calcolabile con un algoritmo è calcolabile da una macchina di Turing\". La risposta \"Solo alcune funzioni calcolabili con un algoritmo sono calcolabili da una mdT\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Ogni funzione parziale calcolabile con un algoritmo è calcolabile da una macchina di Turing\"."
+  },
+  {
+    "id_question": "40",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Sistemi di numerazione",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Converti 45 (decimale) in binario con il metodo delle divisioni successive. Qual è il risultato?",
+    "option": [
+      {
+        "id": "a",
+        "text": "110101"
+      },
+      {
+        "id": "b",
+        "text": "101011"
+      },
+      {
+        "id": "c",
+        "text": "100101"
+      },
+      {
+        "id": "d",
+        "text": "101101"
+      }
+    ],
+    "id_correct": "d",
+    "formal_explanation": "45 = 32 + 8 + 4 + 1, quindi in binario è 101101.",
+    "informal_explanation": "45 è composto dalle potenze 32, 8, 4 e 1.",
+    "question_response_explanation": "La risposta corretta è \"101101\". 45 = 32 + 8 + 4 + 1, quindi in binario è 101101. La risposta \"110101\" non soddisfa la condizione richiesta, mentre \"101101\" identifica la proprietà necessaria. La risposta \"101011\" non soddisfa la condizione richiesta, mentre \"101101\" identifica la proprietà necessaria. La risposta \"100101\" non soddisfa la condizione richiesta, mentre \"101101\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "41",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Mappe di Karnaugh",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Una funzione a 3 variabili (x1,x2,x3) vale 1 per i minitermini {1,3,5,7}. Qual è la forma minima?",
+    "option": [
+      {
+        "id": "a",
+        "text": "f = x1"
+      },
+      {
+        "id": "b",
+        "text": "f = x1+x2"
+      },
+      {
+        "id": "c",
+        "text": "f = x3"
+      },
+      {
+        "id": "d",
+        "text": "f = x1x2x3"
+      }
+    ],
+    "id_correct": "c",
+    "formal_explanation": "I minitermini 1, 3, 5 e 7 sono esattamente quelli in cui x3 vale 1, quindi la forma minima è f = x3.",
+    "informal_explanation": "In tutte le combinazioni indicate l'ultimo bit è sempre 1.",
+    "question_response_explanation": "La risposta corretta è \"f = x3\". I minitermini 1, 3, 5 e 7 sono esattamente quelli in cui x3 vale 1, quindi la forma minima è f = x3. La risposta \"f = x1\" non soddisfa la condizione richiesta, mentre \"f = x3\" identifica la proprietà necessaria. La risposta \"f = x1+x2\" non soddisfa la condizione richiesta, mentre \"f = x3\" identifica la proprietà necessaria. La risposta \"f = x1x2x3\" non soddisfa la condizione richiesta, mentre \"f = x3\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "42",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Pipeline",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "A cosa serve il 'forwarding' (inoltro degli operandi) nella pipeline?",
+    "option": [
+      {
+        "id": "a",
+        "text": "A gestire i cache miss"
+      },
+      {
+        "id": "b",
+        "text": "A rendere disponibile un risultato ad un'istruzione successiva prima che sia scritto nel registro, evitando stalli"
+      },
+      {
+        "id": "c",
+        "text": "Ad anticipare il fetch delle istruzioni successive"
+      },
+      {
+        "id": "d",
+        "text": "A prevedere l'esito dei salti condizionati"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "Il forwarding inoltra direttamente un risultato prodotto nella pipeline all'istruzione dipendente senza attendere la scrittura nel banco registri.",
+    "informal_explanation": "Il risultato viene passato direttamente a chi ne ha bisogno.",
+    "question_response_explanation": "La risposta corretta è \"A rendere disponibile un risultato ad un'istruzione successiva prima che sia scritto nel registro, evitando stalli\". Il forwarding inoltra direttamente un risultato prodotto nella pipeline all'istruzione dipendente senza attendere la scrittura nel banco registri. La risposta \"A gestire i cache miss\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"A rendere disponibile un risultato ad un'istruzione successiva prima che sia scritto nel registro, evitando stalli\". La risposta \"Ad anticipare il fetch delle istruzioni successive\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"A rendere disponibile un risultato ad un'istruzione successiva prima che sia scritto nel registro, evitando stalli\". La risposta \"A prevedere l'esito dei salti condizionati\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"A rendere disponibile un risultato ad un'istruzione successiva prima che sia scritto nel registro, evitando stalli\"."
+  },
+  {
+    "id_question": "43",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "I/O e DMA",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "A cosa serve la tecnologia DMA (Direct Memory Access)?",
+    "option": [
+      {
+        "id": "a",
+        "text": "A gestire solo le interruzioni software"
+      },
+      {
+        "id": "b",
+        "text": "A convertire segnali analogici in digitali"
+      },
+      {
+        "id": "c",
+        "text": "A velocizzare il clock del bus"
+      },
+      {
+        "id": "d",
+        "text": "A trasferire dati tra periferica e memoria senza occupare il processore"
+      }
+    ],
+    "id_correct": "d",
+    "formal_explanation": "Il DMA consente trasferimenti diretti tra periferiche e memoria principale senza coinvolgere la CPU in ogni singolo trasferimento.",
+    "informal_explanation": "La CPU delega il trasferimento e può occuparsi di altro.",
+    "question_response_explanation": "La risposta corretta è \"A trasferire dati tra periferica e memoria senza occupare il processore\". Il DMA consente trasferimenti diretti tra periferiche e memoria principale senza coinvolgere la CPU in ogni singolo trasferimento. La risposta \"A gestire solo le interruzioni software\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"A trasferire dati tra periferica e memoria senza occupare il processore\". La risposta \"A convertire segnali analogici in digitali\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"A trasferire dati tra periferica e memoria senza occupare il processore\". La risposta \"A velocizzare il clock del bus\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"A trasferire dati tra periferica e memoria senza occupare il processore\"."
+  },
+  {
+    "id_question": "44",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Cache",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Quali sono i tre livelli di cache nei calcolatori moderni, in ordine di vicinanza al processore?",
+    "option": [
+      {
+        "id": "a",
+        "text": "L1 sulla MB, L2 interno, L3 esterno"
+      },
+      {
+        "id": "b",
+        "text": "Esiste un solo livello di cache"
+      },
+      {
+        "id": "c",
+        "text": "L1 interno al processore, L2 collegato al processore, L3 sulla scheda madre"
+      },
+      {
+        "id": "d",
+        "text": "L1, L2, L3 sono tutti sulla RAM"
+      }
+    ],
+    "id_correct": "c",
+    "formal_explanation": "Nel modello didattico indicato, L1 è la più vicina al processore, seguita da L2 e poi L3.",
+    "informal_explanation": "L1 è la cache più vicina e veloce, poi vengono L2 e L3.",
+    "question_response_explanation": "La risposta corretta è \"L1 interno al processore, L2 collegato al processore, L3 sulla scheda madre\". Nel modello didattico indicato, L1 è la più vicina al processore, seguita da L2 e poi L3. La risposta \"L1 sulla MB, L2 interno, L3 esterno\" non soddisfa la condizione richiesta, mentre \"L1 interno al processore, L2 collegato al processore, L3 sulla scheda madre\" identifica la proprietà necessaria. La risposta \"Esiste un solo livello di cache\" non soddisfa la condizione richiesta, mentre \"L1 interno al processore, L2 collegato al processore, L3 sulla scheda madre\" identifica la proprietà necessaria. La risposta \"L1, L2, L3 sono tutti sulla RAM\" non soddisfa la condizione richiesta, mentre \"L1 interno al processore, L2 collegato al processore, L3 sulla scheda madre\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "45",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Pipeline",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "A cosa si ispira concettualmente la tecnica del pipelining?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Al multitasking del sistema operativo"
+      },
+      {
+        "id": "b",
+        "text": "Alla ricorsione nei linguaggi di programmazione"
+      },
+      {
+        "id": "c",
+        "text": "Alla compressione dei dati"
+      },
+      {
+        "id": "d",
+        "text": "Alla catena di montaggio, eseguendo più istruzioni in fasi sovrapposte"
+      }
+    ],
+    "id_correct": "d",
+    "formal_explanation": "Il pipelining suddivide l'elaborazione in stadi sovrapposti, in modo analogo a una catena di montaggio.",
+    "informal_explanation": "Mentre una istruzione viene eseguita, un'altra può essere decodificata e un'altra ancora prelevata.",
+    "question_response_explanation": "La risposta corretta è \"Alla catena di montaggio, eseguendo più istruzioni in fasi sovrapposte\". Il pipelining suddivide l'elaborazione in stadi sovrapposti, in modo analogo a una catena di montaggio. La risposta \"Al multitasking del sistema operativo\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Alla catena di montaggio, eseguendo più istruzioni in fasi sovrapposte\". La risposta \"Alla ricorsione nei linguaggi di programmazione\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Alla catena di montaggio, eseguendo più istruzioni in fasi sovrapposte\". La risposta \"Alla compressione dei dati\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Alla catena di montaggio, eseguendo più istruzioni in fasi sovrapposte\"."
+  },
+  {
+    "id_question": "46",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Algebra booleana",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Perché NAND e NOR sono dette porte 'universali'?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Consumano meno energia delle altre porte"
+      },
+      {
+        "id": "b",
+        "text": "Con esse si può realizzare qualsiasi funzione combinatoria"
+      },
+      {
+        "id": "c",
+        "text": "Sono le più veloci in assoluto"
+      },
+      {
+        "id": "d",
+        "text": "Sono presenti in ogni chipset"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "NAND e NOR sono funzionalmente complete: usando solo una delle due tipologie è possibile costruire qualsiasi funzione booleana.",
+    "informal_explanation": "Con sole NAND oppure sole NOR puoi costruire tutte le altre porte logiche.",
+    "question_response_explanation": "La risposta corretta è \"Con esse si può realizzare qualsiasi funzione combinatoria\". NAND e NOR sono funzionalmente complete: usando solo una delle due tipologie è possibile costruire qualsiasi funzione booleana. La risposta \"Consumano meno energia delle altre porte\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Con esse si può realizzare qualsiasi funzione combinatoria\". La risposta \"Sono le più veloci in assoluto\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Con esse si può realizzare qualsiasi funzione combinatoria\". La risposta \"Sono presenti in ogni chipset\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Con esse si può realizzare qualsiasi funzione combinatoria\"."
+  },
+  {
+    "id_question": "47",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Pipeline",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Nel salto differito, cosa inserisce il compilatore se non trova istruzioni utili da eseguire subito dopo il salto?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Salta due volte"
+      },
+      {
+        "id": "b",
+        "text": "Genera un errore di compilazione"
+      },
+      {
+        "id": "c",
+        "text": "Ripete l'ultima istruzione"
+      },
+      {
+        "id": "d",
+        "text": "Istruzioni NOP"
+      }
+    ],
+    "id_correct": "d",
+    "formal_explanation": "Nel delayed branch, se il compilatore non riesce a riempire utilmente il delay slot può inserirvi una NOP.",
+    "informal_explanation": "Se non c'è nulla di utile da eseguire, viene inserita un'istruzione che non fa niente.",
+    "question_response_explanation": "La risposta corretta è \"Istruzioni NOP\". Nel delayed branch, se il compilatore non riesce a riempire utilmente il delay slot può inserirvi una NOP. La risposta \"Salta due volte\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Istruzioni NOP\". La risposta \"Genera un errore di compilazione\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Istruzioni NOP\". La risposta \"Ripete l'ultima istruzione\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Istruzioni NOP\"."
+  },
+  {
+    "id_question": "48",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "I/O",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Cosa rappresenta una 'porta di I/O'?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Un tipo di RAM"
+      },
+      {
+        "id": "b",
+        "text": "Un range di indirizzi riservato ad una periferica"
+      },
+      {
+        "id": "c",
+        "text": "Un tipo di cavo USB"
+      },
+      {
+        "id": "d",
+        "text": "Un registro della CPU"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "Una porta di I/O è un indirizzo o un intervallo di indirizzi tramite cui il processore comunica con una periferica.",
+    "informal_explanation": "È come un indirizzo attraverso cui la CPU comunica con un dispositivo.",
+    "question_response_explanation": "La risposta corretta è \"Un range di indirizzi riservato ad una periferica\". Una porta di I/O è un indirizzo o un intervallo di indirizzi tramite cui il processore comunica con una periferica. La risposta \"Un tipo di RAM\" è errata. Una porta di I/O non indica un cavo fisico né un tipo di RAM. La risposta \"Un tipo di cavo USB\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Un range di indirizzi riservato ad una periferica\". La risposta \"Un registro della CPU\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Un range di indirizzi riservato ad una periferica\"."
+  },
+  {
+    "id_question": "49",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Tecnologia CMOS",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Se una NAND costa 4 transistori e una NOT ne costa 2 (CMOS), quanti servono per una AND (NAND+NOT)?",
+    "option": [
+      {
+        "id": "a",
+        "text": "8"
+      },
+      {
+        "id": "b",
+        "text": "2"
+      },
+      {
+        "id": "c",
+        "text": "4"
+      },
+      {
+        "id": "d",
+        "text": "6"
+      }
+    ],
+    "id_correct": "d",
+    "formal_explanation": "Una AND realizzata come NAND seguita da NOT richiede 4 + 2 = 6 transistori.",
+    "informal_explanation": "Sommi il costo della NAND e quello dell'inverter.",
+    "question_response_explanation": "La risposta corretta è \"6\". Una AND realizzata come NAND seguita da NOT richiede 4 + 2 = 6 transistori. La risposta \"8\" non soddisfa la condizione richiesta, mentre \"6\" identifica la proprietà necessaria. La risposta \"2\" non soddisfa la condizione richiesta, mentre \"6\" identifica la proprietà necessaria. La risposta \"4\" non soddisfa la condizione richiesta, mentre \"6\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "50",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Circuiti aritmetici",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Nell'addizionatore con anticipo di riporto, cosa rappresentano le funzioni Gi e Pi?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Rappresentano gli stadi della pipeline"
+      },
+      {
+        "id": "b",
+        "text": "Rappresentano il bit di segno e il trabocco"
+      },
+      {
+        "id": "c",
+        "text": "Gi = generazione (xi·yi), Pi = propagazione (xi+yi), calcolabili in parallelo in un solo ritardo di porta"
+      },
+      {
+        "id": "d",
+        "text": "Sono i due registri di scorrimento del moltiplicatore"
+      }
+    ],
+    "id_correct": "c",
+    "formal_explanation": "Nel carry lookahead Gi indica la generazione di un riporto e Pi la sua propagazione attraverso lo stadio.",
+    "informal_explanation": "Gi indica se il bit genera un carry; Pi se lascia propagare quello precedente.",
+    "question_response_explanation": "La risposta corretta è \"Gi = generazione (xi·yi), Pi = propagazione (xi+yi), calcolabili in parallelo in un solo ritardo di porta\". Nel carry lookahead Gi indica la generazione di un riporto e Pi la sua propagazione attraverso lo stadio. La risposta \"Rappresentano gli stadi della pipeline\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Gi = generazione (xi·yi), Pi = propagazione (xi+yi), calcolabili in parallelo in un solo ritardo di porta\". La risposta \"Rappresentano il bit di segno e il trabocco\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Gi = generazione (xi·yi), Pi = propagazione (xi+yi), calcolabili in parallelo in un solo ritardo di porta\". La risposta \"Sono i due registri di scorrimento del moltiplicatore\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Gi = generazione (xi·yi), Pi = propagazione (xi+yi), calcolabili in parallelo in un solo ritardo di porta\"."
+  },
+  {
+    "id_question": "51",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Indirizzamento",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Nel modo di indirizzamento con indice e spiazzamento, come si ottiene l'indirizzo effettivo?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Concatenando due registri"
+      },
+      {
+        "id": "b",
+        "text": "Sommando un valore costante (spiazzamento) al contenuto di un registro (indirizzo)"
+      },
+      {
+        "id": "c",
+        "text": "Moltiplicando due registri tra loro"
+      },
+      {
+        "id": "d",
+        "text": "Sottraendo lo spiazzamento dal PC sempre"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "L'indirizzo effettivo viene calcolato sommando lo spiazzamento costante al contenuto del registro base.",
+    "informal_explanation": "Prendi l'indirizzo base nel registro e aggiungi l'offset.",
+    "question_response_explanation": "La risposta corretta è \"Sommando un valore costante (spiazzamento) al contenuto di un registro (indirizzo)\". L'indirizzo effettivo viene calcolato sommando lo spiazzamento costante al contenuto del registro base. La risposta \"Concatenando due registri\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Sommando un valore costante (spiazzamento) al contenuto di un registro (indirizzo)\". La risposta \"Moltiplicando due registri tra loro\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Sommando un valore costante (spiazzamento) al contenuto di un registro (indirizzo)\". La risposta \"Sottraendo lo spiazzamento dal PC sempre\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Sommando un valore costante (spiazzamento) al contenuto di un registro (indirizzo)\"."
+  },
+  {
+    "id_question": "52",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Pipeline",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Quali sono i 5 stadi classici di una pipeline RISC?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Decode, Fetch, ALU, Cache, Register"
+      },
+      {
+        "id": "b",
+        "text": "IF, ID, EX, MEM, WB"
+      },
+      {
+        "id": "c",
+        "text": "Init, Run, Wait, Store, End"
+      },
+      {
+        "id": "d",
+        "text": "Fetch, Load, Store, Branch, Halt"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "La pipeline RISC classica comprende Instruction Fetch, Instruction Decode, Execute, Memory Access e Write Back.",
+    "informal_explanation": "Prima prelevi e decodifichi l'istruzione, poi la esegui, accedi eventualmente alla memoria e scrivi il risultato.",
+    "question_response_explanation": "La risposta corretta è \"IF, ID, EX, MEM, WB\". La pipeline RISC classica comprende Instruction Fetch, Instruction Decode, Execute, Memory Access e Write Back. La risposta \"Decode, Fetch, ALU, Cache, Register\" non soddisfa la condizione richiesta, mentre \"IF, ID, EX, MEM, WB\" identifica la proprietà necessaria. La risposta \"Init, Run, Wait, Store, End\" non soddisfa la condizione richiesta, mentre \"IF, ID, EX, MEM, WB\" identifica la proprietà necessaria. La risposta \"Fetch, Load, Store, Branch, Halt\" non soddisfa la condizione richiesta, mentre \"IF, ID, EX, MEM, WB\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "53",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Macchina di Turing",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Quali sono le componenti fondamentali di una macchina di Turing?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Compilatore, assemblatore, linker"
+      },
+      {
+        "id": "b",
+        "text": "Registri, ALU, unità di controllo"
+      },
+      {
+        "id": "c",
+        "text": "CPU, RAM, bus"
+      },
+      {
+        "id": "d",
+        "text": "Nastro, testina, unità di calcolo/controllo/logica"
+      }
+    ],
+    "id_correct": "d",
+    "formal_explanation": "Una macchina di Turing è composta essenzialmente da nastro, testina di lettura/scrittura e unità di controllo finita.",
+    "informal_explanation": "Ha un nastro su cui leggere e scrivere, una testina che si muove e delle regole che decidono cosa fare.",
+    "question_response_explanation": "La risposta corretta è \"Nastro, testina, unità di calcolo/controllo/logica\". Una macchina di Turing è composta essenzialmente da nastro, testina di lettura/scrittura e unità di controllo finita. La risposta \"Compilatore, assemblatore, linker\" non soddisfa la condizione richiesta, mentre \"Nastro, testina, unità di calcolo/controllo/logica\" identifica la proprietà necessaria. La risposta \"Registri, ALU, unità di controllo\" non soddisfa la condizione richiesta, mentre \"Nastro, testina, unità di calcolo/controllo/logica\" identifica la proprietà necessaria. La risposta \"CPU, RAM, bus\" non soddisfa la condizione richiesta, mentre \"Nastro, testina, unità di calcolo/controllo/logica\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "54",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Registri",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Cos'è il banco dei registri?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Una memoria piccola e velocissima con ingressi per due indirizzi di lettura e uno di scrittura"
+      },
+      {
+        "id": "b",
+        "text": "La memoria principale del calcolatore"
+      },
+      {
+        "id": "c",
+        "text": "Un tipo di cache di terzo livello"
+      },
+      {
+        "id": "d",
+        "text": "Un registro speciale che conta i cicli di clock"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "Il register file è una piccola memoria interna alla CPU, molto veloce, spesso dotata di due porte di lettura e una di scrittura.",
+    "informal_explanation": "È il gruppo di registri generali a cui la CPU può accedere molto rapidamente.",
+    "question_response_explanation": "La risposta corretta è \"Una memoria piccola e velocissima con ingressi per due indirizzi di lettura e uno di scrittura\". Il register file è una piccola memoria interna alla CPU, molto veloce, spesso dotata di due porte di lettura e una di scrittura. La risposta \"La memoria principale del calcolatore\" non soddisfa la condizione richiesta, mentre \"Una memoria piccola e velocissima con ingressi per due indirizzi di lettura e uno di scrittura\" identifica la proprietà necessaria. La risposta \"Un tipo di cache di terzo livello\" non soddisfa la condizione richiesta, mentre \"Una memoria piccola e velocissima con ingressi per due indirizzi di lettura e uno di scrittura\" identifica la proprietà necessaria. La risposta \"Un registro speciale che conta i cicli di clock\" non soddisfa la condizione richiesta, mentre \"Una memoria piccola e velocissima con ingressi per due indirizzi di lettura e uno di scrittura\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "55",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Prestazioni della pipeline",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Nella formula Pp = R/(S+δdato+δsalto+δmiss), cosa rappresenta S?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Il ritardo dovuto ai salti"
+      },
+      {
+        "id": "b",
+        "text": "Il numero di stadi della pipeline"
+      },
+      {
+        "id": "c",
+        "text": "Il numero medio di cicli di clock per istruzione senza conflitti"
+      },
+      {
+        "id": "d",
+        "text": "La frequenza di clock del processore"
+      }
+    ],
+    "id_correct": "c",
+    "formal_explanation": "Nella formula proposta S rappresenta il numero medio di cicli per istruzione nel caso base, prima delle penalità aggiuntive.",
+    "informal_explanation": "È il costo medio normale di un'istruzione prima di aggiungere i ritardi dovuti ai problemi della pipeline.",
+    "question_response_explanation": "La risposta corretta è \"Il numero medio di cicli di clock per istruzione senza conflitti\". Nella formula proposta S rappresenta il numero medio di cicli per istruzione nel caso base, prima delle penalità aggiuntive. La risposta \"Il ritardo dovuto ai salti\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Il numero medio di cicli di clock per istruzione senza conflitti\". La risposta \"Il numero di stadi della pipeline\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Il numero medio di cicli di clock per istruzione senza conflitti\". La risposta \"La frequenza di clock del processore\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Il numero medio di cicli di clock per istruzione senza conflitti\"."
+  },
+  {
+    "id_question": "56",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Memorie",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Perché la ROM viene usata per il BIOS?",
+    "option": [
+      {
+        "id": "a",
+        "text": "È più veloce della RAM"
+      },
+      {
+        "id": "b",
+        "text": "Ha capacità maggiore"
+      },
+      {
+        "id": "c",
+        "text": "È più economica"
+      },
+      {
+        "id": "d",
+        "text": "Mantiene il contenuto anche senza alimentazione"
+      }
+    ],
+    "id_correct": "d",
+    "formal_explanation": "Il firmware di avvio deve essere disponibile anche dopo lo spegnimento; per questo viene memorizzato in memoria non volatile.",
+    "informal_explanation": "Il BIOS deve essere ancora presente quando riaccendi il computer.",
+    "question_response_explanation": "La risposta corretta è \"Mantiene il contenuto anche senza alimentazione\". Il firmware di avvio deve essere disponibile anche dopo lo spegnimento; per questo viene memorizzato in memoria non volatile. La risposta \"È più veloce della RAM\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Mantiene il contenuto anche senza alimentazione\". La risposta \"Ha capacità maggiore\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Mantiene il contenuto anche senza alimentazione\". La risposta \"È più economica\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Mantiene il contenuto anche senza alimentazione\"."
+  },
+  {
+    "id_question": "57",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Complemento a due",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "In complemento a 2 su 4 bit, quanto vale 5 + (-3)? C'è overflow?",
+    "option": [
+      {
+        "id": "a",
+        "text": "-2, overflow presente"
+      },
+      {
+        "id": "b",
+        "text": "2, overflow presente"
+      },
+      {
+        "id": "c",
+        "text": "8, nessun overflow"
+      },
+      {
+        "id": "d",
+        "text": "2, nessun overflow (addendi con segni discordi)"
+      }
+    ],
+    "id_correct": "d",
+    "formal_explanation": "Su 4 bit 5 = 0101 e -3 = 1101; la somma è 0010, cioè 2, e non c'è overflow perché gli addendi hanno segno opposto.",
+    "informal_explanation": "5 più -3 fa 2 e, avendo segni diversi, non c'è overflow nella somma.",
+    "question_response_explanation": "La risposta corretta è \"2, nessun overflow (addendi con segni discordi)\". Su 4 bit 5 = 0101 e -3 = 1101; la somma è 0010, cioè 2, e non c'è overflow perché gli addendi hanno segno opposto. La risposta \"-2, overflow presente\" non soddisfa la condizione richiesta, mentre \"2, nessun overflow (addendi con segni discordi)\" identifica la proprietà necessaria. La risposta \"8, nessun overflow\" non soddisfa la condizione richiesta, mentre \"2, nessun overflow (addendi con segni discordi)\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "58",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Mappe di Karnaugh",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Nella mappa di Karnaugh, come devono essere ordinate le caselle adiacenti orizzontalmente/verticalmente?",
+    "option": [
+      {
+        "id": "a",
+        "text": "In modo che differiscano per una sola variabile"
+      },
+      {
+        "id": "b",
+        "text": "In modo che differiscano per tutte le variabili"
+      },
+      {
+        "id": "c",
+        "text": "In modo casuale, non importa l'ordine"
+      },
+      {
+        "id": "d",
+        "text": "In ordine numerico crescente sempre"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "Le mappe di Karnaugh usano un ordinamento Gray, quindi celle adiacenti differiscono per una sola variabile.",
+    "informal_explanation": "Passando a una casella vicina cambia un solo bit.",
+    "question_response_explanation": "La risposta corretta è \"In modo che differiscano per una sola variabile\". Le mappe di Karnaugh usano un ordinamento Gray, quindi celle adiacenti differiscono per una sola variabile. La risposta \"In modo che differiscano per tutte le variabili\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"In modo che differiscano per una sola variabile\". La risposta \"In modo casuale, non importa l'ordine\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"In modo che differiscano per una sola variabile\". La risposta \"In ordine numerico crescente sempre\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"In modo che differiscano per una sola variabile\"."
+  },
+  {
+    "id_question": "59",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Linguaggio assembly",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Qual è la differenza tra linguaggio macchina e linguaggio assemblativo?",
+    "option": [
+      {
+        "id": "a",
+        "text": "L'assemblativo è più veloce da eseguire"
+      },
+      {
+        "id": "b",
+        "text": "Il linguaggio macchina è in alfabeto binario, l'assemblativo è una rappresentazione simbolica leggibile dello stesso"
+      },
+      {
+        "id": "c",
+        "text": "Il linguaggio macchina esiste solo nei CISC"
+      },
+      {
+        "id": "d",
+        "text": "Sono esattamente la stessa cosa"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "Il linguaggio macchina codifica direttamente le istruzioni in bit, mentre l'assembly usa mnemonici e simboli tradotti poi in codice macchina.",
+    "informal_explanation": "La CPU legge bit, mentre il programmatore può usare nomi simbolici come ADD, LOAD e STORE.",
+    "question_response_explanation": "La risposta corretta è \"Il linguaggio macchina è in alfabeto binario, l'assemblativo è una rappresentazione simbolica leggibile dello stesso\". Il linguaggio macchina codifica direttamente le istruzioni in bit, mentre l'assembly usa mnemonici e simboli tradotti poi in codice macchina. La risposta \"L'assemblativo è più veloce da eseguire\" non soddisfa la condizione richiesta, mentre \"Il linguaggio macchina è in alfabeto binario, l'assemblativo è una rappresentazione simbolica leggibile dello stesso\" identifica la proprietà necessaria. La risposta \"Il linguaggio macchina esiste solo nei CISC\" non soddisfa la condizione richiesta, mentre \"Il linguaggio macchina è in alfabeto binario, l'assemblativo è una rappresentazione simbolica leggibile dello stesso\" identifica la proprietà necessaria. La risposta \"Sono esattamente la stessa cosa\" non soddisfa la condizione richiesta, mentre \"Il linguaggio macchina è in alfabeto binario, l'assemblativo è una rappresentazione simbolica leggibile dello stesso\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "60",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Algebra booleana",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Come si esprime la funzione XOR (x1⊕x2) in forma SOP?",
+    "option": [
+      {
+        "id": "a",
+        "text": "x1 + x2"
+      },
+      {
+        "id": "b",
+        "text": "x1x2 + x̄1x̄2"
+      },
+      {
+        "id": "c",
+        "text": "x̄1x̄2"
+      },
+      {
+        "id": "d",
+        "text": "x̄1x2 + x1x̄2"
+      }
+    ],
+    "id_correct": "d",
+    "formal_explanation": "XOR vale 1 quando gli ingressi sono diversi, quindi in SOP è x̄1x2 + x1x̄2.",
+    "informal_explanation": "XOR vale 1 nei casi 01 e 10.",
+    "question_response_explanation": "La risposta corretta è \"x̄1x2 + x1x̄2\". XOR vale 1 quando gli ingressi sono diversi, quindi in SOP è x̄1x2 + x1x̄2. La risposta \"x1 + x2\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"x̄1x2 + x1x̄2\". La risposta \"x1x2 + x̄1x̄2\" è errata. L'espressione x1x2 + x̄1x̄2 rappresenta invece XNOR. La risposta \"x̄1x̄2\" è errata. L'espressione x1x2 + x̄1x̄2 rappresenta invece XNOR."
+  },
+  {
+    "id_question": "61",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Logica digitale",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Cosa indicano rispettivamente fan-in e fan-out di una porta logica?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Fan-in = numero di transistori; fan-out = numero di porte totali nel circuito"
+      },
+      {
+        "id": "b",
+        "text": "Fan-in = numero di ingressi; fan-out = numero di ingressi paralleli collegabili all'uscita"
+      },
+      {
+        "id": "c",
+        "text": "Sono sinonimi"
+      },
+      {
+        "id": "d",
+        "text": "Fan-in = tensione di soglia; fan-out = frequenza di clock"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "Il fan-in è il numero di ingressi della porta, mentre il fan-out indica quanti ingressi logici l'uscita può pilotare correttamente.",
+    "informal_explanation": "Fan-in indica quanti segnali entrano; fan-out quanti ingressi possono essere pilotati dall'uscita.",
+    "question_response_explanation": "La risposta corretta è \"Fan-in = numero di ingressi; fan-out = numero di ingressi paralleli collegabili all'uscita\". Il fan-in è il numero di ingressi della porta, mentre il fan-out indica quanti ingressi logici l'uscita può pilotare correttamente. La risposta \"Fan-in = numero di transistori; fan-out = numero di porte totali nel circuito\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Fan-in = numero di ingressi; fan-out = numero di ingressi paralleli collegabili all'uscita\". La risposta \"Sono sinonimi\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Fan-in = numero di ingressi; fan-out = numero di ingressi paralleli collegabili all'uscita\". La risposta \"Fan-in = tensione di soglia; fan-out = frequenza di clock\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Fan-in = numero di ingressi; fan-out = numero di ingressi paralleli collegabili all'uscita\"."
+  },
+  {
+    "id_question": "62",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Prefetch",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "A cosa serve la coda di prefetch nei processori?",
+    "option": [
+      {
+        "id": "a",
+        "text": "A memorizzare byte successivi a quello letto, riducendo gli accessi ripetuti alla memoria"
+      },
+      {
+        "id": "b",
+        "text": "A convertire istruzioni CISC in RISC"
+      },
+      {
+        "id": "c",
+        "text": "A gestire gli interrupt asincroni"
+      },
+      {
+        "id": "d",
+        "text": "A prevedere l'esito dei salti condizionati"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "La coda di prefetch conserva in anticipo byte o istruzioni successive sfruttando la località sequenziale e riducendo i tempi di attesa.",
+    "informal_explanation": "Il processore legge in anticipo ciò che probabilmente servirà subito dopo.",
+    "question_response_explanation": "La risposta corretta è \"A memorizzare byte successivi a quello letto, riducendo gli accessi ripetuti alla memoria\". La coda di prefetch conserva in anticipo byte o istruzioni successive sfruttando la località sequenziale e riducendo i tempi di attesa. La risposta \"A convertire istruzioni CISC in RISC\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"A memorizzare byte successivi a quello letto, riducendo gli accessi ripetuti alla memoria\". La risposta \"A gestire gli interrupt asincroni\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"A memorizzare byte successivi a quello letto, riducendo gli accessi ripetuti alla memoria\". La risposta \"A prevedere l'esito dei salti condizionati\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"A memorizzare byte successivi a quello letto, riducendo gli accessi ripetuti alla memoria\"."
+  },
+  {
+    "id_question": "63",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Calcolabilità",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Su cosa si basa la dimostrazione dell'indecidibilità del problema della fermata?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Su un argomento induttivo su tutte le macchine di Turing"
+      },
+      {
+        "id": "b",
+        "text": "Su una dimostrazione empirica sperimentale"
+      },
+      {
+        "id": "c",
+        "text": "Su un argomento autocontraddittorio, simile al paradosso del mentitore"
+      },
+      {
+        "id": "d",
+        "text": "Su un limite fisico di memoria"
+      }
+    ],
+    "id_correct": "c",
+    "formal_explanation": "La dimostrazione classica procede per assurdo costruendo una macchina autoreferenziale che conduce a una contraddizione.",
+    "informal_explanation": "Si suppone di avere un programma capace di decidere sempre la fermata e si costruisce un caso che contraddice la sua stessa risposta.",
+    "question_response_explanation": "La risposta corretta è \"Su un argomento autocontraddittorio, simile al paradosso del mentitore\". La dimostrazione classica procede per assurdo costruendo una macchina autoreferenziale che conduce a una contraddizione. La risposta \"Su un argomento induttivo su tutte le macchine di Turing\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Su un argomento autocontraddittorio, simile al paradosso del mentitore\". La risposta \"Su una dimostrazione empirica sperimentale\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Su un argomento autocontraddittorio, simile al paradosso del mentitore\". La risposta \"Su un limite fisico di memoria\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Su un argomento autocontraddittorio, simile al paradosso del mentitore\"."
+  },
+  {
+    "id_question": "64",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Memorie",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Qual è la differenza principale tra SRAM e DRAM?",
+    "option": [
+      {
+        "id": "a",
+        "text": "La DRAM è usata solo per la cache"
+      },
+      {
+        "id": "b",
+        "text": "La SRAM deve essere rinfrescata periodicamente, la DRAM no"
+      },
+      {
+        "id": "c",
+        "text": "Non c'è differenza, sono sinonimi"
+      },
+      {
+        "id": "d",
+        "text": "La SRAM usa flip-flop ed è più veloce ma costosa; la DRAM usa microcondensatori, è più lenta ma economica"
+      }
+    ],
+    "id_correct": "d",
+    "formal_explanation": "La SRAM usa celle bistabili ed è veloce e costosa; la DRAM usa condensatori, richiede refresh ed è più densa ed economica.",
+    "informal_explanation": "SRAM è veloce e costosa, DRAM è più economica ma deve essere periodicamente rinfrescata.",
+    "question_response_explanation": "La risposta corretta è \"La SRAM usa flip-flop ed è più veloce ma costosa; la DRAM usa microcondensatori, è più lenta ma economica\". La SRAM usa celle bistabili ed è veloce e costosa; la DRAM usa condensatori, richiede refresh ed è più densa ed economica. La risposta \"La DRAM è usata solo per la cache\" non soddisfa la condizione richiesta, mentre \"La SRAM usa flip-flop ed è più veloce ma costosa; la DRAM usa microcondensatori, è più lenta ma economica\" identifica la proprietà necessaria. La risposta \"La SRAM deve essere rinfrescata periodicamente, la DRAM no\" non soddisfa la condizione richiesta, mentre \"La SRAM usa flip-flop ed è più veloce ma costosa; la DRAM usa microcondensatori, è più lenta ma economica\" identifica la proprietà necessaria. La risposta \"Non c'è differenza, sono sinonimi\" non soddisfa la condizione richiesta, mentre \"La SRAM usa flip-flop ed è più veloce ma costosa; la DRAM usa microcondensatori, è più lenta ma economica\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "65",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Sottoprogrammi e stack",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Perché, in caso di sottoprogrammi annidati, è necessario salvare il contenuto di LINK_reg prima di una nuova chiamata (call)?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Perché LINK_reg viene sempre sovrascritto da Call e Return, e serve per recuperare l'indirizzo di rientro corretto di ciascuna chiamata"
+      },
+      {
+        "id": "b",
+        "text": "Non è mai necessario salvarlo"
+      },
+      {
+        "id": "c",
+        "text": "Perché LINK_reg contiene il codice operativo dell'istruzione"
+      },
+      {
+        "id": "d",
+        "text": "Perché altrimenti la ALU si blocca"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "Una nuova CALL sovrascrive il registro di collegamento con un nuovo indirizzo di ritorno, quindi quello precedente deve essere salvato nelle chiamate annidate.",
+    "informal_explanation": "Ogni funzione deve ricordare dove tornare; se tutte usano lo stesso registro bisogna salvare il valore precedente.",
+    "question_response_explanation": "La risposta corretta è \"Perché LINK_reg viene sempre sovrascritto da Call e Return, e serve per recuperare l'indirizzo di rientro corretto di ciascuna chiamata\". Una nuova CALL sovrascrive il registro di collegamento con un nuovo indirizzo di ritorno, quindi quello precedente deve essere salvato nelle chiamate annidate. La risposta \"Non è mai necessario salvarlo\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Perché LINK_reg viene sempre sovrascritto da Call e Return, e serve per recuperare l'indirizzo di rientro corretto di ciascuna chiamata\". La risposta \"Perché LINK_reg contiene il codice operativo dell'istruzione\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Perché LINK_reg viene sempre sovrascritto da Call e Return, e serve per recuperare l'indirizzo di rientro corretto di ciascuna chiamata\". La risposta \"Perché altrimenti la ALU si blocca\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Perché LINK_reg viene sempre sovrascritto da Call e Return, e serve per recuperare l'indirizzo di rientro corretto di ciascuna chiamata\"."
+  },
+  {
+    "id_question": "66",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Tecnologia CMOS",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Che funzione svolgono i transistori nei circuiti digitali?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Fungono da interruttori, con stati di conduzione e interdizione"
+      },
+      {
+        "id": "b",
+        "text": "Immagazzinano dati permanentemente"
+      },
+      {
+        "id": "c",
+        "text": "Generano il clock di sistema"
+      },
+      {
+        "id": "d",
+        "text": "Convertono corrente alternata in continua"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "Nei circuiti digitali i transistori sono impiegati principalmente come interruttori controllati tra stati di conduzione e interdizione.",
+    "informal_explanation": "Sono microscopici interruttori con cui si costruiscono le porte logiche.",
+    "question_response_explanation": "La risposta corretta è \"Fungono da interruttori, con stati di conduzione e interdizione\". Nei circuiti digitali i transistori sono impiegati principalmente come interruttori controllati tra stati di conduzione e interdizione. La risposta \"Immagazzinano dati permanentemente\" non soddisfa la condizione richiesta, mentre \"Fungono da interruttori, con stati di conduzione e interdizione\" identifica la proprietà necessaria. La risposta \"Generano il clock di sistema\" non soddisfa la condizione richiesta, mentre \"Fungono da interruttori, con stati di conduzione e interdizione\" identifica la proprietà necessaria. La risposta \"Convertono corrente alternata in continua\" non soddisfa la condizione richiesta, mentre \"Fungono da interruttori, con stati di conduzione e interdizione\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "67",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Stack",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "In un'architettura RISC, come si realizza tipicamente una push sullo stack?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Subtract SP,SP,#4 seguita da Store Rj,(SP)"
+      },
+      {
+        "id": "b",
+        "text": "Con una singola istruzione PUSH dedicata"
+      },
+      {
+        "id": "c",
+        "text": "Store Rj,(SP) seguita da Add SP,SP,#4"
+      },
+      {
+        "id": "d",
+        "text": "Load Rj,(SP) seguita da Subtract SP,SP,#4"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "Con uno stack che cresce verso indirizzi inferiori, si decrementa prima SP e poi si memorizza il registro nella nuova cima dello stack.",
+    "informal_explanation": "Prima fai spazio sullo stack e poi ci scrivi il valore.",
+    "question_response_explanation": "La risposta corretta è \"Subtract SP,SP,#4 seguita da Store Rj,(SP)\". Con uno stack che cresce verso indirizzi inferiori, si decrementa prima SP e poi si memorizza il registro nella nuova cima dello stack. La risposta \"Con una singola istruzione PUSH dedicata\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Subtract SP,SP,#4 seguita da Store Rj,(SP)\". La risposta \"Store Rj,(SP) seguita da Add SP,SP,#4\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Subtract SP,SP,#4 seguita da Store Rj,(SP)\". La risposta \"Load Rj,(SP) seguita da Subtract SP,SP,#4\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Subtract SP,SP,#4 seguita da Store Rj,(SP)\"."
+  },
+  {
+    "id_question": "68",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "RTN e datapath",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Per l'istruzione 'Load R5, X(R7)', qual è la sequenza corretta dei passi di esecuzione secondo la notazione RTN?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Prelievo → Caricamento → Decodifica → Lettura → Calcolo indirizzo"
+      },
+      {
+        "id": "b",
+        "text": "Calcolo indirizzo → Prelievo → Lettura → Decodifica → Caricamento"
+      },
+      {
+        "id": "c",
+        "text": "Decodifica → Prelievo → Calcolo indirizzo → Caricamento → Lettura"
+      },
+      {
+        "id": "d",
+        "text": "Prelievo+incremento PC → Decodifica e lettura R7 → Calcolo indirizzo effettivo → Lettura operando da memoria → Caricamento in R5"
+      }
+    ],
+    "id_correct": "d",
+    "formal_explanation": "Una LOAD richiede fetch e incremento del PC, decodifica e lettura del registro base, calcolo dell'indirizzo effettivo, accesso in memoria e scrittura nel registro destinazione.",
+    "informal_explanation": "Prima leggi l'istruzione, poi calcoli R7+X, leggi il dato in memoria e lo metti in R5.",
+    "question_response_explanation": "La risposta corretta è \"Prelievo+incremento PC → Decodifica e lettura R7 → Calcolo indirizzo effettivo → Lettura operando da memoria → Caricamento in R5\". Una LOAD richiede fetch e incremento del PC, decodifica e lettura del registro base, calcolo dell'indirizzo effettivo, accesso in memoria e scrittura nel registro destinazione. La risposta \"Prelievo → Caricamento → Decodifica → Lettura → Calcolo indirizzo\" non soddisfa la condizione richiesta, mentre \"Prelievo+incremento PC → Decodifica e lettura R7 → Calcolo indirizzo effettivo → Lettura operando da memoria → Caricamento in R5\" identifica la proprietà necessaria. La risposta \"Calcolo indirizzo → Prelievo → Lettura → Decodifica → Caricamento\" non soddisfa la condizione richiesta, mentre \"Prelievo+incremento PC → Decodifica e lettura R7 → Calcolo indirizzo effettivo → Lettura operando da memoria → Caricamento in R5\" identifica la proprietà necessaria. La risposta \"Decodifica → Prelievo → Calcolo indirizzo → Caricamento → Lettura\" non soddisfa la condizione richiesta, mentre \"Prelievo+incremento PC → Decodifica e lettura R7 → Calcolo indirizzo effettivo → Lettura operando da memoria → Caricamento in R5\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "69",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Tecnologia CMOS",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Nei transistori NMOS, tensione di base alta corrisponde a quale stato, e la sorgente a cosa è collegata?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Conduzione; sorgente collegata alla massa"
+      },
+      {
+        "id": "b",
+        "text": "Interdizione; sorgente collegata all'alimentazione"
+      },
+      {
+        "id": "c",
+        "text": "Interdizione; sorgente collegata alla massa"
+      },
+      {
+        "id": "d",
+        "text": "Conduzione; sorgente collegata all'alimentazione"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "Nel modello NMOS di pull-down, un gate alto abilita la conduzione e la sorgente è collegata a massa.",
+    "informal_explanation": "Gate alto significa transistor acceso verso massa.",
+    "question_response_explanation": "La risposta corretta è \"Conduzione; sorgente collegata alla massa\". Nel modello NMOS di pull-down, un gate alto abilita la conduzione e la sorgente è collegata a massa. La risposta \"Interdizione; sorgente collegata all'alimentazione\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Conduzione; sorgente collegata alla massa\". La risposta \"Interdizione; sorgente collegata alla massa\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Conduzione; sorgente collegata alla massa\". La risposta \"Conduzione; sorgente collegata all'alimentazione\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Conduzione; sorgente collegata alla massa\"."
+  },
+  {
+    "id_question": "70",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Macchina di Turing",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Una macchina di Turing universale è in grado di...",
+    "option": [
+      {
+        "id": "a",
+        "text": "Simulare qualsiasi altra macchina di Turing"
+      },
+      {
+        "id": "b",
+        "text": "Sostituire fisicamente la CPU"
+      },
+      {
+        "id": "c",
+        "text": "Eseguire solo un tipo di calcolo"
+      },
+      {
+        "id": "d",
+        "text": "Funzionare solo con numeri binari"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "Una macchina di Turing universale può simulare il comportamento di qualsiasi altra macchina di Turing a partire dalla sua descrizione e dall'input.",
+    "informal_explanation": "È una macchina generale capace di comportarsi come qualsiasi altra macchina di Turing.",
+    "question_response_explanation": "La risposta corretta è \"Simulare qualsiasi altra macchina di Turing\". Una macchina di Turing universale può simulare il comportamento di qualsiasi altra macchina di Turing a partire dalla sua descrizione e dall'input. La risposta \"Sostituire fisicamente la CPU\" non soddisfa la condizione richiesta, mentre \"Simulare qualsiasi altra macchina di Turing\" identifica la proprietà necessaria. La risposta \"Eseguire solo un tipo di calcolo\" non soddisfa la condizione richiesta, mentre \"Simulare qualsiasi altra macchina di Turing\" identifica la proprietà necessaria. La risposta \"Funzionare solo con numeri binari\" non soddisfa la condizione richiesta, mentre \"Simulare qualsiasi altra macchina di Turing\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "71",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Traduzione e linking",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Qual è il compito principale del loader?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Ottimizzare il codice assembly"
+      },
+      {
+        "id": "b",
+        "text": "Collegare più file oggetto in uno unico"
+      },
+      {
+        "id": "c",
+        "text": "Tradurre il codice sorgente in linguaggio assembly"
+      },
+      {
+        "id": "d",
+        "text": "Caricare il programma oggetto dalla memoria secondaria alla memoria centrale ed avviarne l'esecuzione"
+      }
+    ],
+    "id_correct": "d",
+    "formal_explanation": "Il loader trasferisce il programma eseguibile in memoria centrale e ne prepara l'avvio.",
+    "informal_explanation": "Prende il programma dal disco, lo mette in RAM e lo fa partire.",
+    "question_response_explanation": "La risposta corretta è \"Caricare il programma oggetto dalla memoria secondaria alla memoria centrale ed avviarne l'esecuzione\". Il loader trasferisce il programma eseguibile in memoria centrale e ne prepara l'avvio. La risposta \"Ottimizzare il codice assembly\" non soddisfa la condizione richiesta, mentre \"Caricare il programma oggetto dalla memoria secondaria alla memoria centrale ed avviarne l'esecuzione\" identifica la proprietà necessaria. La risposta \"Collegare più file oggetto in uno unico\" non soddisfa la condizione richiesta, mentre \"Caricare il programma oggetto dalla memoria secondaria alla memoria centrale ed avviarne l'esecuzione\" identifica la proprietà necessaria. La risposta \"Tradurre il codice sorgente in linguaggio assembly\" non soddisfa la condizione richiesta, mentre \"Caricare il programma oggetto dalla memoria secondaria alla memoria centrale ed avviarne l'esecuzione\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "72",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Pipeline",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "'Add R2,R3,#100' seguita da 'Subtract R9,R2,#30' in pipeline: perché serve forwarding/attesa?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Perché il bus è occupato da un cache miss"
+      },
+      {
+        "id": "b",
+        "text": "Perché entrambe sono istruzioni di salto"
+      },
+      {
+        "id": "c",
+        "text": "Entrambe usano R2: Subtract necessita del risultato di Add non ancora scritto nel banco registri (dipendenza di dato)"
+      },
+      {
+        "id": "d",
+        "text": "Perché occupano la stessa locazione di memoria"
+      }
+    ],
+    "id_correct": "c",
+    "formal_explanation": "La seconda istruzione presenta una dipendenza RAW su R2 e necessita del risultato prodotto dalla ADD prima che sia stato necessariamente scritto nel banco registri.",
+    "informal_explanation": "La SUBTRACT ha bisogno del nuovo valore di R2 prodotto dalla ADD immediatamente precedente.",
+    "question_response_explanation": "La risposta corretta è \"Entrambe usano R2: Subtract necessita del risultato di Add non ancora scritto nel banco registri (dipendenza di dato)\". La seconda istruzione presenta una dipendenza RAW su R2 e necessita del risultato prodotto dalla ADD prima che sia stato necessariamente scritto nel banco registri. La risposta \"Perché il bus è occupato da un cache miss\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Entrambe usano R2: Subtract necessita del risultato di Add non ancora scritto nel banco registri (dipendenza di dato)\". La risposta \"Perché entrambe sono istruzioni di salto\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Entrambe usano R2: Subtract necessita del risultato di Add non ancora scritto nel banco registri (dipendenza di dato)\". La risposta \"Perché occupano la stessa locazione di memoria\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Entrambe usano R2: Subtract necessita del risultato di Add non ancora scritto nel banco registri (dipendenza di dato)\"."
+  },
+  {
+    "id_question": "73",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Bus",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Quali sono le tre componenti principali del bus di sistema?",
+    "option": [
+      {
+        "id": "a",
+        "text": "ABus, DBus, CBus"
+      },
+      {
+        "id": "b",
+        "text": "IF, ID, EX"
+      },
+      {
+        "id": "c",
+        "text": "North Bridge, South Bridge, Chipset"
+      },
+      {
+        "id": "d",
+        "text": "CPU, RAM, ROM"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "Il bus di sistema comprende Address Bus, Data Bus e Control Bus.",
+    "informal_explanation": "Un bus porta gli indirizzi, uno i dati e uno i segnali di controllo.",
+    "question_response_explanation": "La risposta corretta è \"ABus, DBus, CBus\". Il bus di sistema comprende Address Bus, Data Bus e Control Bus. La risposta \"IF, ID, EX\" non soddisfa la condizione richiesta, mentre \"ABus, DBus, CBus\" identifica la proprietà necessaria. La risposta \"North Bridge, South Bridge, Chipset\" non soddisfa la condizione richiesta, mentre \"ABus, DBus, CBus\" identifica la proprietà necessaria. La risposta \"CPU, RAM, ROM\" non soddisfa la condizione richiesta, mentre \"ABus, DBus, CBus\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "74",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Aritmetica binaria",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Il circuito sequenziale per la divisione con ripristino è realizzato con...",
+    "option": [
+      {
+        "id": "a",
+        "text": "Un solo registro a scorrimento"
+      },
+      {
+        "id": "b",
+        "text": "Due shift register (A e Q) e un addizionatore a n+1 bit"
+      },
+      {
+        "id": "c",
+        "text": "Solo un addizionatore"
+      },
+      {
+        "id": "d",
+        "text": "Una ALU dedicata separata dall'addizionatore"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "La divisione con ripristino utilizza tipicamente due registri a scorrimento A e Q e un circuito aritmetico a n+1 bit.",
+    "informal_explanation": "A contiene il resto parziale, Q il quoziente e il circuito aritmetico esegue sottrazioni e ripristini.",
+    "question_response_explanation": "La risposta corretta è \"Due shift register (A e Q) e un addizionatore a n+1 bit\". La divisione con ripristino utilizza tipicamente due registri a scorrimento A e Q e un circuito aritmetico a n+1 bit. La risposta \"Un solo registro a scorrimento\" non soddisfa la condizione richiesta, mentre \"Due shift register (A e Q) e un addizionatore a n+1 bit\" identifica la proprietà necessaria. La risposta \"Solo un addizionatore\" non soddisfa la condizione richiesta, mentre \"Due shift register (A e Q) e un addizionatore a n+1 bit\" identifica la proprietà necessaria. La risposta \"Una ALU dedicata separata dall'addizionatore\" non soddisfa la condizione richiesta, mentre \"Due shift register (A e Q) e un addizionatore a n+1 bit\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "75",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Algebra booleana",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Semplificando x̄1x̄2x̄3 + x̄1x̄2x3 con la legge del complemento, cosa si ottiene?",
+    "option": [
+      {
+        "id": "a",
+        "text": "x̄1x̄2"
+      },
+      {
+        "id": "b",
+        "text": "x̄3"
+      },
+      {
+        "id": "c",
+        "text": "x1x2"
+      },
+      {
+        "id": "d",
+        "text": "x1+x2"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "Raccogliendo x̄1x̄2 si ottiene x̄1x̄2(x̄3+x3)=x̄1x̄2.",
+    "informal_explanation": "I due termini differiscono soltanto per x3, che quindi può essere eliminato.",
+    "question_response_explanation": "La risposta corretta è \"x̄1x̄2\". Raccogliendo x̄1x̄2 si ottiene x̄1x̄2(x̄3+x3)=x̄1x̄2. La risposta corretta è \"x̄1x̄2\" perché x̄3 + x3 = 1. La risposta \"x1x2\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"x̄1x̄2\". La risposta \"x1+x2\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"x̄1x̄2\"."
+  },
+  {
+    "id_question": "76",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Calcolabilità",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Perché le funzioni parziali sono importanti nelle macchine di Turing universali?",
+    "option": [
+      {
+        "id": "a",
+        "text": "Perché permettono di rappresentare anche le computazioni che non termineranno mai, necessarie per simulare qualsiasi mdT"
+      },
+      {
+        "id": "b",
+        "text": "Perché riducono lo spazio di memoria necessario"
+      },
+      {
+        "id": "c",
+        "text": "Perché velocizzano il calcolo"
+      },
+      {
+        "id": "d",
+        "text": "Perché rappresentano solo le computazioni che terminano con successo"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "Le funzioni parziali possono essere non definite per alcuni input e modellano quindi anche computazioni che non terminano.",
+    "informal_explanation": "Se un programma gira per sempre non restituisce un risultato, e una funzione parziale permette di rappresentare anche questo caso.",
+    "question_response_explanation": "La risposta corretta è \"Perché permettono di rappresentare anche le computazioni che non termineranno mai, necessarie per simulare qualsiasi mdT\". Le funzioni parziali possono essere non definite per alcuni input e modellano quindi anche computazioni che non terminano. La risposta \"Perché riducono lo spazio di memoria necessario\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Perché permettono di rappresentare anche le computazioni che non termineranno mai, necessarie per simulare qualsiasi mdT\". La risposta \"Perché velocizzano il calcolo\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Perché permettono di rappresentare anche le computazioni che non termineranno mai, necessarie per simulare qualsiasi mdT\". La risposta \"Perché rappresentano solo le computazioni che terminano con successo\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"Perché permettono di rappresentare anche le computazioni che non termineranno mai, necessarie per simulare qualsiasi mdT\"."
+  },
+  {
+    "id_question": "77",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Controllo microprogrammato",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Quando il generatore di indirizzi delle microistruzioni carica sul μPC la prima istruzione di una microroutine?",
+    "option": [
+      {
+        "id": "a",
+        "text": "All'inizio di ogni istruzione macchina, corrispondente all'istruzione letta su IR"
+      },
+      {
+        "id": "b",
+        "text": "Solo in caso di interrupt"
+      },
+      {
+        "id": "c",
+        "text": "Ad ogni ciclo di clock indipendentemente dall'istruzione"
+      },
+      {
+        "id": "d",
+        "text": "Solo all'avvio del sistema (boot)"
+      }
+    ],
+    "id_correct": "a",
+    "formal_explanation": "Dopo la decodifica dell'istruzione macchina, il generatore di indirizzi seleziona l'inizio della microroutine associata all'opcode e lo carica nel μPC.",
+    "informal_explanation": "Ogni istruzione macchina fa partire la propria sequenza di microistruzioni.",
+    "question_response_explanation": "La risposta corretta è \"All'inizio di ogni istruzione macchina, corrispondente all'istruzione letta su IR\". Dopo la decodifica dell'istruzione macchina, il generatore di indirizzi seleziona l'inizio della microroutine associata all'opcode e lo carica nel μPC. La risposta \"Solo in caso di interrupt\" non soddisfa la condizione richiesta, mentre \"All'inizio di ogni istruzione macchina, corrispondente all'istruzione letta su IR\" identifica la proprietà necessaria. La risposta \"Ad ogni ciclo di clock indipendentemente dall'istruzione\" non soddisfa la condizione richiesta, mentre \"All'inizio di ogni istruzione macchina, corrispondente all'istruzione letta su IR\" identifica la proprietà necessaria. La risposta \"Solo all'avvio del sistema (boot)\" non soddisfa la condizione richiesta, mentre \"All'inizio di ogni istruzione macchina, corrispondente all'istruzione letta su IR\" identifica la proprietà necessaria."
+  },
+  {
+    "id_question": "78",
+    "estimed_time": "15",
+    "metadata": {
+      "city": "Università di Catania",
+      "department": "Dipartimento di Matematica e Informatica",
+      "course": "L-31 - Scienze e tecnologie informatiche",
+      "sub": "Architettura degli Elaboratori",
+      "argoment": "Bus",
+      "teacher": "Massimo Orazio Spata",
+      "year_of_validity": "attuale"
+    },
+    "text": "Cosa determinano rispettivamente l'ampiezza dell'ABus e del DBus?",
+    "option": [
+      {
+        "id": "a",
+        "text": "ABus → velocità di clock; DBus → consumo energetico"
+      },
+      {
+        "id": "b",
+        "text": "ABus → spazio di indirizzamento; DBus → grado di parallelismo"
+      },
+      {
+        "id": "c",
+        "text": "ABus → numero di periferiche; DBus → numero di core"
+      },
+      {
+        "id": "d",
+        "text": "Sono equivalenti e determinano la stessa cosa"
+      }
+    ],
+    "id_correct": "b",
+    "formal_explanation": "L'ampiezza dell'Address Bus determina il numero di indirizzi rappresentabili; quella del Data Bus determina quanti bit possono essere trasferiti simultaneamente.",
+    "informal_explanation": "Più bit nell'ABus significano più memoria indirizzabile; più bit nel DBus significano più dati trasferiti insieme.",
+    "question_response_explanation": "La risposta corretta è \"ABus → spazio di indirizzamento; DBus → grado di parallelismo\". L'ampiezza dell'Address Bus determina il numero di indirizzi rappresentabili; quella del Data Bus determina quanti bit possono essere trasferiti simultaneamente. La risposta \"ABus → velocità di clock; DBus → consumo energetico\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"ABus → spazio di indirizzamento; DBus → grado di parallelismo\". La risposta \"ABus → numero di periferiche; DBus → numero di core\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"ABus → spazio di indirizzamento; DBus → grado di parallelismo\". La risposta \"Sono equivalenti e determinano la stessa cosa\" descrive un concetto o un comportamento diverso da quello richiesto dalla domanda; in particolare non realizza la proprietà espressa da \"ABus → spazio di indirizzamento; DBus → grado di parallelismo\"."
+  }
+]

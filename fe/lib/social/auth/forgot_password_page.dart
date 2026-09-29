@@ -159,13 +159,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.lock_reset_rounded,
                       color: AppColors.skyBlue,
                       size: 58,
                     ),
                     const SizedBox(height: 18),
-                    const Text(
+                    Text(
                       'Password dimenticata?',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -193,7 +193,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       autofillHints: const [AutofillHints.email],
                       autocorrect: false,
                       enableSuggestions: false,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.pureWhite,
                       ),
                       validator: _validateEmail,
@@ -208,16 +208,16 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       Container(
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: Colors.redAccent.withValues(alpha: 0.08),
+                          color: AppColors.redAccent.withValues(alpha: 0.08),
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: Colors.redAccent.withValues(alpha: 0.20),
+                            color: AppColors.redAccent.withValues(alpha: 0.20),
                           ),
                         ),
                         child: Text(
                           _error!,
-                          style: const TextStyle(
-                            color: Colors.redAccent,
+                          style: TextStyle(
+                            color: AppColors.redAccent,
                           ),
                         ),
                       ),
@@ -228,7 +228,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       child: ElevatedButton.icon(
                         onPressed: _loading ? null : _submit,
                         icon: _loading
-                            ? const SizedBox(
+                            ? SizedBox(
                                 width: 18,
                                 height: 18,
                                 child: CircularProgressIndicator(

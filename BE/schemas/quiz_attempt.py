@@ -1,7 +1,9 @@
 from datetime import datetime
 from typing import Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+import json
+
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
 ExecutionMode = Literal["practice", "simulation"]
@@ -13,6 +15,15 @@ class QuizAnswerSubmit(BaseModel):
     question_id: str = Field(min_length=1, max_length=100)
     selected_option_id: str | None = Field(default=None, max_length=100)
     response_time_seconds: int | None = Field(default=None, ge=0)
+    # v18 · risposta ai nuovi tipi di esercizio (ordine, abbinamenti, valori, codice…)
+    answer_payload: dict[str, Any] | None = None
+
+    @field_validator("answer_payload")
+    @classmethod
+    def limit_payload(cls, value: dict[str, Any] | None) -> dict[str, Any] | None:
+        if value is not None and len(json.dumps(value, default=str)) > 20000:
+            raise ValueError("Risposta troppo lunga.")
+        return value
 
 
 class QuizAttemptStart(BaseModel):
@@ -20,6 +31,7 @@ class QuizAttemptStart(BaseModel):
     course: str = Field(min_length=1, max_length=100)
     subject: str = Field(min_length=1, max_length=255)
     arguments: list[str] = Field(default_factory=list)
+    question_ids: list[str] = Field(default_factory=list, max_length=30)
     all_arguments: bool = False
     number_of_questions: int = Field(gt=0)
     time_limit_seconds: int | None = Field(default=None, gt=0)
@@ -52,6 +64,10 @@ class QuizAttemptAnswerResponse(BaseModel):
     informal_explanation: str | None = None
     selected_answer_explanation: str | None = None
     correct_answer_explanation: str | None = None
+    question_type: str = "multiple_choice"
+    answer_payload: dict[str, Any] | None = None
+    correct_payload: dict[str, Any] | None = None
+    score: float | None = None
     created_at: datetime
 
 

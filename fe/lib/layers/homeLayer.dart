@@ -8,6 +8,11 @@ import 'package:fe/quiz/review/student_quiz_review_page.dart';
 
 import 'package:fe/social/social_page.dart';
 
+import 'package:fe/faq/faq_home_page.dart';
+import 'package:fe/dictionary/dictionary_home_page.dart';
+import 'package:fe/calendar/calendar_home_page.dart';
+import 'package:fe/services/auth_session.dart';
+
 import 'package:fe/theme/nightTheme.dart';
 
 import 'package:fe/widgets/studentlab_coming_soon_badge.dart';
@@ -25,6 +30,10 @@ enum HomeFeatureType {
   materials,
 
   institution,
+
+  faq,
+
+  calendar,
 
   marketplace,
 
@@ -70,17 +79,17 @@ class HomeLayer extends StatelessWidget {
 
   final List<FeatureCard> _featureCards =
 
-      const <FeatureCard>[
+      <FeatureCard>[
 
     FeatureCard(
 
       type: HomeFeatureType.exercise,
 
-      title: 'Esercitazione',
+      title: 'Esercitazioni',
 
       description:
 
-          'Allenati senza pressione, scegliendo materia e argomenti su cui vuoi concentrarti.',
+          'Scegli materia e argomenti e avvia un quiz senza pressione.',
 
       icon: Icons.quiz_outlined,
 
@@ -128,17 +137,15 @@ class HomeLayer extends StatelessWidget {
 
       type: HomeFeatureType.definitions,
 
-      title: 'Definizioni',
+      title: 'Dizionario',
 
       description:
 
-          'Consulta termini e concetti chiave delle materie del tuo percorso.',
+          'Definizioni formali e semplici, esempi, esercizi e domande d’esame per ogni argomento.',
 
       icon: Icons.menu_book_outlined,
 
       accent: AppColors.materialSky,
-
-      isComingSoon: true,
 
     ),
 
@@ -176,11 +183,46 @@ class HomeLayer extends StatelessWidget {
 
     ),
 
+    FeatureCard(
+
+      type: HomeFeatureType.faq,
+
+      title: 'Domande',
+
+      description:
+
+          'Dubbi su corsi, esami, materiali e percorso: chiedi a studenti e docenti, o trova chi ha già risposto.',
+
+      icon: Icons.forum_outlined,
+
+      accent: AppColors.adminCyan,
+
+    ),
+
+    FeatureCard(
+
+      type: HomeFeatureType.calendar,
+
+      title: 'Calendario',
+
+      description:
+
+          'Lezioni, sessioni e appelli del tuo corso, con promemoria prima degli esami.',
+
+      icon: Icons.edit_calendar_outlined,
+
+      accent: AppColors.adminCoral,
+
+    ),
+
   ];
 
   @override
 
   Widget build(BuildContext context) {
+    final List<FeatureCard> visibleCards = _featureCards
+        .where((card) => card.type != HomeFeatureType.calendar)
+        .toList();
 
     return SafeArea(
 
@@ -314,9 +356,7 @@ class HomeLayer extends StatelessWidget {
 
                         ) {
 
-                          final FeatureCard card =
-
-                              _featureCards[index];
+                          final FeatureCard card = visibleCards[index];
 
                           return _FeatureCardView(
 
@@ -346,7 +386,7 @@ class HomeLayer extends StatelessWidget {
 
                         childCount:
 
-                            _featureCards.length,
+                            visibleCards.length,
 
                       ),
 
@@ -460,6 +500,34 @@ class HomeLayer extends StatelessWidget {
 
         return;
 
+      case HomeFeatureType.calendar:
+
+        await Navigator.of(context).push(
+
+          MaterialPageRoute<void>(
+
+            builder: (_) => const CalendarHomePage(),
+
+          ),
+
+        );
+
+        return;
+
+      case HomeFeatureType.faq:
+
+        await Navigator.of(context).push(
+
+          MaterialPageRoute<void>(
+
+            builder: (_) => const FaqHomePage(),
+
+          ),
+
+        );
+
+        return;
+
       case HomeFeatureType.review:
 
         await Navigator.of(context).push(
@@ -474,9 +542,21 @@ class HomeLayer extends StatelessWidget {
 
         return;
 
-      case HomeFeatureType.examSimulation:
-
       case HomeFeatureType.definitions:
+
+        await Navigator.of(context).push(
+
+          MaterialPageRoute<void>(
+
+            builder: (_) => const DictionaryHomePage(),
+
+          ),
+
+        );
+
+        return;
+
+      case HomeFeatureType.examSimulation:
 
       case HomeFeatureType.marketplace:
 
@@ -1125,7 +1205,7 @@ super.dispose();
 
                       style:
 
-                          const TextStyle(
+                          TextStyle(
 
                         color:
 

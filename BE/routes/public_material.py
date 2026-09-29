@@ -2,10 +2,12 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from core.database import get_db
-from core.security import get_admin_user
+from core.security import get_admin_user, get_optional_current_user
 from models.user import User
 from schemas.public_material import PublicMaterialAdminResponse, PublicMaterialResponse
 from services.private_blob import private_blob_response
+from services.drive_material_storage import public_drive_response
+from services.public_material_access import can_read_public_material
 from services.public_material import (
     get_admin_public_materials,
     get_public_material_by_id,
@@ -22,8 +24,10 @@ router = APIRouter()
 
 
 @router.get("/public_materials", response_model=list[PublicMaterialResponse])
-def api_public_materials(db: Session = Depends(get_db)):
-    return get_public_materials(db)
+def api_public_materials(db: Session = Depends(get_db),
+                         current_user: User | None = Depends(get_optional_current_user)):
+    return [row for row in get_public_materials(db) if
+            can_read_public_material(db, row, current_user.id if current_user else None)]
 
 
 @router.get(
@@ -33,8 +37,10 @@ def api_public_materials(db: Session = Depends(get_db)):
 def api_public_materials_by_subject(
     subject_id: int,
     db: Session = Depends(get_db),
+    current_user: User | None = Depends(get_optional_current_user),
 ):
-    return get_public_materials_by_subject(db, subject_id)
+    return [row for row in get_public_materials_by_subject(db, subject_id) if
+            can_read_public_material(db, row, current_user.id if current_user else None)]
 
 
 @router.get(
@@ -47,6 +53,7 @@ def api_public_materials_by_catalog(
     course_code: str,
     subject_id: int,
     db: Session = Depends(get_db),
+    current_user: User | None = Depends(get_optional_current_user),
 ):
     materials = get_public_materials_by_catalog(
         db,
@@ -60,7 +67,8 @@ def api_public_materials_by_catalog(
             status_code=404,
             detail="Materia non trovata.",
         )
-    return materials
+    return [row for row in materials if can_read_public_material(
+        db, row, current_user.id if current_user else None)]
 
 
 @router.get(
@@ -70,12 +78,14 @@ def api_public_materials_by_catalog(
 def api_public_material(
     material_id: int,
     db: Session = Depends(get_db),
+    current_user: User | None = Depends(get_optional_current_user),
 ):
     material = get_visible_public_material_by_id(
         db,
         material_id,
     )
-    if material is None:
+    if material is None or not can_read_public_material(db, material,
+            current_user.id if current_user else None):
         raise HTTPException(
             status_code=404,
             detail="Materiale non trovato.",
@@ -87,16 +97,22 @@ def api_public_material(
 async def api_public_material_view(
     material_id: int,
     db: Session = Depends(get_db),
+    current_user: User | None = Depends(get_optional_current_user),
 ):
     material = get_visible_public_material_by_id(
         db,
         material_id,
     )
-    if material is None:
+    if material is None or not can_read_public_material(db, material,
+            current_user.id if current_user else None):
         raise HTTPException(
             status_code=404,
             detail="Materiale non trovato.",
         )
+    if material.drive_file_id:
+        return await public_drive_response(drive_file_id=material.drive_file_id,
+            original_name=material.original_name, mime_type=material.mime_type,
+            inline=True)
     return await private_blob_response(
         stored_name=material.stored_name,
         original_name=material.original_name,
@@ -109,16 +125,21 @@ async def api_public_material_view(
 async def api_public_material_download(
     material_id: int,
     db: Session = Depends(get_db),
+    current_user: User | None = Depends(get_optional_current_user),
 ):
     material = get_visible_public_material_by_id(
         db,
         material_id,
     )
-    if material is None:
+    if material is None or not can_read_public_material(db, material,
+            current_user.id if current_user else None):
         raise HTTPException(
             status_code=404,
             detail="Materiale non trovato.",
         )
+    if material.drive_file_id:
+        return await public_drive_response(drive_file_id=material.drive_file_id,
+            original_name=material.original_name, mime_type=material.mime_type)
     return await private_blob_response(
         stored_name=material.stored_name,
         original_name=material.original_name,
@@ -181,6 +202,10 @@ async def api_admin_public_material_file(
             status_code=404,
             detail="Materiale non trovato.",
         )
+    if material.drive_file_id:
+        return await public_drive_response(drive_file_id=material.drive_file_id,
+            original_name=material.original_name, mime_type=material.mime_type,
+            inline=True)
     return await private_blob_response(
         stored_name=material.stored_name,
         original_name=material.original_name,
@@ -201,6 +226,9 @@ async def api_admin_public_material_download(
             status_code=404,
             detail="Materiale non trovato.",
         )
+    if material.drive_file_id:
+        return await public_drive_response(drive_file_id=material.drive_file_id,
+            original_name=material.original_name, mime_type=material.mime_type)
     return await private_blob_response(
         stored_name=material.stored_name,
         original_name=material.original_name,

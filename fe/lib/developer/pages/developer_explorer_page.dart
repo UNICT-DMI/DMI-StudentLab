@@ -53,14 +53,14 @@ class _DeveloperExplorerPageState
         _tree = tree;
         _loading = false;
       });
-    } catch (error) {
+    } catch (_) {
       if (!mounted) {
         return;
       }
 
       setState(() {
         _loading = false;
-        _error = error.toString();
+        _error = 'Non è stato possibile caricare il repository. Riprova tra poco.';
       });
     }
   }
@@ -91,17 +91,24 @@ class _DeveloperExplorerPageState
           ),
         ),
       );
-    } catch (error) {
+    } catch (_) {
       if (!mounted) {
         return;
       }
 
-      ScaffoldMessenger.of(context)
-          .showSnackBar(
-        SnackBar(
-          content: Text(
-            error.toString(),
+      await showDialog<void>(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
+          title: const Text('File non disponibile'),
+          content: const Text(
+            'Non è stato possibile aprire il file. Riprova tra poco.',
           ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(),
+              child: const Text('Chiudi'),
+            ),
+          ],
         ),
       );
     }
@@ -139,7 +146,7 @@ class _DeveloperExplorerPageState
                   DeveloperUiStyle.maxContentWidth,
             ),
             child: _loading
-                ? const Center(
+                ? Center(
                     child:
                         CircularProgressIndicator(
                       color:
@@ -189,7 +196,7 @@ class _DeveloperExplorerPageState
                                     ),
                                   ),
                                   child:
-                                      const Icon(
+                                      Icon(
                                     Icons
                                         .account_tree_outlined,
                                     color: AppColors

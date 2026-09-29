@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../theme/app_palette.dart';
+import '../theme/nightTheme.dart';
+import '../theme/studentlab_brand.dart';
+import '../theme/theme_controller.dart';
+
+
 class StudentLabSplash extends StatefulWidget {
   const StudentLabSplash({
     super.key,
@@ -60,9 +66,10 @@ class _StudentLabSplashState extends State<StudentLabSplash>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(
-        0xFF03081A,
-      ),
+      // Notte mantiene lo sfondo originale; gli altri temi usano il loro.
+      backgroundColor: StudentLabThemeController.instance.theme == StudentLabTheme.notte
+          ? const Color(0xFF03081A)
+          : AppColors.darkElegance,
 
       body: SafeArea(
         child: Stack(
@@ -79,14 +86,10 @@ class _StudentLabSplashState extends State<StudentLabSplash>
                       ),
                       radius: 0.9,
                       colors: [
-                        const Color(
-                          0xFF00D9FF,
-                        ).withValues(
+                        StudentLabBrand.glow[0].withValues(
                           alpha: 0.10,
                         ),
-                        const Color(
-                          0xFF6C3BFF,
-                        ).withValues(
+                        StudentLabBrand.glow[1].withValues(
                           alpha: 0.06,
                         ),
                         Colors.transparent,
@@ -120,7 +123,7 @@ class _StudentLabSplashState extends State<StudentLabSplash>
                   );
                 },
                 child: Image.asset(
-                  'assets/mascot/studentlab_wolf.png',
+                  StudentLabBrand.wolf,
                   width: MediaQuery.sizeOf(context).width * 0.78,
                   fit: BoxFit.contain,
                 ),
@@ -134,7 +137,7 @@ class _StudentLabSplashState extends State<StudentLabSplash>
 
               child: Center(
                 child: RichText(
-                  text: const TextSpan(
+                  text: TextSpan(
                     style: TextStyle(
                       fontSize: 36,
                       fontWeight: FontWeight.w700,
@@ -144,7 +147,7 @@ class _StudentLabSplashState extends State<StudentLabSplash>
                       TextSpan(
                         text: 'Student',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: AppColors.white,
                         ),
                       ),
 

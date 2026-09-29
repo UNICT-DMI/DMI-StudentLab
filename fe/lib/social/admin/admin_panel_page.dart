@@ -4,6 +4,13 @@ import '../../developer/pages/developer_entry_page.dart';
 
 import '../../material/admin/admin_material_storage_page.dart';
 
+import '../../faq/admin_faq_moderation_page.dart';
+import '../../dictionary/dictionary_moderation_page.dart';
+import '../../calendar/calendar_home_page.dart';
+import 'package:fe/quiz/exercises/teacher/exercise_subjects_page.dart';
+
+import '../../quiz/teacher/question_moderation_page.dart';
+
 import '../../services/api_service.dart';
 
 import '../../theme/nightTheme.dart';
@@ -15,6 +22,7 @@ import '../news/public_news_editor_page.dart';
 import '../social_models.dart';
 
 import 'admin_academic_paths_page.dart';
+import 'admin_academic_catalog_page.dart';
 
 import 'admin_grades_page.dart';
 
@@ -32,6 +40,8 @@ import 'admin_security_page.dart';
 import 'admin_support_sessions_page.dart';
 
 import 'admin_teachers_page.dart';
+import 'admin_institutional_tutors_page.dart';
+import 'admin_student_verifications_page.dart';
 
 import 'admin_teacher_assignments_page.dart';
 
@@ -192,7 +202,7 @@ class _AdminPanelPageState extends State<AdminPanelPage> {
   @override
   Widget build(BuildContext context) {
     if (_loading) {
-      return const Scaffold(
+      return Scaffold(
         backgroundColor: AppColors.darkElegance,
 
         body: Center(
@@ -321,7 +331,7 @@ class _AdminPanelPageState extends State<AdminPanelPage> {
 
         borderRadius: BorderRadius.circular(20),
 
-        border: Border.all(color: Colors.greenAccent.withValues(alpha: 0.14)),
+        border: Border.all(color: AppColors.greenAccent.withValues(alpha: 0.14)),
       ),
 
       child: Row(
@@ -332,15 +342,15 @@ class _AdminPanelPageState extends State<AdminPanelPage> {
             height: 60,
 
             decoration: BoxDecoration(
-              color: Colors.greenAccent.withValues(alpha: 0.08),
+              color: AppColors.greenAccent.withValues(alpha: 0.08),
 
               borderRadius: BorderRadius.circular(17),
             ),
 
-            child: const Icon(
+            child: Icon(
               Icons.admin_panel_settings_outlined,
 
-              color: Colors.greenAccent,
+              color: AppColors.greenAccent,
 
               size: 31,
             ),
@@ -353,7 +363,7 @@ class _AdminPanelPageState extends State<AdminPanelPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
 
               children: [
-                const Text(
+                Text(
                   'Amministrazione StudentLab',
 
                   style: TextStyle(
@@ -390,12 +400,12 @@ class _AdminPanelPageState extends State<AdminPanelPage> {
                     ),
 
                     decoration: BoxDecoration(
-                      color: Colors.greenAccent.withValues(alpha: 0.08),
+                      color: AppColors.greenAccent.withValues(alpha: 0.08),
 
                       borderRadius: BorderRadius.circular(9),
 
                       border: Border.all(
-                        color: Colors.greenAccent.withValues(alpha: 0.18),
+                        color: AppColors.greenAccent.withValues(alpha: 0.18),
                       ),
                     ),
 
@@ -406,7 +416,7 @@ class _AdminPanelPageState extends State<AdminPanelPage> {
                         Icon(
                           Icons.workspace_premium_outlined,
 
-                          color: Colors.greenAccent,
+                          color: AppColors.greenAccent,
 
                           size: 14,
                         ),
@@ -417,7 +427,7 @@ class _AdminPanelPageState extends State<AdminPanelPage> {
                           _roleLabel,
 
                           style: TextStyle(
-                            color: Colors.greenAccent,
+                            color: AppColors.greenAccent,
 
                             fontSize: 10,
 
@@ -523,6 +533,54 @@ class _AdminPanelPageState extends State<AdminPanelPage> {
     return _AdminGrid(
       children: [
         _AdminModuleCard(
+          icon: Icons.edit_calendar_outlined,
+
+          title: 'Calendario accademico',
+
+          description: 'Lezioni, sessioni, appelli e chiusure: inserimento, import da PDF, CSV, iCal e web.',
+
+          onTap: () {
+            _openProtectedPage(const CalendarHomePage());
+          },
+        ),
+
+        _AdminModuleCard(
+          icon: Icons.menu_book_outlined,
+
+          title: 'Dizionario',
+
+          description: 'Termini da moderare, fonti (JSON, PDF, web), revisione tra anni e affidamento ai docenti.',
+
+          onTap: () {
+            _openProtectedPage(const DictionaryModerationPage());
+          },
+        ),
+
+        _AdminModuleCard(
+          icon: Icons.extension_outlined,
+
+          title: 'Esercizi e assegnazioni',
+
+          description: 'Banca esercizi di ogni materia, assegnazioni di quiz ed esercizi a studenti e gruppi.',
+
+          onTap: () {
+            _openProtectedPage(const ExerciseSubjectsPage(adminMode: true));
+          },
+        ),
+
+        _AdminModuleCard(
+          icon: Icons.forum_outlined,
+
+          title: 'Domande',
+
+          description: 'Domande, risposte e racconti d’esame da controllare prima della pubblicazione.',
+
+          onTap: () {
+            _openProtectedPage(const AdminFaqModerationPage());
+          },
+        ),
+
+        _AdminModuleCard(
           icon: Icons.rate_review_outlined,
 
           title: 'Recensioni',
@@ -545,6 +603,12 @@ class _AdminPanelPageState extends State<AdminPanelPage> {
             _openProtectedPage(const AdminTeachersPage());
           },
         ),
+        _AdminModuleCard(icon: Icons.verified_outlined,
+          title: 'Tutor UNICT', description: 'Verifica i tutoraggi universitari richiesti dagli studenti.',
+          onTap: () => _openProtectedPage(const AdminInstitutionalTutorsPage())),
+        _AdminModuleCard(icon: Icons.verified_user_outlined,
+          title: 'Studenti verificati', description: 'Approva le richieste di verifica dei profili studenti.',
+          onTap: () => _openProtectedPage(const AdminStudentVerificationsPage())),
 
         _AdminModuleCard(
           icon: Icons.workspace_premium_outlined,
@@ -569,6 +633,12 @@ class _AdminPanelPageState extends State<AdminPanelPage> {
             _openProtectedPage(const AdminAcademicPathsPage());
           },
         ),
+        _AdminModuleCard(
+          icon: Icons.school_outlined,
+          title: 'Corsi da associare',
+          description: 'Riconosci i corsi mancanti e assegna il percorso agli studenti.',
+          onTap: () => _openProtectedPage(const AdminAcademicCatalogPage()),
+        ),
 
         _AdminModuleCard(
           icon: Icons.school_outlined,
@@ -579,6 +649,18 @@ class _AdminPanelPageState extends State<AdminPanelPage> {
 
           onTap: () {
             _openProtectedPage(const AdminTeacherAssignmentsPage());
+          },
+        ),
+        _AdminModuleCard(
+          icon: Icons.quiz_outlined,
+
+          title: 'Domande quiz',
+
+          description:
+              'Revisiona proposte degli studenti e domande segnalate, modificandole, approvandole o rifiutandole.',
+
+          onTap: () {
+            _openProtectedPage(const QuestionModerationPage.admin());
           },
         ),
 
@@ -851,7 +933,7 @@ class _AdminSectionTitle extends StatelessWidget {
         Text(
           title,
 
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.pureWhite,
 
             fontSize: 18,
@@ -953,16 +1035,16 @@ class _AdminModuleCard extends StatelessWidget {
                       ),
 
                       decoration: BoxDecoration(
-                        color: Colors.amber.withValues(alpha: 0.09),
+                        color: AppColors.amber.withValues(alpha: 0.09),
 
                         borderRadius: BorderRadius.circular(8),
                       ),
 
-                      child: const Text(
+                      child: Text(
                         'DA COLLEGARE',
 
                         style: TextStyle(
-                          color: Colors.amber,
+                          color: AppColors.amber,
 
                           fontSize: 7,
 
@@ -971,10 +1053,10 @@ class _AdminModuleCard extends StatelessWidget {
                       ),
                     )
                   else
-                    const Icon(
+                    Icon(
                       Icons.arrow_forward_ios_rounded,
 
-                      color: Colors.white30,
+                      color: AppColors.white30,
 
                       size: 14,
                     ),
@@ -986,7 +1068,7 @@ class _AdminModuleCard extends StatelessWidget {
               Text(
                 title,
 
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.pureWhite,
 
                   fontSize: 14,
@@ -1001,8 +1083,8 @@ class _AdminModuleCard extends StatelessWidget {
                 child: Text(
                   description,
 
-                  style: const TextStyle(
-                    color: Colors.white54,
+                  style: TextStyle(
+                    color: AppColors.white54,
 
                     fontSize: 10,
 
@@ -1056,7 +1138,7 @@ class _AdminAccessDeniedPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
 
                 border: Border.all(
-                  color: Colors.redAccent.withValues(alpha: 0.16),
+                  color: AppColors.redAccent.withValues(alpha: 0.16),
                 ),
               ),
 
@@ -1064,17 +1146,17 @@ class _AdminAccessDeniedPage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
 
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.gpp_bad_outlined,
 
-                    color: Colors.redAccent,
+                    color: AppColors.redAccent,
 
                     size: 44,
                   ),
 
                   const SizedBox(height: 18),
 
-                  const Text(
+                  Text(
                     'Accesso non autorizzato',
 
                     textAlign: TextAlign.center,
@@ -1096,8 +1178,8 @@ class _AdminAccessDeniedPage extends StatelessWidget {
 
                     textAlign: TextAlign.center,
 
-                    style: const TextStyle(
-                      color: Colors.white54,
+                    style: TextStyle(
+                      color: AppColors.white54,
 
                       fontSize: 11,
 

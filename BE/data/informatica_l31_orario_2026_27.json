@@ -1,0 +1,1181 @@
+{
+  "source": "Orari Informatica L-31 · PDF 1°, 2°, 3° anno · settembre 2026",
+  "channels": [
+    "1° A-E",
+    "1° F-N",
+    "1° O-Z",
+    "2° A-L",
+    "2° M-Z",
+    "3° A-L (AI AND ROBOTICS)",
+    "3° A-L (COMP. GR. AND GAMES)",
+    "3° A-L (COMP. TH. AND Q. ALG.)",
+    "3° A-L (CYBERSECURITY AND D. F.)",
+    "3° A-L (DATA SCIENCE)",
+    "3° A-L (PROG. WEB, MOBILE AND V.E.)",
+    "3° M-Z (AI AND ROBOTICS)",
+    "3° M-Z (COMP. GR. AND GAMES)",
+    "3° M-Z (COMP. TH. AND Q. ALG.)",
+    "3° M-Z (CYBERSECURITY AND D. F.)",
+    "3° M-Z (DATA SCIENCE)",
+    "3° M-Z (PROG. WEB, MOBILE AND V.E.)"
+  ],
+  "lessons": [
+    {
+      "subject": "Algebra Lineare e Geometria",
+      "weekday": 0,
+      "time": "08:00-11:00",
+      "room": "Aula 4",
+      "channels": [
+        "1° F-N"
+      ],
+      "teachers": [
+        "Zappalà"
+      ]
+    },
+    {
+      "subject": "Algebra Lineare e Geometria",
+      "weekday": 0,
+      "time": "09:00-11:00",
+      "room": "Aula 2",
+      "channels": [
+        "1° O-Z"
+      ],
+      "teachers": [
+        "Marino"
+      ]
+    },
+    {
+      "subject": "Algebra Lineare e Geometria",
+      "weekday": 0,
+      "time": "16:00-19:00",
+      "room": "Aula 4",
+      "channels": [
+        "1° A-E"
+      ],
+      "teachers": [
+        "Jaramillo Puentes"
+      ]
+    },
+    {
+      "subject": "Algebra Lineare e Geometria",
+      "weekday": 2,
+      "time": "08:00-10:00",
+      "room": "Aula 4",
+      "channels": [
+        "1° F-N"
+      ],
+      "teachers": [
+        "Zappalà"
+      ]
+    },
+    {
+      "subject": "Algebra Lineare e Geometria",
+      "weekday": 2,
+      "time": "10:00-13:00",
+      "room": "Aula 2",
+      "channels": [
+        "1° O-Z"
+      ],
+      "teachers": [
+        "Marino"
+      ]
+    },
+    {
+      "subject": "Algebra Lineare e Geometria",
+      "weekday": 2,
+      "time": "16:00-19:00",
+      "room": "Aula 4",
+      "channels": [
+        "1° A-E"
+      ],
+      "teachers": [
+        "Jaramillo Puentes"
+      ]
+    },
+    {
+      "subject": "Algoritmi e laboratorio",
+      "weekday": 0,
+      "time": "08:00-11:00",
+      "room": "Aula 3",
+      "channels": [
+        "2° A-L"
+      ],
+      "teachers": [
+        "Faro"
+      ]
+    },
+    {
+      "subject": "Algoritmi e laboratorio",
+      "weekday": 0,
+      "time": "09:00-11:00",
+      "room": "Aula 22",
+      "channels": [
+        "2° M-Z"
+      ],
+      "teachers": [
+        "Viola"
+      ]
+    },
+    {
+      "subject": "Algoritmi e laboratorio",
+      "weekday": 3,
+      "time": "11:00-13:00",
+      "room": "Aula 22",
+      "channels": [
+        "2° M-Z"
+      ],
+      "teachers": [
+        "Viola"
+      ]
+    },
+    {
+      "subject": "Algoritmi e laboratorio",
+      "weekday": 4,
+      "time": "08:00-11:00",
+      "room": "Aula 3",
+      "channels": [
+        "2° A-L"
+      ],
+      "teachers": [
+        "Faro"
+      ]
+    },
+    {
+      "subject": "Algoritmi e laboratorio",
+      "weekday": 4,
+      "time": "09:00-11:00",
+      "room": "Aula 22",
+      "channels": [
+        "2° M-Z"
+      ],
+      "teachers": [
+        "Viola"
+      ]
+    },
+    {
+      "subject": "Architettura degli Elaboratori",
+      "weekday": 0,
+      "time": "11:00-13:00",
+      "room": "Aula 2",
+      "channels": [
+        "1° O-Z"
+      ],
+      "teachers": [
+        "Santoro C."
+      ]
+    },
+    {
+      "subject": "Architettura degli Elaboratori",
+      "weekday": 0,
+      "time": "14:00-16:00",
+      "room": "Aula 4",
+      "channels": [
+        "1° A-E"
+      ],
+      "teachers": [
+        "Rundo"
+      ]
+    },
+    {
+      "subject": "Architettura degli Elaboratori",
+      "weekday": 2,
+      "time": "08:00-10:00",
+      "room": "Aula 2",
+      "channels": [
+        "1° O-Z"
+      ],
+      "teachers": [
+        "Santoro C."
+      ]
+    },
+    {
+      "subject": "Architettura degli Elaboratori",
+      "weekday": 2,
+      "time": "10:00-13:00",
+      "room": "Aula 4",
+      "channels": [
+        "1° F-N"
+      ],
+      "teachers": [
+        "Spata"
+      ]
+    },
+    {
+      "subject": "Architettura degli Elaboratori",
+      "weekday": 2,
+      "time": "14:00-16:00",
+      "room": "Aula 4",
+      "channels": [
+        "1° A-E"
+      ],
+      "teachers": [
+        "Rundo"
+      ]
+    },
+    {
+      "subject": "Architettura degli Elaboratori",
+      "weekday": 4,
+      "time": "08:00-11:00",
+      "room": "Aula 4",
+      "channels": [
+        "1° F-N"
+      ],
+      "teachers": [
+        "Spata"
+      ]
+    },
+    {
+      "subject": "Architettura degli Elaboratori",
+      "weekday": 4,
+      "time": "09:00-11:00",
+      "room": "Aula 2",
+      "channels": [
+        "1° O-Z"
+      ],
+      "teachers": [
+        "Santoro C."
+      ]
+    },
+    {
+      "subject": "Architettura degli Elaboratori",
+      "weekday": 4,
+      "time": "14:00-16:00",
+      "room": "Aula 4",
+      "channels": [
+        "1° A-E"
+      ],
+      "teachers": [
+        "Rundo"
+      ]
+    },
+    {
+      "subject": "Artificial Intelligence",
+      "weekday": 0,
+      "time": "10:00-13:00",
+      "room": "Aula 24",
+      "channels": [
+        "3° A-L (AI AND ROBOTICS)",
+        "3° M-Z (AI AND ROBOTICS)"
+      ],
+      "teachers": [
+        "Pavone"
+      ]
+    },
+    {
+      "subject": "Artificial Intelligence",
+      "weekday": 4,
+      "time": "08:00-11:00",
+      "room": "Aula 23",
+      "channels": [
+        "3° A-L (AI AND ROBOTICS)",
+        "3° M-Z (AI AND ROBOTICS)"
+      ],
+      "teachers": [
+        "Pavone"
+      ]
+    },
+    {
+      "subject": "Audio Processing",
+      "weekday": 0,
+      "time": "15:00-17:00",
+      "room": "Aula 24",
+      "channels": [
+        "3° A-L (COMP. GR. AND GAMES)",
+        "3° M-Z (COMP. GR. AND GAMES)"
+      ],
+      "teachers": [
+        "Spata"
+      ]
+    },
+    {
+      "subject": "Audio Processing",
+      "weekday": 2,
+      "time": "15:00-17:00",
+      "room": "Aula 24",
+      "channels": [
+        "3° A-L (COMP. GR. AND GAMES)",
+        "3° M-Z (COMP. GR. AND GAMES)"
+      ],
+      "teachers": [
+        "Spata"
+      ]
+    },
+    {
+      "subject": "Data Analysis and Predictive Techniques and Laboratory",
+      "weekday": 1,
+      "time": "15:00-18:00",
+      "room": "Aula 22",
+      "channels": [
+        "3° A-L (DATA SCIENCE)",
+        "3° M-Z (DATA SCIENCE)"
+      ],
+      "teachers": [
+        "Furnari"
+      ]
+    },
+    {
+      "subject": "Data Analysis and Predictive Techniques and Laboratory",
+      "weekday": 3,
+      "time": "15:00-18:00",
+      "room": "Aula 22",
+      "channels": [
+        "3° A-L (DATA SCIENCE)",
+        "3° M-Z (DATA SCIENCE)"
+      ],
+      "teachers": [
+        "Furnari"
+      ]
+    },
+    {
+      "subject": "Database",
+      "weekday": 0,
+      "time": "11:00-13:00",
+      "room": "Aula 22",
+      "channels": [
+        "2° M-Z"
+      ],
+      "teachers": [
+        "Alaimo / Micale"
+      ]
+    },
+    {
+      "subject": "Database",
+      "weekday": 0,
+      "time": "11:00-13:00",
+      "room": "Aula 3",
+      "channels": [
+        "2° A-L"
+      ],
+      "teachers": [
+        "Pulvirenti / Micale"
+      ]
+    },
+    {
+      "subject": "Database",
+      "weekday": 2,
+      "time": "08:00-10:00",
+      "room": "Aula 3",
+      "channels": [
+        "2° A-L"
+      ],
+      "teachers": [
+        "Pulvirenti / Micale"
+      ]
+    },
+    {
+      "subject": "Database",
+      "weekday": 2,
+      "time": "11:00-13:00",
+      "room": "Aula 22",
+      "channels": [
+        "2° M-Z"
+      ],
+      "teachers": [
+        "Alaimo / Micale"
+      ]
+    },
+    {
+      "subject": "Database",
+      "weekday": 4,
+      "time": "11:00-13:00",
+      "room": "Aula 22",
+      "channels": [
+        "2° M-Z"
+      ],
+      "teachers": [
+        "Alaimo / Micale"
+      ]
+    },
+    {
+      "subject": "Database",
+      "weekday": 4,
+      "time": "11:00-13:00",
+      "room": "Aula 3",
+      "channels": [
+        "2° A-L"
+      ],
+      "teachers": [
+        "Pulvirenti / Micale"
+      ]
+    },
+    {
+      "subject": "Digital Forensics",
+      "weekday": 2,
+      "time": "08:00-11:00",
+      "room": "Aula 24",
+      "channels": [
+        "3° A-L (CYBERSECURITY AND D. F.)",
+        "3° M-Z (CYBERSECURITY AND D. F.)"
+      ],
+      "teachers": [
+        "Battiato / Guarnera L"
+      ]
+    },
+    {
+      "subject": "Digital Forensics",
+      "weekday": 4,
+      "time": "08:00-11:00",
+      "room": "Aula 24",
+      "channels": [
+        "3° A-L (CYBERSECURITY AND D. F.)",
+        "3° M-Z (CYBERSECURITY AND D. F.)"
+      ],
+      "teachers": [
+        "Battiato / Guarnera L"
+      ]
+    },
+    {
+      "subject": "Elementi di Analisi Matematica 2",
+      "weekday": 1,
+      "time": "08:00-10:00",
+      "room": "Aula 3",
+      "channels": [
+        "2° A-L"
+      ],
+      "teachers": [
+        "Naselli"
+      ]
+    },
+    {
+      "subject": "Elementi di Analisi Matematica 2",
+      "weekday": 1,
+      "time": "11:00-13:00",
+      "room": "Aula 22",
+      "channels": [
+        "2° M-Z"
+      ],
+      "teachers": [
+        "Naselli"
+      ]
+    },
+    {
+      "subject": "Elementi di Analisi Matematica 2",
+      "weekday": 2,
+      "time": "10:00-13:00",
+      "room": "Aula 3",
+      "channels": [
+        "2° A-L"
+      ],
+      "teachers": [
+        "Naselli"
+      ]
+    },
+    {
+      "subject": "Elementi di Analisi Matematica 2",
+      "weekday": 3,
+      "time": "08:00-11:00",
+      "room": "Aula 22",
+      "channels": [
+        "2° M-Z"
+      ],
+      "teachers": [
+        "Naselli"
+      ]
+    },
+    {
+      "subject": "Embedded Systems",
+      "weekday": 0,
+      "time": "08:00-10:00",
+      "room": "Aula 24",
+      "channels": [
+        "3° A-L (AI AND ROBOTICS)",
+        "3° M-Z (AI AND ROBOTICS)"
+      ],
+      "teachers": [
+        "Santoro C"
+      ]
+    },
+    {
+      "subject": "Embedded Systems",
+      "weekday": 4,
+      "time": "11:00-13:00",
+      "room": "Aula 23",
+      "channels": [
+        "3° A-L (AI AND ROBOTICS)",
+        "3° M-Z (AI AND ROBOTICS)"
+      ],
+      "teachers": [
+        "Santoro C"
+      ]
+    },
+    {
+      "subject": "Fisica",
+      "weekday": 1,
+      "time": "10:00-12:00",
+      "room": "Aula 23",
+      "channels": [
+        "3° A-L (AI AND ROBOTICS)",
+        "3° A-L (COMP. GR. AND GAMES)",
+        "3° A-L (COMP. TH. AND Q. ALG.)",
+        "3° A-L (CYBERSECURITY AND D. F.)",
+        "3° A-L (DATA SCIENCE)",
+        "3° A-L (PROG. WEB, MOBILE AND V.E.)"
+      ],
+      "teachers": [
+        "Ruggieri"
+      ]
+    },
+    {
+      "subject": "Fisica",
+      "weekday": 1,
+      "time": "10:00-12:00",
+      "room": "Aula 24",
+      "channels": [
+        "3° M-Z (AI AND ROBOTICS)",
+        "3° M-Z (COMP. GR. AND GAMES)",
+        "3° M-Z (COMP. TH. AND Q. ALG.)",
+        "3° M-Z (CYBERSECURITY AND D. F.)",
+        "3° M-Z (DATA SCIENCE)",
+        "3° M-Z (PROG. WEB, MOBILE AND V.E.)"
+      ],
+      "teachers": [
+        "Manicò"
+      ]
+    },
+    {
+      "subject": "Fisica",
+      "weekday": 3,
+      "time": "10:00-12:00",
+      "room": "Aula 23",
+      "channels": [
+        "3° A-L (AI AND ROBOTICS)",
+        "3° A-L (COMP. GR. AND GAMES)",
+        "3° A-L (COMP. TH. AND Q. ALG.)",
+        "3° A-L (CYBERSECURITY AND D. F.)",
+        "3° A-L (DATA SCIENCE)",
+        "3° A-L (PROG. WEB, MOBILE AND V.E.)"
+      ],
+      "teachers": [
+        "Ruggieri"
+      ]
+    },
+    {
+      "subject": "Fisica",
+      "weekday": 3,
+      "time": "10:00-12:00",
+      "room": "Aula 24",
+      "channels": [
+        "3° M-Z (AI AND ROBOTICS)",
+        "3° M-Z (COMP. GR. AND GAMES)",
+        "3° M-Z (COMP. TH. AND Q. ALG.)",
+        "3° M-Z (CYBERSECURITY AND D. F.)",
+        "3° M-Z (DATA SCIENCE)",
+        "3° M-Z (PROG. WEB, MOBILE AND V.E.)"
+      ],
+      "teachers": [
+        "Manicò"
+      ]
+    },
+    {
+      "subject": "Information Technology Law",
+      "weekday": 1,
+      "time": "17:00-19:00",
+      "room": "Aula 24",
+      "channels": [
+        "3° A-L (CYBERSECURITY AND D. F.)",
+        "3° M-Z (CYBERSECURITY AND D. F.)"
+      ],
+      "teachers": [
+        "Battiato"
+      ]
+    },
+    {
+      "subject": "Information Technology Law",
+      "weekday": 3,
+      "time": "17:00-19:00",
+      "room": "Aula 24",
+      "channels": [
+        "3° A-L (CYBERSECURITY AND D. F.)",
+        "3° M-Z (CYBERSECURITY AND D. F.)"
+      ],
+      "teachers": [
+        "Battiato"
+      ]
+    },
+    {
+      "subject": "Interazione e Multimedia",
+      "weekday": 1,
+      "time": "08:00-11:00",
+      "room": "Aula 22",
+      "channels": [
+        "2° M-Z"
+      ],
+      "teachers": [
+        "Allegra / Guarnera F."
+      ]
+    },
+    {
+      "subject": "Interazione e Multimedia",
+      "weekday": 1,
+      "time": "10:00-13:00",
+      "room": "Aula 3",
+      "channels": [
+        "2° A-L"
+      ],
+      "teachers": [
+        "Stanco / Guarnera F."
+      ]
+    },
+    {
+      "subject": "Interazione e Multimedia",
+      "weekday": 2,
+      "time": "08:00-11:00",
+      "room": "Aula 22",
+      "channels": [
+        "2° M-Z"
+      ],
+      "teachers": [
+        "Allegra / Guarnera F."
+      ]
+    },
+    {
+      "subject": "Interazione e Multimedia",
+      "weekday": 3,
+      "time": "10:00-13:00",
+      "room": "Aula 3",
+      "channels": [
+        "2° A-L"
+      ],
+      "teachers": [
+        "Stanco / Guarnera F."
+      ]
+    },
+    {
+      "subject": "Introduzione al Data Mining",
+      "weekday": 0,
+      "time": "15:00-17:00",
+      "room": "Aula 22",
+      "channels": [
+        "3° A-L (DATA SCIENCE)",
+        "3° M-Z (DATA SCIENCE)"
+      ],
+      "teachers": [
+        "Micale"
+      ]
+    },
+    {
+      "subject": "Introduzione al Data Mining",
+      "weekday": 2,
+      "time": "15:00-17:00",
+      "room": "Aula 22",
+      "channels": [
+        "3° A-L (DATA SCIENCE)",
+        "3° M-Z (DATA SCIENCE)"
+      ],
+      "teachers": [
+        "Micale"
+      ]
+    },
+    {
+      "subject": "Introduzione al Data Mining",
+      "weekday": 4,
+      "time": "15:00-17:00",
+      "room": "Aula 2",
+      "channels": [
+        "3° A-L (DATA SCIENCE)",
+        "3° M-Z (DATA SCIENCE)"
+      ],
+      "teachers": [
+        "Micale"
+      ]
+    },
+    {
+      "subject": "IoT Devices",
+      "weekday": 1,
+      "time": "17:00-19:00",
+      "room": "Aula 2",
+      "channels": [
+        "3° A-L (AI AND ROBOTICS)",
+        "3° M-Z (AI AND ROBOTICS)"
+      ],
+      "teachers": [
+        "Santoro F"
+      ]
+    },
+    {
+      "subject": "IoT Devices",
+      "weekday": 3,
+      "time": "17:00-19:00",
+      "room": "Aula 2",
+      "channels": [
+        "3° A-L (AI AND ROBOTICS)",
+        "3° M-Z (AI AND ROBOTICS)"
+      ],
+      "teachers": [
+        "Santoro F"
+      ]
+    },
+    {
+      "subject": "Machine Learning",
+      "weekday": 0,
+      "time": "17:00-19:00",
+      "room": "Aula 2",
+      "channels": [
+        "3° A-L (AI AND ROBOTICS)",
+        "3° M-Z (AI AND ROBOTICS)"
+      ],
+      "teachers": [
+        "Farinella"
+      ]
+    },
+    {
+      "subject": "Machine Learning",
+      "weekday": 4,
+      "time": "17:00-19:00",
+      "room": "Aula 2",
+      "channels": [
+        "3° A-L (AI AND ROBOTICS)",
+        "3° M-Z (AI AND ROBOTICS)"
+      ],
+      "teachers": [
+        "Farinella"
+      ]
+    },
+    {
+      "subject": "Metodi Matematici e Statistici",
+      "weekday": 1,
+      "time": "08:00-10:00",
+      "room": "Aula 23",
+      "channels": [
+        "3° A-L (AI AND ROBOTICS)",
+        "3° A-L (COMP. GR. AND GAMES)",
+        "3° A-L (COMP. TH. AND Q. ALG.)",
+        "3° A-L (CYBERSECURITY AND D. F.)",
+        "3° A-L (DATA SCIENCE)",
+        "3° A-L (PROG. WEB, MOBILE AND V.E.)"
+      ],
+      "teachers": [
+        "Falsaperla"
+      ]
+    },
+    {
+      "subject": "Metodi Matematici e Statistici",
+      "weekday": 1,
+      "time": "08:00-10:00",
+      "room": "Aula 24",
+      "channels": [
+        "3° M-Z (AI AND ROBOTICS)",
+        "3° M-Z (COMP. GR. AND GAMES)",
+        "3° M-Z (COMP. TH. AND Q. ALG.)",
+        "3° M-Z (CYBERSECURITY AND D. F.)",
+        "3° M-Z (DATA SCIENCE)",
+        "3° M-Z (PROG. WEB, MOBILE AND V.E.)"
+      ],
+      "teachers": [
+        "Piccitto"
+      ]
+    },
+    {
+      "subject": "Metodi Matematici e Statistici",
+      "weekday": 3,
+      "time": "08:00-10:00",
+      "room": "Aula 23",
+      "channels": [
+        "3° A-L (AI AND ROBOTICS)",
+        "3° A-L (COMP. GR. AND GAMES)",
+        "3° A-L (COMP. TH. AND Q. ALG.)",
+        "3° A-L (CYBERSECURITY AND D. F.)",
+        "3° A-L (DATA SCIENCE)",
+        "3° A-L (PROG. WEB, MOBILE AND V.E.)"
+      ],
+      "teachers": [
+        "Falsaperla"
+      ]
+    },
+    {
+      "subject": "Metodi Matematici e Statistici",
+      "weekday": 3,
+      "time": "08:00-10:00",
+      "room": "Aula 24",
+      "channels": [
+        "3° M-Z (AI AND ROBOTICS)",
+        "3° M-Z (COMP. GR. AND GAMES)",
+        "3° M-Z (COMP. TH. AND Q. ALG.)",
+        "3° M-Z (CYBERSECURITY AND D. F.)",
+        "3° M-Z (DATA SCIENCE)",
+        "3° M-Z (PROG. WEB, MOBILE AND V.E.)"
+      ],
+      "teachers": [
+        "Piccitto"
+      ]
+    },
+    {
+      "subject": "Mixed Reality and w. v.",
+      "weekday": 2,
+      "time": "17:00-19:00",
+      "room": "Aula 24",
+      "channels": [
+        "3° A-L (COMP. GR. AND GAMES)",
+        "3° M-Z (COMP. GR. AND GAMES)"
+      ],
+      "teachers": [
+        "Docente"
+      ]
+    },
+    {
+      "subject": "Mixed Reality and w. v.",
+      "weekday": 4,
+      "time": "17:00-19:00",
+      "room": "Aula 24",
+      "channels": [
+        "3° A-L (COMP. GR. AND GAMES)",
+        "3° M-Z (COMP. GR. AND GAMES)"
+      ],
+      "teachers": [
+        "Docente"
+      ]
+    },
+    {
+      "subject": "Multimedia Sec. and Biometry",
+      "weekday": 2,
+      "time": "11:00-13:00",
+      "room": "Aula 24",
+      "channels": [
+        "3° A-L (CYBERSECURITY AND D. F.)",
+        "3° M-Z (CYBERSECURITY AND D. F.)"
+      ],
+      "teachers": [
+        "Ortis"
+      ]
+    },
+    {
+      "subject": "Multimedia Sec. and Biometry",
+      "weekday": 4,
+      "time": "11:00-13:00",
+      "room": "Aula 24",
+      "channels": [
+        "3° A-L (CYBERSECURITY AND D. F.)",
+        "3° M-Z (CYBERSECURITY AND D. F.)"
+      ],
+      "teachers": [
+        "Ortis"
+      ]
+    },
+    {
+      "subject": "Natural Language Processing",
+      "weekday": 0,
+      "time": "15:00-17:00",
+      "room": "Aula 2",
+      "channels": [
+        "3° A-L (AI AND ROBOTICS)",
+        "3° M-Z (AI AND ROBOTICS)"
+      ],
+      "teachers": [
+        "Mongiovì"
+      ]
+    },
+    {
+      "subject": "Natural Language Processing",
+      "weekday": 2,
+      "time": "15:00-17:00",
+      "room": "Aula 2",
+      "channels": [
+        "3° A-L (AI AND ROBOTICS)",
+        "3° M-Z (AI AND ROBOTICS)"
+      ],
+      "teachers": [
+        "Mongiovì"
+      ]
+    },
+    {
+      "subject": "Programmazione 1",
+      "weekday": 1,
+      "time": "08:00-11:00",
+      "room": "Aula 2",
+      "channels": [
+        "1° O-Z"
+      ],
+      "teachers": [
+        "Furnari"
+      ]
+    },
+    {
+      "subject": "Programmazione 1",
+      "weekday": 1,
+      "time": "11:00-14:00",
+      "room": "Aula 4",
+      "channels": [
+        "1° F-N"
+      ],
+      "teachers": [
+        "Farinella / Calvagna"
+      ]
+    },
+    {
+      "subject": "Programmazione 1",
+      "weekday": 1,
+      "time": "14:00-17:00",
+      "room": "Aula 4",
+      "channels": [
+        "1° A-E"
+      ],
+      "teachers": [
+        "Messina"
+      ]
+    },
+    {
+      "subject": "Programmazione 1",
+      "weekday": 3,
+      "time": "08:00-11:00",
+      "room": "Aula 2",
+      "channels": [
+        "1° O-Z"
+      ],
+      "teachers": [
+        "Furnari"
+      ]
+    },
+    {
+      "subject": "Programmazione 1",
+      "weekday": 3,
+      "time": "11:00-14:00",
+      "room": "Aula 4",
+      "channels": [
+        "1° F-N"
+      ],
+      "teachers": [
+        "Farinella / Calvagna"
+      ]
+    },
+    {
+      "subject": "Programmazione 1",
+      "weekday": 3,
+      "time": "14:00-17:00",
+      "room": "Aula 4",
+      "channels": [
+        "1° A-E"
+      ],
+      "teachers": [
+        "Messina"
+      ]
+    },
+    {
+      "subject": "Quantum Computer Programming",
+      "weekday": 0,
+      "time": "15:00-18:00",
+      "room": "Aula 23",
+      "channels": [
+        "3° A-L (COMP. TH. AND Q. ALG.)",
+        "3° M-Z (COMP. TH. AND Q. ALG.)"
+      ],
+      "teachers": [
+        "Faro"
+      ]
+    },
+    {
+      "subject": "Quantum Computer Programming",
+      "weekday": 2,
+      "time": "15:00-18:00",
+      "room": "Aula 23",
+      "channels": [
+        "3° A-L (COMP. TH. AND Q. ALG.)",
+        "3° M-Z (COMP. TH. AND Q. ALG.)"
+      ],
+      "teachers": [
+        "Faro"
+      ]
+    },
+    {
+      "subject": "Social Media Data Analysis",
+      "weekday": 1,
+      "time": "15:00-17:00",
+      "room": "Aula 2",
+      "channels": [
+        "3° A-L (AI AND ROBOTICS)",
+        "3° M-Z (AI AND ROBOTICS)"
+      ],
+      "teachers": [
+        "Ragusa"
+      ]
+    },
+    {
+      "subject": "Social Media Data Analysis",
+      "weekday": 3,
+      "time": "15:00-17:00",
+      "room": "Aula 2",
+      "channels": [
+        "3° A-L (AI AND ROBOTICS)",
+        "3° M-Z (AI AND ROBOTICS)"
+      ],
+      "teachers": [
+        "Ragusa"
+      ]
+    },
+    {
+      "subject": "Strutture Discrete",
+      "weekday": 1,
+      "time": "09:00-11:00",
+      "room": "Aula 4",
+      "channels": [
+        "1° F-N"
+      ],
+      "teachers": [
+        "Cutello / Cavallaro"
+      ]
+    },
+    {
+      "subject": "Strutture Discrete",
+      "weekday": 1,
+      "time": "11:00-13:00",
+      "room": "Aula 2",
+      "channels": [
+        "1° O-Z"
+      ],
+      "teachers": [
+        "Cutello / Cavallaro"
+      ]
+    },
+    {
+      "subject": "Strutture Discrete",
+      "weekday": 1,
+      "time": "17:00-19:00",
+      "room": "Aula 4",
+      "channels": [
+        "1° A-E"
+      ],
+      "teachers": [
+        "Cutello / Cavallaro"
+      ]
+    },
+    {
+      "subject": "Strutture Discrete",
+      "weekday": 3,
+      "time": "09:00-11:00",
+      "room": "Aula 4",
+      "channels": [
+        "1° F-N"
+      ],
+      "teachers": [
+        "Cutello / Cavallaro"
+      ]
+    },
+    {
+      "subject": "Strutture Discrete",
+      "weekday": 3,
+      "time": "11:00-13:00",
+      "room": "Aula 2",
+      "channels": [
+        "1° O-Z"
+      ],
+      "teachers": [
+        "Cutello / Cavallaro"
+      ]
+    },
+    {
+      "subject": "Strutture Discrete",
+      "weekday": 3,
+      "time": "17:00-19:00",
+      "room": "Aula 4",
+      "channels": [
+        "1° A-E"
+      ],
+      "teachers": [
+        "Cutello / Cavallaro"
+      ]
+    },
+    {
+      "subject": "Sviluppo di Giochi Digitali",
+      "weekday": 0,
+      "time": "17:00-19:00",
+      "room": "Aula 24",
+      "channels": [
+        "3° A-L (COMP. GR. AND GAMES)",
+        "3° M-Z (COMP. GR. AND GAMES)"
+      ],
+      "teachers": [
+        "Viagrande"
+      ]
+    },
+    {
+      "subject": "Sviluppo di Giochi Digitali",
+      "weekday": 4,
+      "time": "15:00-17:00",
+      "room": "Aula 24",
+      "channels": [
+        "3° A-L (COMP. GR. AND GAMES)",
+        "3° M-Z (COMP. GR. AND GAMES)"
+      ],
+      "teachers": [
+        "Viagrande"
+      ]
+    },
+    {
+      "subject": "Technology for Adv. Progr.",
+      "weekday": 3,
+      "time": "15:00-18:00",
+      "room": "Aula 23",
+      "channels": [
+        "3° A-L (PROG. WEB, MOBILE AND V.E.)",
+        "3° M-Z (PROG. WEB, MOBILE AND V.E.)"
+      ],
+      "teachers": [
+        "Nicotra"
+      ]
+    },
+    {
+      "subject": "Technology for Adv. Progr.",
+      "weekday": 4,
+      "time": "15:00-18:00",
+      "room": "Aula 23",
+      "channels": [
+        "3° A-L (PROG. WEB, MOBILE AND V.E.)",
+        "3° M-Z (PROG. WEB, MOBILE AND V.E.)"
+      ],
+      "teachers": [
+        "Nicotra"
+      ]
+    },
+    {
+      "subject": "Vulnerability Assessment and P. T.",
+      "weekday": 1,
+      "time": "14:00-17:00",
+      "room": "Aula 24",
+      "channels": [
+        "3° A-L (CYBERSECURITY AND D. F.)",
+        "3° M-Z (CYBERSECURITY AND D. F.)"
+      ],
+      "teachers": [
+        "Esposito"
+      ]
+    },
+    {
+      "subject": "Vulnerability Assessment and P. T.",
+      "weekday": 3,
+      "time": "14:00-17:00",
+      "room": "Aula 24",
+      "channels": [
+        "3° A-L (CYBERSECURITY AND D. F.)",
+        "3° M-Z (CYBERSECURITY AND D. F.)"
+      ],
+      "teachers": [
+        "Esposito"
+      ]
+    },
+    {
+      "subject": "Web and Service Or. Sys. and Lab.",
+      "weekday": 0,
+      "time": "10:00-13:00",
+      "room": "Aula 23",
+      "channels": [
+        "3° A-L (PROG. WEB, MOBILE AND V.E.)",
+        "3° M-Z (PROG. WEB, MOBILE AND V.E.)"
+      ],
+      "teachers": [
+        "Pappalardo"
+      ]
+    },
+    {
+      "subject": "Web and Service Or. Sys. and Lab.",
+      "weekday": 2,
+      "time": "10:00-13:00",
+      "room": "Aula 23",
+      "channels": [
+        "3° A-L (PROG. WEB, MOBILE AND V.E.)",
+        "3° M-Z (PROG. WEB, MOBILE AND V.E.)"
+      ],
+      "teachers": [
+        "Pappalardo"
+      ]
+    }
+  ]
+}

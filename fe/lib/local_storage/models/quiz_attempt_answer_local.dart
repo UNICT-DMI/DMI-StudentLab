@@ -16,6 +16,11 @@ class QuizAttemptAnswerLocal {
   final bool? isCorrect;
   final int? responseTimeSeconds;
   final DateTime answeredAt;
+  // v14 · nuovi tipi di esercizio (le domande di sempre restano "multiple_choice")
+  final String questionType;
+  final String? answerPayload;
+  final String? correctPayload;
+  final double? score;
 
   const QuizAttemptAnswerLocal({
     this.id,
@@ -35,6 +40,10 @@ class QuizAttemptAnswerLocal {
     required this.isCorrect,
     required this.responseTimeSeconds,
     required this.answeredAt,
+    this.questionType = 'multiple_choice',
+    this.answerPayload,
+    this.correctPayload,
+    this.score,
   });
 
   Map<String, Object?> toMap() {
@@ -64,6 +73,10 @@ class QuizAttemptAnswerLocal {
       'response_time_seconds': responseTimeSeconds,
       'answered_at':
           answeredAt.toUtc().toIso8601String(),
+      'question_type': questionType,
+      'answer_payload': answerPayload,
+      'correct_payload': correctPayload,
+      'score': score,
     };
   }
 
@@ -110,6 +123,11 @@ class QuizAttemptAnswerLocal {
           _int(map['response_time_seconds']),
       answeredAt:
           _date(map['answered_at']) ?? DateTime.now(),
+      questionType:
+          _nullable(map['question_type']) ?? 'multiple_choice',
+      answerPayload: _nullable(map['answer_payload']),
+      correctPayload: _nullable(map['correct_payload']),
+      score: map['score'] is num ? (map['score'] as num).toDouble() : double.tryParse('${map['score'] ?? ''}'),
     );
   }
 }

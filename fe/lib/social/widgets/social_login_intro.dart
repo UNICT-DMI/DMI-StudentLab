@@ -85,7 +85,7 @@ class SocialLoginIntro extends StatelessWidget {
                 ),
 
                 child:
-                    const Icon(
+                    Icon(
                   Icons.login_rounded,
 
                   color:
@@ -108,7 +108,7 @@ class SocialLoginIntro extends StatelessWidget {
                       CrossAxisAlignment.start,
 
                   children: [
-                    const Text(
+                    Text(
                       'Hai già un account?',
 
                       style:
@@ -188,7 +188,7 @@ class SocialLoginIntro extends StatelessWidget {
                   CrossAxisAlignment.start,
 
               children: [
-                const Icon(
+                Icon(
                   Icons
                       .verified_user_outlined,
 

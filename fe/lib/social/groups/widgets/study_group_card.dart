@@ -66,7 +66,7 @@ class StudyGroupCard extends StatelessWidget {
                             13,
                           ),
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.groups_rounded,
                           color:
                               AppColors.skyBlue,
@@ -98,10 +98,10 @@ class StudyGroupCard extends StatelessWidget {
                       const SizedBox(
                         width: 8,
                       ),
-                      const Icon(
+                      Icon(
                         Icons
                             .chevron_right_rounded,
-                        color: Colors.white38,
+                        color: AppColors.white38,
                       ),
                     ],
                   ),
@@ -299,7 +299,7 @@ class _Badge extends StatelessWidget {
           ),
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               color:
                   AppColors.materialSky,
               fontSize: 9,

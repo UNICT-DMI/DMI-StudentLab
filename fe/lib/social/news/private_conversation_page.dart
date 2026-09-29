@@ -289,7 +289,7 @@ class _PrivateConversationPageState extends State<PrivateConversationPage> {
           backgroundColor: AppColors.eleganceDeepNavy,
           title: Text(
             title,
-            style: const TextStyle(color: AppColors.pureWhite),
+            style: TextStyle(color: AppColors.pureWhite),
           ),
           content: Text(
             message,
@@ -307,7 +307,7 @@ class _PrivateConversationPageState extends State<PrivateConversationPage> {
               onPressed: () => Navigator.pop(dialogContext, true),
               child: Text(
                 confirmLabel,
-                style: const TextStyle(color: Colors.redAccent),
+                style: TextStyle(color: AppColors.redAccent),
               ),
             ),
           ],
@@ -456,7 +456,7 @@ class _PrivateConversationPageState extends State<PrivateConversationPage> {
               maxLines: 5,
               enabled: !_sending,
               textInputAction: TextInputAction.newline,
-              style: const TextStyle(color: AppColors.pureWhite),
+              style: TextStyle(color: AppColors.pureWhite),
               decoration: InputDecoration(
                 hintText: 'Scrivi un messaggio',
                 hintStyle: TextStyle(

@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from pydantic import ValidationError
+from services.question_json_storage import read_question_json, write_question_json
 
 from schemas.question import (
     QuestionCreate,
@@ -138,6 +139,10 @@ def _read_questions(
         subject,
     )
 
+    archived = read_question_json(path)
+    if archived is not None:
+        return archived
+
     if not path.exists():
         return []
 
@@ -194,6 +199,9 @@ def _write_questions(
         course,
         subject,
     )
+
+    if write_question_json(path, questions):
+        return
 
     path.parent.mkdir(
         parents=True,
@@ -402,6 +410,338 @@ def _question_validation_data(
     }
 
 
+
+_ALLOWED_IMPORT_ATTACHMENT_EXTENSIONS = {
+    ".png",
+    ".jpg",
+    ".jpeg",
+    ".webp",
+    ".pdf",
+    ".txt",
+    ".docx",
+    ".pptx",
+}
+
+
+def _normalize_import_attachment_name(
+    value: Any,
+) -> str:
+    if not isinstance(
+        value,
+        str,
+    ):
+        raise ValueError(
+            "Il nome dell'allegato non è valido."
+        )
+
+    name = value.strip()
+
+    if (
+        not name
+        or name in {
+            ".",
+            "..",
+        }
+        or "/" in name
+        or "\\" in name
+        or "\x00" in name
+        or "\r" in name
+        or "\n" in name
+    ):
+        raise ValueError(
+            "Il nome dell'allegato non è valido."
+        )
+
+    suffix = Path(
+        name
+    ).suffix.casefold()
+
+    if (
+        suffix
+        not in _ALLOWED_IMPORT_ATTACHMENT_EXTENSIONS
+    ):
+        raise ValueError(
+            "Il tipo di allegato indicato nel JSON non è supportato."
+        )
+
+    return name
+
+
+def _import_attachment_names(
+    raw_value: Any,
+) -> list[str]:
+    if raw_value is None:
+        return []
+
+    values: list[Any]
+
+    if isinstance(
+        raw_value,
+        str,
+    ):
+        values = [
+            raw_value
+        ]
+    elif isinstance(
+        raw_value,
+        list,
+    ):
+        values = raw_value
+    else:
+        raise ValueError(
+            "Il campo 'attachments' deve contenere un nome file o una lista di nomi file."
+        )
+
+    result: list[str] = []
+    seen: set[str] = set()
+
+    for raw_item in values:
+        if isinstance(
+            raw_item,
+            dict,
+        ):
+            raw_item = (
+                raw_item.get(
+                    "original_name"
+                )
+            )
+
+        name = (
+            _normalize_import_attachment_name(
+                raw_item
+            )
+        )
+
+        key = name.casefold()
+
+        if key in seen:
+            continue
+
+        seen.add(
+            key
+        )
+
+        result.append(
+            name
+        )
+
+    return result
+
+
+def _normalize_import_teacher(
+    value: Any,
+) -> list[str]:
+    if value is None:
+        return []
+
+    if isinstance(
+        value,
+        str,
+    ):
+        normalized = value.strip()
+
+        return (
+            [
+                normalized
+            ]
+            if normalized
+            else []
+        )
+
+    if isinstance(
+        value,
+        list,
+    ):
+        result: list[str] = []
+
+        for item in value:
+            normalized = str(
+                item
+            ).strip()
+
+            if (
+                normalized
+                and normalized
+                not in result
+            ):
+                result.append(
+                    normalized
+                )
+
+        return result
+
+    raise ValueError(
+        "Il campo docente della domanda non è valido."
+    )
+
+
+def _normalize_import_response_explanations(
+    raw_value: Any,
+    options: Any,
+) -> dict[str, str]:
+    option_ids: list[str] = []
+
+    if isinstance(
+        options,
+        list,
+    ):
+        for option in options:
+            if not isinstance(
+                option,
+                dict,
+            ):
+                continue
+
+            option_id = str(
+                option.get(
+                    "id",
+                    "",
+                )
+            ).strip()
+
+            if (
+                option_id
+                and option_id
+                not in option_ids
+            ):
+                option_ids.append(
+                    option_id
+                )
+
+    if isinstance(
+        raw_value,
+        dict,
+    ):
+        return {
+            str(
+                key
+            ).strip():
+                str(
+                    value
+                ).strip()
+            for key, value
+            in raw_value.items()
+            if str(
+                key
+            ).strip()
+        }
+
+    if isinstance(
+        raw_value,
+        str,
+    ):
+        explanation = raw_value.strip()
+
+        if not explanation:
+            return {}
+
+        return {
+            option_id:
+                explanation
+            for option_id
+            in option_ids
+        }
+
+    return {}
+
+
+def _normalize_import_question(
+    raw_question: dict[str, Any],
+    *,
+    default_university: str | None,
+) -> tuple[
+    dict[str, Any],
+    list[str],
+]:
+    normalized = dict(
+        raw_question
+    )
+
+    metadata_raw = normalized.get(
+        "metadata"
+    )
+
+    if not isinstance(
+        metadata_raw,
+        dict,
+    ):
+        raise ValueError(
+            "I metadata della domanda non sono validi."
+        )
+
+    metadata = dict(
+        metadata_raw
+    )
+
+    university = str(
+        metadata.get(
+            "university"
+        )
+        or default_university
+        or ""
+    ).strip()
+
+    if not university:
+        raise ValueError(
+            "L'ateneo della materia non è disponibile."
+        )
+
+    metadata[
+        "university"
+    ] = university
+
+    metadata[
+        "teacher"
+    ] = _normalize_import_teacher(
+        metadata.get(
+            "teacher"
+        )
+    )
+
+    if not str(
+        metadata.get(
+            "year_of_validity",
+            "",
+        )
+    ).strip():
+        metadata[
+            "year_of_validity"
+        ] = "attuale"
+
+    normalized[
+        "metadata"
+    ] = metadata
+
+    attachments = (
+        _import_attachment_names(
+            normalized.get(
+                "attachments"
+            )
+        )
+    )
+
+    normalized[
+        "attachments"
+    ] = []
+
+    normalized[
+        "question_response_explanation"
+    ] = (
+        _normalize_import_response_explanations(
+            normalized.get(
+                "question_response_explanation"
+            ),
+            normalized.get(
+                "option"
+            ),
+        )
+    )
+
+    return (
+        normalized,
+        attachments,
+    )
+
 def _validation_error_message(
     exception: ValidationError,
 ) -> str:
@@ -599,6 +939,7 @@ def update_question(
     subject: str,
     question_id: str,
     data: QuestionUpdate,
+    default_university: str | None = None,
 ) -> dict[str, Any]:
     question_id = str(
         question_id
@@ -678,6 +1019,13 @@ def update_question(
     merged.update(
         update_data
     )
+
+    # Compatibilità con domande esistenti che non avevano ancora l'ateneo.
+    # L'origine è la materia validata dalla route, mai il profilo docente.
+    metadata = merged.get("metadata")
+    if isinstance(metadata, dict) and not str(metadata.get("university") or "").strip():
+        if default_university:
+            merged["metadata"] = {**metadata, "university": default_university}
 
     try:
         validated = QuestionCreate.model_validate(
@@ -960,6 +1308,7 @@ def import_questions_from_json(
     raw_questions: list[dict[str, Any]],
     *,
     skip_duplicates: bool = True,
+    default_university: str | None = None,
 ) -> dict[str, Any]:
     if not isinstance(
         raw_questions,
@@ -1005,6 +1354,10 @@ def import_questions_from_json(
         QuestionCreate
     ] = []
 
+    validated_attachment_names: list[
+        list[str]
+    ] = []
+
     skipped = 0
 
     for index, raw_question in enumerate(
@@ -1020,16 +1373,41 @@ def import_questions_from_json(
             )
 
         try:
+            (
+                normalized_question,
+                attachment_names,
+            ) = _normalize_import_question(
+                raw_question,
+                default_university=default_university,
+            )
+
             validated = QuestionCreate.model_validate(
                 _question_validation_data(
-                    raw_question
+                    normalized_question
                 )
             )
 
-        except ValidationError as exception:
+        except (
+            ValidationError,
+            ValueError,
+        ) as exception:
+            if isinstance(
+                exception,
+                ValidationError,
+            ):
+                message = (
+                    _validation_error_message(
+                        exception
+                    )
+                )
+            else:
+                message = str(
+                    exception
+                ).strip()
+
             raise ValueError(
                 f"Domanda {index}: "
-                f"{_validation_error_message(exception)}"
+                f"{message}"
             ) from exception
 
         signature = (
@@ -1065,7 +1443,15 @@ def import_questions_from_json(
             validated
         )
 
+        validated_attachment_names.append(
+            attachment_names
+        )
+
     question_ids: list[str] = []
+
+    attachment_plan: list[
+        dict[str, Any]
+    ] = []
 
     next_id = int(
         _next_question_id(
@@ -1073,7 +1459,9 @@ def import_questions_from_json(
         )
     )
 
-    for validated in validated_questions:
+    for position, validated in enumerate(
+        validated_questions
+    ):
         question_id = str(
             next_id
         )
@@ -1088,6 +1476,22 @@ def import_questions_from_json(
         question_ids.append(
             question_id
         )
+
+        names = (
+            validated_attachment_names[
+                position
+            ]
+        )
+
+        if names:
+            attachment_plan.append(
+                {
+                    "question_id":
+                        question_id,
+                    "files":
+                        names,
+                }
+            )
 
         next_id += 1
 

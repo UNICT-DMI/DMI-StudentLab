@@ -178,7 +178,7 @@ class _AdminGradesPageState
               AppColors.eleganceDeepNavy,
 
           title:
-              const Text(
+              Text(
             'Verifica voto',
 
             style:
@@ -193,9 +193,9 @@ class _AdminGradesPageState
             'Vuoi verificare il voto ${_gradeLabel(item)} per ${_userName(item)}?',
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
-                  Colors.white70,
+                  AppColors.white70,
 
               height:
                   1.45,
@@ -228,13 +228,13 @@ class _AdminGradesPageState
               },
 
               child:
-                  const Text(
+                  Text(
                 'Verifica',
 
                 style:
                     TextStyle(
                   color:
-                      Colors.greenAccent,
+                      AppColors.greenAccent,
                 ),
               ),
             ),
@@ -306,7 +306,7 @@ class _AdminGradesPageState
               AppColors.eleganceDeepNavy,
 
           title:
-              const Text(
+              Text(
             'Rifiuta voto',
 
             style:
@@ -321,9 +321,9 @@ class _AdminGradesPageState
             'Vuoi rifiutare il voto ${_gradeLabel(item)} dichiarato da ${_userName(item)}?',
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
-                  Colors.white70,
+                  AppColors.white70,
 
               height:
                   1.45,
@@ -356,13 +356,13 @@ class _AdminGradesPageState
               },
 
               child:
-                  const Text(
+                  Text(
                 'Rifiuta',
 
                 style:
                     TextStyle(
                   color:
-                      Colors.redAccent,
+                      AppColors.redAccent,
                 ),
               ),
             ),
@@ -515,7 +515,7 @@ class _AdminGradesPageState
 
             icon:
                 _refreshing
-                    ? const SizedBox(
+                    ? SizedBox(
                         width:
                             19,
 
@@ -973,7 +973,7 @@ class _GradeVerificationCard
         border:
             Border.all(
           color:
-              Colors.amber
+              AppColors.amber
                   .withOpacity(
             0.18,
           ),
@@ -1020,7 +1020,7 @@ class _GradeVerificationCard
                       : '?',
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
                         AppColors.skyBlue,
 
@@ -1055,7 +1055,7 @@ class _GradeVerificationCard
                           TextOverflow.ellipsis,
 
                       style:
-                          const TextStyle(
+                          TextStyle(
                         color:
                             AppColors.pureWhite,
 
@@ -1083,9 +1083,9 @@ class _GradeVerificationCard
                             TextOverflow.ellipsis,
 
                         style:
-                            const TextStyle(
+                            TextStyle(
                           color:
-                              Colors.white54,
+                              AppColors.white54,
 
                           fontSize:
                               10,
@@ -1125,7 +1125,7 @@ class _GradeVerificationCard
                 decoration:
                     BoxDecoration(
                   color:
-                      Colors.amber
+                      AppColors.amber
                           .withOpacity(
                     0.10,
                   ),
@@ -1138,7 +1138,7 @@ class _GradeVerificationCard
                   border:
                       Border.all(
                     color:
-                        Colors.amber
+                        AppColors.amber
                             .withOpacity(
                       0.20,
                     ),
@@ -1152,9 +1152,9 @@ class _GradeVerificationCard
                       : '$grade/30',
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
-                        Colors.amber,
+                        AppColors.amber,
 
                     fontSize:
                         15,
@@ -1195,7 +1195,7 @@ class _GradeVerificationCard
             child:
                 Row(
               children: [
-                const Icon(
+                Icon(
                   Icons.menu_book_outlined,
 
                   color:
@@ -1221,7 +1221,7 @@ class _GradeVerificationCard
                         subjectName,
 
                         style:
-                            const TextStyle(
+                            TextStyle(
                           color:
                               AppColors.pureWhite,
 
@@ -1246,9 +1246,9 @@ class _GradeVerificationCard
                           subjectCode,
 
                           style:
-                              const TextStyle(
+                              TextStyle(
                             color:
-                                Colors.white38,
+                                AppColors.white38,
 
                             fontSize:
                                 9,
@@ -1374,7 +1374,7 @@ class _GradeVerificationCard
                     CrossAxisAlignment.start,
 
                 children: [
-                  const Text(
+                  Text(
                     'Nota',
 
                     style:
@@ -1399,9 +1399,9 @@ class _GradeVerificationCard
                     note.trim(),
 
                     style:
-                        const TextStyle(
+                        TextStyle(
                       color:
-                          Colors.white60,
+                          AppColors.white60,
 
                       fontSize:
                           10,
@@ -1434,7 +1434,7 @@ class _GradeVerificationCard
                     style:
                         ElevatedButton.styleFrom(
                       backgroundColor:
-                          Colors.greenAccent,
+                          AppColors.greenAccent,
 
                       foregroundColor:
                           AppColors
@@ -1484,12 +1484,12 @@ class _GradeVerificationCard
                     style:
                         OutlinedButton.styleFrom(
                       foregroundColor:
-                          Colors.redAccent,
+                          AppColors.redAccent,
 
                       side:
                           BorderSide(
                         color:
-                            Colors.redAccent
+                            AppColors.redAccent
                                 .withOpacity(
                           0.40,
                         ),
@@ -1552,7 +1552,7 @@ class _GradePendingBadge
       decoration:
           BoxDecoration(
         color:
-            Colors.amber
+            AppColors.amber
                 .withOpacity(
           0.09,
         ),
@@ -1565,7 +1565,7 @@ class _GradePendingBadge
         border:
             Border.all(
           color:
-              Colors.amber
+              AppColors.amber
                   .withOpacity(
             0.20,
           ),
@@ -1573,7 +1573,7 @@ class _GradePendingBadge
       ),
 
       child:
-          const Row(
+          Row(
         mainAxisSize:
             MainAxisSize.min,
 
@@ -1582,7 +1582,7 @@ class _GradePendingBadge
             Icons.schedule_rounded,
 
             color:
-                Colors.amber,
+                AppColors.amber,
 
             size:
                 12,
@@ -1599,7 +1599,7 @@ class _GradePendingBadge
             style:
                 TextStyle(
               color:
-                  Colors.amber,
+                  AppColors.amber,
 
               fontSize:
                   8,
@@ -1664,9 +1664,9 @@ class _GradeInfoRow
             label,
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
-                  Colors.white38,
+                  AppColors.white38,
 
               fontSize:
                   9,
@@ -1683,9 +1683,9 @@ class _GradeInfoRow
                 TextAlign.right,
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
-                  Colors.white70,
+                  AppColors.white70,
 
               fontSize:
                   10,
@@ -1755,14 +1755,14 @@ class _EmptyGrades
           ),
 
           child:
-              const Column(
+              Column(
             children: [
               Icon(
                 Icons
                     .workspace_premium_outlined,
 
                 color:
-                    Colors.white38,
+                    AppColors.white38,
 
                 size:
                     46,
@@ -1782,7 +1782,7 @@ class _EmptyGrades
                 style:
                     TextStyle(
                   color:
-                      Colors.white60,
+                      AppColors.white60,
 
                   fontSize:
                       12,
@@ -1847,7 +1847,7 @@ class _AdminGradesError
             border:
                 Border.all(
               color:
-                  Colors.redAccent
+                  AppColors.redAccent
                       .withOpacity(
                 0.18,
               ),
@@ -1860,11 +1860,11 @@ class _AdminGradesError
                 MainAxisSize.min,
 
             children: [
-              const Icon(
+              Icon(
                 Icons.error_outline_rounded,
 
                 color:
-                    Colors.redAccent,
+                    AppColors.redAccent,
 
                 size:
                     40,
@@ -1875,7 +1875,7 @@ class _AdminGradesError
                     12,
               ),
 
-              const Text(
+              Text(
                 'Impossibile caricare i voti',
 
                 textAlign:
@@ -1906,9 +1906,9 @@ class _AdminGradesError
                     TextAlign.center,
 
                 style:
-                    const TextStyle(
+                    TextStyle(
                   color:
-                      Colors.white60,
+                      AppColors.white60,
 
                   fontSize:
                       11,

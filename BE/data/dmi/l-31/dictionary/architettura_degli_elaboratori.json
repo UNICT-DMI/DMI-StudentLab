@@ -1,0 +1,41 @@
+{
+  "schema": "studentlab.dictionary/1",
+  "metadata": {
+    "university": "Università di Catania",
+    "department": "Dipartimento di Matematica e Informatica",
+    "department_code": "DMI",
+    "course": "L-31 - Scienze e tecnologie informatiche",
+    "course_code": "L-31",
+    "subject": "Architettura degli Elaboratori",
+    "academic_year": "attuale",
+    "teachers": [
+      "Massimo Orazio Spata"
+    ],
+    "source": "dmi/l-31/question/architettura_degli_elaboratori.json"
+  },
+  "topics": [
+    {
+      "id": "registri",
+      "title": "Registri",
+      "order": 29
+    }
+  ],
+  "entries": [
+    {
+      "id": "banco-dei-registri",
+      "term": "Banco dei registri",
+      "aliases": [],
+      "topic": "registri",
+      "formal_definition": "Il register file è una piccola memoria interna alla CPU, molto veloce, spesso dotata di due porte di lettura e una di scrittura.",
+      "informal_definition": "È il gruppo di registri generali a cui la CPU può accedere molto rapidamente.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        "54"
+      ]
+    }
+  ]
+}

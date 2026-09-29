@@ -452,7 +452,7 @@ class _ReviewFormPageState
               ),
 
               style:
-                  const TextStyle(
+                  TextStyle(
                 color:
                     AppColors.skyBlue,
 
@@ -487,7 +487,7 @@ class _ReviewFormPageState
                       TextOverflow.ellipsis,
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
                         AppColors.pureWhite,
 
@@ -510,7 +510,7 @@ class _ReviewFormPageState
                       : 'Studente',
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
                         AppColors.materialSky,
 
@@ -580,7 +580,7 @@ class _ReviewFormPageState
             Icons.hourglass_top_rounded;
 
         color =
-            Colors.orangeAccent;
+            AppColors.orangeAccent;
 
         break;
 
@@ -595,7 +595,7 @@ class _ReviewFormPageState
             Icons.verified_rounded;
 
         color =
-            Colors.greenAccent;
+            AppColors.greenAccent;
 
         break;
 
@@ -610,7 +610,7 @@ class _ReviewFormPageState
             Icons.cancel_outlined;
 
         color =
-            Colors.redAccent;
+            AppColors.redAccent;
 
         break;
 
@@ -625,7 +625,7 @@ class _ReviewFormPageState
             Icons.visibility_off_outlined;
 
         color =
-            Colors.orangeAccent;
+            AppColors.orangeAccent;
 
         break;
     }
@@ -749,7 +749,7 @@ class _ReviewFormPageState
           title,
 
           style:
-              const TextStyle(
+              TextStyle(
             color:
                 AppColors.pureWhite,
 
@@ -831,8 +831,8 @@ class _ReviewFormPageState
                     color:
                         value <=
                                 _rating
-                            ? Colors.amber
-                            : Colors.white30,
+                            ? AppColors.amber
+                            : AppColors.white30,
 
                     size:
                         38,
@@ -857,7 +857,7 @@ class _ReviewFormPageState
                 TextStyle(
               color:
                   _rating == 0
-                      ? Colors.white38
+                      ? AppColors.white38
                       : AppColors
                           .materialSky,
 
@@ -916,7 +916,7 @@ class _ReviewFormPageState
                   AppColors.eleganceDeepNavy,
 
               style:
-                  const TextStyle(
+                  TextStyle(
                 color:
                     AppColors.pureWhite,
 
@@ -927,7 +927,7 @@ class _ReviewFormPageState
               decoration:
                   InputDecoration(
                 prefixIcon:
-                    const Icon(
+                    Icon(
                   Icons.menu_book_outlined,
 
                   color:
@@ -1032,7 +1032,7 @@ class _ReviewFormPageState
             2000,
 
         style:
-            const TextStyle(
+            TextStyle(
           color:
               AppColors.pureWhite,
 
@@ -1085,16 +1085,16 @@ class _ReviewFormPageState
             ),
 
             borderSide:
-                const BorderSide(
+                BorderSide(
               color:
                   AppColors.skyBlue,
             ),
           ),
 
           counterStyle:
-              const TextStyle(
+              TextStyle(
             color:
-                Colors.white38,
+                AppColors.white38,
 
             fontSize:
                 10,
@@ -1154,7 +1154,7 @@ class _ReviewFormPageState
 
         icon:
             _saving
-                ? const SizedBox(
+                ? SizedBox(
                     width:
                         18,
 
@@ -1217,12 +1217,12 @@ class _ReviewFormPageState
         style:
             OutlinedButton.styleFrom(
           foregroundColor:
-              Colors.redAccent,
+              AppColors.redAccent,
 
           side:
               BorderSide(
             color:
-                Colors.redAccent
+                AppColors.redAccent
                     .withOpacity(
               0.40,
             ),
@@ -1239,7 +1239,7 @@ class _ReviewFormPageState
 
         icon:
             _deleting
-                ? const SizedBox(
+                ? SizedBox(
                     width:
                         17,
 
@@ -1252,7 +1252,7 @@ class _ReviewFormPageState
                           2,
 
                       color:
-                          Colors.redAccent,
+                          AppColors.redAccent,
                     ),
                   )
                 : const Icon(
@@ -1381,7 +1381,7 @@ class _ReviewFormPageState
               AppColors.eleganceDeepNavy,
 
           title:
-              const Text(
+              Text(
             'Elimina recensione',
 
             style:
@@ -1392,13 +1392,13 @@ class _ReviewFormPageState
           ),
 
           content:
-              const Text(
+              Text(
             'Vuoi eliminare definitivamente questa recensione?',
 
             style:
                 TextStyle(
               color:
-                  Colors.white70,
+                  AppColors.white70,
             ),
           ),
 
@@ -1428,13 +1428,13 @@ class _ReviewFormPageState
               },
 
               child:
-                  const Text(
+                  Text(
                 'Elimina',
 
                 style:
                     TextStyle(
                   color:
-                      Colors.redAccent,
+                      AppColors.redAccent,
                 ),
               ),
             ),
@@ -1806,7 +1806,7 @@ class _SelfReviewCard
             ),
 
             child:
-                const Icon(
+                Icon(
               Icons.person_off_outlined,
 
               color:
@@ -1822,7 +1822,7 @@ class _SelfReviewCard
                 16,
           ),
 
-          const Text(
+          Text(
             'Non puoi recensire il tuo profilo',
 
             textAlign:
@@ -1846,7 +1846,7 @@ class _SelfReviewCard
                 7,
           ),
 
-          const Text(
+          Text(
             'Le recensioni possono essere lasciate soltanto ad altri utenti.',
 
             textAlign:
@@ -1855,7 +1855,7 @@ class _SelfReviewCard
             style:
                 TextStyle(
               color:
-                  Colors.white54,
+                  AppColors.white54,
 
               fontSize:
                   11,
@@ -1917,7 +1917,7 @@ class _ReviewErrorCard
         border:
             Border.all(
           color:
-              Colors.redAccent
+              AppColors.redAccent
                   .withOpacity(
             0.20,
           ),
@@ -1930,11 +1930,11 @@ class _ReviewErrorCard
             MainAxisSize.min,
 
         children: [
-          const Icon(
+          Icon(
             Icons.error_outline_rounded,
 
             color:
-                Colors.redAccent,
+                AppColors.redAccent,
 
             size:
                 40,
@@ -1945,7 +1945,7 @@ class _ReviewErrorCard
                 12,
           ),
 
-          const Text(
+          Text(
             'Impossibile caricare la recensione',
 
             textAlign:
@@ -1976,9 +1976,9 @@ class _ReviewErrorCard
                 TextAlign.center,
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
-                  Colors.white60,
+                  AppColors.white60,
 
               fontSize:
                   11,

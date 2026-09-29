@@ -121,12 +121,12 @@ class _SupportRequestPageState
                     borderRadius:
                         BorderRadius.circular(18),
                   ),
-                  child: const Text(
+                  child: Text(
                     'Invia la richiesta. Quando un operatore la accetta, '
                     'StudentLab ti chiederà il consenso prima di condividere '
                     'qualsiasi diagnostica locale.',
                     style: TextStyle(
-                      color: Colors.white70,
+                      color: AppColors.white70,
                       height: 1.45,
                     ),
                   ),
@@ -136,7 +136,7 @@ class _SupportRequestPageState
                   controller:
                       _summaryController,
                   maxLength: 500,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.pureWhite,
                   ),
                   decoration:
@@ -152,7 +152,7 @@ class _SupportRequestPageState
                   minLines: 4,
                   maxLines: 8,
                   maxLength: 5000,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.pureWhite,
                   ),
                   decoration:

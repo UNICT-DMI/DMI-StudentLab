@@ -1,6 +1,6 @@
 from typing import Any
 
-from sqlalchemy import func
+from sqlalchemy import func, or_
 from sqlalchemy.orm import Session, joinedload
 
 from models.quiz_attempt import (
@@ -483,11 +483,19 @@ def get_student_question_statistics(
     )
 
     if argument is not None:
-        query = query.filter(
-            func.lower(
-                QuizAttemptAnswer.argument
-            ) == argument.lower()
-        )
+        if argument.casefold() == "senza argomento":
+            query = query.filter(
+                or_(
+                    QuizAttemptAnswer.argument.is_(None),
+                    func.trim(QuizAttemptAnswer.argument) == "",
+                )
+            )
+        else:
+            query = query.filter(
+                func.lower(
+                    QuizAttemptAnswer.argument
+                ) == argument.lower()
+            )
 
     rows = (
         query
@@ -546,6 +554,11 @@ def get_student_question_statistics(
                     answer.informal_explanation,
                 "correct_answer_explanation":
                     answer.correct_answer_explanation,
+                # v18 · tipo dell'esercizio (le domande di sempre sono "multiple_choice")
+                "question_type":
+                    getattr(answer, "question_type", None) or "multiple_choice",
+                "correct_payload":
+                    getattr(answer, "correct_payload", None),
                 "times_seen":
                     0,
                 "correct_count":
@@ -563,6 +576,8 @@ def get_student_question_statistics(
                 "last_selected_option_text":
                     None,
                 "last_selected_answer_explanation":
+                    None,
+                "last_answered_at":
                     None,
             }
 
@@ -617,6 +632,25 @@ def get_student_question_statistics(
         ] = (
             answer.selected_answer_explanation
         )
+
+        stats[
+            "last_answered_at"
+        ] = answer.created_at
+
+        if answer.question_text:
+            stats["question_text"] = answer.question_text
+        if isinstance(answer.options_snapshot, list):
+            stats["options"] = answer.options_snapshot
+        if answer.correct_option_id:
+            stats["correct_option_id"] = answer.correct_option_id
+        if answer.correct_option_text:
+            stats["correct_option_text"] = answer.correct_option_text
+        if answer.formal_explanation:
+            stats["formal_explanation"] = answer.formal_explanation
+        if answer.informal_explanation:
+            stats["informal_explanation"] = answer.informal_explanation
+        if answer.correct_answer_explanation:
+            stats["correct_answer_explanation"] = answer.correct_answer_explanation
 
     result: list[
         dict[str, Any]
@@ -732,7 +766,7 @@ def get_student_weak_arguments(
             stats[
                 "accuracy_percentage"
             ]
-            >= maximum_accuracy
+            > maximum_accuracy
         ):
             continue
 

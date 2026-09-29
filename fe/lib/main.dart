@@ -10,6 +10,8 @@ import 'layers/home.dart';
 import 'local_storage/database/database_platform_initializer.dart';
 import 'local_storage/local_storage.dart';
 import 'services/app_update_service.dart';
+import 'theme/app_icon_service.dart';
+import 'theme/theme_controller.dart';
 import 'theme/nightTheme.dart';
 import 'widgets/studentlab_wolf_wave.dart';
 
@@ -23,6 +25,11 @@ Future<void> main() async {
   await localStorage.initialize();
 
   await _applyPreferredSystemUi();
+
+  // Tema scelto su questo dispositivo (Notte se non c'è): va letto prima
+  // di disegnare la schermata iniziale, che usa mascotte e colori del tema.
+  await StudentLabThemeController.instance.load();
+  await StudentLabAppIcon.instance.start();
 
   runApp(const MyApp());
 }
@@ -128,20 +135,17 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'StudentLab',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark().copyWith(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: AppColors.brandNightBlue,
-          brightness: Brightness.dark,
-        ),
-        scaffoldBackgroundColor: AppColors.darkElegance,
-        appBarTheme: AppColors.nightAppBarTheme,
-        cardTheme: AppColors.elegantCardTheme,
-        bottomNavigationBarTheme: AppColors.nightBottomNavTheme,
+    final StudentLabThemeController themes = StudentLabThemeController.instance;
+    return ListenableBuilder(
+      listenable: themes,
+      builder: (BuildContext context, Widget? child) => MaterialApp(
+        title: 'StudentLab',
+        debugShowCheckedModeBanner: false,
+        // Con Notte i valori sono quelli di prima. Vedi
+        // StudentLabThemeController.buildTheme.
+        theme: themes.buildTheme(),
+        home: const AppStartupGate(),
       ),
-      home: const AppStartupGate(),
     );
   }
 }
@@ -244,7 +248,7 @@ class _AppStartupGateState extends State<AppStartupGate> {
       builder: (dialogContext) {
         return AlertDialog(
           backgroundColor: AppColors.eleganceDeepNavy,
-          title: const Text(
+          title: Text(
             'Aggiornamento disponibile',
             style: TextStyle(color: AppColors.pureWhite),
           ),
@@ -254,19 +258,19 @@ class _AppStartupGateState extends State<AppStartupGate> {
             children: [
               Text(
                 'È disponibile StudentLab ${info.latestVersion}.',
-                style: const TextStyle(color: Colors.white70),
+                style: TextStyle(color: AppColors.white70),
               ),
               if (info.message.isNotEmpty) ...[
                 const SizedBox(height: 12),
                 Text(
                   info.message,
-                  style: const TextStyle(color: Colors.white60, fontSize: 13),
+                  style: TextStyle(color: AppColors.white60, fontSize: 13),
                 ),
               ],
               const SizedBox(height: 12),
               Text(
                 'Versione installata: ${info.currentVersion}',
-                style: const TextStyle(color: Colors.white38, fontSize: 11),
+                style: TextStyle(color: AppColors.white38, fontSize: 11),
               ),
             ],
           ),
@@ -344,7 +348,7 @@ class _StartupLoadingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.darkElegance,
       body: Center(
         child: Column(
@@ -396,14 +400,14 @@ class _RequiredUpdatePage extends StatelessWidget {
                         color: AppColors.brandNightBlue,
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.system_update_rounded,
                         color: AppColors.skyBlue,
                         size: 36,
                       ),
                     ),
                     const SizedBox(height: 24),
-                    const Text(
+                    Text(
                       'Aggiornamento necessario',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -464,10 +468,10 @@ class _RequiredUpdatePage extends StatelessWidget {
                     ),
                     if (info.updateUrl.isEmpty) ...[
                       const SizedBox(height: 10),
-                      const Text(
+                      Text(
                         'Il download dell\'aggiornamento non è ancora disponibile.',
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white38, fontSize: 11),
+                        style: TextStyle(color: AppColors.white38, fontSize: 11),
                       ),
                     ],
                     const SizedBox(height: 8),
@@ -518,13 +522,13 @@ class _MaintenancePage extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.construction_rounded,
                       color: AppColors.skyBlue,
                       size: 56,
                     ),
                     const SizedBox(height: 20),
-                    const Text(
+                    Text(
                       'StudentLab è in manutenzione',
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -576,12 +580,12 @@ class _VersionRow extends StatelessWidget {
         Expanded(
           child: Text(
             label,
-            style: const TextStyle(color: Colors.white54, fontSize: 12),
+            style: TextStyle(color: AppColors.white54, fontSize: 12),
           ),
         ),
         Text(
           value,
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.materialSky,
             fontSize: 12,
             fontWeight: FontWeight.w600,

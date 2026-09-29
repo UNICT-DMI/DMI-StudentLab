@@ -1,0 +1,957 @@
+{
+  "universities": [
+    {
+      "code": "UNICT",
+      "name": "Università degli Studi di Catania",
+      "departments": [
+        {
+          "code": "DMI",
+          "name": "Dipartimento di Matematica e Informatica",
+          "courses": [
+            {
+              "code": "L-31",
+              "name": "Scienze e tecnologie informatiche",
+              "degree_type": "Laurea triennale",
+              "subjects": [
+                {
+                  "code": "9795526",
+                  "name": "ALGEBRA LINEARE E GEOMETRIA",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "A-E",
+                      "teachers": [
+                        "MARINO LUCIA MARIA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "F-N",
+                      "teachers": [
+                        "ZAPPALA' GIUSEPPE"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "O-Z",
+                      "teachers": [
+                        "JARAMILLO PUENTES GIOVANNY ANDRES"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1015938",
+                  "name": "ARCHITETTURA DEGLI ELABORATORI E LABORATORIO",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": "ARCHITETTURA DEGLI ELABORATORI",
+                      "channel": "A-E",
+                      "teachers": [
+                        "RUNDO FRANCESCO"
+                      ]
+                    },
+                    {
+                      "module": "LABORATORIO",
+                      "channel": "A-E",
+                      "teachers": [
+                        "RUNDO FRANCESCO"
+                      ]
+                    },
+                    {
+                      "module": "ARCHITETTURA DEGLI ELABORATORI",
+                      "channel": "F-N",
+                      "teachers": [
+                        "SPATA MASSIMO ORAZIO"
+                      ]
+                    },
+                    {
+                      "module": "LABORATORIO",
+                      "channel": "F-N",
+                      "teachers": [
+                        "SPATA MASSIMO ORAZIO"
+                      ]
+                    },
+                    {
+                      "module": "ARCHITETTURA DEGLI ELABORATORI",
+                      "channel": "O-Z",
+                      "teachers": [
+                        "SANTORO CORRADO"
+                      ]
+                    },
+                    {
+                      "module": "LABORATORIO",
+                      "channel": "O-Z",
+                      "teachers": [
+                        "SANTORO CORRADO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1015128",
+                  "name": "ELEMENTI DI ANALISI MATEMATICA 1",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "A-L",
+                      "teachers": [
+                        "D'ASERO SALVATORE",
+                        "NASELLI ORNELLA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "M-Z",
+                      "teachers": [
+                        "MOSCONI SUNRA JOHANNES NIKOLAJ"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "72439",
+                  "name": "FONDAMENTI DI INFORMATICA",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "A-L",
+                      "teachers": [
+                        "BARBANERA FRANCO",
+                        "MADONIA MARIA SERAFINA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "M-Z",
+                      "teachers": [
+                        "BARBANERA FRANCO",
+                        "MADONIA MARIA SERAFINA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1015912",
+                  "name": "PROGRAMMAZIONE I E LABORATORIO",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": "PROGRAMMAZIONE I",
+                      "channel": "A-E",
+                      "teachers": [
+                        "MESSINA FABRIZIO"
+                      ]
+                    },
+                    {
+                      "module": "LABORATORIO",
+                      "channel": "A-E",
+                      "teachers": [
+                        "MESSINA FABRIZIO"
+                      ]
+                    },
+                    {
+                      "module": "PROGRAMMAZIONE I",
+                      "channel": "F-N",
+                      "teachers": [
+                        "FARINELLA GIOVANNI MARIA"
+                      ]
+                    },
+                    {
+                      "module": "LABORATORIO",
+                      "channel": "F-N",
+                      "teachers": [
+                        "CALVAGNA ANDREA MARIO"
+                      ]
+                    },
+                    {
+                      "module": "PROGRAMMAZIONE I",
+                      "channel": "O-Z",
+                      "teachers": [
+                        "FURNARI ANTONINO"
+                      ]
+                    },
+                    {
+                      "module": "LABORATORIO",
+                      "channel": "O-Z",
+                      "teachers": [
+                        "FURNARI ANTONINO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9795537",
+                  "name": "PROGRAMMAZIONE II E LABORATORIO",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": "LABORATORIO",
+                      "channel": "A-L",
+                      "teachers": []
+                    },
+                    {
+                      "module": "PROGRAMMAZIONE II",
+                      "channel": "A-L",
+                      "teachers": [
+                        "ORTIS ALESSANDRO"
+                      ]
+                    },
+                    {
+                      "module": "LABORATORIO",
+                      "channel": "M-Z",
+                      "teachers": [
+                        "SPATA MASSIMO ORAZIO"
+                      ]
+                    },
+                    {
+                      "module": "PROGRAMMAZIONE II",
+                      "channel": "M-Z",
+                      "teachers": [
+                        "MONGIOVI' MISAEL"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9795525",
+                  "name": "STRUTTURE DISCRETE",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "A-E",
+                      "teachers": [
+                        "CAVALLARO CLAUDIA",
+                        "CUTELLO VINCENZO"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "F-N",
+                      "teachers": [
+                        "CAVALLARO CLAUDIA",
+                        "CUTELLO VINCENZO"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "O-Z",
+                      "teachers": [
+                        "CAVALLARO CLAUDIA",
+                        "CUTELLO VINCENZO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1014263",
+                  "name": "ALGORITMI E LABORATORIO",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": "ALGORITMI",
+                      "channel": "A-L",
+                      "teachers": [
+                        "FARO SIMONE"
+                      ]
+                    },
+                    {
+                      "module": "LABORATORIO",
+                      "channel": "A-L",
+                      "teachers": []
+                    },
+                    {
+                      "module": "ALGORITMI",
+                      "channel": "M-Z",
+                      "teachers": [
+                        "CUTELLO VINCENZO"
+                      ]
+                    },
+                    {
+                      "module": "LABORATORIO",
+                      "channel": "M-Z",
+                      "teachers": []
+                    }
+                  ]
+                },
+                {
+                  "code": "1000416",
+                  "name": "BASI DI DATI",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "A-L",
+                      "teachers": [
+                        "MICALE GIOVANNI",
+                        "PULVIRENTI ALFREDO"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "M-Z",
+                      "teachers": [
+                        "ALAIMO SALVATORE",
+                        "MICALE GIOVANNI"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1015123",
+                  "name": "ELEMENTI DI ANALISI MATEMATICA 2",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "A-E",
+                      "teachers": [
+                        "NASELLI ORNELLA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "F-N",
+                      "teachers": [
+                        "NASELLI ORNELLA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "O-Z",
+                      "teachers": [
+                        "NASELLI ORNELLA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000430",
+                  "name": "INGEGNERIA DEL SOFTWARE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "A-L",
+                      "teachers": [
+                        "TRAMONTANA EMILIANO ALESSIO"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "M-Z",
+                      "teachers": []
+                    }
+                  ]
+                },
+                {
+                  "code": "1015928",
+                  "name": "INTERAZIONE E MULTIMEDIA E LABORATORIO",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": "INTERAZIONE E MULTIMEDIA",
+                      "channel": "A-L",
+                      "teachers": [
+                        "STANCO FILIPPO"
+                      ]
+                    },
+                    {
+                      "module": "LABORATORIO",
+                      "channel": "A-L",
+                      "teachers": [
+                        "GUARNERA FRANCESCO"
+                      ]
+                    },
+                    {
+                      "module": "INTERAZIONE E MULTIMEDIA",
+                      "channel": "M-Z",
+                      "teachers": [
+                        "ALLEGRA DARIO"
+                      ]
+                    },
+                    {
+                      "module": "LABORATORIO",
+                      "channel": "M-Z",
+                      "teachers": [
+                        "GUARNERA FRANCESCO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000411",
+                  "name": "RETI DI CALCOLATORI",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "A-L",
+                      "teachers": [
+                        "RICCOBENE SALVATORE ANTONIO",
+                        "SANTORO FEDERICO FAUSTO"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "M-Z",
+                      "teachers": [
+                        "RICCOBENE SALVATORE ANTONIO",
+                        "SANTORO FEDERICO FAUSTO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000418",
+                  "name": "SISTEMI OPERATIVI",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "A-L",
+                      "teachers": [
+                        "DI RAIMONDO MARIO"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "M-Z",
+                      "teachers": [
+                        "PAVONE MARIO FRANCESCO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9796748",
+                  "name": "ALGORITMI RANDOMIZZATI E APPROSSIMATI",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": []
+                    }
+                  ]
+                },
+                {
+                  "code": "9796732",
+                  "name": "ARTIFICIAL INTELLIGENCE",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "PAVONE MARIO FRANCESCO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9793942",
+                  "name": "AUDIO PROCESSING",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": []
+                    }
+                  ]
+                },
+                {
+                  "code": "1014455",
+                  "name": "BIG DATA",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "PULVIRENTI ALFREDO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000417",
+                  "name": "CALCOLO NUMERICO",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "RUSSO GIOVANNI"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9796746",
+                  "name": "COMPUTABILITA' E COMPLESSITA'",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": "COMPLESSITA'",
+                      "channel": null,
+                      "teachers": [
+                        "CANTONE DOMENICO"
+                      ]
+                    },
+                    {
+                      "module": "COMPUTABILITA'",
+                      "channel": null,
+                      "teachers": [
+                        "CANTONE DOMENICO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "92092",
+                  "name": "COMPUTER GRAPHICS",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "GALLO GIOVANNI"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9796830",
+                  "name": "CYBERSECURITY",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "BELLA GIAMPAOLO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1015126",
+                  "name": "DIGITAL FORENSICS",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "BATTIATO SEBASTIANO",
+                        "GUARNERA LUCA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9796733",
+                  "name": "EMBEDDED SYSTEMS",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "SANTORO CORRADO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1008059",
+                  "name": "FISICA",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "A-L",
+                      "teachers": [
+                        "RUGGIERI MARCO"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "M-Z",
+                      "teachers": [
+                        "MANICO' GIULIO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9796767",
+                  "name": "FONDAMENTI DI ANALISI DATI E LABORATORIO",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": "FONDAMENTI DI ANALISI DATI",
+                      "channel": null,
+                      "teachers": [
+                        "FURNARI ANTONINO"
+                      ]
+                    },
+                    {
+                      "module": "LABORATORIO",
+                      "channel": null,
+                      "teachers": [
+                        "FURNARI ANTONINO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9796654",
+                  "name": "FUNCTIONAL AND CONCURRENT PROGRAMMING PRINCIPLES",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "BARBANERA FRANCO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9795536",
+                  "name": "INFORMATION TECHNOLOGY LAW",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "BATTIATO SEBASTIANO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9794565",
+                  "name": "INTERNET SECURITY & LABORATORY",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": "INTERNET SECURITY",
+                      "channel": null,
+                      "teachers": [
+                        "BELLA GIAMPAOLO"
+                      ]
+                    },
+                    {
+                      "module": "LABORATORY",
+                      "channel": null,
+                      "teachers": [
+                        "BELLA GIAMPAOLO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1007998",
+                  "name": "INTRODUZIONE AL DATA MINING",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "MICALE GIOVANNI"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9796734",
+                  "name": "IoT",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "SANTORO FEDERICO FAUSTO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000422",
+                  "name": "METODI MATEMATICI E STATISTICI",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "A-L",
+                      "teachers": [
+                        "FALSAPERLA PAOLO"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "M-Z",
+                      "teachers": [
+                        "PICCITTO GIULIA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9796750",
+                  "name": "MIXED REALITY AND WEARABLE VISION",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": []
+                    }
+                  ]
+                },
+                {
+                  "code": "9796774",
+                  "name": "MOBILE PROGRAMMING",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "SPATA MASSIMO ORAZIO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9796762",
+                  "name": "MULTIMEDIA SECURITY & BIOMETRY",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "ORTIS ALESSANDRO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9796702",
+                  "name": "NATURAL LANGUAGE PROCESSING",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "MONGIOVI' MISAEL"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1006288",
+                  "name": "PROGRAMMAZIONE PARALLELA SU ARCHITETTURE GPU",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": []
+                    }
+                  ]
+                },
+                {
+                  "code": "9796747",
+                  "name": "QUANTUM COMPUTER PROGRAMMING",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "FARO SIMONE"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9796764",
+                  "name": "SERVICE ORIENTED SYSTEM",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "PAPPALARDO GIUSEPPE"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1006055",
+                  "name": "SISTEMI CENTRALI",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "MESSINA FABRIZIO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9796736",
+                  "name": "SISTEMI ROBOTICI",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "SANTORO CORRADO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9796008",
+                  "name": "SOCIAL MEDIA DATA ANALYSIS",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "RAGUSA FRANCESCO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1008049",
+                  "name": "STARTUP DI IMPRESA E MODELLI DI BUSINESS",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "VIRGILLITO DANIELE"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1006278",
+                  "name": "SVILUPPO DI GIOCHI DIGITALI",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": []
+                    }
+                  ]
+                },
+                {
+                  "code": "1015205",
+                  "name": "TECHNOLOGIES FOR ADVANCED PROGRAMMING",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": []
+                    }
+                  ]
+                },
+                {
+                  "code": "9796751",
+                  "name": "UX, DIGITAL DESIGN & USABILITY",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "STANCO FILIPPO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9796763",
+                  "name": "VULNERABILITY ASSESSMENT AND PENETRATION TESTING",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "ESPOSITO SERGIO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9796776",
+                  "name": "WEB AND SERVICE ORIENTED SYSTEMS AND LABORATORY",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": "LABORATORY",
+                      "channel": null,
+                      "teachers": []
+                    },
+                    {
+                      "module": "WEB AND SERVICE ORIENTED SYSTEMS",
+                      "channel": null,
+                      "teachers": [
+                        "PAPPALARDO GIUSEPPE"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "52713",
+                  "name": "WEB PROGRAMMING",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "SANTORO FEDERICO FAUSTO"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

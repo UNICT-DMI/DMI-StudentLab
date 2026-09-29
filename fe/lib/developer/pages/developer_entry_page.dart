@@ -82,7 +82,7 @@ class _DeveloperEntryPageState
   @override
   Widget build(BuildContext context) {
     if (_loading) {
-      return const Scaffold(
+      return Scaffold(
         backgroundColor: AppColors.darkElegance,
         body: Center(
           child: CircularProgressIndicator(
@@ -116,7 +116,7 @@ class _DeveloperEntryPageState
                   color: AppColors.eleganceMidnight,
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
-                    color: Colors.redAccent
+                    color: AppColors.redAccent
                         .withValues(alpha: 0.16),
                   ),
                 ),
@@ -127,19 +127,19 @@ class _DeveloperEntryPageState
                       width: 58,
                       height: 58,
                       decoration: BoxDecoration(
-                        color: Colors.redAccent
+                        color: AppColors.redAccent
                             .withValues(alpha: 0.08),
                         borderRadius:
                             BorderRadius.circular(16),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.gpp_bad_outlined,
-                        color: Colors.redAccent,
+                        color: AppColors.redAccent,
                         size: 31,
                       ),
                     ),
                     const SizedBox(height: 16),
-                    const Text(
+                    Text(
                       'Accesso non autorizzato',
                       textAlign: TextAlign.center,
                       style: TextStyle(

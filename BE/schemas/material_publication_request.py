@@ -132,6 +132,7 @@ class MaterialPublicationUploadRequest(
 class MaterialPublicationCompleteRequest(
     BaseModel,
 ):
+    attribution_mode: Literal["anonymous", "named"] = "anonymous"
     subject_id: int
 
     request_type: MaterialPublicationRequestType = (
@@ -179,10 +180,11 @@ class MaterialPublicationCompleteRequest(
         pattern=r"^[a-fA-F0-9]{64}$",
     )
 
-
 class MaterialPublicationRequestResponse(
     BaseModel,
 ):
+    attribution_mode: Literal["anonymous", "named"] = "anonymous"
+    admin_force_anonymous: bool = False
     model_config = ConfigDict(
         from_attributes=True,
     )
@@ -192,6 +194,8 @@ class MaterialPublicationRequestResponse(
     user_id: int
 
     subject_id: int
+
+    subject_name: str | None = None
 
     university: str
 
@@ -253,6 +257,8 @@ class MaterialPublicationRequestResponse(
 class MaterialPublicationRequestAdminResponse(
     MaterialPublicationRequestResponse,
 ):
+    attribution_mode: Literal["anonymous", "named"] = "anonymous"
+    admin_force_anonymous: bool = False
     stored_name: str
 
     file_path: str
@@ -261,6 +267,7 @@ class MaterialPublicationRequestAdminResponse(
 class MaterialPublicationApproveRequest(
     BaseModel,
 ):
+    force_anonymous: bool = False
     approved_action: MaterialApprovedAction | None = (
         None
     )
@@ -275,7 +282,10 @@ class MaterialPublicationApproveRequest(
     )
 
     admin_note: str | None = None
-
+    drive_path_segments: list[str] | None = None
+    allow_drive_duplicate: bool = False
+    catalog_path_segments: list[str] | None = None
+    audience_type: Literal['public', 'course', 'subject'] | None = None
 
 class MaterialPublicationRejectRequest(
     BaseModel,

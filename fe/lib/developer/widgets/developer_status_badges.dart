@@ -27,7 +27,7 @@ class DeveloperStatusBadges extends StatelessWidget {
         _StatusBadge(
           icon: Icons.verified_outlined,
           label: compact ? 'DOC' : 'DOCUMENTED',
-          color: Colors.greenAccent,
+          color: AppColors.greenAccent,
           compact: compact,
         ),
       );
@@ -36,7 +36,7 @@ class DeveloperStatusBadges extends StatelessWidget {
         _StatusBadge(
           icon: Icons.radio_button_unchecked_rounded,
           label: compact ? 'N/A' : 'NOT ANALYZED',
-          color: Colors.white38,
+          color: AppColors.white38,
           compact: compact,
         ),
       );
@@ -47,7 +47,7 @@ class DeveloperStatusBadges extends StatelessWidget {
         _StatusBadge(
           icon: Icons.warning_amber_rounded,
           label: compact ? 'OLD' : 'OUTDATED',
-          color: Colors.amber,
+          color: AppColors.amber,
           compact: compact,
         ),
       );
@@ -69,7 +69,7 @@ class DeveloperStatusBadges extends StatelessWidget {
         _StatusBadge(
           icon: Icons.lock_outline_rounded,
           label: compact ? 'SEC' : 'SECURITY CRITICAL',
-          color: Colors.redAccent,
+          color: AppColors.redAccent,
           compact: compact,
         ),
       );

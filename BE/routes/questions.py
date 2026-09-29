@@ -26,6 +26,10 @@ from schemas.question import (
     QuestionUpdate,
 )
 
+from services.private_blob import (
+    delete_private_blob_sync,
+)
+
 from services.question_service import (
     create_question,
     delete_question,
@@ -143,6 +147,14 @@ def _require_question_manager(
         course,
         subject,
     )
+
+    # Le domande storiche possono esistere nell'archivio quiz prima che la
+    # materia sia stata inserita nel catalogo PostgreSQL. Il creator può
+    # correggere solo un archivio già esistente; il docente resta vincolato
+    # alla materia verificata nel catalogo.
+    if subject_record is None and (current_user.role or '').strip().lower() in {'admin', 'creator'}:
+        if get_questions_for_management(department, course, subject):
+            return None
 
     if subject_record is None:
         raise HTTPException(
@@ -273,7 +285,7 @@ def api_manage_questions(
         )
     )
 
-    _require_question_manager(
+    subject_record = _require_question_manager(
         db,
         current_user,
         department,
@@ -447,7 +459,7 @@ def api_update_question(
         )
     )
 
-    _require_question_manager(
+    subject_record = _require_question_manager(
         db,
         current_user,
         department,
@@ -462,6 +474,10 @@ def api_update_question(
             subject=subject,
             question_id=question_id,
             data=request,
+            default_university=(subject_record.university if subject_record is not None
+                                else 'Università degli Studi di Catania'
+                                if department.strip().lower() == 'dmi' and course.strip().lower() in {'l31', 'l-31', 'informatica'}
+                                else None),
         )
 
     except ValueError as exception:
@@ -723,6 +739,47 @@ def api_delete_question(
     )
 
     try:
+        question = get_question(
+            department=department,
+            course=course,
+            subject=subject,
+            question_id=question_id,
+            include_hidden=True,
+        )
+
+        if question is None:
+            raise ValueError(
+                "Domanda non trovata."
+            )
+
+        attachments = question.get(
+            "attachments",
+            [],
+        )
+
+        if isinstance(
+            attachments,
+            list,
+        ):
+            for attachment in attachments:
+                if not isinstance(
+                    attachment,
+                    dict,
+                ):
+                    continue
+
+                stored_name = str(
+                    attachment.get(
+                        "stored_name",
+                        "",
+                    )
+                ).strip()
+
+                if stored_name:
+                    delete_private_blob_sync(
+                        stored_name
+                    )
+
         delete_question(
             department=department,
             course=course,
@@ -771,7 +828,7 @@ async def api_import_questions(
         )
     )
 
-    _require_question_manager(
+    subject_record = _require_question_manager(
         db,
         current_user,
         department,
@@ -884,6 +941,11 @@ async def api_import_questions(
             subject=subject,
             raw_questions=raw_questions,
             skip_duplicates=skip_duplicates,
+            default_university=(
+                subject_record.university
+                if subject_record is not None
+                else None
+            ),
         )
 
     except ValueError as exception:

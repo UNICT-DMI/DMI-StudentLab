@@ -1,3 +1,6 @@
+import hashlib
+import hmac
+
 from fastapi import HTTPException
 from fastapi.responses import Response
 from vercel.blob import AsyncBlobClient, BlobClient
@@ -41,7 +44,14 @@ async def verify_private_blob(
     stored_name: str,
     expected_size: int,
     expected_mime_type: str,
+    expected_sha256: str | None = None,
 ):
+    """Verifica che il blob caricato dal client corrisponda a quanto dichiarato.
+
+    Con `expected_sha256` il server ricalcola l'hash sul contenuto reale:
+    l'hash dichiarato dal client non basta per riconoscere duplicati o
+    nuove versioni, perché potrebbe essere falsificato.
+    """
     require_blob_storage()
     try:
         async with AsyncBlobClient(token=settings.blob_read_write_token) as client:
@@ -71,6 +81,20 @@ async def verify_private_blob(
             raise HTTPException(
                 status_code=400,
                 detail="Il tipo del file caricato non corrisponde alla richiesta.",
+            )
+
+    if expected_sha256 is not None:
+        content = result.content or b""
+        if len(content) != expected_size:
+            raise HTTPException(
+                status_code=400,
+                detail="La dimensione del file caricato non corrisponde alla richiesta.",
+            )
+        actual_sha256 = hashlib.sha256(content).hexdigest()
+        if not hmac.compare_digest(actual_sha256, expected_sha256.strip().lower()):
+            raise HTTPException(
+                status_code=400,
+                detail="Il contenuto del file non corrisponde a quello dichiarato.",
             )
     return result
 

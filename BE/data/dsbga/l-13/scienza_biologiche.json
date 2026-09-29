@@ -1,0 +1,1032 @@
+{
+  "universities": [
+    {
+      "code": "UNICT",
+      "name": "Università degli Studi di Catania",
+      "departments": [
+        {
+          "code": "DSBGA",
+          "name": "Dipartimento di Scienze Biologiche, Geologiche e Ambientali",
+          "courses": [
+            {
+              "code": "L-13",
+              "name": "Scienze Biologiche",
+              "degree_type": "Laurea triennale",
+              "subjects": [
+                {
+                  "code": "9799814",
+                  "name": "BASI BIOCHIMICHE DELLA PATOLOGIA UMANA",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "GIALLONGO CESARINA",
+                        "LONGHITANO LUCIA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000045",
+                  "name": "Biologia dello Sviluppo",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "1",
+                      "teachers": [
+                        "PECORARO ROBERTA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "2",
+                      "teachers": [
+                        "PECORARO ROBERTA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "3",
+                      "teachers": [
+                        "SCALISI ELENA MARIA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "4",
+                      "teachers": [
+                        "SCALISI ELENA MARIA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9798757",
+                  "name": "BIOLOGIA MARINA",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "ALONGI GIUSEPPINA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "72432",
+                  "name": "BOTANICA",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "1",
+                      "teachers": [
+                        "MINISSALE PIETRO"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "2",
+                      "teachers": [
+                        "SCIANDRELLO SAVERIO"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "3",
+                      "teachers": [
+                        "MINISSALE PIETRO",
+                        "PUGLISI MARTA MARIA",
+                        "SCIANDRELLO SAVERIO"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "4",
+                      "teachers": [
+                        "CRISTAUDO ANTONIA EGIDIA",
+                        "PUGLISI MARTA MARIA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "72429",
+                  "name": "CHIMICA GENERALE E INORGANICA",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "1",
+                      "teachers": [
+                        "GRASSO GIUSEPPE"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "2",
+                      "teachers": [
+                        "OLIVERI VALENTINA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "3",
+                      "teachers": [
+                        "D'URSO ALESSANDRO"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "4",
+                      "teachers": [
+                        "DE GUIDI GUIDO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "72430",
+                  "name": "CITOLOGIA E ISTOLOGIA",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "1",
+                      "teachers": [
+                        "BRUNDO MARIA VIOLETTA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "2",
+                      "teachers": [
+                        "PECORARO ROBERTA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "3",
+                      "teachers": [
+                        "FERRITO VENERA",
+                        "PAPPALARDO ANNA MARIA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "4",
+                      "teachers": [
+                        "BRUNDO MARIA VIOLETTA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9798756",
+                  "name": "DIAGNOSTICA BATTERIOLOGICA E ANTIBIOTICO SENSIBILITA'",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "BONGIORNO DAFNE SAMANTHA IRENE"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9797382",
+                  "name": "ELETTROMAGNETISMO AMBIENTALE E BIOELETTROMAGNETISMO",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "DI DONATO LORETO",
+                        "SORBELLO GINO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9797379",
+                  "name": "INFORMATICA APPLICATA",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "1",
+                      "teachers": [
+                        "SALFI MARIO MASSIMILIANO"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "2",
+                      "teachers": [
+                        "BELLOCCHI MICHELE"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "3",
+                      "teachers": [
+                        "DI SALVO ROBERTO"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "4",
+                      "teachers": [
+                        "BELLOCCHI MICHELE"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9797380",
+                  "name": "INTRODUZIONE ALLA PATOLOGIA CLINICA",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "MANZELLA LIVIA",
+                        "STELLA STEFANIA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9799535",
+                  "name": "INTRODUZIONE ALLA PROFESSIONE DEL BIOLOGO",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "SACCONE SALVATORE"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9798967",
+                  "name": "INTRODUZIONE ALLE SCIENZE OMICHE IN AMBITO DIAGNOSTICO",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "MASSIMINO MICHELE"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000726",
+                  "name": "ISTITUZIONI DI MATEMATICHE",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "1",
+                      "teachers": [
+                        "PUGLISI DANIELE"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "2",
+                      "teachers": [
+                        "PUGLISI DANIELE"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "3",
+                      "teachers": [
+                        "MOSCONI SUNRA JOHANNES NIKOLAJ"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "4",
+                      "teachers": [
+                        "JACONA DOROTEA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9799534",
+                  "name": "LINGUA INGLESE",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "1",
+                      "teachers": [
+                        "DIPIETRO CHIARA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "2",
+                      "teachers": [
+                        "DIPIETRO CHIARA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "3",
+                      "teachers": [
+                        "PIANA CARMELA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "4",
+                      "teachers": [
+                        "PIANA CARMELA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9797381",
+                  "name": "METODOLOGIE MOLECOLARI APPLICATE AI SISTEMI VEGETALI",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "PUGLIA GIUSEPPE"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9799497",
+                  "name": "OFA CHIMICA",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "1",
+                      "teachers": [
+                        "GRASSO GIUSEPPE"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "2",
+                      "teachers": [
+                        "OLIVERI VALENTINA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "3",
+                      "teachers": [
+                        "D'URSO ALESSANDRO"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "4",
+                      "teachers": [
+                        "DE GUIDI GUIDO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9799498",
+                  "name": "OFA MATEMATICA",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "1",
+                      "teachers": [
+                        "PUGLISI DANIELE"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "2",
+                      "teachers": [
+                        "PUGLISI DANIELE"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "3",
+                      "teachers": [
+                        "MOSCONI SUNRA JOHANNES NIKOLAJ"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "4",
+                      "teachers": [
+                        "MOSCONI SUNRA JOHANNES NIKOLAJ"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1003789",
+                  "name": "TECNICHE BIOCHIMICHE E BIOMOLECOLARI",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "MAGRI' ANDREA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1014833",
+                  "name": "TECNICHE CITOGENETICHE E MOLECOLARI",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "FEDERICO CONCETTA",
+                        "SACCONE SALVATORE"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9799510",
+                  "name": "TECNICHE DI CONSERVAZIONE DEL GERMOPLASMA",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "CRISTAUDO ANTONIA EGIDIA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "72433",
+                  "name": "ZOOLOGIA",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "1",
+                      "teachers": [
+                        "IGNOTO SARA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "2",
+                      "teachers": [
+                        "FRUCIANO CARMELO"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "3",
+                      "teachers": [
+                        "LISI OSCAR PAOLO VINCENZO",
+                        "TIRALONGO FRANCESCO"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "4",
+                      "teachers": [
+                        "LEONE DIEGO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000032",
+                  "name": "Biochimica",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "1",
+                      "teachers": [
+                        "TIBULLO DANIELE"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "2",
+                      "teachers": [
+                        "TIBULLO DANIELE"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "3",
+                      "teachers": [
+                        "AMORINI ANGELA MARIA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "4",
+                      "teachers": [
+                        "AMORINI ANGELA MARIA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000001",
+                  "name": "Chimica Organica",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "1",
+                      "teachers": [
+                        "FORTUNA COSIMO GIANLUCA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "2",
+                      "teachers": [
+                        "FORTUNA COSIMO GIANLUCA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "3",
+                      "teachers": [
+                        "CUNSOLO VINCENZO"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "4",
+                      "teachers": [
+                        "PAPPALARDO ANDREA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9797490",
+                  "name": "ECOLOGY",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "1",
+                      "teachers": [
+                        "BONANNO GIUSEPPE",
+                        "NICOLOSI GIUSEPPE"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "2",
+                      "teachers": [
+                        "BONANNO GIUSEPPE",
+                        "NICOLOSI GIUSEPPE"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "3",
+                      "teachers": [
+                        "CONTI ERMINIA",
+                        "MULDER CHRISTIAN"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "4",
+                      "teachers": [
+                        "CONTI ERMINIA",
+                        "MULDER CHRISTIAN"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000984",
+                  "name": "FISICA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "1",
+                      "teachers": [
+                        "SCANDURRA ANTONINO"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "2",
+                      "teachers": [
+                        "RIDOLFO ALESSANDRO"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "3",
+                      "teachers": [
+                        "GALLO GIUSEPPE",
+                        "LO PRESTI DOMENICO"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "4",
+                      "teachers": [
+                        "GALLO GIUSEPPE",
+                        "LO PRESTI DOMENICO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000047",
+                  "name": "Genetica",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "1",
+                      "teachers": [
+                        "FEDERICO CONCETTA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "2",
+                      "teachers": [
+                        "FEDERICO CONCETTA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "3",
+                      "teachers": [
+                        "SACCONE SALVATORE"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "4",
+                      "teachers": [
+                        "SACCONE SALVATORE"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000033",
+                  "name": "IGIENE E STATISTICA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": "IGIENE",
+                      "channel": "1",
+                      "teachers": [
+                        "BARCHITTA MARTINA"
+                      ]
+                    },
+                    {
+                      "module": "STATISTICA",
+                      "channel": "1",
+                      "teachers": [
+                        "FAVARA GIULIANA"
+                      ]
+                    },
+                    {
+                      "module": "IGIENE",
+                      "channel": "2",
+                      "teachers": [
+                        "BARCHITTA MARTINA"
+                      ]
+                    },
+                    {
+                      "module": "STATISTICA",
+                      "channel": "2",
+                      "teachers": [
+                        "FAVARA GIULIANA"
+                      ]
+                    },
+                    {
+                      "module": "IGIENE",
+                      "channel": "3",
+                      "teachers": [
+                        "OJEDA GRANADOS CLAUDIA"
+                      ]
+                    },
+                    {
+                      "module": "STATISTICA",
+                      "channel": "3",
+                      "teachers": [
+                        "LA MASTRA CLAUDIA"
+                      ]
+                    },
+                    {
+                      "module": "IGIENE",
+                      "channel": "4",
+                      "teachers": [
+                        "OJEDA GRANADOS CLAUDIA"
+                      ]
+                    },
+                    {
+                      "module": "STATISTICA",
+                      "channel": "4",
+                      "teachers": [
+                        "LA MASTRA CLAUDIA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000051",
+                  "name": "MICROBIOLOGIA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "1",
+                      "teachers": [
+                        "CAMPANILE FLORIANA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "2",
+                      "teachers": [
+                        "CAMPANILE FLORIANA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "3",
+                      "teachers": [
+                        "SANTAGATI MARIA CARMELA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "4",
+                      "teachers": [
+                        "SANTAGATI MARIA CARMELA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000042",
+                  "name": "ANATOMIA COMPARATA ED EVOLUZIONE BIOLOGICA",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": "ANATOMIA COMPARATA",
+                      "channel": "1",
+                      "teachers": [
+                        "PAPPALARDO ANNA MARIA"
+                      ]
+                    },
+                    {
+                      "module": "EVOLUZIONE BIOLOGICA",
+                      "channel": "1",
+                      "teachers": [
+                        "VICARI DEBORAH"
+                      ]
+                    },
+                    {
+                      "module": "ANATOMIA COMPARATA",
+                      "channel": "2",
+                      "teachers": [
+                        "PAPPALARDO ANNA MARIA"
+                      ]
+                    },
+                    {
+                      "module": "EVOLUZIONE BIOLOGICA",
+                      "channel": "2",
+                      "teachers": [
+                        "VICARI DEBORAH"
+                      ]
+                    },
+                    {
+                      "module": "ANATOMIA COMPARATA",
+                      "channel": "3",
+                      "teachers": [
+                        "FERRITO VENERA"
+                      ]
+                    },
+                    {
+                      "module": "EVOLUZIONE BIOLOGICA",
+                      "channel": "3",
+                      "teachers": [
+                        "VICARI DEBORAH"
+                      ]
+                    },
+                    {
+                      "module": "ANATOMIA COMPARATA",
+                      "channel": "4",
+                      "teachers": [
+                        "FERRITO VENERA"
+                      ]
+                    },
+                    {
+                      "module": "EVOLUZIONE BIOLOGICA",
+                      "channel": "4",
+                      "teachers": [
+                        "VICARI DEBORAH"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "72428",
+                  "name": "ANATOMIA UMANA",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "A-L",
+                      "teachers": [
+                        "EVOLA GIUSEPPE"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "M-Z",
+                      "teachers": [
+                        "MAGRI' BENEDETTA GIUSEPPA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000040",
+                  "name": "Biologia Molecolare",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "1",
+                      "teachers": [
+                        "MESSINA ANGELA ANNA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "2",
+                      "teachers": [
+                        "MESSINA ANGELA ANNA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "3",
+                      "teachers": [
+                        "MAGRI' ANDREA"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "4",
+                      "teachers": [
+                        "MAGRI' ANDREA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000009",
+                  "name": "FISIOLOGIA",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "1",
+                      "teachers": [
+                        "GULINO ROSARIO"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "2",
+                      "teachers": [
+                        "GULINO ROSARIO"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "3",
+                      "teachers": [
+                        "TORRISI FILIPPO"
+                      ]
+                    },
+                    {
+                      "module": null,
+                      "channel": "4",
+                      "teachers": [
+                        "TORRISI FILIPPO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1010999",
+                  "name": "MORFOLOGIA E FISIOLOGIA VEGETALE",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": "MORFOLOGIA VEGETALE",
+                      "channel": "1",
+                      "teachers": [
+                        "CATARA STEFANIA"
+                      ]
+                    },
+                    {
+                      "module": "FISIOLOGIA VEGETALE",
+                      "channel": "1",
+                      "teachers": [
+                        "CRISTAUDO ANTONIA EGIDIA"
+                      ]
+                    },
+                    {
+                      "module": "MORFOLOGIA VEGETALE",
+                      "channel": "2",
+                      "teachers": [
+                        "CATARA STEFANIA"
+                      ]
+                    },
+                    {
+                      "module": "FISIOLOGIA VEGETALE",
+                      "channel": "2",
+                      "teachers": [
+                        "CRISTAUDO ANTONIA EGIDIA"
+                      ]
+                    },
+                    {
+                      "module": "MORFOLOGIA VEGETALE",
+                      "channel": "3",
+                      "teachers": [
+                        "PUGLIA GIUSEPPE"
+                      ]
+                    },
+                    {
+                      "module": "FISIOLOGIA VEGETALE",
+                      "channel": "3",
+                      "teachers": [
+                        "PUGLIA GIUSEPPE"
+                      ]
+                    },
+                    {
+                      "module": "MORFOLOGIA VEGETALE",
+                      "channel": "4",
+                      "teachers": [
+                        "PUGLIA GIUSEPPE"
+                      ]
+                    },
+                    {
+                      "module": "FISIOLOGIA VEGETALE",
+                      "channel": "4",
+                      "teachers": [
+                        "PUGLIA GIUSEPPE"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

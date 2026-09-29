@@ -56,12 +56,23 @@ class QuizAttempt(Base):
     created_at = Column(DateTime(timezone=True), nullable=False, default=utc_now)
     updated_at = Column(DateTime(timezone=True), nullable=False, default=utc_now, onupdate=utc_now)
 
-    answers = relationship("QuizAttemptAnswer", cascade="all, delete-orphan", passive_deletes=True)
+    answers = relationship(
+        "QuizAttemptAnswer",
+        back_populates="attempt",
+        cascade="all, delete-orphan",
+        passive_deletes=True,
+    )
 
 
 class QuizAttemptAnswer(Base):
     __tablename__ = "quiz_attempt_answers"
-    __table_args__ = (UniqueConstraint("attempt_id", "question_id", name="uq_quiz_attempt_answer_question"),)
+    __table_args__ = (
+        UniqueConstraint(
+            "attempt_id",
+            "question_id",
+            name="uq_quiz_attempt_answer_question",
+        ),
+    )
 
     id = Column(Integer, primary_key=True, index=True)
     attempt_id = Column(Integer, ForeignKey("quiz_attempts.id", ondelete="CASCADE"), nullable=False, index=True)
@@ -81,4 +92,13 @@ class QuizAttemptAnswer(Base):
     informal_explanation = Column(Text, nullable=True)
     selected_answer_explanation = Column(Text, nullable=True)
     correct_answer_explanation = Column(Text, nullable=True)
+    # v18 · tipi di esercizio. Le domande a risposta multipla restano "multiple_choice"
+    # con i campi di sopra; gli altri tipi usano answer_payload/correct_payload/score.
+    question_type = Column(String(30), nullable=False, default="multiple_choice", server_default="multiple_choice", index=True)
+    answer_payload = Column(JSON, nullable=True)
+    correct_payload = Column(JSON, nullable=True)
+    score = Column(Float, nullable=True)
     created_at = Column(DateTime(timezone=True), nullable=False, default=utc_now)
+    updated_at = Column(DateTime(timezone=True), nullable=False, default=utc_now, onupdate=utc_now)
+
+    attempt = relationship("QuizAttempt", back_populates="answers")

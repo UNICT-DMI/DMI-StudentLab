@@ -61,7 +61,7 @@ class SocialIntro extends StatelessWidget {
               ],
             ),
 
-            child: const Icon(
+            child: Icon(
               Icons.people_alt_rounded,
               color:
                   AppColors.skyBlue,
@@ -75,7 +75,7 @@ class SocialIntro extends StatelessWidget {
           height: 28,
         ),
 
-        const Text(
+        Text(
           'Connettiti con la tua comunità',
 
           textAlign:
@@ -353,7 +353,7 @@ class _SocialInfoCard
                   title,
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
                         AppColors.pureWhite,
 

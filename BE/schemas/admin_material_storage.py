@@ -9,6 +9,8 @@ MaterialStorageSource = Literal[
     "public",
     "teacher",
     "group",
+    "personal_sync",
+    "shared_user",
 ]
 
 
@@ -48,3 +50,24 @@ class AdminMaterialStorageEventResponse(BaseModel):
     actor_id: int | None
     reason: str | None
     created_at: datetime
+
+
+class AdminMovePublicFolderRequest(BaseModel):
+    source_subject_id: int = Field(gt=0)
+    source_path: list[str] = Field(min_length=1, max_length=8)
+    destination_subject_id: int = Field(gt=0)
+    destination_path: list[str] = Field(default_factory=list, max_length=8)
+
+
+class AdminPlacePublicMaterialRequest(BaseModel):
+    subject_id: int = Field(gt=0)
+    path_segments: list[str] = Field(default_factory=list, max_length=8)
+
+
+class AdminPublicVisibilityRequest(BaseModel):
+    state: Literal['visible', 'hidden', 'in_review', 'archived']
+
+
+class AdminPublicAudienceRequest(BaseModel):
+    audience_type: Literal['public', 'course', 'subject', 'group', 'user']
+    audience_id: int | None = Field(default=None, gt=0)

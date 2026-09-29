@@ -2,6 +2,7 @@ import uuid
 
 from datetime import (
     datetime,
+    timedelta,
     timezone,
 )
 
@@ -904,6 +905,8 @@ def create_teacher_material(
                 "file_hash"
             ]
         ),
+        distribution_mode=(getattr(request, "distribution_mode", "persistent") or "persistent"),
+        cloud_expires_at=(utc_now() + timedelta(days=8) if (getattr(request, "distribution_mode", "persistent") or "persistent") == "temporary" else None),
         version=1,
         status="active",
         visibility=visibility,

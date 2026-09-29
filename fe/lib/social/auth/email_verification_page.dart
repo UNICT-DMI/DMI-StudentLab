@@ -702,7 +702,7 @@ super.dispose();
 
                   children: [
 
-                    const Icon(
+                    Icon(
 
                       Icons.mark_email_read_outlined,
 
@@ -714,7 +714,7 @@ super.dispose();
 
                     const SizedBox(height: 18),
 
-                    const Text(
+                    Text(
 
                       'Controlla la tua email',
 
@@ -764,7 +764,7 @@ super.dispose();
 
                         color: expired
 
-                            ? Colors.orangeAccent
+                            ? AppColors.orangeAccent
 
                             : AppColors.materialSky,
 
@@ -798,7 +798,7 @@ super.dispose();
 
                       onSubmitted: (_) => _verify(),
 
-                      style: const TextStyle(
+                      style: TextStyle(
 
                         color: AppColors.pureWhite,
 
@@ -826,7 +826,7 @@ super.dispose();
 
                         _error!,
 
-                        style: const TextStyle(color: Colors.redAccent),
+                        style: TextStyle(color: AppColors.redAccent),
 
                       ),
 
@@ -840,7 +840,7 @@ super.dispose();
 
                         _message!,
 
-                        style: const TextStyle(color: Colors.greenAccent),
+                        style: TextStyle(color: AppColors.greenAccent),
 
                       ),
 
@@ -890,9 +890,9 @@ super.dispose();
 
                         textAlign: TextAlign.center,
 
-                        style: const TextStyle(
+                        style: TextStyle(
 
-                          color: Colors.orangeAccent,
+                          color: AppColors.orangeAccent,
 
                           fontSize: 12,
 

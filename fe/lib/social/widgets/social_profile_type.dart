@@ -188,7 +188,7 @@ class SocialProfileType extends StatelessWidget {
                         // ICON
                         // =====================================================
 
-                        const Icon(
+                        Icon(
                           Icons.groups_rounded,
 
                           size:
@@ -208,7 +208,7 @@ class SocialProfileType extends StatelessWidget {
                         // TITLE
                         // =====================================================
 
-                        const Text(
+                        Text(
                           'Entra nella community',
 
                           textAlign:
@@ -490,7 +490,7 @@ class SocialProfileType extends StatelessWidget {
                     title,
 
                     style:
-                        const TextStyle(
+                        TextStyle(
                       color:
                           AppColors.pureWhite,
 

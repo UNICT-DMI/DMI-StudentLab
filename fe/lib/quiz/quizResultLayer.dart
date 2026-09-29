@@ -120,7 +120,7 @@ class QuizResultLayer extends StatelessWidget {
                     const SizedBox(height: 28),
 
 
-                    const Text(
+                    Text(
                       'Riepilogo delle domande',
                       style: TextStyle(
                         color: AppColors.pureWhite,
@@ -187,7 +187,7 @@ class QuizResultLayer extends StatelessWidget {
       child: Column(
         children: [
 
-          const Text(
+          Text(
             'Punteggio',
             style: TextStyle(
               color: AppColors.pearlWhite,
@@ -200,7 +200,7 @@ class QuizResultLayer extends StatelessWidget {
           Text(
             '$correctAnswers / ${results.length}',
 
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.pureWhite,
               fontSize: 38,
               fontWeight: FontWeight.bold,
@@ -212,7 +212,7 @@ class QuizResultLayer extends StatelessWidget {
           Text(
             '${percentage.toStringAsFixed(0)}%',
 
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.skyBlue,
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -270,7 +270,7 @@ class QuizResultLayer extends StatelessWidget {
             icon: Icons.check_circle,
             value: correctAnswers.toString(),
             label: 'Corrette',
-            color: Colors.green,
+            color: AppColors.green,
           ),
         ),
 
@@ -281,7 +281,7 @@ class QuizResultLayer extends StatelessWidget {
             icon: Icons.cancel,
             value: wrongAnswers.toString(),
             label: 'Errate',
-            color: Colors.redAccent,
+            color: AppColors.redAccent,
           ),
         ),
       ],
@@ -298,7 +298,7 @@ class QuizResultLayer extends StatelessWidget {
         borderRadius: BorderRadius.circular(18),
       ),
 
-      child: const Center(
+      child: Center(
         child: Text(
           'Non ci sono risultati da mostrare.',
           textAlign: TextAlign.center,
@@ -365,7 +365,7 @@ class _SummaryItem extends StatelessWidget {
                 Text(
                   value,
 
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.pureWhite,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -408,8 +408,8 @@ class _QuestionResultCard extends StatelessWidget {
     // Colore principale della domanda.
     final Color statusColor =
         result.isCorrect
-            ? Colors.green
-            : Colors.redAccent;
+            ? AppColors.green
+            : AppColors.redAccent;
 
 
     return Container(
@@ -458,7 +458,7 @@ class _QuestionResultCard extends StatelessWidget {
                   child: Text(
                     'Domanda $questionNumber',
 
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.pearlWhite,
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -479,7 +479,7 @@ class _QuestionResultCard extends StatelessWidget {
             Text(
               result.question,
 
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.pureWhite,
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
@@ -495,8 +495,8 @@ class _QuestionResultCard extends StatelessWidget {
               answer: result.givenAnswer,
 
               color: result.isCorrect
-                  ? Colors.green
-                  : Colors.redAccent,
+                  ? AppColors.green
+                  : AppColors.redAccent,
             ),
 
 
@@ -506,7 +506,7 @@ class _QuestionResultCard extends StatelessWidget {
               _AnswerBox(
                 title: 'Risposta corretta',
                 answer: result.correctAnswer,
-                color: Colors.green,
+                color: AppColors.green,
               ),
             ],
 
@@ -547,7 +547,7 @@ class _QuestionResultCard extends StatelessWidget {
 
         const SizedBox(height: 20),
 
-        const Text(
+        Text(
           'Spiegazione',
 
           style: TextStyle(
@@ -586,7 +586,7 @@ class _QuestionResultCard extends StatelessWidget {
         if (hasAnswers) ...[
           const SizedBox(height: 8),
 
-          const Text(
+          Text(
             'Analisi delle risposte',
 
             style: TextStyle(
@@ -630,7 +630,7 @@ class _QuestionResultCard extends StatelessWidget {
                         entry.key,
 
                         style:
-                            const TextStyle(
+                            TextStyle(
                           color:
                               AppColors.pureWhite,
 
@@ -681,8 +681,8 @@ class _StatusBadge extends StatelessWidget {
 
     final Color color =
         isCorrect
-            ? Colors.green
-            : Colors.redAccent;
+            ? AppColors.green
+            : AppColors.redAccent;
 
     return Container(
       padding:
@@ -788,7 +788,7 @@ class _AnswerBox extends StatelessWidget {
           Text(
             answer,
 
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.pureWhite,
 
               fontSize: 13,
@@ -841,7 +841,7 @@ class _ExplanationSection extends StatelessWidget {
             Text(
               title,
 
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.pearlWhite,
 
                 fontSize: 12,

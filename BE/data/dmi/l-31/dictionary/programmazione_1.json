@@ -1,0 +1,99 @@
+{
+  "schema": "studentlab.dictionary/1",
+  "metadata": {
+    "university": "unict",
+    "department": "DMI",
+    "department_code": "DMI",
+    "course": "L-31",
+    "course_code": "L-31",
+    "subject": "Programmazione 1",
+    "academic_year": "2025",
+    "teachers": [
+      "Giovanni Maria Farinella"
+    ],
+    "source": "dmi/l-31/question/programmazione_1.json"
+  },
+  "topics": [
+    {
+      "id": "errori-runtime",
+      "title": "Errori runtime",
+      "order": 6
+    },
+    {
+      "id": "ricorsione",
+      "title": "Ricorsione",
+      "order": 17
+    },
+    {
+      "id": "algoritmi",
+      "title": "Algoritmi",
+      "order": 18
+    }
+  ],
+  "entries": [
+    {
+      "id": "underflow-in-c",
+      "term": "Underflow in C",
+      "aliases": [],
+      "topic": "errori-runtime",
+      "formal_definition": "Nello studio della precisione numerica e dell'aritmetica dei calcolatori applicata al linguaggio C, ogni tipo di dato definisce limiti inferiori e superiori invalicabili legati alla codifica binaria adoperata (come il complemento a due per gli interi o lo standard IEEE 754 per i numeri in virgola mobile). L'underflow si verifica quando il risultato finale di un'operazione matematica produce una quantità numerica inferiore al valore minimo assoluto che il tipo di dato può registrare. Nel contesto dei numeri reali a virgola mobile (float o double), il fenomeno si manifesta specificamente quando la grandezza di un numero positivo o negativo è talmente infinitesima da non poter essere distinta dallo zero, forzando l'algoritmo ad approssimare il dato a un valore nullo.",
+      "informal_definition": "Così come esiste un limite per i numeri troppo grandi (overflow), i computer devono gestire anche il problema opposto, ovvero quando un calcolo genera un numero troppo piccolo o scende al di sotto del limite minimo che la variabile può contenere. Nei numeri interi questo significa scendere al di sotto del numero negativo più basso possibile. Nei numeri decimali con la virgola, invece, l'underflow si verifica quando un valore diventa così incredibilmente vicino allo zero che i bit del processore non hanno abbastanza precisione per rappresentare quella frazione minuscola, costringendo il sistema ad azzerare il valore.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        "9"
+      ]
+    },
+    {
+      "id": "funzione-ricorsiva",
+      "term": "Funzione ricorsiva",
+      "aliases": [],
+      "topic": "ricorsione",
+      "formal_definition": "Una funzione ricorsiva richiama sé stessa durante l'esecuzione.",
+      "informal_definition": "È una funzione che si ripete da sola.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        "37"
+      ]
+    },
+    {
+      "id": "complessita-temporale-di-un-algoritmo",
+      "term": "Complessità temporale di un algoritmo",
+      "aliases": [],
+      "topic": "algoritmi",
+      "formal_definition": "La complessità temporale misura il tempo di esecuzione in funzione dell'input.",
+      "informal_definition": "Ti dice quanto è veloce un algoritmo.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        "39"
+      ]
+    },
+    {
+      "id": "complessita-spaziale",
+      "term": "Complessità spaziale",
+      "aliases": [],
+      "topic": "algoritmi",
+      "formal_definition": "La complessità spaziale misura la memoria richiesta dall’algoritmo.",
+      "informal_definition": "Dice quanta memoria serve per eseguire il programma.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        "40"
+      ]
+    }
+  ]
+}

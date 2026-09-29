@@ -1,0 +1,137 @@
+{
+  "schema": "studentlab.dictionary/1",
+  "metadata": {
+    "university": "UNICT",
+    "department": "Dipartimento di Matematica e Informatica",
+    "department_code": "DMI",
+    "course": "L-31 Informatica",
+    "course_code": "L-31",
+    "subject": "Sistemi Operativi",
+    "academic_year": "2025/2026",
+    "teachers": [
+      "Mario Di Raimondo",
+      "Mario Francesco Pavone"
+    ],
+    "source": "dmi/l-31/question/sistemi_operativi_quiz.json"
+  },
+  "topics": [
+    {
+      "id": "pcb-process-table-e-context-switch",
+      "title": "PCB, Process Table e Context Switch",
+      "order": 8
+    },
+    {
+      "id": "thread-e-multithreading",
+      "title": "Thread e Multithreading",
+      "order": 9
+    },
+    {
+      "id": "gerarchia-daemon-e-terminazione-dei-processi",
+      "title": "Gerarchia, Daemon e Terminazione dei Processi",
+      "order": 13
+    },
+    {
+      "id": "pipeline-e-prestazioni-della-cpu",
+      "title": "Pipeline e Prestazioni della CPU",
+      "order": 18
+    }
+  ],
+  "entries": [
+    {
+      "id": "pcb",
+      "term": "PCB",
+      "aliases": [],
+      "topic": "pcb-process-table-e-context-switch",
+      "formal_definition": "Il Process Control Block contiene lo stato amministrativo e di esecuzione del processo, inclusi registri, scheduling, memoria e risorse.",
+      "informal_definition": "È la scheda personale del processo che permette al SO di ricordare tutto ciò che serve.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        36
+      ]
+    },
+    {
+      "id": "process-table",
+      "term": "Process Table",
+      "aliases": [],
+      "topic": "pcb-process-table-e-context-switch",
+      "formal_definition": "La Process Table organizza le voci relative ai processi, spesso rappresentate attraverso PCB o strutture equivalenti.",
+      "informal_definition": "È l'elenco strutturato con cui il SO tiene traccia dei processi.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        40
+      ]
+    },
+    {
+      "id": "thread-rispetto-a-un-processo",
+      "term": "Thread rispetto a un processo",
+      "aliases": [],
+      "topic": "thread-e-multithreading",
+      "formal_definition": "I thread sono unità di esecuzione appartenenti a un processo e condividono molte risorse del processo pur mantenendo uno stato di esecuzione individuale.",
+      "informal_definition": "Più thread possono lavorare nello stesso programma condividendo dati comuni.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        41
+      ]
+    },
+    {
+      "id": "daemon",
+      "term": "Daemon",
+      "aliases": [],
+      "topic": "gerarchia-daemon-e-terminazione-dei-processi",
+      "formal_definition": "I daemon forniscono servizi di sistema e spesso restano in attesa di eventi o richieste senza un'interfaccia interattiva.",
+      "informal_definition": "È un processo che lavora dietro le quinte e si attiva quando serve.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        62
+      ]
+    },
+    {
+      "id": "data-hazard",
+      "term": "Data hazard",
+      "aliases": [],
+      "topic": "pipeline-e-prestazioni-della-cpu",
+      "formal_definition": "Un data hazard si verifica quando la correttezza di un'istruzione dipende da dati prodotti da un'istruzione precedente ancora nella pipeline.",
+      "informal_definition": "La seconda istruzione deve aspettare un risultato che la prima non ha ancora finito di calcolare.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        87
+      ]
+    },
+    {
+      "id": "stall-della-pipeline",
+      "term": "Stall della pipeline",
+      "aliases": [],
+      "topic": "pipeline-e-prestazioni-della-cpu",
+      "formal_definition": "Uno stall introduce cicli in cui l'avanzamento normale della pipeline viene sospeso a causa di dipendenze o altre condizioni.",
+      "informal_definition": "La catena di montaggio deve fermarsi per qualche ciclo perché manca qualcosa.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        89
+      ]
+    }
+  ]
+}

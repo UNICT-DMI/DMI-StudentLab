@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -18,152 +19,101 @@ import '../layers/group_partecipants_layer.dart';
 
 import 'models/study_group.dart';
 
-
-class StudyGroupDetailPage
-    extends StatefulWidget {
+class StudyGroupDetailPage extends StatefulWidget {
   final StudyGroup group;
 
-  const StudyGroupDetailPage({
-    super.key,
-    required this.group,
-  });
+  const StudyGroupDetailPage({super.key, required this.group});
 
   @override
-  State<StudyGroupDetailPage>
-      createState() =>
-          _StudyGroupDetailPageState();
+  State<StudyGroupDetailPage> createState() => _StudyGroupDetailPageState();
 }
 
+class _StudyGroupDetailPageState extends State<StudyGroupDetailPage> {
+  final ApiService _apiService = ApiService();
 
-class _StudyGroupDetailPageState
-    extends State<
-        StudyGroupDetailPage> {
-  final ApiService _apiService =
-      ApiService();
+  final AuthSession _session = AuthSession.instance;
 
-  final AuthSession _session =
-      AuthSession.instance;
-
-  final MaterialDownloadService
-      _downloadService =
-      MaterialDownloadService();
+  final MaterialDownloadService _downloadService = MaterialDownloadService();
 
   final PickedFileBridge _fileBridge = PickedFileBridge();
 
-  List<SocialUser> _participants =
-      [];
+  List<SocialUser> _participants = [];
 
-  List<_GroupMaterial> _materials =
-      [];
+  List<_GroupMaterial> _materials = [];
 
-  final Set<int>
-      _downloadedMaterialIds =
-      {};
+  final Set<int> _downloadedMaterialIds = {};
 
-  final Set<int>
-      _downloadingMaterialIds =
-      {};
+  final Set<int> _downloadingMaterialIds = {};
 
-  bool _loading =
-      true;
+  bool _loading = true;
 
-  bool _loadingMaterials =
-      false;
+  bool _loadingMaterials = false;
 
-  bool _uploadingMaterial =
-      false;
+  bool _uploadingMaterial = false;
 
-  bool _leavingGroup =
-      false;
+  bool _leavingGroup = false;
 
   String? _error;
-
 
   StudyGroup get group {
     return widget.group;
   }
 
-
   SocialUser? get currentUser {
     return _session.currentUser;
   }
-
 
   int? get currentUserId {
     return _session.currentUserId;
   }
 
-
   bool get isAuthenticated {
     return _session.isAuthenticated;
   }
-
 
   bool get isGuest {
     return _session.isGuest;
   }
 
-
   bool get isCurrentUserMember {
-    final int? userId =
-        currentUserId;
+    final int? userId = currentUserId;
 
     if (userId == null) {
       return false;
     }
 
     return _participants.any(
-      (
-        SocialUser participant,
-      ) =>
-          participant.id ==
-          userId,
+      (SocialUser participant) => participant.id == userId,
     );
   }
 
-
-
-
   bool get canUploadMaterial {
-    return isAuthenticated &&
-        group.isManager;
+    return isAuthenticated && group.isManager;
   }
-
 
   bool get canDeleteMaterial {
-    return isAuthenticated &&
-        group.isManager;
+    return isAuthenticated && group.isManager;
   }
-
 
   bool get canLeaveGroup {
-    return isAuthenticated &&
-        isCurrentUserMember &&
-        !group.isOwner;
+    return isAuthenticated && isCurrentUserMember && !group.isOwner;
   }
-
 
   @override
   void initState() {
     super.initState();
 
-    _session.addListener(
-      _onSessionChanged,
-    );
+    _session.addListener(_onSessionChanged);
 
     _loadGroupData();
   }
 
-
   @override
   void dispose() {
-    _session.removeListener(
-      _onSessionChanged,
-    );
+    _session.removeListener(_onSessionChanged);
 
     super.dispose();
   }
-
 
   void _onSessionChanged() {
     if (!mounted) {
@@ -175,53 +125,36 @@ class _StudyGroupDetailPageState
     _refreshDownloadedStates();
   }
 
-
   Future<void> _loadGroupData() async {
     if (mounted) {
       setState(() {
-        _loading =
-            true;
+        _loading = true;
 
-        _error =
-            null;
+        _error = null;
       });
     }
 
     try {
-      final Map<String, dynamic>
-          groupData =
-          await _apiService
-              .getGroup(
+      final Map<String, dynamic> groupData = await _apiService.getGroup(
         group.id,
       );
 
-      final List<SocialUser>
-          participants =
-          await _loadParticipants(
-        groupData,
-      );
+      final List<SocialUser> participants = await _loadParticipants(groupData);
 
-      final List<_GroupMaterial>
-          materials =
-          await _loadMaterials();
+      final List<_GroupMaterial> materials = await _loadMaterials();
 
-      await _loadDownloadedStates(
-        materials,
-      );
+      await _loadDownloadedStates(materials);
 
       if (!mounted) {
         return;
       }
 
       setState(() {
-        _participants =
-            participants;
+        _participants = participants;
 
-        _materials =
-            materials;
+        _materials = materials;
 
-        _loading =
-            false;
+        _loading = false;
       });
     } catch (e) {
       if (!mounted) {
@@ -229,122 +162,73 @@ class _StudyGroupDetailPageState
       }
 
       setState(() {
-        _loading =
-            false;
+        _loading = false;
 
-        _error =
-            _cleanError(
-          e,
-        );
+        _error = _cleanError(e);
       });
     }
   }
 
-
-  Future<List<SocialUser>>
-      _loadParticipants(
+  Future<List<SocialUser>> _loadParticipants(
     Map<String, dynamic> groupData,
   ) async {
-    final dynamic membersData =
-        groupData['members'];
+    final dynamic membersData = groupData['members'];
 
     if (membersData is! List) {
       return [];
     }
 
-    final List<SocialUser> users =
-        [];
+    final List<SocialUser> users = [];
 
-    for (
-      final dynamic member
-      in membersData
-    ) {
+    for (final dynamic member in membersData) {
       if (member is! Map) {
         continue;
       }
 
-      final Map<String, dynamic>
-          memberData =
-          Map<String, dynamic>.from(
-        member,
-      );
+      final Map<String, dynamic> memberData = Map<String, dynamic>.from(member);
 
-      final int? userId =
-          _toInt(
-        memberData['user_id'],
-      );
+      final int? userId = _toInt(memberData['user_id']);
 
       if (userId == null) {
         continue;
       }
 
       try {
-        final SocialUser user =
-            await _apiService
-                .getSocialUser(
-          userId,
-        );
+        final SocialUser user = await _apiService.getSocialUser(userId);
 
-        if (
-          isGuest &&
-          !user.available
-        ) {
+        if (isGuest && !user.available) {
           continue;
         }
 
-        users.add(
-          user,
-        );
+        users.add(user);
       } catch (_) {}
     }
 
     return users;
   }
 
-
-  Future<List<_GroupMaterial>>
-      _loadMaterials() async {
-    final List<
-        Map<String, dynamic>> data =
-        await _apiService
-            .getGroupMaterials(
+  Future<List<_GroupMaterial>> _loadMaterials() async {
+    final List<Map<String, dynamic>> data = await _apiService.getGroupMaterials(
       group.id,
     );
 
     return data
-        .map(
-          _GroupMaterial.fromJson,
-        )
-        .where(
-          (
-            _GroupMaterial material,
-          ) =>
-              material.id > 0,
-        )
+        .map(_GroupMaterial.fromJson)
+        .where((_GroupMaterial material) => material.id > 0)
         .toList();
   }
 
+  Future<void> _loadDownloadedStates(List<_GroupMaterial> materials) async {
+    final Set<int> downloaded = {};
 
-  Future<void> _loadDownloadedStates(
-    List<_GroupMaterial> materials,
-  ) async {
-    final Set<int> downloaded =
-        {};
-
-    for (
-      final _GroupMaterial material
-      in materials
-    ) {
-      final bool exists =
-          await _downloadService.isMaterialDownloaded(
+    for (final _GroupMaterial material in materials) {
+      final bool exists = await _downloadService.isMaterialDownloaded(
         source: MaterialSourceLocal.group,
         materialId: material.id,
       );
 
       if (exists) {
-        downloaded.add(
-          material.id,
-        );
+        downloaded.add(material.id);
       }
     }
 
@@ -355,19 +239,13 @@ class _StudyGroupDetailPageState
     setState(() {
       _downloadedMaterialIds
         ..clear()
-        ..addAll(
-          downloaded,
-        );
+        ..addAll(downloaded);
     });
   }
 
-  Future<void>
-      _refreshDownloadedStates() async {
-    await _loadDownloadedStates(
-      _materials,
-    );
+  Future<void> _refreshDownloadedStates() async {
+    await _loadDownloadedStates(_materials);
   }
-
 
   Future<void> _refreshMaterials() async {
     if (_loadingMaterials) {
@@ -375,26 +253,20 @@ class _StudyGroupDetailPageState
     }
 
     setState(() {
-      _loadingMaterials =
-          true;
+      _loadingMaterials = true;
     });
 
     try {
-      final List<_GroupMaterial>
-          materials =
-          await _loadMaterials();
+      final List<_GroupMaterial> materials = await _loadMaterials();
 
-      await _loadDownloadedStates(
-        materials,
-      );
+      await _loadDownloadedStates(materials);
 
       if (!mounted) {
         return;
       }
 
       setState(() {
-        _materials =
-            materials;
+        _materials = materials;
       });
     } catch (e) {
       if (!mounted) {
@@ -404,293 +276,172 @@ class _StudyGroupDetailPageState
       _showMessage(
         _cleanError(
           e,
-          fallback:
-              'Non è stato possibile aggiornare i materiali. Riprova.',
+          fallback: 'Non è stato possibile aggiornare i materiali. Riprova.',
         ),
       );
     } finally {
       if (mounted) {
         setState(() {
-          _loadingMaterials =
-              false;
+          _loadingMaterials = false;
         });
       }
     }
   }
 
-
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:
-          AppColors.darkElegance,
+      backgroundColor: AppColors.darkElegance,
 
-      appBar:
-          AppBar(
-        backgroundColor:
-            AppColors.brandNightBlue,
+      appBar: AppBar(
+        backgroundColor: AppColors.brandNightBlue,
 
-        foregroundColor:
-            AppColors.pureWhite,
+        foregroundColor: AppColors.pureWhite,
 
-        elevation:
-            0,
+        elevation: 0,
 
-        title:
-            Text(
+        title: Text(
           group.name,
 
-          maxLines:
-              1,
+          maxLines: 1,
 
-          overflow:
-              TextOverflow.ellipsis,
+          overflow: TextOverflow.ellipsis,
 
-          style:
-              const TextStyle(
-            fontSize:
-                18,
-
-            fontWeight:
-                FontWeight.w500,
-          ),
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
         ),
 
         actions: [
           IconButton(
-            tooltip:
-                'Aggiorna',
+            tooltip: 'Aggiorna',
 
-            onPressed:
-                _loading
-                    ? null
-                    : _loadGroupData,
+            onPressed: _loading ? null : _loadGroupData,
 
-            icon:
-                const Icon(
-              Icons.refresh_rounded,
-            ),
+            icon: const Icon(Icons.refresh_rounded),
           ),
 
-          if (
-            isAuthenticated &&
-            group.isManager
-          )
+          if (isAuthenticated && group.isManager)
             IconButton(
-              tooltip:
-                  'Gestisci gruppo',
+              tooltip: 'Gestisci gruppo',
 
-              onPressed:
-                  _openGroupManagement,
+              onPressed: _openGroupManagement,
 
-              icon:
-                  const Icon(
-                Icons
-                    .admin_panel_settings_outlined,
-              ),
+              icon: const Icon(Icons.admin_panel_settings_outlined),
             ),
 
           if (canLeaveGroup)
             IconButton(
-              tooltip:
-                  'Opzioni gruppo',
+              tooltip: 'Opzioni gruppo',
 
-              onPressed:
-                  _showOptions,
+              onPressed: _showOptions,
 
-              icon:
-                  const Icon(
-                Icons
-                    .more_vert_rounded,
-              ),
+              icon: const Icon(Icons.more_vert_rounded),
             ),
         ],
       ),
 
-      body:
-          SafeArea(
-        child:
-            _buildBody(),
-      ),
+      body: SafeArea(child: _buildBody()),
     );
   }
 
-
   Widget _buildBody() {
     if (_loading) {
-      return const Center(
-        child:
-            CircularProgressIndicator(),
-      );
+      return const Center(child: CircularProgressIndicator());
     }
 
     if (_error != null) {
       return Center(
-        child:
-            ConstrainedBox(
-          constraints:
-              const BoxConstraints(
-            maxWidth:
-                600,
-          ),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 600),
 
-          child:
-              Padding(
-            padding:
-                const EdgeInsets.all(
-              20,
-            ),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
 
-            child:
-                _GroupErrorCard(
-              message:
-                  _error!,
-
-              onRetry:
-                  _loadGroupData,
-            ),
+            child: _GroupErrorCard(message: _error!, onRetry: _loadGroupData),
           ),
         ),
       );
     }
 
     return Center(
-      child:
-          LayoutBuilder(
-        builder:
-            (
-          BuildContext context,
-          BoxConstraints constraints,
-        ) {
-          final double width =
-              constraints.maxWidth >
-                      900
-                  ? 900
-                  : constraints
-                      .maxWidth;
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          final double width = constraints.maxWidth > 900
+              ? 900
+              : constraints.maxWidth;
 
           return SizedBox(
-            width:
-                width,
+            width: width,
 
-            child:
-                RefreshIndicator(
-              onRefresh:
-                  _loadGroupData,
+            child: RefreshIndicator(
+              onRefresh: _loadGroupData,
 
-              child:
-                  ListView(
-                physics:
-                    const AlwaysScrollableScrollPhysics(),
+              child: ListView(
+                physics: const AlwaysScrollableScrollPhysics(),
 
-                padding:
-                    const EdgeInsets.all(
-                  20,
-                ),
+                padding: const EdgeInsets.all(20),
 
                 children: [
                   _buildGroupHeader(),
 
-                  const SizedBox(
-                    height:
-                        16,
-                  ),
+                  const SizedBox(height: 16),
 
                   if (isGuest) ...[
                     _buildGuestInfo(),
 
-                    const SizedBox(
-                      height:
-                          16,
-                    ),
+                    const SizedBox(height: 16),
                   ],
 
-                  if (
-                    isAuthenticated &&
-                    !isCurrentUserMember &&
-                    !group.isOwner
-                  ) ...[
+                  if (isAuthenticated &&
+                      !isCurrentUserMember &&
+                      !group.isOwner) ...[
                     _buildNonMemberInfo(),
 
-                    const SizedBox(
-                      height:
-                          16,
-                    ),
+                    const SizedBox(height: 16),
                   ],
 
                   GroupNewsSection(
-                    group:
-                        group,
-                    participants:
-                        _participants,
-                    currentUserId:
-                        currentUserId,
-                    isAuthenticated:
-                        isAuthenticated,
-                    isCurrentUserMember:
-                        isCurrentUserMember ||
-                        group.isOwner,
+                    group: group,
+                    participants: _participants,
+                    currentUserId: currentUserId,
+                    isAuthenticated: isAuthenticated,
+                    isCurrentUserMember: isCurrentUserMember || group.isOwner,
                   ),
 
-                  const SizedBox(
-                    height:
-                        12,
-                  ),
+                  const SizedBox(height: 12),
 
                   _buildParticipantsCard(),
 
-                  const SizedBox(
-                    height:
-                        28,
-                  ),
+                  const SizedBox(height: 28),
 
                   _GroupMaterialSection(
-                    group:
-                        group,
+                    group: group,
 
-                    materials:
-                        _materials,
+                    materials: _materials,
 
-                    downloadedMaterialIds:
-                        _downloadedMaterialIds,
+                    downloadedMaterialIds: _downloadedMaterialIds,
 
-                    downloadingMaterialIds:
-                        _downloadingMaterialIds,
+                    downloadingMaterialIds: _downloadingMaterialIds,
 
-                    loading:
-                        _loadingMaterials,
+                    loading: _loadingMaterials,
 
-                    uploadingMaterial:
-                        _uploadingMaterial,
+                    uploadingMaterial: _uploadingMaterial,
 
-                    canAddMaterial:
-                        canUploadMaterial,
+                    canAddMaterial: canUploadMaterial,
 
-                    canDeleteMaterial:
-                        canDeleteMaterial,
+                    canDeleteMaterial: canDeleteMaterial,
 
-                    onRefresh:
-                        _refreshMaterials,
+                    onRefresh: _refreshMaterials,
 
-                    onAddMaterial:
-                        _addMaterial,
+                    onAddMaterial: _addMaterial,
 
-                    onOpenMaterial:
-                        _openMaterial,
+                    onOpenMaterial: _openMaterial,
 
-                    onDownloadMaterial:
-                        _downloadMaterial,
+                    onDownloadMaterial: _downloadMaterial,
 
-                    onDeleteMaterial:
-                        _deleteMaterial,
+                    onDeleteMaterial: _deleteMaterial,
                   ),
 
-                  const SizedBox(
-                    height:
-                        24,
-                  ),
+                  const SizedBox(height: 24),
                 ],
               ),
             ),
@@ -700,128 +451,81 @@ class _StudyGroupDetailPageState
     );
   }
 
-
   Widget _buildGroupHeader() {
     return LayoutBuilder(
-      builder:
-          (
-        BuildContext context,
-        BoxConstraints constraints,
-      ) {
-        final double width =
-            constraints.maxWidth;
+      builder: (BuildContext context, BoxConstraints constraints) {
+        final double width = constraints.maxWidth;
 
-        final bool compact =
-            width < 380;
+        final bool compact = width < 380;
 
-        final bool medium =
-            width >= 380 &&
-                width < 600;
+        final bool medium = width >= 380 && width < 600;
 
-        final double padding =
-            compact
-                ? 14
-                : medium
-                    ? 17
-                    : 20;
+        final double padding = compact
+            ? 14
+            : medium
+            ? 17
+            : 20;
 
-        final double iconSize =
-            compact
-                ? 44
-                : medium
-                    ? 50
-                    : 56;
+        final double iconSize = compact
+            ? 44
+            : medium
+            ? 50
+            : 56;
 
-        final double icon =
-            compact
-                ? 23
-                : medium
-                    ? 27
-                    : 30;
+        final double icon = compact
+            ? 23
+            : medium
+            ? 27
+            : 30;
 
         return Container(
-          width:
-              double.infinity,
+          width: double.infinity,
 
-          padding:
-              EdgeInsets.all(
-            padding,
-          ),
+          padding: EdgeInsets.all(padding),
 
-          decoration:
-              BoxDecoration(
-            color:
-                AppColors
-                    .eleganceMidnight,
+          decoration: BoxDecoration(
+            color: AppColors.eleganceMidnight,
 
-            borderRadius:
-                BorderRadius.circular(
-              18,
-            ),
+            borderRadius: BorderRadius.circular(18),
 
-            border:
-                Border.all(
-              color:
-                  AppColors.skyBlue
-                      .withValues(alpha: 0.18),
+            border: Border.all(
+              color: AppColors.skyBlue.withValues(alpha: 0.18),
             ),
 
             boxShadow: [
               BoxShadow(
-                color:
-                    Colors.black
-                        .withValues(alpha: 0.15),
+                color: Colors.black.withValues(alpha: 0.15),
 
-                blurRadius:
-                    8,
+                blurRadius: 8,
 
-                offset:
-                    const Offset(
-                  0,
-                  4,
-                ),
+                offset: const Offset(0, 4),
               ),
             ],
           ),
 
-          child:
-              Column(
-            crossAxisAlignment:
-                CrossAxisAlignment.start,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
 
             children: [
               Row(
                 children: [
                   Container(
-                    width:
-                        iconSize,
+                    width: iconSize,
 
-                    height:
-                        iconSize,
+                    height: iconSize,
 
-                    decoration:
-                        BoxDecoration(
-                      color:
-                          AppColors
-                              .brandNightBlue,
+                    decoration: BoxDecoration(
+                      color: AppColors.brandNightBlue,
 
-                      borderRadius:
-                          BorderRadius.circular(
-                        14,
-                      ),
+                      borderRadius: BorderRadius.circular(14),
                     ),
 
-                    child:
-                        Icon(
-                      Icons
-                          .groups_rounded,
+                    child: Icon(
+                      Icons.groups_rounded,
 
-                      color:
-                          AppColors
-                              .skyBlue,
+                      color: AppColors.skyBlue,
 
-                      size:
-                          icon,
+                      size: icon,
                     ),
                   ),
 
@@ -829,251 +533,150 @@ class _StudyGroupDetailPageState
 
                   if (group.isOwner)
                     _GroupHeaderBadge(
-                      icon:
-                          Icons
-                              .admin_panel_settings_outlined,
+                      icon: Icons.admin_panel_settings_outlined,
 
-                      label:
-                          'Owner',
+                      label: 'Owner',
 
-                      compact:
-                          compact,
+                      compact: compact,
                     ),
 
-                  if (
-                    group.isOwner &&
-                    group.isPrivate
-                  )
-                    const SizedBox(
-                      width:
-                          7,
-                    ),
+                  if (group.isOwner && group.isPrivate)
+                    const SizedBox(width: 7),
 
                   if (group.isPrivate)
                     _GroupHeaderBadge(
-                      icon:
-                          Icons
-                              .lock_outline_rounded,
+                      icon: Icons.lock_outline_rounded,
 
-                      label:
-                          'Privato',
+                      label: 'Privato',
 
-                      compact:
-                          compact,
+                      compact: compact,
                     ),
                 ],
               ),
 
-              SizedBox(
-                height:
-                    compact
-                        ? 12
-                        : 16,
-              ),
+              SizedBox(height: compact ? 12 : 16),
 
               Text(
                 group.name,
 
-                maxLines:
-                    2,
+                maxLines: 2,
 
-                overflow:
-                    TextOverflow.ellipsis,
+                overflow: TextOverflow.ellipsis,
 
-                style:
-                    TextStyle(
-                  color:
-                      AppColors
-                          .pureWhite,
+                style: TextStyle(
+                  color: AppColors.pureWhite,
 
-                  fontSize:
-                      compact
-                          ? 16
-                          : medium
-                              ? 18
-                              : 20,
+                  fontSize: compact
+                      ? 16
+                      : medium
+                      ? 18
+                      : 20,
 
-                  fontWeight:
-                      FontWeight.bold,
+                  fontWeight: FontWeight.bold,
 
-                  height:
-                      1.2,
+                  height: 1.2,
                 ),
               ),
 
-              SizedBox(
-                height:
-                    compact
-                        ? 4
-                        : 6,
-              ),
+              SizedBox(height: compact ? 4 : 6),
 
               Text(
                 group.subject.isNotEmpty
                     ? group.subject
                     : group.subjectId != null
-                        ? 'Materia #${group.subjectId}'
-                        : 'Materia non specificata',
+                    ? 'Materia #${group.subjectId}'
+                    : 'Materia non specificata',
 
-                maxLines:
-                    1,
+                maxLines: 1,
 
-                overflow:
-                    TextOverflow.ellipsis,
+                overflow: TextOverflow.ellipsis,
 
-                style:
-                    TextStyle(
-                  color:
-                      AppColors
-                          .materialSky
-                          .withValues(alpha: 0.90),
+                style: TextStyle(
+                  color: AppColors.materialSky.withValues(alpha: 0.90),
 
-                  fontSize:
-                      compact
-                          ? 11
-                          : 13,
+                  fontSize: compact ? 11 : 13,
 
-                  fontWeight:
-                      FontWeight.w600,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
 
-              const SizedBox(
-                height:
-                    5,
-              ),
+              const SizedBox(height: 5),
 
               if (group.course.isNotEmpty)
                 Text(
                   group.course,
 
-                  maxLines:
-                      1,
+                  maxLines: 1,
 
-                  overflow:
-                      TextOverflow.ellipsis,
+                  overflow: TextOverflow.ellipsis,
 
-                  style:
-                      TextStyle(
-                    color:
-                        AppColors
-                            .pureWhite
-                            .withValues(alpha: 0.60),
+                  style: TextStyle(
+                    color: AppColors.pureWhite.withValues(alpha: 0.60),
 
-                    fontSize:
-                        compact
-                            ? 10
-                            : 12,
+                    fontSize: compact ? 10 : 12,
                   ),
                 ),
 
-              if (
-                group.department
-                    .isNotEmpty
-              ) ...[
-                const SizedBox(
-                  height:
-                      3,
-                ),
+              if (group.department.isNotEmpty) ...[
+                const SizedBox(height: 3),
 
                 Text(
                   group.department,
 
-                  maxLines:
-                      1,
+                  maxLines: 1,
 
-                  overflow:
-                      TextOverflow.ellipsis,
+                  overflow: TextOverflow.ellipsis,
 
-                  style:
-                      TextStyle(
-                    color:
-                        AppColors
-                            .pureWhite
-                            .withValues(alpha: 0.40),
+                  style: TextStyle(
+                    color: AppColors.pureWhite.withValues(alpha: 0.40),
 
-                    fontSize:
-                        compact
-                            ? 9
-                            : 10,
+                    fontSize: compact ? 9 : 10,
                   ),
                 ),
               ],
 
-              SizedBox(
-                height:
-                    compact
-                        ? 13
-                        : 17,
-              ),
+              SizedBox(height: compact ? 13 : 17),
 
               Text(
                 group.description.isEmpty
                     ? 'Nessuna descrizione.'
                     : group.description,
 
-                maxLines:
-                    compact
-                        ? 3
-                        : 4,
+                maxLines: compact ? 3 : 4,
 
-                overflow:
-                    TextOverflow.ellipsis,
+                overflow: TextOverflow.ellipsis,
 
-                style:
-                    TextStyle(
-                  color:
-                      AppColors
-                          .pureWhite
-                          .withValues(alpha: 0.58),
+                style: TextStyle(
+                  color: AppColors.pureWhite.withValues(alpha: 0.58),
 
-                  fontSize:
-                      compact
-                          ? 11
-                          : 13,
+                  fontSize: compact ? 11 : 13,
 
-                  height:
-                      1.4,
+                  height: 1.4,
                 ),
               ),
 
-              SizedBox(
-                height:
-                    compact
-                        ? 14
-                        : 18,
-              ),
+              SizedBox(height: compact ? 14 : 18),
 
               Wrap(
-                spacing:
-                    16,
+                spacing: 16,
 
-                runSpacing:
-                    9,
+                runSpacing: 9,
 
                 children: [
                   _GroupHeaderInfo(
-                    icon:
-                        Icons
-                            .people_outline_rounded,
+                    icon: Icons.people_outline_rounded,
 
-                    text:
-                        '${_participants.length} partecipanti',
+                    text: '${_participants.length} partecipanti',
 
-                    compact:
-                        compact,
+                    compact: compact,
                   ),
 
                   _GroupHeaderInfo(
-                    icon:
-                        Icons
-                            .folder_outlined,
+                    icon: Icons.folder_outlined,
 
-                    text:
-                        '${_materials.length} materiali',
+                    text: '${_materials.length} materiali',
 
-                    compact:
-                        compact,
+                    compact: compact,
                   ),
                 ],
               ),
@@ -1084,73 +687,42 @@ class _StudyGroupDetailPageState
     );
   }
 
-
   Widget _buildGuestInfo() {
     return Container(
-      padding:
-          const EdgeInsets.all(
-        14,
+      padding: const EdgeInsets.all(14),
+
+      decoration: BoxDecoration(
+        color: AppColors.skyBlue.withValues(alpha: 0.06),
+
+        borderRadius: BorderRadius.circular(14),
+
+        border: Border.all(color: AppColors.skyBlue.withValues(alpha: 0.13)),
       ),
 
-      decoration:
-          BoxDecoration(
-        color:
-            AppColors.skyBlue
-                .withValues(alpha: 0.06),
-
-        borderRadius:
-            BorderRadius.circular(
-          14,
-        ),
-
-        border:
-            Border.all(
-          color:
-              AppColors.skyBlue
-                  .withValues(alpha: 0.13),
-        ),
-      ),
-
-      child:
-          Row(
-        crossAxisAlignment:
-            CrossAxisAlignment.start,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
 
         children: [
-          const Icon(
-            Icons
-                .visibility_outlined,
+          Icon(
+            Icons.visibility_outlined,
 
-            color:
-                AppColors
-                    .materialSky,
+            color: AppColors.materialSky,
 
-            size:
-                20,
+            size: 20,
           ),
 
-          const SizedBox(
-            width:
-                10,
-          ),
+          const SizedBox(width: 10),
 
           Expanded(
-            child:
-                Text(
+            child: Text(
               'Stai visualizzando il gruppo come Guest. Puoi vedere i partecipanti che hanno reso disponibile il proprio profilo, consultare i materiali e scaricare i file disponibili per consultarli offline. Per partecipare al gruppo, accedere alle comunicazioni riservate o condividere materiale devi accedere a StudentLab.',
 
-              style:
-                  TextStyle(
-                color:
-                    AppColors
-                        .pureWhite
-                        .withValues(alpha: 0.55),
+              style: TextStyle(
+                color: AppColors.pureWhite.withValues(alpha: 0.55),
 
-                fontSize:
-                    11,
+                fontSize: 11,
 
-                height:
-                    1.45,
+                height: 1.45,
               ),
             ),
           ),
@@ -1158,71 +730,41 @@ class _StudyGroupDetailPageState
       ),
     );
   }
-
 
   Widget _buildNonMemberInfo() {
     return Container(
-      padding:
-          const EdgeInsets.all(
-        14,
+      padding: const EdgeInsets.all(14),
+
+      decoration: BoxDecoration(
+        color: AppColors.skyBlue.withValues(alpha: 0.05),
+
+        borderRadius: BorderRadius.circular(14),
+
+        border: Border.all(color: AppColors.skyBlue.withValues(alpha: 0.10)),
       ),
 
-      decoration:
-          BoxDecoration(
-        color:
-            AppColors.skyBlue
-                .withValues(alpha: 0.05),
-
-        borderRadius:
-            BorderRadius.circular(
-          14,
-        ),
-
-        border:
-            Border.all(
-          color:
-              AppColors.skyBlue
-                  .withValues(alpha: 0.10),
-        ),
-      ),
-
-      child:
-          Row(
+      child: Row(
         children: [
-          const Icon(
-            Icons
-                .group_add_outlined,
+          Icon(
+            Icons.group_add_outlined,
 
-            color:
-                AppColors
-                    .materialSky,
+            color: AppColors.materialSky,
 
-            size:
-                20,
+            size: 20,
           ),
 
-          const SizedBox(
-            width:
-                10,
-          ),
+          const SizedBox(width: 10),
 
           Expanded(
-            child:
-                Text(
+            child: Text(
               'Puoi esplorare il gruppo e scaricare il materiale, ma le comunicazioni riservate sono disponibili solo ai partecipanti.',
 
-              style:
-                  TextStyle(
-                color:
-                    AppColors
-                        .pureWhite
-                        .withValues(alpha: 0.52),
+              style: TextStyle(
+                color: AppColors.pureWhite.withValues(alpha: 0.52),
 
-                fontSize:
-                    11,
+                fontSize: 11,
 
-                height:
-                    1.4,
+                height: 1.4,
               ),
             ),
           ),
@@ -1231,83 +773,45 @@ class _StudyGroupDetailPageState
     );
   }
 
-
   Widget _buildParticipantsCard() {
     return _GroupActionCard(
-      icon:
-          Icons
-              .people_outline_rounded,
+      icon: Icons.people_outline_rounded,
 
-      title:
-          'Partecipanti',
+      title: 'Partecipanti',
 
-      description:
-          'Visualizza studenti e insegnanti appartenenti al gruppo.',
+      description: 'Visualizza studenti e insegnanti appartenenti al gruppo.',
 
-      counter:
-          '${_participants.length}',
+      counter: '${_participants.length}',
 
-      enabled:
-          true,
+      enabled: true,
 
-      onTap:
-          _openParticipants,
+      onTap: _openParticipants,
     );
   }
-
 
   void _openParticipants() {
-    Navigator.of(
-      context,
-    ).push(
-      MaterialPageRoute(
-        builder:
-            (_) =>
-                GroupParticipantsLayer(
-          group:
-              group,
-        ),
-      ),
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => GroupParticipantsLayer(group: group)),
     );
   }
 
-
   void _openGroupManagement() {
-    if (
-      !isAuthenticated ||
-      !group.isManager
-    ) {
+    if (!isAuthenticated || !group.isManager) {
       return;
     }
 
-    Navigator.of(
-      context,
-    )
+    Navigator.of(context)
         .push(
-      MaterialPageRoute(
-        builder:
-            (_) =>
-                GroupManagementPage(
-          group:
-              group,
-        ),
-      ),
-    )
-        .then(
-      (
-        _,
-      ) {
-        if (mounted) {
-          _loadGroupData();
-        }
-      },
-    );
+          MaterialPageRoute(builder: (_) => GroupManagementPage(group: group)),
+        )
+        .then((_) {
+          if (mounted) {
+            _loadGroupData();
+          }
+        });
   }
 
-
-  Future<void> _openMaterial(
-    _GroupMaterial material,
-  ) async {
+  Future<void> _openMaterial(_GroupMaterial material) async {
     try {
       MaterialLocal? local = await _downloadService.getLocalMaterialV6(
         source: MaterialSourceLocal.group,
@@ -1338,34 +842,26 @@ class _StudyGroupDetailPageState
       await _refreshDownloadedStates();
       if (!mounted) return;
       _showMessage(
-        _cleanError(
-          e,
-          fallback: 'Non è stato possibile aprire il materiale.',
-        ),
+        _cleanError(e, fallback: 'Non è stato possibile aprire il materiale.'),
       );
     }
   }
 
-
-  Future<void> _downloadMaterial(
-    _GroupMaterial material,
-  ) async {
+  Future<void> _downloadMaterial(_GroupMaterial material) async {
     if (_downloadingMaterialIds.contains(material.id)) {
       return;
     }
 
     setState(() {
-      _downloadingMaterialIds.add(
-        material.id,
-      );
+      _downloadingMaterialIds.add(material.id);
     });
 
     try {
-      final bool alreadyDownloaded =
-          await _downloadService.isMaterialDownloaded(
-        source: MaterialSourceLocal.group,
-        materialId: material.id,
-      );
+      final bool alreadyDownloaded = await _downloadService
+          .isMaterialDownloaded(
+            source: MaterialSourceLocal.group,
+            materialId: material.id,
+          );
 
       await _downloadService.getOrDownloadMaterial(
         source: MaterialSourceLocal.group,
@@ -1385,9 +881,7 @@ class _StudyGroupDetailPageState
       }
 
       setState(() {
-        _downloadedMaterialIds.add(
-          material.id,
-        );
+        _downloadedMaterialIds.add(material.id);
       });
 
       _showMessage(
@@ -1403,16 +897,13 @@ class _StudyGroupDetailPageState
       _showMessage(
         _cleanError(
           error,
-          fallback:
-              'Non è stato possibile scaricare il materiale. Riprova.',
+          fallback: 'Non è stato possibile scaricare il materiale. Riprova.',
         ),
       );
     } finally {
       if (mounted) {
         setState(() {
-          _downloadingMaterialIds.remove(
-            material.id,
-          );
+          _downloadingMaterialIds.remove(material.id);
         });
       }
     }
@@ -1427,9 +918,7 @@ class _StudyGroupDetailPageState
       if (isGuest) {
         _showAuthenticationRequired();
       } else {
-        _showMessage(
-          'Non hai i permessi per caricare materiale.',
-        );
+        _showMessage('Non hai i permessi per caricare materiale.');
       }
 
       return;
@@ -1442,17 +931,10 @@ class _StudyGroupDetailPageState
     }
 
     try {
-      final FilePickerResult? result =
-          await FilePicker.pickFiles(
+      final FilePickerResult? result = await FilePicker.pickFiles(
         allowMultiple: false,
         type: FileType.custom,
-        allowedExtensions: <String>[
-          'pdf',
-          'txt',
-          'zip',
-          'docx',
-          'pptx',
-        ],
+        allowedExtensions: <String>['pdf', 'txt', 'zip', 'docx', 'pptx'],
         withData: kIsWeb,
       );
 
@@ -1460,31 +942,15 @@ class _StudyGroupDetailPageState
         return;
       }
 
-      final PlatformFile selectedFile =
-          result.files.single;
+      final PlatformFile selectedFile = result.files.single;
 
-      final String filePath;
-      try {
-        filePath = await _fileBridge.materialize(selectedFile);
-      } catch (error) {
-        _showMessage(_cleanError(error));
-        return;
-      }
-
-      if (
-        selectedFile.size <= 0
-      ) {
-        _showMessage(
-          'Il file selezionato è vuoto.',
-        );
+      if (selectedFile.size <= 0) {
+        _showMessage('Il file selezionato è vuoto.');
 
         return;
       }
 
-      if (
-        selectedFile.size >
-        ApiService.maxMaterialFileSize
-      ) {
+      if (selectedFile.size > ApiService.maxMaterialFileSize) {
         _showMessage(
           'Il file supera la dimensione massima consentita di 250 MB.',
         );
@@ -1493,18 +959,32 @@ class _StudyGroupDetailPageState
       }
 
       setState(() {
-        _uploadingMaterial =
-            true;
+        _uploadingMaterial = true;
       });
 
-      await _apiService
-          .addGroupMaterial(
-        groupId:
-            group.id,
+      if (kIsWeb) {
+        final Uint8List? bytes = selectedFile.bytes;
 
-        filePath:
-            filePath,
-      );
+        if (bytes == null || bytes.isEmpty) {
+          throw Exception(
+            'Il browser non ha reso disponibile il contenuto del file.',
+          );
+        }
+
+        await _apiService.addGroupMaterialBytes(
+          groupId: group.id,
+          bytes: bytes,
+          originalName: selectedFile.name,
+        );
+      } else {
+        final String filePath = await _fileBridge.materialize(selectedFile);
+
+        await _apiService.addGroupMaterial(
+          groupId: group.id,
+          filePath: filePath,
+          originalName: selectedFile.name,
+        );
+      }
 
       await _refreshMaterials();
 
@@ -1512,9 +992,7 @@ class _StudyGroupDetailPageState
         return;
       }
 
-      _showMessage(
-        'Materiale caricato correttamente.',
-      );
+      _showMessage('Materiale caricato correttamente.');
     } catch (e) {
       if (!mounted) {
         return;
@@ -1523,103 +1001,62 @@ class _StudyGroupDetailPageState
       _showMessage(
         _cleanError(
           e,
-          fallback:
-              'Non è stato possibile caricare il materiale. Riprova.',
+          fallback: 'Non è stato possibile caricare il materiale. Riprova.',
         ),
       );
     } finally {
       if (mounted) {
         setState(() {
-          _uploadingMaterial =
-              false;
+          _uploadingMaterial = false;
         });
       }
     }
   }
 
-  Future<void> _deleteMaterial(
-    _GroupMaterial material,
-  ) async {
+  Future<void> _deleteMaterial(_GroupMaterial material) async {
     if (!canDeleteMaterial) {
-      _showMessage(
-        'Non hai i permessi per eliminare questo materiale.',
-      );
+      _showMessage('Non hai i permessi per eliminare questo materiale.');
 
       return;
     }
 
-    final bool? confirmed =
-        await showDialog<bool>(
-      context:
-          context,
+    final bool? confirmed = await showDialog<bool>(
+      context: context,
 
-      builder:
-          (
-        BuildContext dialogContext,
-      ) {
+      builder: (BuildContext dialogContext) {
         return AlertDialog(
-          backgroundColor:
-              AppColors
-                  .eleganceDeepNavy,
+          backgroundColor: AppColors.eleganceDeepNavy,
 
-          title:
-              const Text(
+          title: Text(
             'Elimina materiale',
 
-            style:
-                TextStyle(
-              color:
-                  AppColors
-                      .pureWhite,
-            ),
+            style: TextStyle(color: AppColors.pureWhite),
           ),
 
-          content:
-              Text(
+          content: Text(
             'Vuoi eliminare "${material.originalName}"?',
 
-            style:
-                const TextStyle(
-              color:
-                  Colors.white70,
-            ),
+            style: TextStyle(color: AppColors.white70),
           ),
 
           actions: [
             TextButton(
-              onPressed:
-                  () {
-                Navigator.pop(
-                  dialogContext,
-                  false,
-                );
+              onPressed: () {
+                Navigator.pop(dialogContext, false);
               },
 
-              child:
-                  const Text(
-                'Annulla',
-              ),
+              child: const Text('Annulla'),
             ),
 
             TextButton(
-              onPressed:
-                  () {
-                Navigator.pop(
-                  dialogContext,
-                  true,
-                );
+              onPressed: () {
+                Navigator.pop(dialogContext, true);
               },
 
-              child:
-                  const Text(
+              child: Text(
                 'Elimina',
 
-                style:
-                    TextStyle(
-                  color:
-                      Colors
-                          .redAccent,
-                ),
+                style: TextStyle(color: AppColors.redAccent),
               ),
             ),
           ],
@@ -1632,10 +1069,7 @@ class _StudyGroupDetailPageState
     }
 
     try {
-      await _apiService
-          .removeGroupMaterial(
-        material.id,
-      );
+      await _apiService.removeGroupMaterial(material.id);
 
       await _refreshMaterials();
 
@@ -1643,9 +1077,7 @@ class _StudyGroupDetailPageState
         return;
       }
 
-      _showMessage(
-        'Materiale eliminato dal gruppo.',
-      );
+      _showMessage('Materiale eliminato dal gruppo.');
     } catch (e) {
       if (!mounted) {
         return;
@@ -1654,13 +1086,11 @@ class _StudyGroupDetailPageState
       _showMessage(
         _cleanError(
           e,
-          fallback:
-              'Non è stato possibile eliminare il materiale. Riprova.',
+          fallback: 'Non è stato possibile eliminare il materiale. Riprova.',
         ),
       );
     }
   }
-
 
   void _showOptions() {
     if (!canLeaveGroup) {
@@ -1668,95 +1098,55 @@ class _StudyGroupDetailPageState
     }
 
     showModalBottomSheet<void>(
-      context:
-          context,
+      context: context,
 
-      backgroundColor:
-          AppColors
-              .eleganceDeepNavy,
+      backgroundColor: AppColors.eleganceDeepNavy,
 
-      shape:
-          const RoundedRectangleBorder(
-        borderRadius:
-            BorderRadius.vertical(
-          top:
-              Radius.circular(
-            20,
-          ),
-        ),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
 
-      builder:
-          (
-        BuildContext sheetContext,
-      ) {
+      builder: (BuildContext sheetContext) {
         return SafeArea(
-          child:
-              Column(
-            mainAxisSize:
-                MainAxisSize.min,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
 
             children: [
-              const SizedBox(
-                height:
-                    8,
-              ),
+              const SizedBox(height: 8),
 
               ListTile(
-                enabled:
-                    !_leavingGroup,
+                enabled: !_leavingGroup,
 
-                leading:
-                    _leavingGroup
-                        ? const SizedBox(
-                            width:
-                                22,
+                leading: _leavingGroup
+                    ? const SizedBox(
+                        width: 22,
 
-                            height:
-                                22,
+                        height: 22,
 
-                            child:
-                                CircularProgressIndicator(
-                              strokeWidth:
-                                  2,
-                            ),
-                          )
-                        : const Icon(
-                            Icons
-                                .exit_to_app_rounded,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : Icon(
+                        Icons.exit_to_app_rounded,
 
-                            color:
-                                Colors
-                                    .redAccent,
-                          ),
+                        color: AppColors.redAccent,
+                      ),
 
-                title:
-                    const Text(
+                title: Text(
                   'Esci dal gruppo',
 
-                  style:
-                      TextStyle(
-                    color:
-                        Colors.redAccent,
-                  ),
+                  style: TextStyle(color: AppColors.redAccent),
                 ),
 
-                onTap:
-                    _leavingGroup
-                        ? null
-                        : () {
-                            Navigator.pop(
-                              sheetContext,
-                            );
+                onTap: _leavingGroup
+                    ? null
+                    : () {
+                        Navigator.pop(sheetContext);
 
-                            _leaveGroup();
-                          },
+                        _leaveGroup();
+                      },
               ),
 
-              const SizedBox(
-                height:
-                    6,
-              ),
+              const SizedBox(height: 6),
             ],
           ),
         );
@@ -1764,10 +1154,8 @@ class _StudyGroupDetailPageState
     );
   }
 
-
   Future<void> _leaveGroup() async {
-    final int? userId =
-        currentUserId;
+    final int? userId = currentUserId;
 
     if (userId == null) {
       _showAuthenticationRequired();
@@ -1779,78 +1167,43 @@ class _StudyGroupDetailPageState
       return;
     }
 
-    final bool? confirmed =
-        await showDialog<bool>(
-      context:
-          context,
+    final bool? confirmed = await showDialog<bool>(
+      context: context,
 
-      builder:
-          (
-        BuildContext dialogContext,
-      ) {
+      builder: (BuildContext dialogContext) {
         return AlertDialog(
-          backgroundColor:
-              AppColors
-                  .eleganceDeepNavy,
+          backgroundColor: AppColors.eleganceDeepNavy,
 
-          title:
-              const Text(
+          title: Text(
             'Esci dal gruppo',
 
-            style:
-                TextStyle(
-              color:
-                  AppColors
-                      .pureWhite,
-            ),
+            style: TextStyle(color: AppColors.pureWhite),
           ),
 
-          content:
-              Text(
+          content: Text(
             'Vuoi davvero uscire da "${group.name}"?',
 
-            style:
-                const TextStyle(
-              color:
-                  Colors.white70,
-            ),
+            style: TextStyle(color: AppColors.white70),
           ),
 
           actions: [
             TextButton(
-              onPressed:
-                  () {
-                Navigator.pop(
-                  dialogContext,
-                  false,
-                );
+              onPressed: () {
+                Navigator.pop(dialogContext, false);
               },
 
-              child:
-                  const Text(
-                'Annulla',
-              ),
+              child: const Text('Annulla'),
             ),
 
             TextButton(
-              onPressed:
-                  () {
-                Navigator.pop(
-                  dialogContext,
-                  true,
-                );
+              onPressed: () {
+                Navigator.pop(dialogContext, true);
               },
 
-              child:
-                  const Text(
+              child: Text(
                 'Esci',
 
-                style:
-                    TextStyle(
-                  color:
-                      Colors
-                          .redAccent,
-                ),
+                style: TextStyle(color: AppColors.redAccent),
               ),
             ),
           ],
@@ -1863,33 +1216,19 @@ class _StudyGroupDetailPageState
     }
 
     setState(() {
-      _leavingGroup =
-          true;
+      _leavingGroup = true;
     });
 
     try {
-      await _apiService
-          .removeGroupMember(
-        groupId:
-            group.id,
-
-        userId:
-            userId,
-      );
+      await _apiService.removeGroupMember(groupId: group.id, userId: userId);
 
       if (!mounted) {
         return;
       }
 
-      _showMessage(
-        'Hai lasciato il gruppo.',
-      );
+      _showMessage('Hai lasciato il gruppo.');
 
-      Navigator.of(
-        context,
-      ).pop(
-        true,
-      );
+      Navigator.of(context).pop(true);
     } catch (e) {
       if (!mounted) {
         return;
@@ -1898,157 +1237,78 @@ class _StudyGroupDetailPageState
       _showMessage(
         _cleanError(
           e,
-          fallback:
-              'Non è stato possibile uscire dal gruppo. Riprova.',
+          fallback: 'Non è stato possibile uscire dal gruppo. Riprova.',
         ),
       );
     } finally {
       if (mounted) {
         setState(() {
-          _leavingGroup =
-              false;
+          _leavingGroup = false;
         });
       }
     }
   }
 
-
   void _showAuthenticationRequired() {
-    _showMessage(
-      'Accedi a StudentLab per utilizzare questa funzione.',
-    );
+    _showMessage('Accedi a StudentLab per utilizzare questa funzione.');
   }
 
-
-  void _showMessage(
-    String message,
-  ) {
+  void _showMessage(String message) {
     if (!mounted) {
       return;
     }
 
     ScaffoldMessenger.of(
       context,
-    ).showSnackBar(
-      SnackBar(
-        content:
-            Text(
-          message,
-        ),
-      ),
-    );
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
-
 
   String _cleanError(
     Object error, {
-    String fallback =
-        'Non è stato possibile completare l’operazione. Riprova.',
+    String fallback = 'Non è stato possibile completare l’operazione. Riprova.',
   }) {
-    final String message =
-        error
-            .toString()
-            .toLowerCase();
+    final String message = error.toString().toLowerCase();
 
-    if (
-      message.contains(
-            '401',
-          ) ||
-      message.contains(
-            'unauthorized',
-          )
-    ) {
+    if (message.contains('401') || message.contains('unauthorized')) {
       return 'La sessione non è più valida. Accedi nuovamente a StudentLab.';
     }
 
-    if (
-      message.contains(
-            '403',
-          ) ||
-      message.contains(
-            'forbidden',
-          )
-    ) {
+    if (message.contains('403') || message.contains('forbidden')) {
       return 'Non hai i permessi necessari per completare questa operazione nel gruppo.';
     }
 
-    if (
-      message.contains(
-            '404',
-          ) ||
-      message.contains(
-            'not found',
-          )
-    ) {
+    if (message.contains('404') || message.contains('not found')) {
       return 'Il gruppo, il materiale o la risorsa richiesta non sono più disponibili.';
     }
 
-    if (
-      message.contains(
-            '409',
-          ) ||
-      message.contains(
-            'conflict',
-          )
-    ) {
+    if (message.contains('409') || message.contains('conflict')) {
       return 'L’operazione non può essere completata nello stato attuale del gruppo. Aggiorna e riprova.';
     }
 
-    if (
-      message.contains(
-            '422',
-          ) ||
-      message.contains(
-            'validation',
-          ) ||
-      message.contains(
-            'invalid',
-          )
-    ) {
+    if (message.contains('422') ||
+        message.contains('validation') ||
+        message.contains('invalid')) {
       return 'Alcuni dati non sono validi. Controllali e riprova.';
     }
 
-    if (
-      message.contains(
-            'network',
-          ) ||
-      message.contains(
-            'socket',
-          ) ||
-      message.contains(
-            'connection',
-          ) ||
-      message.contains(
-            'timeout',
-          ) ||
-      message.contains(
-            'host lookup',
-          )
-    ) {
+    if (message.contains('network') ||
+        message.contains('socket') ||
+        message.contains('connection') ||
+        message.contains('timeout') ||
+        message.contains('host lookup')) {
       return 'Non è stato possibile contattare StudentLab. Controlla la connessione e riprova.';
     }
 
-    if (
-      message.contains(
-            '500',
-          ) ||
-      message.contains(
-            '502',
-          ) ||
-      message.contains(
-            '503',
-          )
-    ) {
+    if (message.contains('500') ||
+        message.contains('502') ||
+        message.contains('503')) {
       return 'StudentLab non è temporaneamente disponibile. Riprova tra qualche momento.';
     }
 
     return fallback;
   }
 
-
-  static int? _toInt(
-    dynamic value,
-  ) {
+  static int? _toInt(dynamic value) {
     if (value is int) {
       return value;
     }
@@ -2057,13 +1317,9 @@ class _StudyGroupDetailPageState
       return value.toInt();
     }
 
-    return int.tryParse(
-      value?.toString() ??
-          '',
-    );
+    return int.tryParse(value?.toString() ?? '');
   }
 }
-
 
 class _GroupMaterial {
   final int id;
@@ -2084,7 +1340,6 @@ class _GroupMaterial {
 
   final DateTime? createdAt;
 
-
   const _GroupMaterial({
     required this.id,
     required this.groupId,
@@ -2097,179 +1352,100 @@ class _GroupMaterial {
     required this.createdAt,
   });
 
-
-  factory _GroupMaterial.fromJson(
-    Map<String, dynamic> json,
-  ) {
+  factory _GroupMaterial.fromJson(Map<String, dynamic> json) {
     return _GroupMaterial(
-      id:
-          _toInt(
-            json['id'],
-          ) ??
-          0,
+      id: _toInt(json['id']) ?? 0,
 
-      groupId:
-          _toInt(
-            json['group_id'],
-          ) ??
-          0,
+      groupId: _toInt(json['group_id']) ?? 0,
 
-      uploadedBy:
-          _toInt(
-            json['uploaded_by'],
-          ) ??
-          0,
+      uploadedBy: _toInt(json['uploaded_by']) ?? 0,
 
-      originalName:
-          json['original_name']
-                  ?.toString() ??
-              '',
+      originalName: json['original_name']?.toString() ?? '',
 
-      storedName:
-          json['stored_name']
-                  ?.toString() ??
-              '',
+      storedName: json['stored_name']?.toString() ?? '',
 
-      filePath:
-          json['file_path']
-                  ?.toString() ??
-              '',
+      filePath: json['file_path']?.toString() ?? '',
 
-      mimeType:
-          json['mime_type']
-                  ?.toString() ??
-              'application/octet-stream',
+      mimeType: json['mime_type']?.toString() ?? 'application/octet-stream',
 
-      size:
-          _toInt(
-            json['size'],
-          ) ??
-          0,
+      size: _toInt(json['size']) ?? 0,
 
-      createdAt:
-          DateTime.tryParse(
-        json['created_at']
-                ?.toString() ??
-            '',
-      ),
+      createdAt: DateTime.tryParse(json['created_at']?.toString() ?? ''),
     );
   }
 
-
   String get type {
-    if (
-      mimeType ==
-      'application/pdf'
-    ) {
+    if (mimeType == 'application/pdf') {
       return 'PDF';
     }
 
-    if (
-      mimeType.contains(
-        'wordprocessingml',
-      )
-    ) {
+    if (mimeType.contains('wordprocessingml')) {
       return 'DOCX';
     }
 
-    if (
-      mimeType.contains(
-        'presentationml',
-      )
-    ) {
+    if (mimeType.contains('presentationml')) {
       return 'PPTX';
     }
 
-    if (
-      mimeType.contains(
-        'spreadsheetml',
-      )
-    ) {
+    if (mimeType.contains('spreadsheetml')) {
       return 'XLSX';
     }
 
-    if (
-      mimeType ==
-      'application/zip'
-    ) {
+    if (mimeType == 'application/zip') {
       return 'ZIP';
     }
 
-    if (
-      mimeType ==
-      'text/plain'
-    ) {
+    if (mimeType == 'text/plain') {
       return 'TXT';
     }
 
-    if (
-      mimeType ==
-      'text/csv'
-    ) {
+    if (mimeType == 'text/csv') {
       return 'CSV';
     }
 
-    if (
-      mimeType.startsWith(
-        'image/',
-      )
-    ) {
+    if (mimeType.startsWith('image/')) {
       return 'IMG';
     }
 
     return 'FILE';
   }
 
-
   String get formattedSize {
     if (size < 1024) {
       return '$size B';
     }
 
-    if (
-      size <
-      1024 * 1024
-    ) {
+    if (size < 1024 * 1024) {
       return '${(size / 1024).toStringAsFixed(1)} KB';
     }
 
     return '${(size / (1024 * 1024)).toStringAsFixed(1)} MB';
   }
 
-
   IconData get icon {
     switch (type) {
       case 'PDF':
-        return Icons
-            .picture_as_pdf_outlined;
+        return Icons.picture_as_pdf_outlined;
 
       case 'ZIP':
-        return Icons
-            .folder_zip_outlined;
+        return Icons.folder_zip_outlined;
 
       case 'PPTX':
-        return Icons
-            .slideshow_outlined;
+        return Icons.slideshow_outlined;
 
       case 'XLSX':
       case 'CSV':
-        return Icons
-            .table_chart_outlined;
+        return Icons.table_chart_outlined;
 
       case 'IMG':
-        return Icons
-            .image_outlined;
+        return Icons.image_outlined;
 
       default:
-        return Icons
-            .description_outlined;
+        return Icons.description_outlined;
     }
   }
 
-
-  static int? _toInt(
-    dynamic value,
-  ) {
+  static int? _toInt(dynamic value) {
     if (value is int) {
       return value;
     }
@@ -2278,22 +1454,16 @@ class _GroupMaterial {
       return value.toInt();
     }
 
-    return int.tryParse(
-      value?.toString() ??
-          '',
-    );
+    return int.tryParse(value?.toString() ?? '');
   }
 }
 
-
-class _GroupHeaderBadge
-    extends StatelessWidget {
+class _GroupHeaderBadge extends StatelessWidget {
   final IconData icon;
 
   final String label;
 
   final bool compact;
-
 
   const _GroupHeaderBadge({
     required this.icon,
@@ -2301,83 +1471,40 @@ class _GroupHeaderBadge
     required this.compact,
   });
 
-
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     return Container(
-      padding:
-          EdgeInsets.symmetric(
-        horizontal:
-            compact
-                ? 6
-                : 8,
+      padding: EdgeInsets.symmetric(
+        horizontal: compact ? 6 : 8,
 
-        vertical:
-            compact
-                ? 4
-                : 5,
+        vertical: compact ? 4 : 5,
       ),
 
-      decoration:
-          BoxDecoration(
-        color:
-            AppColors
-                .brandNightBlue,
+      decoration: BoxDecoration(
+        color: AppColors.brandNightBlue,
 
-        borderRadius:
-            BorderRadius.circular(
-          8,
-        ),
+        borderRadius: BorderRadius.circular(8),
 
-        border:
-            Border.all(
-          color:
-              AppColors.skyBlue
-                  .withValues(alpha: 0.12),
-        ),
+        border: Border.all(color: AppColors.skyBlue.withValues(alpha: 0.12)),
       ),
 
-      child:
-          Row(
-        mainAxisSize:
-            MainAxisSize.min,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
 
         children: [
-          Icon(
-            icon,
+          Icon(icon, color: AppColors.skyBlue, size: compact ? 11 : 13),
 
-            color:
-                AppColors.skyBlue,
-
-            size:
-                compact
-                    ? 11
-                    : 13,
-          ),
-
-          const SizedBox(
-            width:
-                4,
-          ),
+          const SizedBox(width: 4),
 
           Text(
             label,
 
-            style:
-                TextStyle(
-              color:
-                  AppColors
-                      .pureWhite,
+            style: TextStyle(
+              color: AppColors.pureWhite,
 
-              fontSize:
-                  compact
-                      ? 8
-                      : 9,
+              fontSize: compact ? 8 : 9,
 
-              fontWeight:
-                  FontWeight.w600,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],
@@ -2386,15 +1513,12 @@ class _GroupHeaderBadge
   }
 }
 
-
-class _GroupHeaderInfo
-    extends StatelessWidget {
+class _GroupHeaderInfo extends StatelessWidget {
   final IconData icon;
 
   final String text;
 
   final bool compact;
-
 
   const _GroupHeaderInfo({
     required this.icon,
@@ -2402,51 +1526,25 @@ class _GroupHeaderInfo
     required this.compact,
   });
 
-
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     return Row(
-      mainAxisSize:
-          MainAxisSize.min,
+      mainAxisSize: MainAxisSize.min,
 
       children: [
-        Icon(
-          icon,
+        Icon(icon, size: compact ? 14 : 16, color: AppColors.materialSky),
 
-          size:
-              compact
-                  ? 14
-                  : 16,
-
-          color:
-              AppColors
-                  .materialSky,
-        ),
-
-        const SizedBox(
-          width:
-              5,
-        ),
+        const SizedBox(width: 5),
 
         Text(
           text,
 
-          style:
-              TextStyle(
-            color:
-                AppColors
-                    .materialSky
-                    .withValues(alpha: 0.90),
+          style: TextStyle(
+            color: AppColors.materialSky.withValues(alpha: 0.90),
 
-            fontSize:
-                compact
-                    ? 9
-                    : 11,
+            fontSize: compact ? 9 : 11,
 
-            fontWeight:
-                FontWeight.w500,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ],
@@ -2454,9 +1552,7 @@ class _GroupHeaderInfo
   }
 }
 
-
-class _GroupActionCard
-    extends StatelessWidget {
+class _GroupActionCard extends StatelessWidget {
   final IconData icon;
 
   final String title;
@@ -2469,7 +1565,6 @@ class _GroupActionCard
 
   final VoidCallback onTap;
 
-
   const _GroupActionCard({
     required this.icon,
     required this.title,
@@ -2479,200 +1574,111 @@ class _GroupActionCard
     required this.onTap,
   });
 
-
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     return Material(
-      color:
-          Colors.transparent,
+      color: Colors.transparent,
 
-      child:
-          InkWell(
-        onTap:
-            enabled
-                ? onTap
-                : null,
+      child: InkWell(
+        onTap: enabled ? onTap : null,
 
-        borderRadius:
-            BorderRadius.circular(
-          16,
-        ),
+        borderRadius: BorderRadius.circular(16),
 
-        child:
-            Container(
-          width:
-              double.infinity,
+        child: Container(
+          width: double.infinity,
 
-          padding:
-              const EdgeInsets.all(
-            15,
-          ),
+          padding: const EdgeInsets.all(15),
 
-          decoration:
-              BoxDecoration(
-            color:
-                AppColors
-                    .eleganceMidnight,
+          decoration: BoxDecoration(
+            color: AppColors.eleganceMidnight,
 
-            borderRadius:
-                BorderRadius.circular(
-              16,
-            ),
+            borderRadius: BorderRadius.circular(16),
 
-            border:
-                Border.all(
-              color:
-                  AppColors.skyBlue
-                      .withValues(
-                alpha: enabled
-                    ? 0.12
-                    : 0.05,
-              ),
+            border: Border.all(
+              color: AppColors.skyBlue.withValues(alpha: enabled ? 0.12 : 0.05),
             ),
           ),
 
-          child:
-              Row(
+          child: Row(
             children: [
               Container(
-                width:
-                    45,
+                width: 45,
 
-                height:
-                    45,
+                height: 45,
 
-                decoration:
-                    BoxDecoration(
-                  color:
-                      AppColors
-                          .brandNightBlue,
+                decoration: BoxDecoration(
+                  color: AppColors.brandNightBlue,
 
-                  borderRadius:
-                      BorderRadius.circular(
-                    12,
-                  ),
+                  borderRadius: BorderRadius.circular(12),
                 ),
 
-                child:
-                    Icon(
+                child: Icon(
                   icon,
 
-                  color:
-                      enabled
-                          ? AppColors
-                              .skyBlue
-                          : Colors
-                              .white24,
+                  color: enabled ? AppColors.skyBlue : AppColors.white24,
 
-                  size:
-                      22,
+                  size: 22,
                 ),
               ),
 
-              const SizedBox(
-                width:
-                    12,
-              ),
+              const SizedBox(width: 12),
 
               Expanded(
-                child:
-                    Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.start,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
 
                   children: [
                     Text(
                       title,
 
-                      style:
-                          TextStyle(
-                        color:
-                            enabled
-                                ? AppColors
-                                    .pureWhite
-                                : Colors
-                                    .white38,
+                      style: TextStyle(
+                        color: enabled ? AppColors.pureWhite : AppColors.white38,
 
-                        fontSize:
-                            14,
+                        fontSize: 14,
 
-                        fontWeight:
-                            FontWeight.w600,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
 
-                    const SizedBox(
-                      height:
-                          4,
-                    ),
+                    const SizedBox(height: 4),
 
                     Text(
                       description,
 
-                      style:
-                          TextStyle(
-                        color:
-                            AppColors
-                                .pureWhite
-                                .withValues(
-                              alpha: enabled
-                                  ? 0.47
-                                  : 0.25,
-                            ),
+                      style: TextStyle(
+                        color: AppColors.pureWhite.withValues(
+                          alpha: enabled ? 0.47 : 0.25,
+                        ),
 
-                        fontSize:
-                            10,
+                        fontSize: 10,
 
-                        height:
-                            1.35,
+                        height: 1.35,
                       ),
                     ),
                   ],
                 ),
               ),
 
-              const SizedBox(
-                width:
-                    8,
-              ),
+              const SizedBox(width: 8),
 
               Text(
                 counter,
 
-                style:
-                    TextStyle(
-                  color:
-                      enabled
-                          ? AppColors
-                              .materialSky
-                          : Colors
-                              .white24,
+                style: TextStyle(
+                  color: enabled ? AppColors.materialSky : AppColors.white24,
 
-                  fontSize:
-                      10,
+                  fontSize: 10,
 
-                  fontWeight:
-                      FontWeight.w600,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
 
-              const SizedBox(
-                width:
-                    5,
-              ),
+              const SizedBox(width: 5),
 
               Icon(
-                Icons
-                    .chevron_right_rounded,
+                Icons.chevron_right_rounded,
 
-                color:
-                    enabled
-                        ? Colors
-                            .white38
-                        : Colors
-                            .white12,
+                color: enabled ? AppColors.white38 : AppColors.white12,
               ),
             ],
           ),
@@ -2682,18 +1688,14 @@ class _GroupActionCard
   }
 }
 
-
-class _GroupMaterialSection
-    extends StatelessWidget {
+class _GroupMaterialSection extends StatelessWidget {
   final StudyGroup group;
 
   final List<_GroupMaterial> materials;
 
-  final Set<int>
-      downloadedMaterialIds;
+  final Set<int> downloadedMaterialIds;
 
-  final Set<int>
-      downloadingMaterialIds;
+  final Set<int> downloadingMaterialIds;
 
   final bool loading;
 
@@ -2703,24 +1705,15 @@ class _GroupMaterialSection
 
   final bool canDeleteMaterial;
 
-  final Future<void> Function()
-      onRefresh;
+  final Future<void> Function() onRefresh;
 
-  final VoidCallback
-      onAddMaterial;
+  final VoidCallback onAddMaterial;
 
-  final void Function(
-    _GroupMaterial material,
-  ) onOpenMaterial;
+  final void Function(_GroupMaterial material) onOpenMaterial;
 
-  final void Function(
-    _GroupMaterial material,
-  ) onDownloadMaterial;
+  final void Function(_GroupMaterial material) onDownloadMaterial;
 
-  final void Function(
-    _GroupMaterial material,
-  ) onDeleteMaterial;
-
+  final void Function(_GroupMaterial material) onDeleteMaterial;
 
   const _GroupMaterialSection({
     super.key,
@@ -2739,276 +1732,166 @@ class _GroupMaterialSection
     required this.onDeleteMaterial,
   });
 
-
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment:
-          CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
 
       children: [
         Row(
           children: [
-            const Expanded(
-              child:
-                  Text(
+            Expanded(
+              child: Text(
                 'Materiali',
 
-                style:
-                    TextStyle(
-                  color:
-                      AppColors
-                          .pureWhite,
+                style: TextStyle(
+                  color: AppColors.pureWhite,
 
-                  fontSize:
-                      20,
+                  fontSize: 20,
 
-                  fontWeight:
-                      FontWeight.bold,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
 
             if (loading)
               const SizedBox(
-                width:
-                    18,
+                width: 18,
 
-                height:
-                    18,
+                height: 18,
 
-                child:
-                    CircularProgressIndicator(
-                  strokeWidth:
-                      2,
-                ),
+                child: CircularProgressIndicator(strokeWidth: 2),
               )
             else
               IconButton(
-                tooltip:
-                    'Aggiorna materiali',
+                tooltip: 'Aggiorna materiali',
 
-                onPressed:
-                    () {
+                onPressed: () {
                   onRefresh();
                 },
 
-                icon:
-                    const Icon(
-                  Icons
-                      .refresh_rounded,
+                icon: Icon(
+                  Icons.refresh_rounded,
 
-                  color:
-                      AppColors
-                          .materialSky,
+                  color: AppColors.materialSky,
                 ),
               ),
 
             Container(
-              padding:
-                  const EdgeInsets.symmetric(
-                horizontal:
-                    9,
+              padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 5),
 
-                vertical:
-                    5,
+              decoration: BoxDecoration(
+                color: AppColors.brandNightBlue,
+
+                borderRadius: BorderRadius.circular(8),
               ),
 
-              decoration:
-                  BoxDecoration(
-                color:
-                    AppColors
-                        .brandNightBlue,
-
-                borderRadius:
-                    BorderRadius.circular(
-                  8,
-                ),
-              ),
-
-              child:
-                  Text(
+              child: Text(
                 '${materials.length}',
 
-                style:
-                    const TextStyle(
-                  color:
-                      AppColors
-                          .materialSky,
+                style: TextStyle(
+                  color: AppColors.materialSky,
 
-                  fontSize:
-                      11,
+                  fontSize: 11,
 
-                  fontWeight:
-                      FontWeight.w600,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
           ],
         ),
 
-        const SizedBox(
-          height:
-              6,
-        ),
+        const SizedBox(height: 6),
 
         Text(
           'Materiale condiviso nel gruppo.',
 
-          style:
-              TextStyle(
-            color:
-                AppColors
-                    .pureWhite
-                    .withValues(alpha: 0.55),
+          style: TextStyle(
+            color: AppColors.pureWhite.withValues(alpha: 0.55),
 
-            fontSize:
-                13,
+            fontSize: 13,
           ),
         ),
 
-        const SizedBox(
-          height:
-              16,
-        ),
+        const SizedBox(height: 16),
 
         LayoutBuilder(
-          builder:
-              (
-            BuildContext context,
-            BoxConstraints constraints,
-          ) {
-            final double width =
-                constraints.maxWidth;
+          builder: (BuildContext context, BoxConstraints constraints) {
+            final double width = constraints.maxWidth;
 
             int columns;
 
             if (width < 420) {
-              columns =
-                  1;
+              columns = 1;
             } else if (width < 760) {
-              columns =
-                  2;
+              columns = 2;
             } else {
-              columns =
-                  3;
+              columns = 3;
             }
 
-            final int itemCount =
-                materials.length +
-                    (
-                      canAddMaterial
-                          ? 1
-                          : 0
-                    );
+            final int itemCount = materials.length + (canAddMaterial ? 1 : 0);
 
             if (itemCount == 0) {
               return const _EmptyGroupMaterials();
             }
 
             return GridView.builder(
-              shrinkWrap:
-                  true,
+              shrinkWrap: true,
 
-              physics:
-                  const NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
 
-              itemCount:
-                  itemCount,
+              itemCount: itemCount,
 
-              gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount:
-                    columns,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: columns,
 
-                crossAxisSpacing:
-                    14,
+                crossAxisSpacing: 14,
 
-                mainAxisSpacing:
-                    14,
+                mainAxisSpacing: 14,
 
-                mainAxisExtent:
-                    columns == 1
-                        ? 175
-                        : 190,
+                mainAxisExtent: columns == 1 ? 175 : 190,
               ),
 
-              itemBuilder:
-                  (
-                BuildContext context,
-                int index,
-              ) {
-                if (
-                  canAddMaterial &&
-                  index == 0
-                ) {
+              itemBuilder: (BuildContext context, int index) {
+                if (canAddMaterial && index == 0) {
                   return _AddGroupMaterialCard(
-                    uploading:
-                        uploadingMaterial,
+                    uploading: uploadingMaterial,
 
-                    onTap:
-                        uploadingMaterial
-                            ? null
-                            : onAddMaterial,
+                    onTap: uploadingMaterial ? null : onAddMaterial,
                   );
                 }
 
-                final int materialIndex =
-                    canAddMaterial
-                        ? index - 1
-                        : index;
+                final int materialIndex = canAddMaterial ? index - 1 : index;
 
-                final _GroupMaterial
-                    material =
-                    materials[
-                        materialIndex];
+                final _GroupMaterial material = materials[materialIndex];
 
-                final bool downloaded =
-                    downloadedMaterialIds
-                        .contains(
+                final bool downloaded = downloadedMaterialIds.contains(
                   material.id,
                 );
 
-                final bool downloading =
-                    downloadingMaterialIds
-                        .contains(
+                final bool downloading = downloadingMaterialIds.contains(
                   material.id,
                 );
 
                 return _GroupMaterialCard(
-                  material:
-                      material,
+                  material: material,
 
-                  canDelete:
-                      canDeleteMaterial,
+                  canDelete: canDeleteMaterial,
 
-                  downloaded:
-                      downloaded,
+                  downloaded: downloaded,
 
-                  downloading:
-                      downloading,
+                  downloading: downloading,
 
-                  onOpen:
-                      () {
-                    onOpenMaterial(
-                      material,
-                    );
+                  onOpen: () {
+                    onOpenMaterial(material);
                   },
 
-                  onDownload:
-                      () {
-                    onDownloadMaterial(
-                      material,
-                    );
+                  onDownload: () {
+                    onDownloadMaterial(material);
                   },
 
-                  onDelete:
-                      () {
-                    onDeleteMaterial(
-                      material,
-                    );
+                  onDelete: () {
+                    onDeleteMaterial(material);
                   },
                 );
               },
@@ -3020,158 +1903,91 @@ class _GroupMaterialSection
   }
 }
 
-
-class _AddGroupMaterialCard
-    extends StatelessWidget {
+class _AddGroupMaterialCard extends StatelessWidget {
   final VoidCallback? onTap;
 
   final bool uploading;
 
-
-  const _AddGroupMaterialCard({
-    required this.onTap,
-    required this.uploading,
-  });
-
+  const _AddGroupMaterialCard({required this.onTap, required this.uploading});
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     return Material(
-      color:
-          Colors.transparent,
+      color: Colors.transparent,
 
-      child:
-          InkWell(
-        onTap:
-            onTap,
+      child: InkWell(
+        onTap: onTap,
 
-        borderRadius:
-            BorderRadius.circular(
-          18,
-        ),
+        borderRadius: BorderRadius.circular(18),
 
-        child:
-            Container(
-          padding:
-              const EdgeInsets.all(
-            16,
-          ),
+        child: Container(
+          padding: const EdgeInsets.all(16),
 
-          decoration:
-              BoxDecoration(
-            color:
-                AppColors
-                    .eleganceMidnight,
+          decoration: BoxDecoration(
+            color: AppColors.eleganceMidnight,
 
-            borderRadius:
-                BorderRadius.circular(
-              18,
-            ),
+            borderRadius: BorderRadius.circular(18),
 
-            border:
-                Border.all(
-              color:
-                  AppColors.skyBlue
-                      .withValues(alpha: 0.18),
+            border: Border.all(
+              color: AppColors.skyBlue.withValues(alpha: 0.18),
             ),
           ),
 
-          child:
-              Column(
-            crossAxisAlignment:
-                CrossAxisAlignment.start,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
 
             children: [
               if (uploading)
-                const SizedBox(
-                  width:
-                      35,
+                SizedBox(
+                  width: 35,
 
-                  height:
-                      35,
+                  height: 35,
 
-                  child:
-                      CircularProgressIndicator(
-                    strokeWidth:
-                        3,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 3,
 
-                    color:
-                        AppColors
-                            .skyBlue,
+                    color: AppColors.skyBlue,
                   ),
                 )
               else
-                const Icon(
-                  Icons
-                      .add_circle_outline_rounded,
+                Icon(
+                  Icons.add_circle_outline_rounded,
 
-                  color:
-                      AppColors
-                          .skyBlue,
+                  color: AppColors.skyBlue,
 
-                  size:
-                      35,
+                  size: 35,
                 ),
 
-              const SizedBox(
-                height:
-                    18,
-              ),
+              const SizedBox(height: 18),
 
               Text(
-                uploading
-                    ? 'Caricamento...'
-                    : 'Aggiungi materiale',
+                uploading ? 'Caricamento...' : 'Aggiungi materiale',
 
-                style:
-                    const TextStyle(
-                  color:
-                      AppColors
-                          .pureWhite,
+                style: TextStyle(
+                  color: AppColors.pureWhite,
 
-                  fontSize:
-                      16,
+                  fontSize: 16,
 
-                  fontWeight:
-                      FontWeight.bold,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
 
-              const SizedBox(
-                height:
-                    6,
-              ),
+              const SizedBox(height: 6),
 
               Text(
                 uploading
                     ? 'Invio del file in corso'
                     : 'Condividi un nuovo file',
 
-                style:
-                    const TextStyle(
-                  color:
-                      Colors.white60,
-
-                  fontSize:
-                      11,
-                ),
+                style: TextStyle(color: AppColors.white60, fontSize: 11),
               ),
 
               const Spacer(),
 
-              const Text(
+              Text(
                 'PDF · DOCX · PPTX · TXT · ZIP',
 
-                style:
-                    TextStyle(
-                  color:
-                      Colors.white30,
-
-                  fontSize:
-                      9,
-                ),
+                style: TextStyle(color: AppColors.white30, fontSize: 9),
               ),
             ],
           ),
@@ -3181,9 +1997,7 @@ class _AddGroupMaterialCard
   }
 }
 
-
-class _GroupMaterialCard
-    extends StatelessWidget {
+class _GroupMaterialCard extends StatelessWidget {
   final _GroupMaterial material;
 
   final bool canDelete;
@@ -3198,7 +2012,6 @@ class _GroupMaterialCard
 
   final VoidCallback onDelete;
 
-
   const _GroupMaterialCard({
     required this.material,
     required this.canDelete,
@@ -3209,179 +2022,107 @@ class _GroupMaterialCard
     required this.onDelete,
   });
 
-
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     return Material(
-      color:
-          Colors.transparent,
+      color: Colors.transparent,
 
-      child:
-          InkWell(
-        onTap:
-            onOpen,
+      child: InkWell(
+        onTap: onOpen,
 
-        borderRadius:
-            BorderRadius.circular(
-          18,
-        ),
+        borderRadius: BorderRadius.circular(18),
 
-        child:
-            Container(
-          padding:
-              const EdgeInsets.all(
-            15,
-          ),
+        child: Container(
+          padding: const EdgeInsets.all(15),
 
-          decoration:
-              BoxDecoration(
-            color:
-                AppColors
-                    .eleganceMidnight,
+          decoration: BoxDecoration(
+            color: AppColors.eleganceMidnight,
 
-            borderRadius:
-                BorderRadius.circular(
-              18,
-            ),
+            borderRadius: BorderRadius.circular(18),
 
-            border:
-                Border.all(
-              color:
-                  downloaded
-                      ? AppColors
-                          .materialSky
-                          .withValues(alpha: 0.22)
-                      : AppColors
-                          .skyBlue
-                          .withValues(alpha: 0.10),
+            border: Border.all(
+              color: downloaded
+                  ? AppColors.materialSky.withValues(alpha: 0.22)
+                  : AppColors.skyBlue.withValues(alpha: 0.10),
             ),
           ),
 
-          child:
-              Column(
-            crossAxisAlignment:
-                CrossAxisAlignment.start,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
 
             children: [
               Row(
                 children: [
                   Container(
-                    width:
-                        42,
+                    width: 42,
 
-                    height:
-                        42,
+                    height: 42,
 
-                    decoration:
-                        BoxDecoration(
-                      color:
-                          AppColors
-                              .brandNightBlue,
+                    decoration: BoxDecoration(
+                      color: AppColors.brandNightBlue,
 
-                      borderRadius:
-                          BorderRadius.circular(
-                        11,
-                      ),
+                      borderRadius: BorderRadius.circular(11),
                     ),
 
-                    child:
-                        Icon(
+                    child: Icon(
                       material.icon,
 
-                      color:
-                          AppColors
-                              .materialSky,
+                      color: AppColors.materialSky,
 
-                      size:
-                          22,
+                      size: 22,
                     ),
                   ),
 
                   const Spacer(),
 
                   if (downloaded)
-                    const Icon(
-                      Icons
-                          .offline_pin_outlined,
+                    Icon(
+                      Icons.offline_pin_outlined,
 
-                      color:
-                          Colors.greenAccent,
+                      color: AppColors.greenAccent,
 
-                      size:
-                          18,
+                      size: 18,
                     ),
 
                   if (canDelete)
                     PopupMenuButton<String>(
-                      color:
-                          AppColors
-                              .eleganceDeepNavy,
+                      color: AppColors.eleganceDeepNavy,
 
-                      icon:
-                          const Icon(
-                        Icons
-                            .more_vert_rounded,
+                      icon: Icon(
+                        Icons.more_vert_rounded,
 
-                        color:
-                            Colors.white38,
+                        color: AppColors.white38,
 
-                        size:
-                            20,
+                        size: 20,
                       ),
 
-                      onSelected:
-                          (
-                        String value,
-                      ) {
-                        if (
-                          value ==
-                          'delete'
-                        ) {
+                      onSelected: (String value) {
+                        if (value == 'delete') {
                           onDelete();
                         }
                       },
 
-                      itemBuilder:
-                          (
-                        BuildContext context,
-                      ) {
-                        return const [
-                          PopupMenuItem<
-                              String>(
-                            value:
-                                'delete',
+                      itemBuilder: (BuildContext context) {
+                        return [
+                          PopupMenuItem<String>(
+                            value: 'delete',
 
-                            child:
-                                Row(
+                            child: Row(
                               children: [
                                 Icon(
-                                  Icons
-                                      .delete_outline_rounded,
+                                  Icons.delete_outline_rounded,
 
-                                  color:
-                                      Colors
-                                          .redAccent,
+                                  color: AppColors.redAccent,
 
-                                  size:
-                                      18,
+                                  size: 18,
                                 ),
 
-                                SizedBox(
-                                  width:
-                                      9,
-                                ),
+                                SizedBox(width: 9),
 
                                 Text(
                                   'Elimina',
 
-                                  style:
-                                      TextStyle(
-                                    color:
-                                        Colors
-                                            .redAccent,
-                                  ),
+                                  style: TextStyle(color: AppColors.redAccent),
                                 ),
                               ],
                             ),
@@ -3392,53 +2133,32 @@ class _GroupMaterialCard
                 ],
               ),
 
-              const SizedBox(
-                height:
-                    12,
-              ),
+              const SizedBox(height: 12),
 
               Text(
                 material.originalName,
 
-                maxLines:
-                    2,
+                maxLines: 2,
 
-                overflow:
-                    TextOverflow.ellipsis,
+                overflow: TextOverflow.ellipsis,
 
-                style:
-                    const TextStyle(
-                  color:
-                      AppColors
-                          .pureWhite,
+                style: TextStyle(
+                  color: AppColors.pureWhite,
 
-                  fontSize:
-                      13,
+                  fontSize: 13,
 
-                  fontWeight:
-                      FontWeight.w600,
+                  fontWeight: FontWeight.w600,
 
-                  height:
-                      1.3,
+                  height: 1.3,
                 ),
               ),
 
-              const SizedBox(
-                height:
-                    5,
-              ),
+              const SizedBox(height: 5),
 
               Text(
                 '${material.type} · ${material.formattedSize}',
 
-                style:
-                    const TextStyle(
-                  color:
-                      Colors.white38,
-
-                  fontSize:
-                      9,
-                ),
+                style: TextStyle(color: AppColors.white38, fontSize: 9),
               ),
 
               const Spacer(),
@@ -3446,68 +2166,40 @@ class _GroupMaterialCard
               Row(
                 children: [
                   Expanded(
-                    child:
-                        OutlinedButton.icon(
-                      onPressed:
-                          downloading
-                              ? null
-                              : onDownload,
+                    child: OutlinedButton.icon(
+                      onPressed: downloading ? null : onDownload,
 
-                      icon:
-                          downloading
-                              ? const SizedBox(
-                                  width:
-                                      14,
+                      icon: downloading
+                          ? const SizedBox(
+                              width: 14,
 
-                                  height:
-                                      14,
+                              height: 14,
 
-                                  child:
-                                      CircularProgressIndicator(
-                                    strokeWidth:
-                                        2,
-                                  ),
-                                )
-                              : Icon(
-                                  downloaded
-                                      ? Icons
-                                          .check_rounded
-                                      : Icons
-                                          .download_rounded,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
+                          : Icon(
+                              downloaded
+                                  ? Icons.check_rounded
+                                  : Icons.download_rounded,
 
-                                  size:
-                                      16,
-                                ),
+                              size: 16,
+                            ),
 
-                      label:
-                          Text(
-                        downloaded
-                            ? 'Offline'
-                            : 'Scarica',
-                      ),
+                      label: Text(downloaded ? 'Offline' : 'Scarica'),
                     ),
                   ),
 
-                  const SizedBox(
-                    width:
-                        7,
-                  ),
+                  const SizedBox(width: 7),
 
                   IconButton(
-                    tooltip:
-                        'Apri',
+                    tooltip: 'Apri',
 
-                    onPressed:
-                        onOpen,
+                    onPressed: onOpen,
 
-                    icon:
-                        const Icon(
-                      Icons
-                          .open_in_new_rounded,
+                    icon: Icon(
+                      Icons.open_in_new_rounded,
 
-                      color:
-                          AppColors
-                              .materialSky,
+                      color: AppColors.materialSky,
                     ),
                   ),
                 ],
@@ -3520,77 +2212,36 @@ class _GroupMaterialCard
   }
 }
 
-
-class _EmptyGroupMaterials
-    extends StatelessWidget {
+class _EmptyGroupMaterials extends StatelessWidget {
   const _EmptyGroupMaterials();
 
-
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     return Container(
-      width:
-          double.infinity,
+      width: double.infinity,
 
-      padding:
-          const EdgeInsets.all(
-        24,
+      padding: const EdgeInsets.all(24),
+
+      decoration: BoxDecoration(
+        color: AppColors.eleganceMidnight,
+
+        borderRadius: BorderRadius.circular(16),
+
+        border: Border.all(color: AppColors.skyBlue.withValues(alpha: 0.08)),
       ),
 
-      decoration:
-          BoxDecoration(
-        color:
-            AppColors
-                .eleganceMidnight,
-
-        borderRadius:
-            BorderRadius.circular(
-          16,
-        ),
-
-        border:
-            Border.all(
-          color:
-              AppColors.skyBlue
-                  .withValues(alpha: 0.08),
-        ),
-      ),
-
-      child:
-          const Column(
+      child: Column(
         children: [
-          Icon(
-            Icons
-                .folder_off_outlined,
+          Icon(Icons.folder_off_outlined, color: AppColors.white30, size: 34),
 
-            color:
-                Colors.white30,
-
-            size:
-                34,
-          ),
-
-          SizedBox(
-            height:
-                10,
-          ),
+          SizedBox(height: 10),
 
           Text(
             'Nessun materiale disponibile',
 
-            textAlign:
-                TextAlign.center,
+            textAlign: TextAlign.center,
 
-            style:
-                TextStyle(
-              color:
-                  Colors.white54,
-
-              fontSize:
-                  12,
-            ),
+            style: TextStyle(color: AppColors.white54, fontSize: 12),
           ),
         ],
       ),
@@ -3598,133 +2249,74 @@ class _EmptyGroupMaterials
   }
 }
 
-
-class _GroupErrorCard
-    extends StatelessWidget {
+class _GroupErrorCard extends StatelessWidget {
   final String message;
 
-  final Future<void> Function()
-      onRetry;
+  final Future<void> Function() onRetry;
 
-
-  const _GroupErrorCard({
-    required this.message,
-    required this.onRetry,
-  });
-
+  const _GroupErrorCard({required this.message, required this.onRetry});
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     return Container(
-      width:
-          double.infinity,
+      width: double.infinity,
 
-      padding:
-          const EdgeInsets.all(
-        24,
+      padding: const EdgeInsets.all(24),
+
+      decoration: BoxDecoration(
+        color: AppColors.eleganceMidnight,
+
+        borderRadius: BorderRadius.circular(18),
+
+        border: Border.all(color: AppColors.redAccent.withValues(alpha: 0.20)),
       ),
 
-      decoration:
-          BoxDecoration(
-        color:
-            AppColors
-                .eleganceMidnight,
-
-        borderRadius:
-            BorderRadius.circular(
-          18,
-        ),
-
-        border:
-            Border.all(
-          color:
-              Colors.redAccent
-                  .withValues(alpha: 0.20),
-        ),
-      ),
-
-      child:
-          Column(
-        mainAxisSize:
-            MainAxisSize.min,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
 
         children: [
-          const Icon(
-            Icons
-                .error_outline_rounded,
+          Icon(
+            Icons.error_outline_rounded,
 
-            color:
-                Colors.redAccent,
+            color: AppColors.redAccent,
 
-            size:
-                40,
+            size: 40,
           ),
 
-          const SizedBox(
-            height:
-                12,
-          ),
+          const SizedBox(height: 12),
 
-          const Text(
+          Text(
             'Impossibile caricare il gruppo',
 
-            style:
-                TextStyle(
-              color:
-                  AppColors
-                      .pureWhite,
+            style: TextStyle(
+              color: AppColors.pureWhite,
 
-              fontSize:
-                  15,
+              fontSize: 15,
 
-              fontWeight:
-                  FontWeight.bold,
+              fontWeight: FontWeight.bold,
             ),
           ),
 
-          const SizedBox(
-            height:
-                8,
-          ),
+          const SizedBox(height: 8),
 
           Text(
             message,
 
-            textAlign:
-                TextAlign.center,
+            textAlign: TextAlign.center,
 
-            style:
-                const TextStyle(
-              color:
-                  Colors.white60,
-
-              fontSize:
-                  11,
-            ),
+            style: TextStyle(color: AppColors.white60, fontSize: 11),
           ),
 
-          const SizedBox(
-            height:
-                16,
-          ),
+          const SizedBox(height: 16),
 
           OutlinedButton.icon(
-            onPressed:
-                () {
+            onPressed: () {
               onRetry();
             },
 
-            icon:
-                const Icon(
-              Icons.refresh_rounded,
-            ),
+            icon: const Icon(Icons.refresh_rounded),
 
-            label:
-                const Text(
-              'Riprova',
-            ),
+            label: const Text('Riprova'),
           ),
         ],
       ),

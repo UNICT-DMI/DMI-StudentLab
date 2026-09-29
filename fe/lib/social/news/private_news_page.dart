@@ -246,17 +246,17 @@ class _PrivateNewsPageState extends State<PrivateNewsPage> {
       margin: const EdgeInsets.fromLTRB(16, 14, 16, 0),
       padding: const EdgeInsets.all(13),
       decoration: BoxDecoration(
-        color: Colors.orangeAccent.withValues(alpha: 0.12),
+        color: AppColors.orangeAccent.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: Colors.orangeAccent.withValues(alpha: 0.35),
+          color: AppColors.orangeAccent.withValues(alpha: 0.35),
         ),
       ),
       child: Row(
         children: [
-          const Icon(
+          Icon(
             Icons.key_off_outlined,
-            color: Colors.orangeAccent,
+            color: AppColors.orangeAccent,
             size: 20,
           ),
           const SizedBox(width: 11),
@@ -382,7 +382,7 @@ class _ConversationCard extends StatelessWidget {
               backgroundColor: AppColors.brandNightBlue,
               child: Text(
                 initialsFrom(conversation.otherUserName),
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.skyBlue,
                   fontWeight: FontWeight.w700,
                   fontSize: 14,
@@ -401,7 +401,7 @@ class _ConversationCard extends StatelessWidget {
                           conversation.otherUserName,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: AppColors.pureWhite,
                             fontWeight: FontWeight.w700,
                             fontSize: 14,
@@ -435,7 +435,7 @@ class _ConversationCard extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-            const Icon(
+            Icon(
               Icons.chevron_right_rounded,
               color: AppColors.skyBlue,
             ),
@@ -551,7 +551,7 @@ class _RecipientPickerSheetState extends State<_RecipientPickerSheet> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text(
+            Text(
               'Nuovo messaggio privato',
               style: TextStyle(
                 color: AppColors.pureWhite,
@@ -562,14 +562,14 @@ class _RecipientPickerSheetState extends State<_RecipientPickerSheet> {
             const SizedBox(height: 12),
             TextField(
               controller: _query,
-              style: const TextStyle(color: AppColors.pureWhite),
+              style: TextStyle(color: AppColors.pureWhite),
               onChanged: (String _) => setState(() {}),
               decoration: InputDecoration(
                 hintText: 'Cerca per nome, corso o email',
                 hintStyle: TextStyle(
                   color: AppColors.pureWhite.withValues(alpha: 0.42),
                 ),
-                prefixIcon: const Icon(
+                prefixIcon: Icon(
                   Icons.search_rounded,
                   color: AppColors.skyBlue,
                 ),
@@ -633,7 +633,7 @@ class _RecipientPickerSheetState extends State<_RecipientPickerSheet> {
             backgroundColor: AppColors.brandNightBlue,
             child: Text(
               initialsFrom(name),
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.skyBlue,
                 fontWeight: FontWeight.w700,
                 fontSize: 13,
@@ -642,7 +642,7 @@ class _RecipientPickerSheetState extends State<_RecipientPickerSheet> {
           ),
           title: Text(
             name.isEmpty ? user.email : name,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.pureWhite,
               fontSize: 14,
               fontWeight: FontWeight.w600,
@@ -657,7 +657,7 @@ class _RecipientPickerSheetState extends State<_RecipientPickerSheet> {
               fontSize: 11,
             ),
           ),
-          trailing: const Icon(
+          trailing: Icon(
             Icons.chevron_right_rounded,
             color: AppColors.skyBlue,
           ),

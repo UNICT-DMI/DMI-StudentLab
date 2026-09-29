@@ -194,7 +194,7 @@ class _DeveloperFunctionDetailPageState
               children: [
                 Text(
                   '${function.name}()',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.pureWhite,
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
@@ -236,7 +236,7 @@ class _DeveloperFunctionDetailPageState
                       color: riskColor,
                     ),
                     if (function.isAsync)
-                      const _InfoBadge(
+                      _InfoBadge(
                         icon:
                             Icons.sync_rounded,
                         label: 'ASYNC',
@@ -253,12 +253,12 @@ class _DeveloperFunctionDetailPageState
                       ),
                     if (function.security
                         .isNotEmpty)
-                      const _InfoBadge(
+                      _InfoBadge(
                         icon: Icons
                             .lock_outline_rounded,
                         label: 'SECURITY',
                         color:
-                            Colors.redAccent,
+                            AppColors.redAccent,
                       ),
                   ],
                 ),
@@ -811,16 +811,16 @@ class _SourceError extends StatelessWidget {
           decoration:
               DeveloperUiStyle.panelDecoration(
             borderColor:
-                Colors.redAccent,
+                AppColors.redAccent,
           ),
           child: Column(
             mainAxisSize:
                 MainAxisSize.min,
             children: [
-              const Icon(
+              Icon(
                 Icons.code_off_rounded,
                 color:
-                    Colors.redAccent,
+                    AppColors.redAccent,
                 size: 38,
               ),
               const SizedBox(
@@ -1097,18 +1097,18 @@ class _ApiTabState extends State<_ApiTab> {
                             : 'NO AUTH OBSERVED',
                         color: contract
                                 .authRequired
-                            ? Colors.redAccent
-                            : Colors.greenAccent,
+                            ? AppColors.redAccent
+                            : AppColors.greenAccent,
                       ),
                       if (contract
                           .securityCritical)
-                        const _InfoBadge(
+                        _InfoBadge(
                           icon: Icons
                               .shield_outlined,
                           label:
                               'SECURITY CRITICAL',
                           color:
-                              Colors.redAccent,
+                              AppColors.redAccent,
                         ),
                     ],
                   ),
@@ -1198,7 +1198,7 @@ class _ApiTabState extends State<_ApiTab> {
                 title:
                     'Auth dependencies',
                 accent:
-                    Colors.redAccent,
+                    AppColors.redAccent,
                 child: Wrap(
                   spacing: 7,
                   runSpacing: 7,
@@ -1211,7 +1211,7 @@ class _ApiTabState extends State<_ApiTab> {
                               .shield_outlined,
                           label: value,
                           color:
-                              Colors.redAccent,
+                              AppColors.redAccent,
                         ),
                       )
                       .toList(),
@@ -1381,7 +1381,7 @@ class _ApiEndpointCard
                           .lock_outline_rounded,
                       label: value,
                       color:
-                          Colors.redAccent,
+                          AppColors.redAccent,
                     ),
                   )
                   .toList(),
@@ -1416,8 +1416,8 @@ class _SecurityTab extends StatelessWidget {
           icon: Icons.shield_outlined,
           title: 'Classificazione',
           accent: sensitive
-              ? Colors.redAccent
-              : Colors.greenAccent,
+              ? AppColors.redAccent
+              : AppColors.greenAccent,
           child: Row(
             crossAxisAlignment:
                 CrossAxisAlignment.start,
@@ -1429,8 +1429,8 @@ class _SecurityTab extends StatelessWidget {
                     : Icons
                         .verified_user_outlined,
                 color: sensitive
-                    ? Colors.redAccent
-                    : Colors.greenAccent,
+                    ? AppColors.redAccent
+                    : AppColors.greenAccent,
                 size: 20,
               ),
               const SizedBox(width: 9),
@@ -1453,7 +1453,7 @@ class _SecurityTab extends StatelessWidget {
             icon: Icons
                 .security_update_warning_outlined,
             title: 'Security indicators',
-            accent: Colors.redAccent,
+            accent: AppColors.redAccent,
             child: Wrap(
               spacing: 7,
               runSpacing: 7,
@@ -1465,7 +1465,7 @@ class _SecurityTab extends StatelessWidget {
                           .lock_outline_rounded,
                       label: value,
                       color:
-                          Colors.redAccent,
+                          AppColors.redAccent,
                     ),
                   )
                   .toList(),
@@ -1477,7 +1477,7 @@ class _SecurityTab extends StatelessWidget {
             title:
                 'File security notes',
             accent:
-                Colors.orangeAccent,
+                AppColors.orangeAccent,
             child: Column(
               crossAxisAlignment:
                   CrossAxisAlignment.start,
@@ -1675,13 +1675,13 @@ class _RuntimeTabState
                       ),
                       if (runtime
                           .securityCritical)
-                        const _InfoBadge(
+                        _InfoBadge(
                           icon: Icons
                               .shield_outlined,
                           label:
                               'SECURITY CRITICAL',
                           color:
-                              Colors.redAccent,
+                              AppColors.redAccent,
                         ),
                     ],
                   ),
@@ -1748,7 +1748,7 @@ class _RuntimeTabState
                     Icons.alt_route_outlined,
                 title: 'Error paths',
                 accent:
-                    Colors.orangeAccent,
+                    AppColors.orangeAccent,
                 child: Column(
                   children: runtime
                       .errorPaths
@@ -2176,7 +2176,7 @@ class _ImpactTabState
                     Icons.science_outlined,
                 title: 'Related tests',
                 accent:
-                    Colors.greenAccent,
+                    AppColors.greenAccent,
                 child: Column(
                   children: impact.tests
                       .map(
@@ -2362,7 +2362,7 @@ class _ImpactTabState
                 title:
                     'Security exposure',
                 accent:
-                    Colors.redAccent,
+                    AppColors.redAccent,
                 child: Wrap(
                   spacing: 7,
                   runSpacing: 7,
@@ -2375,7 +2375,7 @@ class _ImpactTabState
                               .lock_outline_rounded,
                           label: flag,
                           color:
-                              Colors.redAccent,
+                              AppColors.redAccent,
                         ),
                       )
                       .toList(),
@@ -2419,7 +2419,7 @@ class _ImpactRecommendation
         crossAxisAlignment:
             CrossAxisAlignment.start,
         children: [
-          const Padding(
+          Padding(
             padding:
                 EdgeInsets.only(
               top: 3,
@@ -2472,17 +2472,17 @@ class _ImpactError extends StatelessWidget {
           decoration:
               DeveloperUiStyle.panelDecoration(
             borderColor:
-                Colors.redAccent,
+                AppColors.redAccent,
           ),
           child: Column(
             mainAxisSize:
                 MainAxisSize.min,
             children: [
-              const Icon(
+              Icon(
                 Icons
                     .error_outline_rounded,
                 color:
-                    Colors.redAccent,
+                    AppColors.redAccent,
                 size: 38,
               ),
               const SizedBox(
@@ -2612,11 +2612,11 @@ class _InfoBadge extends StatelessWidget {
   final String label;
   final Color color;
 
-  const _InfoBadge({
+  _InfoBadge({
     required this.icon,
     required this.label,
-    this.color = AppColors.materialSky,
-  });
+    Color? color,
+  }) : color = color ?? AppColors.materialSky;
 
   @override
   Widget build(BuildContext context) {
@@ -2829,7 +2829,7 @@ class _ImpactMetric
           const Spacer(),
           Text(
             data.value,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.pureWhite,
               fontSize: 15,
               fontWeight: FontWeight.bold,
@@ -2900,7 +2900,7 @@ class _EmptyTab extends StatelessWidget {
             children: [
               Icon(
                 icon,
-                color: Colors.white24,
+                color: AppColors.white24,
                 size: 42,
               ),
               const SizedBox(height: 12),

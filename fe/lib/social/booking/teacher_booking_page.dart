@@ -211,7 +211,7 @@ class _TeacherBookingPageState
                                     : '?',
 
                                 style:
-                                    const TextStyle(
+                                    TextStyle(
                                   color: AppColors
                                       .pureWhite,
                                   fontSize: 20,
@@ -235,7 +235,7 @@ class _TeacherBookingPageState
                                     widget.teacher.name,
 
                                     style:
-                                        const TextStyle(
+                                        TextStyle(
                                       color: AppColors
                                           .pureWhite,
                                       fontSize: 17,
@@ -267,7 +267,7 @@ class _TeacherBookingPageState
 
                       const SizedBox(height: 24),
 
-                      const Text(
+                      Text(
                         'Materia',
 
                         style: TextStyle(
@@ -289,7 +289,7 @@ class _TeacherBookingPageState
                             AppColors
                                 .brandNightBlue,
 
-                        style: const TextStyle(
+                        style: TextStyle(
                           color:
                               AppColors.pureWhite,
                         ),
@@ -334,7 +334,7 @@ class _TeacherBookingPageState
 
                       const SizedBox(height: 22),
 
-                      const Text(
+                      Text(
                         'Data',
 
                         style: TextStyle(
@@ -364,7 +364,7 @@ class _TeacherBookingPageState
 
                       const SizedBox(height: 16),
 
-                      const Text(
+                      Text(
                         'Orario',
 
                         style: TextStyle(
@@ -394,7 +394,7 @@ class _TeacherBookingPageState
 
                       const SizedBox(height: 22),
 
-                      const Text(
+                      Text(
                         'Durata',
 
                         style: TextStyle(
@@ -415,7 +415,7 @@ class _TeacherBookingPageState
                             AppColors
                                 .brandNightBlue,
 
-                        style: const TextStyle(
+                        style: TextStyle(
                           color:
                               AppColors.pureWhite,
                         ),
@@ -470,7 +470,7 @@ class _TeacherBookingPageState
                         maxLines: 5,
 
                         style:
-                            const TextStyle(
+                            TextStyle(
                           color:
                               AppColors.pureWhite,
                         ),
@@ -649,7 +649,7 @@ class _SelectionTile extends StatelessWidget {
               ),
             ),
 
-            const Icon(
+            Icon(
               Icons.chevron_right_rounded,
               color: AppColors.skyBlue,
             ),

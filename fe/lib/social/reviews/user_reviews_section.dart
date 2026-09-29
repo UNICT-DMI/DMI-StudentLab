@@ -351,7 +351,7 @@ class _UserReviewsSectionState
           CrossAxisAlignment.center,
 
       children: [
-        const Expanded(
+        Expanded(
           child:
               Text(
             'Recensioni',
@@ -444,7 +444,7 @@ class _UserReviewsSectionState
         border:
             Border.all(
           color:
-              Colors.redAccent
+              AppColors.redAccent
                   .withOpacity(
             0.18,
           ),
@@ -454,11 +454,11 @@ class _UserReviewsSectionState
       child:
           Column(
         children: [
-          const Icon(
+          Icon(
             Icons.error_outline_rounded,
 
             color:
-                Colors.redAccent,
+                AppColors.redAccent,
 
             size:
                 34,
@@ -476,9 +476,9 @@ class _UserReviewsSectionState
                 TextAlign.center,
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
-                  Colors.white60,
+                  AppColors.white60,
 
               fontSize:
                   11,
@@ -619,7 +619,7 @@ class _UserReviewsSectionState
 
         icon:
             _openingForm
-                ? const SizedBox(
+                ? SizedBox(
                     width:
                         18,
 
@@ -697,7 +697,7 @@ class _UserReviewsSectionState
       child:
           Row(
         children: [
-          const Icon(
+          Icon(
             Icons.login_rounded,
 
             color:
@@ -894,11 +894,11 @@ class _RatingSummaryBadge
             MainAxisSize.min,
 
         children: [
-          const Icon(
+          Icon(
             Icons.star_rounded,
 
             color:
-                Colors.amber,
+                AppColors.amber,
 
             size:
                 17,
@@ -916,7 +916,7 @@ class _RatingSummaryBadge
             ),
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
                   AppColors.pureWhite,
 
@@ -937,9 +937,9 @@ class _RatingSummaryBadge
             '($reviewCount)',
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
-                  Colors.white54,
+                  AppColors.white54,
 
               fontSize:
                   10,
@@ -983,7 +983,7 @@ class _MyReviewStatusCard
             Icons.hourglass_top_rounded;
 
         color =
-            Colors.orangeAccent;
+            AppColors.orangeAccent;
 
         break;
 
@@ -998,7 +998,7 @@ class _MyReviewStatusCard
             Icons.verified_rounded;
 
         color =
-            Colors.greenAccent;
+            AppColors.greenAccent;
 
         break;
 
@@ -1013,7 +1013,7 @@ class _MyReviewStatusCard
             Icons.cancel_outlined;
 
         color =
-            Colors.redAccent;
+            AppColors.redAccent;
 
         break;
 
@@ -1028,7 +1028,7 @@ class _MyReviewStatusCard
             Icons.visibility_off_outlined;
 
         color =
-            Colors.orangeAccent;
+            AppColors.orangeAccent;
 
         break;
     }
@@ -1116,9 +1116,9 @@ class _MyReviewStatusCard
                   description,
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
-                        Colors.white54,
+                        AppColors.white54,
 
                     fontSize:
                         10,

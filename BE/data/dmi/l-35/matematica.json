@@ -1,0 +1,356 @@
+{
+  "universities": [
+    {
+      "code": "UNICT",
+      "name": "Università degli Studi di Catania",
+      "departments": [
+        {
+          "code": "DMI",
+          "name": "Dipartimento di Matematica e Informatica",
+          "courses": [
+            {
+              "code": "L-35",
+              "name": "Matematica",
+              "degree_type": "Laurea triennale",
+              "subjects": [
+                {
+                  "code": "72445",
+                  "name": "ALGEBRA",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "D'ANNA MARCO",
+                        "MICALE VINCENZO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9796614",
+                  "name": "ANALISI MATEMATICA 1 PARTE A",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "LEONARDI SALVATORE"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9796613",
+                  "name": "ANALISI MATEMATICA 1 PARTE B",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "MOSCONI SUNRA JOHANNES NIKOLAJ"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "72446",
+                  "name": "GEOMETRIA I",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "RUSSO FRANCESCO",
+                        "STAGLIANO' GIOVANNI"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1008048",
+                  "name": "INFORMATICA I",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "CINCOTTI GIANLUCA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000635",
+                  "name": "ANALISI MATEMATICA II",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "DI FAZIO GIUSEPPE",
+                        "LEONARDI SALVATORE"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000417",
+                  "name": "CALCOLO NUMERICO",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "RUSSO GIOVANNI"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1001662",
+                  "name": "FISICA GENERALE I",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "PLUMARI SALVATORE"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1015523",
+                  "name": "FISICA MATEMATICA I",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "MUSCATO ORAZIO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000634",
+                  "name": "GEOMETRIA II",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "GUARDO ELENA MARIA",
+                        "SPADARO SANTI DOMENICO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "72448",
+                  "name": "TOPOLOGIA GENERALE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "BELLA ANGELO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1003564",
+                  "name": "COMPLEMENTI DI ANALISI MATEMATICA",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "RAGUSA MARIA ALESSANDRA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1016219",
+                  "name": "COMPLEX ANALYSIS AND INTEGRAL TRANSFORMS",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "MARANO SALVATORE ANGELO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1016218",
+                  "name": "ELEMENTS OF ADVANCED GEOMETRY",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "RUSSO FRANCESCO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1000251",
+                  "name": "FISICA GENERALE II",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": "MODULO 1",
+                      "channel": null,
+                      "teachers": [
+                        "BARBERA ROBERTO"
+                      ]
+                    },
+                    {
+                      "module": "MODULO 2",
+                      "channel": null,
+                      "teachers": [
+                        "ANGILELLA GIUSEPPE GIOACCHINO NEIL"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1015519",
+                  "name": "FISICA MATEMATICA II",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "TROVATO MASSIMO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1016286",
+                  "name": "GAME THEORY",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "SCRIMALI LAURA ROSA MARIA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9795550",
+                  "name": "NUMERICAL METHODS FOR APPLIED SCIENCES",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "COCO ARMANDO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1010889",
+                  "name": "PROBABILITA' E STATISTICA",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "BIAZZO VERONICA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1010890",
+                  "name": "RICERCA OPERATIVA",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "DANIELE PATRIZIA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1003777",
+                  "name": "SISTEMI DINAMICI",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "ROMANO VITTORIO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1015531",
+                  "name": "TEORIA DEI GRAFI",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "GUARDO ELENA MARIA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1015517",
+                  "name": "TEORIA DI GALOIS E TEORIA DEI CAMPI",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "FINOCCHIARO CARMELO ANTONIO"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../services/api_service.dart';
 import '../../services/auth_session.dart';
@@ -6,6 +7,7 @@ import '../../services/public_news_api_service.dart';
 import '../../theme/nightTheme.dart';
 import '../social_models.dart';
 import 'models/public_news.dart';
+import 'models/dmi_external_notice.dart';
 import 'public_news_editor_page.dart';
 
 class InstitutionalNewsPage extends StatefulWidget {
@@ -27,6 +29,9 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
   final TextEditingController _searchController = TextEditingController();
 
   List<PublicNews> _items = [];
+  List<DmiExternalNotice> _officialNotices = [];
+  List<String> _availableTeachers = [];
+  bool _hasOfficialSource = false;
   bool _loading = true;
   bool _loadingMore = false;
   String? _error;
@@ -37,6 +42,7 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
   String? _selectedUniversity;
   String? _selectedDepartment;
   String? _selectedCourse;
+  String? _selectedTeacher;
   String? _selectedSubjectName;
   int? _selectedSubjectId;
 
@@ -61,7 +67,47 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
       _selectedUniversity != null ||
       _selectedDepartment != null ||
       _selectedCourse != null ||
+      _selectedTeacher != null ||
       _selectedSubjectName != null;
+
+  String _universityKey(String value) {
+    final String text = value.trim().toLowerCase();
+    return text == 'unict' || text.contains('università di catania') ||
+            text.contains('università degli studi di catania')
+        ? 'unict' : text;
+  }
+
+  String _departmentKey(String value) {
+    final String text = value.trim().toLowerCase();
+    if (text == 'dmi' || text.contains('matematica e informatica')) return 'dmi';
+    if (text == 'dsbga' || text.contains('scienze biologiche, geologiche')) return 'dsbga';
+    return text;
+  }
+
+  String _courseKey(String value) {
+    final String text = value.trim().toLowerCase();
+    if (RegExp(r'\blm[ -]?40\b').hasMatch(text) || text.contains('matematica magistrale')) return 'lm-40';
+    if (RegExp(r'\blm[ -]?18\b').hasMatch(text) || text.contains('informatica magistrale')) return 'lm-18';
+    if (RegExp(r'\bl[ -]?35\b').hasMatch(text) || text == 'matematica') return 'l-35';
+    if (RegExp(r'\bl[ -]?13\b').hasMatch(text) || text == 'scienze biologiche') return 'l-13';
+    if (RegExp(r'\bl[ -]?31\b').hasMatch(text) || text == 'informatica' ||
+        text == 'scienze e tecnologie informatiche') return 'l-31';
+    return text;
+  }
+
+  String _courseLabel(String value) {
+    const Map<String, String> names = {
+      'l-31': 'Informatica L-31', 'lm-18': 'Informatica magistrale (LM-18)',
+      'l-35': 'Matematica L-35', 'lm-40': 'Matematica magistrale (LM-40)',
+      'l-13': 'Scienze Biologiche L-13',
+    };
+    return names[_courseKey(value)] ?? value.trim();
+  }
+
+  String _teacherKey(String value) => value.trim().toLowerCase()
+      .replaceFirst(RegExp(r'^(?:(?:prof(?:\.ssa|essoressa|essore|ssa)?|dott(?:\.ssa|oressa|ore|ssa)?)\.?\s+)+'), '')
+      .replaceAll(RegExp(r'[^a-zà-ÿ0-9]+'), ' ')
+      .trim();
 
   @override
   void initState() {
@@ -90,6 +136,7 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
       _selectedUniversity = null;
       _selectedDepartment = null;
       _selectedCourse = null;
+      _selectedTeacher = null;
       _selectedSubjectName = null;
       _selectedSubjectId = null;
       return;
@@ -100,7 +147,8 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
     _selectedDepartment =
         user.department.trim().isEmpty ? null : user.department.trim();
     _selectedCourse =
-        user.course.trim().isEmpty ? null : user.course.trim();
+        user.course.trim().isEmpty ? null : _courseLabel(user.course);
+    _selectedTeacher = null;
     _selectedSubjectName = null;
     _selectedSubjectId = null;
   }
@@ -115,19 +163,26 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
     });
 
     try {
+      final Future<List<DmiExternalNotice>> officialFuture = _newsApi.getDmiNotices(
+        university: _selectedUniversity, department: _selectedDepartment,
+        course: _selectedCourse)
+          .catchError((Object _) => <DmiExternalNotice>[]);
       final PublicNewsFeedResult result = await _newsApi.getFeed(
         search: _searchController.text,
         university: _selectedUniversity ?? '',
         department: _selectedDepartment ?? '',
         course: _selectedCourse ?? '',
+        teacher: _selectedTeacher,
         subjectId: _selectedSubjectId,
         limit: _limit,
         offset: 0,
       );
+      final List<DmiExternalNotice> official = await officialFuture;
 
       if (!mounted) return;
 
       List<PublicNews> items = result.items;
+      items = items.where(_matchesAcademicScope).toList();
       final String? manualSubject =
           _selectedSubjectId == null ? _selectedSubjectName : null;
 
@@ -140,6 +195,19 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
 
       setState(() {
         _items = items;
+        _availableTeachers = _selectedCourse == null
+            ? []
+            : _selectedTeacher != null
+            ? _availableTeachers
+            : ({for (final notice in official)
+                if ((notice.teacher ?? '').trim().isNotEmpty)
+                  _teacherKey(notice.teacher!): notice.teacher!.trim(),
+                for (final news in result.items)
+                  if (news.author.isVerifiedTeacher && _matchesCourseOnly(news))
+                    _teacherKey(news.author.fullName): news.author.fullName,
+              }.values.toList()..sort());
+        _officialNotices = official.where(_matchesOfficialNotice).toList();
+        _hasOfficialSource = official.isNotEmpty;
         _total = manualSubject == null ? result.total : items.length;
         _offset = result.items.length;
         _loading = false;
@@ -152,6 +220,59 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
       });
     }
   }
+
+  bool _matchesOfficialNotice(DmiExternalNotice notice) {
+    if (_selectedTeacher != null && _teacherKey(notice.teacher ?? '') != _teacherKey(_selectedTeacher!)) {
+      return false;
+    }
+    final source = Uri.tryParse(notice.sourceUrl ?? notice.originalUrl);
+    if (source == null) return false;
+    final path = source.path.toLowerCase().replaceFirst('/it/corsi/', '/corsi/');
+    final courseMatch = RegExp(r'^/corsi/(l-31|l-35|lm-18|lm-40|l-13)/(?:avvisi|avvisi-docente)(?:/|$)')
+        .firstMatch(path);
+    final courseCode = courseMatch?.group(1) ??
+        (source.host.toLowerCase() == 'www.unict.it' && notice.course != null
+            ? _courseKey(notice.course!) : null);
+    final sourceDepartment = courseCode == 'l-13' ? 'dsbga' : 'dmi';
+    final host = source.host.toLowerCase();
+    if (_selectedCourse != null) {
+      if (courseCode == null || _courseKey(_selectedCourse!) != courseCode ||
+          (host != 'www.unict.it' &&
+              host != (courseCode == 'l-13' ? 'www.dsbga.unict.it' : 'web.dmi.unict.it'))) {
+        return false;
+      }
+      if (_selectedDepartment != null && _departmentKey(_selectedDepartment!) != sourceDepartment) return false;
+    } else if (_selectedDepartment != null) {
+      return false; // Nessun feed ufficiale autonomo per il dipartimento.
+    } else if (notice.course != null || host != 'www.unict.it' ||
+        !(path == '/it/news' || path == '/it/news/' ||
+          RegExp(r'^/it/(?:[^/]+/)?news/[^/]+').hasMatch(path))) {
+      return false;
+    }
+    final String search = _searchController.text.trim().toLowerCase();
+    return search.isEmpty || '${notice.title} ${notice.content} ${notice.teacher ?? ''}'.toLowerCase().contains(search);
+  }
+
+  bool _matchesAcademicScope(PublicNews news) {
+    if (_selectedTeacher != null && (!news.author.isVerifiedTeacher ||
+        _teacherKey(news.author.fullName) != _teacherKey(_selectedTeacher!))) {
+      return false;
+    }
+    if (_selectedCourse != null) {
+      return (news.targetType == 'course' || news.targetType == 'subject') &&
+          _matchesCourseOnly(news);
+    }
+    if (_selectedDepartment != null) {
+      return news.targetType == 'department' &&
+          _departmentKey(news.departmentCode.isNotEmpty ? news.departmentCode : news.department) ==
+              _departmentKey(_selectedDepartment!);
+    }
+    return news.targetType == 'all' || news.targetType == 'university';
+  }
+
+  bool _matchesCourseOnly(PublicNews news) => _selectedCourse != null &&
+      _courseKey(news.courseCode.isNotEmpty ? news.courseCode : news.course) ==
+          _courseKey(_selectedCourse!);
 
   Future<void> _loadMore() async {
     if (_loading || _loadingMore || _items.length >= _total) return;
@@ -166,6 +287,7 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
         university: _selectedUniversity ?? '',
         department: _selectedDepartment ?? '',
         course: _selectedCourse ?? '',
+        teacher: _selectedTeacher,
         subjectId: _selectedSubjectId,
         limit: _limit,
         offset: _offset,
@@ -184,7 +306,7 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
         ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
       setState(() {
-        _items = values;
+        _items = values.where(_matchesAcademicScope).toList();
         _total = result.total;
         _offset = result.offset + result.items.length;
       });
@@ -200,43 +322,61 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
   }
 
   List<String> get _universities {
-    final Set<String> values = {};
+    final Map<String, String> values = {'unict': 'Università di Catania'};
     final String current = _currentUser?.university.trim() ?? '';
-    if (current.isNotEmpty) values.add(current);
+    if (current.isNotEmpty) values.putIfAbsent(_universityKey(current), () => current);
     for (final PublicNews news in _items) {
-      if (news.university.trim().isNotEmpty) values.add(news.university.trim());
+      if (news.university.trim().isNotEmpty) {
+        values.putIfAbsent(_universityKey(news.university), () => news.university.trim());
+      }
     }
-    return values.toList()..sort();
+    return values.values.toList()..sort();
   }
 
   List<String> get _departments {
-    final Set<String> values = {};
+    final Map<String, String> values = {
+      'dmi': 'Dipartimento di Matematica e Informatica',
+      'dsbga': 'Dipartimento di Scienze Biologiche, Geologiche e Ambientali',
+    };
     final String current = _currentUser?.department.trim() ?? '';
-    if (current.isNotEmpty) values.add(current);
+    if (current.isNotEmpty) values.putIfAbsent(_departmentKey(current), () => current);
     for (final PublicNews news in _items) {
       if (_selectedUniversity != null &&
-          news.university.trim().toLowerCase() !=
-              _selectedUniversity!.trim().toLowerCase()) {
+          _universityKey(news.university) != _universityKey(_selectedUniversity!)) {
         continue;
       }
-      if (news.department.trim().isNotEmpty) values.add(news.department.trim());
+      if (news.department.trim().isNotEmpty) {
+        values.putIfAbsent(_departmentKey(news.department), () => news.department.trim());
+      }
     }
-    return values.toList()..sort();
+    return values.values.toList()..sort();
   }
 
   List<String> get _courses {
-    final Set<String> values = {};
+    final Map<String, String> values = {};
+    if (_selectedDepartment == null || _departmentKey(_selectedDepartment!) == 'dmi') {
+      values.addAll(const {'l-31': 'Informatica L-31',
+        'lm-18': 'Informatica magistrale (LM-18)',
+        'l-35': 'Matematica L-35', 'lm-40': 'Matematica magistrale (LM-40)'});
+    }
+    if (_selectedDepartment == null || _departmentKey(_selectedDepartment!) == 'dsbga') {
+      values['l-13'] = 'Scienze Biologiche L-13';
+    }
     final String current = _currentUser?.course.trim() ?? '';
-    if (current.isNotEmpty) values.add(current);
+    if (current.isNotEmpty && (_selectedDepartment == null ||
+        _departmentKey(_currentUser?.department ?? '') == _departmentKey(_selectedDepartment!))) {
+      values.putIfAbsent(_courseKey(current), () => _courseLabel(current));
+    }
     for (final PublicNews news in _items) {
       if (_selectedDepartment != null &&
-          news.department.trim().toLowerCase() !=
-              _selectedDepartment!.trim().toLowerCase()) {
+          _departmentKey(news.department) != _departmentKey(_selectedDepartment!)) {
         continue;
       }
-      if (news.course.trim().isNotEmpty) values.add(news.course.trim());
+      if (news.course.trim().isNotEmpty) {
+        values.putIfAbsent(_courseKey(news.course), () => _courseLabel(news.course));
+      }
     }
-    return values.toList()..sort();
+    return values.values.toList()..sort();
   }
 
   List<_SubjectFilterValue> get _subjects {
@@ -295,7 +435,7 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
                     children: [
                       Text(
                         title,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.pureWhite,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -303,7 +443,7 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
                       ),
                       const SizedBox(height: 12),
                       TextField(
-                        style: const TextStyle(color: AppColors.pureWhite),
+                        style: TextStyle(color: AppColors.pureWhite),
                         decoration: const InputDecoration(
                           hintText: 'Cerca tra i suggerimenti...',
                           prefixIcon: Icon(Icons.search_rounded),
@@ -316,11 +456,11 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
                       ),
                       const SizedBox(height: 10),
                       ListTile(
-                        leading: const Icon(
+                        leading: Icon(
                           Icons.filter_alt_off_outlined,
-                          color: Colors.white54,
+                          color: AppColors.white54,
                         ),
-                        title: const Text(
+                        title: Text(
                           'Qualsiasi',
                           style: TextStyle(color: AppColors.pureWhite),
                         ),
@@ -331,36 +471,36 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
                           children: [
                             for (final String value in visible)
                               ListTile(
-                                leading: const Icon(
+                                leading: Icon(
                                   Icons.auto_awesome_outlined,
                                   color: AppColors.materialSky,
                                 ),
                                 title: Text(
                                   value,
-                                  style: const TextStyle(color: AppColors.pureWhite),
+                                  style: TextStyle(color: AppColors.pureWhite),
                                 ),
                                 trailing: selected == value
-                                    ? const Icon(
+                                    ? Icon(
                                         Icons.check_rounded,
-                                        color: Colors.greenAccent,
+                                        color: AppColors.greenAccent,
                                       )
                                     : null,
                                 onTap: () => Navigator.pop(sheetContext, value),
                               ),
-                            const Divider(color: Colors.white10),
-                            const Padding(
+                            Divider(color: AppColors.white10),
+                            Padding(
                               padding: EdgeInsets.only(top: 8, bottom: 8),
                               child: Text(
                                 'Oppure inserisci manualmente',
                                 style: TextStyle(
-                                  color: Colors.white54,
+                                  color: AppColors.white54,
                                   fontSize: 10,
                                 ),
                               ),
                             ),
                             TextField(
                               controller: manualController,
-                              style: const TextStyle(color: AppColors.pureWhite),
+                              style: TextStyle(color: AppColors.pureWhite),
                               decoration: const InputDecoration(
                                 labelText: 'Valore manuale',
                                 prefixIcon: Icon(Icons.edit_outlined),
@@ -421,7 +561,7 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Seleziona materia',
                     style: TextStyle(
                       color: AppColors.pureWhite,
@@ -432,7 +572,7 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
                   const SizedBox(height: 10),
                   ListTile(
                     leading: const Icon(Icons.filter_alt_off_outlined),
-                    title: const Text(
+                    title: Text(
                       'Qualsiasi materia',
                       style: TextStyle(color: AppColors.pureWhite),
                     ),
@@ -446,20 +586,20 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
                       children: [
                         for (final _SubjectFilterValue subject in _subjects)
                           ListTile(
-                            leading: const Icon(
+                            leading: Icon(
                               Icons.menu_book_outlined,
                               color: AppColors.materialSky,
                             ),
                             title: Text(
                               subject.name,
-                              style: const TextStyle(color: AppColors.pureWhite),
+                              style: TextStyle(color: AppColors.pureWhite),
                             ),
                             onTap: () => Navigator.pop(sheetContext, subject),
                           ),
-                        const Divider(color: Colors.white10),
+                        Divider(color: AppColors.white10),
                         TextField(
                           controller: manualController,
-                          style: const TextStyle(color: AppColors.pureWhite),
+                          style: TextStyle(color: AppColors.pureWhite),
                           decoration: const InputDecoration(
                             labelText: 'Materia manuale',
                             prefixIcon: Icon(Icons.edit_outlined),
@@ -504,6 +644,7 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
       _selectedUniversity = null;
       _selectedDepartment = null;
       _selectedCourse = null;
+      _selectedTeacher = null;
       _selectedSubjectName = null;
       _selectedSubjectId = null;
     });
@@ -575,7 +716,7 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
                 physics: const AlwaysScrollableScrollPhysics(),
                 padding: const EdgeInsets.all(20),
                 children: [
-                  const Text(
+                  Text(
                     'Avvisi StudentLab',
                     style: TextStyle(
                       color: AppColors.pureWhite,
@@ -614,13 +755,13 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
     return TextField(
       controller: _searchController,
       onSubmitted: (_) => _load(),
-      style: const TextStyle(color: AppColors.pureWhite),
+      style: TextStyle(color: AppColors.pureWhite),
       decoration: InputDecoration(
         hintText: 'Cerca autore, titolo, materia, corso...',
         hintStyle: TextStyle(
           color: AppColors.pureWhite.withValues(alpha: 0.35),
         ),
-        prefixIcon: const Icon(Icons.search_rounded, color: AppColors.skyBlue),
+        prefixIcon: Icon(Icons.search_rounded, color: AppColors.skyBlue),
         suffixIcon: _searchController.text.isEmpty
             ? null
             : IconButton(
@@ -659,6 +800,7 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
                   _selectedUniversity = value;
                   _selectedDepartment = null;
                   _selectedCourse = null;
+                  _selectedTeacher = null;
                   _selectedSubjectName = null;
                   _selectedSubjectId = null;
                 });
@@ -678,6 +820,7 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
                 setState(() {
                   _selectedDepartment = value;
                   _selectedCourse = null;
+                  _selectedTeacher = null;
                   _selectedSubjectName = null;
                   _selectedSubjectId = null;
                 });
@@ -696,19 +839,27 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
               onSelected: (value) {
                 setState(() {
                   _selectedCourse = value;
+                  _selectedTeacher = null;
                   _selectedSubjectName = null;
                   _selectedSubjectId = null;
                 });
               },
             ),
           ),
-          const SizedBox(width: 8),
-          _FilterButton(
-            icon: Icons.menu_book_outlined,
-            label: _selectedSubjectName ?? 'Materia',
-            active: _selectedSubjectName != null,
-            onTap: _selectSubjectFilter,
-          ),
+          if (_selectedCourse != null && _availableTeachers.isNotEmpty) ...[
+            const SizedBox(width: 8),
+            _FilterButton(
+              icon: Icons.person_search_outlined,
+              label: _selectedTeacher ?? 'Docente',
+              active: _selectedTeacher != null,
+              onTap: () => _selectStringFilter(
+                title: 'Seleziona docente',
+                values: _availableTeachers,
+                selected: _selectedTeacher,
+                onSelected: (value) => setState(() => _selectedTeacher = value),
+              ),
+            ),
+          ],
           if (_currentUser != null) ...[
             const SizedBox(width: 8),
             _FilterButton(
@@ -736,8 +887,8 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
     return Row(
       children: [
         Text(
-          '$_total ${_total == 1 ? 'avviso' : 'avvisi'}',
-          style: const TextStyle(
+          '${_total + _officialNotices.length} ${_total + _officialNotices.length == 1 ? 'avviso' : 'avvisi'}',
+          style: TextStyle(
             color: AppColors.pureWhite,
             fontSize: 13,
             fontWeight: FontWeight.w600,
@@ -746,7 +897,7 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
         const Spacer(),
         Text(
           _isGuest ? 'Lettura pubblica' : 'Feed pubblico',
-          style: const TextStyle(color: Colors.white38, fontSize: 10),
+          style: TextStyle(color: AppColors.white38, fontSize: 10),
         ),
       ],
     );
@@ -770,7 +921,7 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
       );
     }
 
-    if (_items.isEmpty) {
+    if (_items.isEmpty && _officialNotices.isEmpty) {
       return const _StateCard(
         icon: Icons.newspaper_outlined,
         title: 'Nessun avviso',
@@ -780,6 +931,15 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
 
     return Column(
       children: [
+        for (final DmiExternalNotice notice in _officialNotices)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: _DmiNoticeCard(notice: notice, onOpen: () {
+              Navigator.of(context).push(MaterialPageRoute<void>(
+                builder: (_) => _DmiNoticeDetailPage(notice: notice),
+              ));
+            }),
+          ),
         for (final PublicNews news in _items)
           Padding(
             padding: const EdgeInsets.only(bottom: 12),
@@ -833,7 +993,7 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
       context: context,
       builder: (BuildContext dialogContext) => AlertDialog(
         backgroundColor: AppColors.eleganceDeepNavy,
-        title: const Text(
+        title: Text(
           'Rimuovi avviso',
           style: TextStyle(color: AppColors.pureWhite),
         ),
@@ -842,7 +1002,7 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
           minLines: 3,
           maxLines: 6,
           maxLength: 1000,
-          style: const TextStyle(color: AppColors.pureWhite),
+          style: TextStyle(color: AppColors.pureWhite),
           decoration: const InputDecoration(labelText: 'Motivo'),
         ),
         actions: [
@@ -855,9 +1015,9 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
               final String value = controller.text.trim();
               if (value.isNotEmpty) Navigator.pop(dialogContext, value);
             },
-            child: const Text(
+            child: Text(
               'Rimuovi',
-              style: TextStyle(color: Colors.redAccent),
+              style: TextStyle(color: AppColors.redAccent),
             ),
           ),
         ],
@@ -923,8 +1083,8 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
       context: context,
       builder: (BuildContext dialogContext) => AlertDialog(
         backgroundColor: AppColors.eleganceDeepNavy,
-        title: Text(title, style: const TextStyle(color: AppColors.pureWhite)),
-        content: Text(message, style: const TextStyle(color: Colors.white70)),
+        title: Text(title, style: TextStyle(color: AppColors.pureWhite)),
+        content: Text(message, style: TextStyle(color: AppColors.white70)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(dialogContext, false),
@@ -932,7 +1092,7 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
           ),
           TextButton(
             onPressed: () => Navigator.pop(dialogContext, true),
-            child: Text(action, style: const TextStyle(color: Colors.redAccent)),
+            child: Text(action, style: TextStyle(color: AppColors.redAccent)),
           ),
         ],
       ),
@@ -958,6 +1118,118 @@ class _InstitutionalNewsPageState extends State<InstitutionalNewsPage> {
   void _showMessage(String message) {
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+  }
+}
+
+String _dmiDate(DateTime date) => '${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year}';
+
+class _DmiNoticeCard extends StatelessWidget {
+  final DmiExternalNotice notice;
+  final VoidCallback onOpen;
+
+  const _DmiNoticeCard({required this.notice, required this.onOpen});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(width: double.infinity, child: Card(
+      color: AppColors.eleganceMidnight,
+      child: InkWell(
+        onTap: onOpen,
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(notice.title, style: TextStyle(color: AppColors.pureWhite, fontSize: 16, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 8),
+              Text(notice.sourceLabel, style: TextStyle(color: AppColors.materialSky)),
+              if (notice.teacher != null && notice.teacher!.trim().isNotEmpty)
+                Text(notice.teacher!, style: TextStyle(color: AppColors.white70)),
+              Text(_dmiDate(notice.publishedOn), style: TextStyle(color: AppColors.white54)),
+              const SizedBox(height: 10),
+              Text(notice.content, maxLines: 3, overflow: TextOverflow.ellipsis,
+                style: TextStyle(color: AppColors.white70)),
+            ],
+          ),
+        ),
+      ),
+    ));
+  }
+}
+
+class _DmiNoticeDetailPage extends StatelessWidget {
+  final DmiExternalNotice notice;
+
+  const _DmiNoticeDetailPage({required this.notice});
+
+  List<Widget> _formattedContent() {
+    // La fonte fornisce talvolta testo senza ritorni a capo. Separiamo i
+    // canali e le coppie matricola/esito conservando integralmente i valori.
+    final String content = notice.content.replaceAll(RegExp(r'[ \t]+'), ' ')
+        .replaceAll(RegExp(r'\n{3,}'), '\n\n').trim();
+    final RegExp channel = RegExp(r'\bCanale\s+[A-Z]{1,3}(?:\s*[-/]\s*[A-Z]{1,3})?\b', caseSensitive: false);
+    final matches = channel.allMatches(content).toList();
+    final parts = <Widget>[];
+    void addBody(String value) {
+      final String formatted = value.trim().replaceAllMapped(
+        RegExp(r'(\b\d{7,10}\s*[:–-]\s*[^\s,;]+)(?=\s+\d{7,10}\b)'),
+        (match) => '${match.group(1)}\n',
+      );
+      if (formatted.isEmpty) return;
+      parts.add(Padding(padding: const EdgeInsets.only(bottom: 14),
+        child: SelectableText(formatted, style: TextStyle(color: AppColors.pureWhite, height: 1.65))));
+    }
+    if (matches.isEmpty) {
+      addBody(content);
+    } else {
+      addBody(content.substring(0, matches.first.start));
+      for (int i = 0; i < matches.length; i++) {
+        parts.add(Padding(padding: const EdgeInsets.only(top: 8, bottom: 10),
+          child: Text(matches[i].group(0)!, style: TextStyle(color: AppColors.materialSky,
+            fontSize: 14, fontWeight: FontWeight.w700))));
+        addBody(content.substring(matches[i].end,
+          i + 1 < matches.length ? matches[i + 1].start : content.length));
+      }
+    }
+    return parts;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.darkElegance,
+      appBar: AppBar(backgroundColor: AppColors.brandNightBlue, foregroundColor: AppColors.pureWhite,
+        title: const Text('Avviso')),
+      body: SafeArea(child: Center(child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 760),
+        child: ListView(padding: const EdgeInsets.all(20), children: [
+          Text(notice.title, style: TextStyle(color: AppColors.pureWhite, fontSize: 22, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 10),
+          Text(notice.sourceLabel, style: TextStyle(color: AppColors.materialSky)),
+          if (notice.teacher != null && notice.teacher!.trim().isNotEmpty)
+            Text(notice.teacher!, style: TextStyle(color: AppColors.white70)),
+          Text(_dmiDate(notice.publishedOn), style: TextStyle(color: AppColors.white54)),
+          const SizedBox(height: 22),
+          ..._formattedContent(),
+          const SizedBox(height: 28),
+          Divider(color: AppColors.white38),
+          Text('Fonte: ${notice.sourceLabel}', style: TextStyle(color: AppColors.white70)),
+          const SizedBox(height: 8),
+          Align(alignment: Alignment.centerLeft, child: TextButton.icon(
+            onPressed: () async {
+              final Uri? url = Uri.tryParse(notice.originalUrl);
+              if (url == null || url.scheme != 'https' ||
+                  !const ['web.dmi.unict.it', 'www.dsbga.unict.it', 'www.unict.it'].contains(url.host)) return;
+              if (!await launchUrl(url, mode: LaunchMode.externalApplication) && context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Impossibile aprire l’avviso originale.')));
+              }
+            },
+            icon: const Icon(Icons.open_in_new), label: const Text('Apri avviso originale'),
+          )),
+        ]),
+      ))),
+    );
   }
 }
 
@@ -1045,7 +1317,7 @@ class _PublicNewsCard extends StatelessWidget {
                 backgroundColor: AppColors.brandNightBlue,
                 child: Text(
                   _initials(news.author.fullName),
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.skyBlue,
                     fontSize: 11,
                     fontWeight: FontWeight.bold,
@@ -1061,7 +1333,7 @@ class _PublicNewsCard extends StatelessWidget {
                       news.author.fullName,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.pureWhite,
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
@@ -1070,7 +1342,7 @@ class _PublicNewsCard extends StatelessWidget {
                     const SizedBox(height: 3),
                     Text(
                       news.author.roleLabel,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.materialSky,
                         fontSize: 9,
                         fontWeight: FontWeight.w600,
@@ -1079,7 +1351,7 @@ class _PublicNewsCard extends StatelessWidget {
                     const SizedBox(height: 3),
                     Text(
                       _formatDate(news.createdAt),
-                      style: const TextStyle(color: Colors.white38, fontSize: 9),
+                      style: TextStyle(color: AppColors.white38, fontSize: 9),
                     ),
                   ],
                 ),
@@ -1109,11 +1381,11 @@ class _PublicNewsCard extends StatelessWidget {
                         child: Text('Rimuovi come moderatore'),
                       ),
                     if (onDelete != null)
-                      const PopupMenuItem(
+                      PopupMenuItem(
                         value: 'delete',
                         child: Text(
                           'Elimina',
-                          style: TextStyle(color: Colors.redAccent),
+                          style: TextStyle(color: AppColors.redAccent),
                         ),
                       ),
                   ],
@@ -1125,7 +1397,7 @@ class _PublicNewsCard extends StatelessWidget {
             news.academicContext,
             maxLines: expanded ? null : 2,
             overflow: expanded ? null : TextOverflow.ellipsis,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.materialSky,
               fontSize: 10,
               fontWeight: FontWeight.w500,
@@ -1137,7 +1409,7 @@ class _PublicNewsCard extends StatelessWidget {
             news.title,
             maxLines: expanded ? null : 2,
             overflow: expanded ? null : TextOverflow.ellipsis,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.pureWhite,
               fontSize: 15,
               fontWeight: FontWeight.bold,
@@ -1209,7 +1481,7 @@ class _FilterButton extends StatelessWidget {
         child: Text(label, overflow: TextOverflow.ellipsis),
       ),
       style: OutlinedButton.styleFrom(
-        foregroundColor: active ? AppColors.materialSky : Colors.white60,
+        foregroundColor: active ? AppColors.materialSky : AppColors.white60,
         backgroundColor:
             active ? AppColors.skyBlue.withValues(alpha: 0.10) : null,
         side: BorderSide(
@@ -1247,12 +1519,12 @@ class _StateCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Icon(icon, color: Colors.white30, size: 40),
+          Icon(icon, color: AppColors.white30, size: 40),
           const SizedBox(height: 10),
           Text(
             title,
             textAlign: TextAlign.center,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.pureWhite,
               fontSize: 15,
               fontWeight: FontWeight.bold,
@@ -1262,7 +1534,7 @@ class _StateCard extends StatelessWidget {
           Text(
             message,
             textAlign: TextAlign.center,
-            style: const TextStyle(color: Colors.white54, fontSize: 10),
+            style: TextStyle(color: AppColors.white54, fontSize: 10),
           ),
           if (actionLabel != null && onAction != null) ...[
             const SizedBox(height: 12),
@@ -1318,7 +1590,7 @@ class _PublicNewsReportSheetState extends State<_PublicNewsReportSheet> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text(
+              Text(
                 'Segnala avviso',
                 style: TextStyle(
                   color: AppColors.pureWhite,
@@ -1360,7 +1632,7 @@ class _PublicNewsReportSheetState extends State<_PublicNewsReportSheet> {
                 minLines: 3,
                 maxLines: 6,
                 maxLength: 1000,
-                style: const TextStyle(color: AppColors.pureWhite),
+                style: TextStyle(color: AppColors.pureWhite),
                 decoration: const InputDecoration(labelText: 'Dettagli facoltativi'),
               ),
               const SizedBox(height: 10),

@@ -73,6 +73,10 @@ class DeviceKeyService {
 
   final X25519 _algorithm = X25519();
 
+  Future<String> getDeviceId() {
+    return _ensureDeviceId();
+  }
+
   Future<DeviceKeyMaterial> ensureDeviceKeys() async {
     final String deviceId = await _ensureDeviceId();
     final List<int> seed = await _ensurePrivateSeed();
@@ -137,9 +141,11 @@ class DeviceKeyService {
     await _api.revokeDeviceKey(deviceId);
   }
 
-  Future<void> forgetLocalKeys() async {
+  Future<void> forgetLocalKeys({bool forgetDeviceIdentity = false}) async {
     await _store.delete(_privateSeedKey);
-    await _store.delete(_deviceIdKey);
+    if (forgetDeviceIdentity) {
+      await _store.delete(_deviceIdKey);
+    }
   }
 
   Future<String> _ensureDeviceId() async {

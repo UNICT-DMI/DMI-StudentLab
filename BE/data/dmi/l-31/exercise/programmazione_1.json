@@ -1,0 +1,242 @@
+[
+  {
+    "id_exercise": "1",
+    "type": "errore",
+    "text": "Tocca la riga che contiene l’errore.",
+    "hint": "",
+    "explanation": "",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Array",
+      "teacher": [
+        "Giovanni Maria Farinella"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "data": {
+      "lines": [
+        "int somma(int *v, int n) {",
+        "  int s = 0;",
+        "  for (int i = 0; i <= n; i++)",
+        "    s += v[i];",
+        "  return s;",
+        "}"
+      ],
+      "language": "c",
+      "error_lines": [
+        3
+      ],
+      "reasons": [
+        {
+          "id": "m0e2e2209a8",
+          "text": "Legge un elemento oltre la fine dell’array"
+        },
+        {
+          "id": "m1db1c2a122",
+          "text": "i dovrebbe partire da 1"
+        },
+        {
+          "id": "mf9c107b0a2",
+          "text": "s va dichiarata fuori dalla funzione"
+        }
+      ],
+      "correct_reason": "m0e2e2209a8",
+      "fix": "for (int i = 0; i < n; i++)"
+    },
+    "created_at": "2026-09-27T16:23:55.708866+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.708866+00:00",
+    "updated_by": "StudentLab (esempi)"
+  },
+  {
+    "id_exercise": "2",
+    "type": "codice",
+    "text": "Scrivi massimo(lista) senza usare max(): restituisce il valore più grande, oppure None se la lista è vuota. (Python)",
+    "hint": "",
+    "explanation": "",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Algoritmi",
+      "teacher": [
+        "Giovanni Maria Farinella"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "data": {
+      "language": "python",
+      "function": "massimo",
+      "starter": "def massimo(lista):\n    # scrivi qui\n    pass",
+      "tests": [
+        {
+          "call": "massimo([3, 9, 2])",
+          "expected": "9",
+          "hidden": false
+        },
+        {
+          "call": "massimo([-5, -1])",
+          "expected": "-1",
+          "hidden": false
+        },
+        {
+          "call": "massimo([])",
+          "expected": "None",
+          "hidden": false
+        },
+        {
+          "call": "massimo([7])",
+          "expected": "7",
+          "hidden": true
+        },
+        {
+          "call": "massimo([2, 2, 2])",
+          "expected": "2",
+          "hidden": true
+        }
+      ],
+      "time_limit_ms": 3000,
+      "forbidden": [
+        "max("
+      ]
+    },
+    "created_at": "2026-09-27T16:23:55.708905+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.708905+00:00",
+    "updated_by": "StudentLab (esempi)"
+  },
+  {
+    "id_exercise": "3",
+    "type": "traccia",
+    "text": "",
+    "hint": "",
+    "explanation": "",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Algoritmi",
+      "teacher": [
+        "Giovanni Maria Farinella"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 1
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "generator": {
+      "name": "bubble",
+      "difficulty": 1
+    },
+    "created_at": "2026-09-27T16:23:55.708914+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.708914+00:00",
+    "updated_by": "StudentLab (esempi)"
+  },
+  {
+    "id_exercise": "4",
+    "type": "completa",
+    "text": "Completa.",
+    "hint": "",
+    "explanation": "",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Puntatori",
+      "teacher": [
+        "Giovanni Maria Farinella"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "data": {
+      "text": "In C l’operatore [[1]] restituisce l’indirizzo di una variabile e [[2]] accede al valore puntato.",
+      "blanks": [
+        {
+          "id": "1",
+          "accepted": [
+            "&"
+          ],
+          "numeric": false,
+          "tolerance": 0.0
+        },
+        {
+          "id": "2",
+          "accepted": [
+            "*"
+          ],
+          "numeric": false,
+          "tolerance": 0.0
+        }
+      ],
+      "bank": [
+        "&",
+        "*",
+        "->",
+        "."
+      ],
+      "case_sensitive": true
+    },
+    "created_at": "2026-09-27T16:23:55.708934+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.708934+00:00",
+    "updated_by": "StudentLab (esempi)"
+  },
+  {
+    "id_exercise": "5",
+    "type": "ordina",
+    "text": "Metti in ordine le fasi che trasformano un file .c in un eseguibile.",
+    "hint": "",
+    "explanation": "",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Funzioni",
+      "teacher": [
+        "Giovanni Maria Farinella"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "data": {
+      "items": [
+        {
+          "id": "pa539c12307",
+          "text": "Preprocessore (#include, #define)"
+        },
+        {
+          "id": "p9c2cef0b57",
+          "text": "Compilatore (da C ad assembly)"
+        },
+        {
+          "id": "p301ae79a03",
+          "text": "Assemblatore (codice oggetto)"
+        },
+        {
+          "id": "pefb1034ef6",
+          "text": "Linker (unisce oggetti e librerie)"
+        }
+      ],
+      "order": [
+        "pa539c12307",
+        "p9c2cef0b57",
+        "p301ae79a03",
+        "pefb1034ef6"
+      ],
+      "accepted_orders": []
+    },
+    "created_at": "2026-09-27T16:23:55.708960+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.708960+00:00",
+    "updated_by": "StudentLab (esempi)"
+  }
+]

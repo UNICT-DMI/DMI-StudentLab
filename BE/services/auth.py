@@ -4,16 +4,10 @@ from datetime import (
     timezone,
 )
 
-from email.message import (
-    EmailMessage,
-)
-
 import hashlib
 import hmac
 import logging
 import secrets
-import smtplib
-import ssl
 
 from uuid import uuid4
 
@@ -36,6 +30,10 @@ from core.config import (
 
 from models.user import (
     User,
+)
+
+from services.mail_service import (
+    send_transactional_email,
 )
 
 
@@ -299,145 +297,27 @@ def verify_email_verification_code_hash(
     )
 
 
-def _smtp_port() -> int:
-    return settings.smtp_port
-
-
-def _smtp_use_tls() -> bool:
-    return settings.smtp_use_tls
-
-
-def _smtp_use_ssl() -> bool:
-    return settings.smtp_use_ssl
-
-
 def send_email_verification_code(
     *,
     email: str,
     code: str,
 ) -> None:
-    smtp_host = settings.smtp_host
-
-    smtp_username = (
-        settings.smtp_username
+    subject = "Conferma la tua email StudentLab"
+    text = (
+        "Benvenuto su StudentLab.\n\n"
+        "Il tuo codice di verifica è:\n\n"
+        f"{code}\n\n"
+        "Il codice è valido per "
+        f"{EMAIL_VERIFICATION_EXPIRE_MINUTES} minuti.\n\n"
+        "Se non hai richiesto questa registrazione, "
+        "puoi ignorare questa email."
     )
 
-    smtp_password = (
-        settings.smtp_password
+    send_transactional_email(
+        to_email=email,
+        subject=subject,
+        text=text,
     )
-
-    smtp_from_email = (
-        settings.smtp_from_email
-    )
-
-    smtp_from_name = (
-        settings.smtp_from_name
-    )
-
-    if not smtp_host:
-        raise RuntimeError(
-            "Email service not configured.",
-        )
-
-    if not smtp_from_email:
-        raise RuntimeError(
-            "Email sender not configured.",
-        )
-
-    if _smtp_use_ssl() and _smtp_use_tls():
-        raise RuntimeError(
-            "SMTP SSL e STARTTLS non possono essere abilitati contemporaneamente.",
-        )
-
-    if smtp_username and not smtp_password:
-        raise RuntimeError(
-            "SMTP password not configured.",
-        )
-
-    message = EmailMessage()
-
-    message[
-        "Subject"
-    ] = "Conferma la tua email StudentLab"
-
-    message[
-        "From"
-    ] = (
-        f"{smtp_from_name} "
-        f"<{smtp_from_email}>"
-    )
-
-    message[
-        "To"
-    ] = email
-
-    message.set_content(
-        (
-            "Benvenuto su StudentLab.\n\n"
-            "Il tuo codice di verifica è:\n\n"
-            f"{code}\n\n"
-            "Il codice è valido per "
-            f"{EMAIL_VERIFICATION_EXPIRE_MINUTES} "
-            "minuti.\n\n"
-            "Se non hai richiesto questa "
-            "registrazione, puoi ignorare "
-            "questa email."
-        ),
-    )
-
-    port = _smtp_port()
-
-    if _smtp_use_ssl():
-        context = (
-            ssl.create_default_context()
-        )
-
-        with smtplib.SMTP_SSL(
-            smtp_host,
-            port,
-            context=context,
-            timeout=20,
-        ) as smtp:
-            if smtp_username:
-                smtp.login(
-                    smtp_username,
-                    smtp_password,
-                )
-
-            smtp.send_message(
-                message,
-            )
-
-        return
-
-    with smtplib.SMTP(
-        smtp_host,
-        port,
-        timeout=20,
-    ) as smtp:
-        smtp.ehlo()
-
-        if _smtp_use_tls():
-            context = (
-                ssl.create_default_context()
-            )
-
-            smtp.starttls(
-                context=context,
-            )
-
-            smtp.ehlo()
-
-        if smtp_username:
-            smtp.login(
-                smtp_username,
-                smtp_password,
-            )
-
-        smtp.send_message(
-            message,
-        )
-
 
 def prepare_email_verification(
     *,
@@ -533,11 +413,7 @@ def begin_email_verification(
 
     except Exception as exception:
         logger.exception(
-            "Invio email di verifica fallito: smtp_host=%s smtp_port=%s ssl=%s tls=%s error_type=%s",
-            settings.smtp_host,
-            _smtp_port(),
-            _smtp_use_ssl(),
-            _smtp_use_tls(),
+            "Invio email di verifica fallito tramite Hostinger Mail API: error_type=%s",
             type(exception).__name__,
         )
 
@@ -564,7 +440,7 @@ def begin_email_verification(
         except Exception:
             db.rollback()
             logger.exception(
-                "Ripristino stato verifica email fallito dopo errore SMTP.",
+                "Ripristino stato verifica email fallito dopo errore Mail API.",
             )
 
         raise RuntimeError(
@@ -908,11 +784,7 @@ def resend_email_verification(
 
     except Exception as exception:
         logger.exception(
-            "Reinvio email di verifica fallito: smtp_host=%s smtp_port=%s ssl=%s tls=%s error_type=%s",
-            settings.smtp_host,
-            _smtp_port(),
-            _smtp_use_ssl(),
-            _smtp_use_tls(),
+            "Reinvio email di verifica fallito tramite Hostinger Mail API: error_type=%s",
             type(exception).__name__,
         )
 
@@ -946,7 +818,7 @@ def resend_email_verification(
         except Exception:
             db.rollback()
             logger.exception(
-                "Ripristino stato reinvio verifica email fallito dopo errore SMTP.",
+                "Ripristino stato reinvio verifica email fallito dopo errore Mail API.",
             )
 
         raise RuntimeError(

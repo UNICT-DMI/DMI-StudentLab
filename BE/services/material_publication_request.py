@@ -1,3 +1,4 @@
+import json
 from datetime import (
     datetime,
     timezone,
@@ -18,6 +19,7 @@ from models.material_publication_request import (
 from models.public_material import (
     PublicMaterial,
 )
+from core.config import settings
 
 from models.material_storage_event import (
     MaterialStorageEvent,
@@ -766,6 +768,8 @@ def create_material_publication_request(
 
     publication_request = (
         MaterialPublicationRequest(
+            attribution_mode=(getattr(data, "attribution_mode", "anonymous") or "anonymous"),
+            admin_force_anonymous=False,
             user_id=(
                 current_user.id
             ),
@@ -1010,6 +1014,8 @@ def review_material_duplicate(
         )
     )
 
+    publication_request.admin_force_anonymous = bool(getattr(data, "force_anonymous", False))
+
     try:
         db.commit()
 
@@ -1031,6 +1037,8 @@ def create_public_material_from_request(
         MaterialPublicationRequest,
     current_admin: User,
     action: str,
+    catalog_path_segments: list[str] | None = None,
+    audience_type: str | None = None,
 ):
     ensure_public_material_not_duplicate(
         db,
@@ -1069,6 +1077,8 @@ def create_public_material_from_request(
             publication_request_id=(
                 publication_request.id
             ),
+            contributor_mode=("anonymous" if publication_request.admin_force_anonymous or publication_request.attribution_mode != "named" else "named"),
+            contributor_display_name=(None if publication_request.admin_force_anonymous or publication_request.attribution_mode != "named" else f"{publication_request.user.first_name} {publication_request.user.last_name}".strip()),
             university=(
                 publication_request.university
             ),
@@ -1111,9 +1121,15 @@ def create_public_material_from_request(
             file_hash=(
                 publication_request.file_hash
             ),
+            drive_path_json=None,
+            catalog_path_json=json.dumps(catalog_path_segments or [], ensure_ascii=False),
+            audience_type=audience_type or 'public',
+            drive_allow_duplicate=False,
             version=1,
-            status="published",
-            is_visible=True,
+            status=('hidden' if settings.drive_client_id and settings.drive_client_secret and settings.drive_refresh_token else 'published'),
+            is_visible=not bool(settings.drive_client_id and settings.drive_client_secret and settings.drive_refresh_token),
+            visibility_state=('in_review' if settings.drive_client_id and settings.drive_client_secret and settings.drive_refresh_token else 'visible'),
+            drive_activation_pending=bool(settings.drive_client_id and settings.drive_client_secret and settings.drive_refresh_token),
             approved_by=(
                 current_admin.id
             ),
@@ -1174,6 +1190,31 @@ def approve_material_publication_request(
         raise ValueError(
             "La richiesta è già stata elaborata.",
         )
+
+    # Proposals can remain pending while other admins publish a newer file.
+    fresh_candidate = find_duplicate_candidate(
+        db, subject_id=publication_request.subject_id,
+        original_name=publication_request.original_name,
+        size=publication_request.size,
+        file_hash=publication_request.file_hash,
+    )
+    recorded_id = (publication_request.target_public_material_id
+                   or publication_request.possible_duplicate_material_id)
+    if fresh_candidate is not None and fresh_candidate.id != recorded_id:
+        raise ValueError(
+            'È stato pubblicato un possibile duplicato dopo la proposta. '
+            'Ricarica la coda e confronta i file prima di approvare.'
+        )
+    if recorded_id is not None and publication_request.duplicate_status in {'suspected', 'confirmed'}:
+        existing_candidate = db.query(PublicMaterial).filter(
+            PublicMaterial.id == recorded_id,
+            PublicMaterial.status != 'removed',
+        ).first()
+        if existing_candidate is None:
+            raise ValueError('Il materiale di confronto non è più disponibile. Ricarica la coda.')
+        if (existing_candidate.file_hash == publication_request.file_hash
+                and (data.approved_action or 'publish_new') != 'keep_existing'):
+            raise ValueError('Il file è già presente su StudentLab. Ricarica la coda e confronta la versione.')
 
     existing_public_material = (
         db.query(
@@ -1298,6 +1339,8 @@ def approve_material_publication_request(
                         current_admin
                     ),
                     action="publish_new",
+                    catalog_path_segments=data.catalog_path_segments,
+                    audience_type=data.audience_type,
                 )
             )
 
@@ -1344,6 +1387,8 @@ def approve_material_publication_request(
                         current_admin
                     ),
                     action="publish_separate",
+                    catalog_path_segments=data.catalog_path_segments,
+                    audience_type=data.audience_type,
                 )
             )
 
@@ -1521,6 +1566,12 @@ def approve_material_publication_request(
             publication_request.status = (
                 "approved"
             )
+
+            if data.catalog_path_segments is not None:
+                updated_material.catalog_path_json = json.dumps(
+                    data.catalog_path_segments, ensure_ascii=False)
+            if data.audience_type is not None:
+                updated_material.audience_type = data.audience_type
 
             publication_request.approved_action = (
                 "update_existing"

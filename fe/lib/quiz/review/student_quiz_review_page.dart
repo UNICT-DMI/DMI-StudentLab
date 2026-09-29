@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../services/auth_session.dart';
 import '../../theme/nightTheme.dart';
-import '../quiz.dart';
+import 'review_flashcards_page.dart';
+import 'review_quiz_page.dart';
 import 'services/student_quiz_review_service.dart';
+import 'study_plan_sessions_page.dart';
 
 class StudentQuizReviewPage extends StatefulWidget {
   const StudentQuizReviewPage({super.key});
@@ -188,9 +190,9 @@ class _StudentQuizReviewPageState
     }
   }
 
-  void _trainArgument(
+  Future<void> _trainArgument(
     Map<String, dynamic> argument,
-  ) {
+  ) async {
     final String department =
         _text(argument, 'department');
     final String course =
@@ -202,30 +204,62 @@ class _StudentQuizReviewPageState
 
     if (department.isEmpty ||
         course.isEmpty ||
-        subject.isEmpty ||
-        argumentName.isEmpty ||
-        argumentName == 'Senza argomento') {
+        subject.isEmpty) {
       _showMessage(
         'Questo argomento non può essere utilizzato per avviare un quiz.',
       );
       return;
     }
 
-    final int questions =
-        (_toInt(argument['total_questions']) ?? 0)
-            .clamp(1, 10);
+    late final List<Map<String, dynamic>> review;
+    try {
+      review = await _service.getReview(department: department, course: course,
+        subject: subject, argument: argumentName);
+    } catch (_) {
+      _showMessage('Impossibile caricare le domande da ripassare. Riprova.');
+      return;
+    }
+    final List<Map<String, dynamic>> questions = review.where((item) =>
+      _text(item, 'question_text').isNotEmpty &&
+      _text(item, 'correct_option_text').isNotEmpty).take(10).toList();
+    if (!mounted) return;
+    if (questions.isEmpty) {
+      _showMessage('Non ci sono domande da ripassare per questo argomento.');
+      return;
+    }
 
     Navigator.of(context).push(
       MaterialPageRoute<void>(
-        builder: (_) => QuizPage(
-          department: department,
-          course: course,
-          sub: subject,
-          arguments: <String>[argumentName],
-          numberOfQuestions: questions,
-        ),
+        builder: (_) => ReviewQuizPage(subject: subject, items: questions),
       ),
     );
+  }
+
+  Future<void> _trainFlashcards(Map<String, dynamic> argument) async {
+    final department = _text(argument, 'department');
+    final course = _text(argument, 'course');
+    final subject = _text(argument, 'subject');
+    final topic = _text(argument, 'argument');
+    if (department.isEmpty || course.isEmpty || subject.isEmpty) {
+      _showMessage('Seleziona una materia per ripassare con le flashcard.');
+      return;
+    }
+    late final List<Map<String, dynamic>> review;
+    try {
+      review = await _service.getReview(department: department, course: course,
+        subject: subject, argument: topic);
+    } catch (_) {
+      _showMessage('Impossibile caricare le flashcard da ripassare. Riprova.');
+      return;
+    }
+    if (!mounted) return;
+    if (review.isEmpty) {
+      _showMessage('Non ci sono domande da ripassare per questo argomento.');
+      return;
+    }
+    Navigator.of(context).push(MaterialPageRoute<void>(
+      builder: (_) => ReviewFlashcardsPage(subject: subject, items: review),
+    ));
   }
 
   Future<void> _openQuestion(
@@ -249,6 +283,18 @@ class _StudentQuizReviewPageState
         elevation: 0,
         title: const Text('Ripasso'),
         actions: [
+          IconButton(
+            tooltip: 'Gestisci sessioni',
+            onPressed: () async {
+              await Navigator.of(context).push<void>(
+                MaterialPageRoute<void>(
+                  builder: (_) => const StudyPlanSessionsPage(),
+                ),
+              );
+              if (mounted) await _loadInitial();
+            },
+            icon: const Icon(Icons.devices_rounded),
+          ),
           IconButton(
             tooltip: 'Aggiorna',
             onPressed: _loading ? null : _loadInitial,
@@ -324,6 +370,7 @@ class _StudentQuizReviewPageState
                   _text(item, 'argument'),
                 ),
                 onTrain: () => _trainArgument(item),
+                onFlashcards: () => _trainFlashcards(item),
               ),
             ),
           const SizedBox(height: 22),
@@ -413,7 +460,7 @@ class _StudentQuizReviewPageState
                   AppColors.adminMagenta.withValues(alpha: 0.10),
               borderRadius: BorderRadius.circular(16),
             ),
-            child: const Icon(
+            child: Icon(
               Icons.restart_alt_rounded,
               color: AppColors.adminMagenta,
               size: 29,
@@ -431,7 +478,7 @@ class _StudentQuizReviewPageState
                       : name.isEmpty
                           ? 'Il tuo Ripasso'
                           : 'Ripasso di $name',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.pureWhite,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -440,7 +487,7 @@ class _StudentQuizReviewPageState
                 const SizedBox(height: 5),
                 Text(
                   guest
-                      ? 'Il tuo storico resta sul dispositivo: errori, statistiche e lacune vengono calcolati dalla SQLite locale.'
+                      ? 'Il piano resta su questo dispositivo e continua tra Guest e account associati, mantenendo la provenienza dei progressi.'
                       : 'Rivedi errori reali, individua gli argomenti deboli e allenati in modo mirato.',
                   style: TextStyle(
                     color:
@@ -503,7 +550,7 @@ class _StudentQuizReviewPageState
               icon: Icons.close_rounded,
               value: '$wrong',
               label: 'Errori',
-              color: Colors.orangeAccent,
+              color: AppColors.orangeAccent,
             ),
             _ReviewMetric(
               width: width,
@@ -511,7 +558,7 @@ class _StudentQuizReviewPageState
               value:
                   '${accuracy.toStringAsFixed(1)}%',
               label: 'Precisione',
-              color: Colors.greenAccent,
+              color: AppColors.greenAccent,
             ),
           ],
         );
@@ -535,7 +582,7 @@ class _StudentQuizReviewPageState
       dropdownColor: AppColors.eleganceDeepNavy,
       decoration: InputDecoration(
         labelText: 'Materia',
-        prefixIcon: const Icon(
+        prefixIcon: Icon(
           Icons.menu_book_outlined,
           color: AppColors.skyBlue,
         ),
@@ -553,7 +600,7 @@ class _StudentQuizReviewPageState
             child: Text(
               _text(item, 'subject'),
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.pureWhite,
               ),
             ),
@@ -584,7 +631,7 @@ class _StudentQuizReviewPageState
       children: [
         Text(
           title,
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.pureWhite,
             fontSize: 17,
             fontWeight: FontWeight.bold,
@@ -637,11 +684,13 @@ class _WeakArgumentCard extends StatelessWidget {
   final Map<String, dynamic> data;
   final VoidCallback onReview;
   final VoidCallback onTrain;
+  final VoidCallback onFlashcards;
 
   const _WeakArgumentCard({
     required this.data,
     required this.onReview,
     required this.onTrain,
+    required this.onFlashcards,
   });
 
   @override
@@ -663,7 +712,7 @@ class _WeakArgumentCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color:
-              Colors.orangeAccent.withValues(alpha: 0.20),
+              AppColors.orangeAccent.withValues(alpha: 0.20),
         ),
       ),
       child: Column(
@@ -672,16 +721,16 @@ class _WeakArgumentCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.warning_amber_rounded,
-                color: Colors.orangeAccent,
+                color: AppColors.orangeAccent,
                 size: 19,
               ),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
                   argument,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.pureWhite,
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
@@ -690,8 +739,8 @@ class _WeakArgumentCard extends StatelessWidget {
               ),
               Text(
                 '${accuracy.toStringAsFixed(1)}%',
-                style: const TextStyle(
-                  color: Colors.orangeAccent,
+                style: TextStyle(
+                  color: AppColors.orangeAccent,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -705,26 +754,25 @@ class _WeakArgumentCard extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             '$correct corrette · $wrong errate',
-            style: const TextStyle(
-              color: Colors.white54,
+            style: TextStyle(
+              color: AppColors.white54,
               fontSize: 10,
             ),
           ),
           const SizedBox(height: 12),
+          OutlinedButton.icon(
+            onPressed: onReview,
+            icon: const Icon(Icons.visibility_outlined, size: 17),
+            label: const Text('Vedi errori'),
+          ),
+          const SizedBox(height: 12),
+          Text('Allenati', style: TextStyle(color: AppColors.pureWhite,
+            fontWeight: FontWeight.w700)),
+          const SizedBox(height: 8),
           Wrap(
             spacing: 8,
             runSpacing: 8,
             children: [
-              OutlinedButton.icon(
-                onPressed: onReview,
-                icon: const Icon(
-                  Icons.visibility_outlined,
-                  size: 17,
-                ),
-                label: const Text(
-                  'Vedi errori',
-                ),
-              ),
               FilledButton.icon(
                 onPressed: onTrain,
                 icon: const Icon(
@@ -732,8 +780,13 @@ class _WeakArgumentCard extends StatelessWidget {
                   size: 17,
                 ),
                 label: const Text(
-                  'Allenati',
+                  'Quiz',
                 ),
+              ),
+              OutlinedButton.icon(
+                onPressed: onFlashcards,
+                icon: const Icon(Icons.style_outlined, size: 17),
+                label: const Text('Flashcard'),
               ),
             ],
           ),
@@ -769,6 +822,22 @@ class _ReviewQuestionCard extends StatelessWidget {
         _toInt(data['unanswered_count']) ?? 0;
     final double accuracy =
         _toDouble(data['accuracy_percentage']) ?? 0;
+    final int sourceCount = _toInt(data['source_count']) ?? 1;
+    final String sourceTypes = data['source_types']?.toString() ?? '';
+    final String sourceUsers = data['source_users']?.toString() ?? '';
+    final int? currentUserId = AuthSession.instance.currentUserId;
+    final bool hasGuest = sourceTypes.split(',').contains('guest');
+    final bool hasCurrentUser = currentUserId != null &&
+        sourceUsers.split(',').contains(currentUserId.toString());
+    final String sourceBadge = sourceCount > 1
+        ? 'MISTO · $sourceCount SESSIONI'
+        : hasGuest && hasCurrentUser
+            ? 'GUEST → IMPORTATO'
+            : hasGuest
+                ? 'GUEST'
+                : hasCurrentUser
+                    ? 'TU'
+                    : 'ALTRA SESSIONE';
 
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
@@ -788,7 +857,7 @@ class _ReviewQuestionCard extends StatelessWidget {
           if (argument.isNotEmpty)
             Text(
               argument,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.materialSky,
                 fontSize: 9,
                 fontWeight: FontWeight.w600,
@@ -796,11 +865,27 @@ class _ReviewQuestionCard extends StatelessWidget {
             ),
           if (argument.isNotEmpty)
             const SizedBox(height: 6),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: AppColors.brandNightBlue,
+              borderRadius: BorderRadius.circular(999),
+            ),
+            child: Text(
+              sourceBadge,
+              style: TextStyle(
+                color: AppColors.materialSky,
+                fontSize: 8,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          const SizedBox(height: 7),
           Text(
             question,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.pureWhite,
               fontSize: 12,
               fontWeight: FontWeight.w600,
@@ -814,23 +899,23 @@ class _ReviewQuestionCard extends StatelessWidget {
             children: [
               Text(
                 '$wrong errori',
-                style: const TextStyle(
-                  color: Colors.orangeAccent,
+                style: TextStyle(
+                  color: AppColors.orangeAccent,
                   fontSize: 9,
                 ),
               ),
               if (unanswered > 0)
                 Text(
                   '$unanswered senza risposta',
-                  style: const TextStyle(
-                    color: Colors.white54,
+                  style: TextStyle(
+                    color: AppColors.white54,
                     fontSize: 9,
                   ),
                 ),
               Text(
                 '${accuracy.toStringAsFixed(1)}% precisione',
-                style: const TextStyle(
-                  color: Colors.white38,
+                style: TextStyle(
+                  color: AppColors.white38,
                   fontSize: 9,
                 ),
               ),
@@ -904,7 +989,7 @@ class _StudentReviewQuestionPage
                   title: 'Domanda',
                   child: SelectableText(
                     question,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.pureWhite,
                       fontSize: 15,
                       height: 1.45,
@@ -916,12 +1001,12 @@ class _StudentReviewQuestionPage
                 if (selected.isNotEmpty)
                   _ReviewDetailSection(
                     icon: Icons.close_rounded,
-                    iconColor: Colors.orangeAccent,
+                    iconColor: AppColors.orangeAccent,
                     title: 'Ultima risposta',
                     child: Text(
                       selected,
-                      style: const TextStyle(
-                        color: Colors.white70,
+                      style: TextStyle(
+                        color: AppColors.white70,
                         fontSize: 12,
                         height: 1.4,
                       ),
@@ -931,14 +1016,14 @@ class _StudentReviewQuestionPage
                   const SizedBox(height: 12),
                 _ReviewDetailSection(
                   icon: Icons.check_circle_outline_rounded,
-                  iconColor: Colors.greenAccent,
+                  iconColor: AppColors.greenAccent,
                   title: 'Risposta corretta',
                   child: Text(
                     correct.isEmpty
                         ? 'Non disponibile'
                         : correct,
-                    style: const TextStyle(
-                      color: Colors.white70,
+                    style: TextStyle(
+                      color: AppColors.white70,
                       fontSize: 12,
                       height: 1.4,
                     ),
@@ -951,8 +1036,8 @@ class _StudentReviewQuestionPage
                     title: 'Perché la risposta scelta non va bene',
                     child: SelectableText(
                       selectedExplanation,
-                      style: const TextStyle(
-                        color: Colors.white70,
+                      style: TextStyle(
+                        color: AppColors.white70,
                         fontSize: 11,
                         height: 1.5,
                       ),
@@ -963,12 +1048,12 @@ class _StudentReviewQuestionPage
                   const SizedBox(height: 12),
                   _ReviewDetailSection(
                     icon: Icons.lightbulb_outline_rounded,
-                    iconColor: Colors.greenAccent,
+                    iconColor: AppColors.greenAccent,
                     title: 'Spiegazione della risposta corretta',
                     child: SelectableText(
                       correctExplanation,
-                      style: const TextStyle(
-                        color: Colors.white70,
+                      style: TextStyle(
+                        color: AppColors.white70,
                         fontSize: 11,
                         height: 1.5,
                       ),
@@ -982,8 +1067,8 @@ class _StudentReviewQuestionPage
                     title: 'Spiegazione formale',
                     child: SelectableText(
                       formal,
-                      style: const TextStyle(
-                        color: Colors.white70,
+                      style: TextStyle(
+                        color: AppColors.white70,
                         fontSize: 11,
                         height: 1.5,
                       ),
@@ -997,8 +1082,8 @@ class _StudentReviewQuestionPage
                     title: 'Spiegazione semplice',
                     child: SelectableText(
                       informal,
-                      style: const TextStyle(
-                        color: Colors.white70,
+                      style: TextStyle(
+                        color: AppColors.white70,
                         fontSize: 11,
                         height: 1.5,
                       ),
@@ -1054,7 +1139,7 @@ class _ReviewDetailSection extends StatelessWidget {
               Expanded(
                 child: Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.pureWhite,
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
@@ -1099,7 +1184,7 @@ class _ArgumentSummaryCard extends StatelessWidget {
           Expanded(
             child: Text(
               argument,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.pureWhite,
                 fontSize: 11,
                 fontWeight: FontWeight.w600,
@@ -1109,8 +1194,8 @@ class _ArgumentSummaryCard extends StatelessWidget {
           Text(
             '$total risposte · '
             '${accuracy.toStringAsFixed(1)}%',
-            style: const TextStyle(
-              color: Colors.white54,
+            style: TextStyle(
+              color: AppColors.white54,
               fontSize: 9,
             ),
           ),
@@ -1159,7 +1244,7 @@ class _ReviewMetric extends StatelessWidget {
                 children: [
                   Text(
                     value,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: AppColors.pureWhite,
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
@@ -1167,8 +1252,8 @@ class _ReviewMetric extends StatelessWidget {
                   ),
                   Text(
                     label,
-                    style: const TextStyle(
-                      color: Colors.white38,
+                    style: TextStyle(
+                      color: AppColors.white38,
                       fontSize: 9,
                     ),
                   ),
@@ -1216,7 +1301,7 @@ class _EmptyReviewCard extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.pureWhite,
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
@@ -1225,8 +1310,8 @@ class _EmptyReviewCard extends StatelessWidget {
                 const SizedBox(height: 3),
                 Text(
                   message,
-                  style: const TextStyle(
-                    color: Colors.white54,
+                  style: TextStyle(
+                    color: AppColors.white54,
                     fontSize: 10,
                     height: 1.4,
                   ),
@@ -1257,17 +1342,17 @@ class _ReviewErrorState extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(
+            Icon(
               Icons.error_outline_rounded,
-              color: Colors.redAccent,
+              color: AppColors.redAccent,
               size: 38,
             ),
             const SizedBox(height: 10),
             Text(
               message,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.white60,
+              style: TextStyle(
+                color: AppColors.white60,
                 fontSize: 11,
               ),
             ),

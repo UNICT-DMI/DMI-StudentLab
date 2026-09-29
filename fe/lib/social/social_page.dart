@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../theme/studentlab_brand.dart';
+import '../calendar/calendar_home_page.dart';
 
 import 'package:fe/widgets/studentlab_coming_soon_badge.dart';
 
@@ -10,6 +12,7 @@ import '../services/auth_service.dart';
 
 import 'message/message_page.dart';
 import 'notifications/notifications_page.dart';
+import '../widgets/studentlab_ui/studentlab_nav.dart';
 
 import 'social_models.dart';
 
@@ -102,6 +105,7 @@ class _SocialPageState extends State<SocialPage> {
     setState(() {
       if (_session.isGuest) {
         _unreadNotificationCount = 0;
+        StudentLabNavCounters.instance.notifications = 0;
 
         if (_currentIndex > 2) {
           _currentIndex = 0;
@@ -132,6 +136,7 @@ class _SocialPageState extends State<SocialPage> {
 
       setState(() {
         _unreadNotificationCount = count;
+        StudentLabNavCounters.instance.notifications = count;
       });
     } catch (_) {
       if (!mounted) {
@@ -140,6 +145,7 @@ class _SocialPageState extends State<SocialPage> {
 
       setState(() {
         _unreadNotificationCount = 0;
+        StudentLabNavCounters.instance.notifications = 0;
       });
     } finally {
       _loadingNotifications = false;
@@ -393,7 +399,7 @@ class _SocialPageState extends State<SocialPage> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(24),
                       child: Image.asset(
-                        'assets/mascot/guest_profile.png',
+                        StudentLabBrand.guestAvatar,
                         width: 48,
                         height: 48,
                         fit: BoxFit.cover,
@@ -403,7 +409,7 @@ class _SocialPageState extends State<SocialPage> {
                               Object error,
                               StackTrace? stackTrace,
                             ) {
-                              return const CircleAvatar(
+                              return CircleAvatar(
                                 radius: 24,
                                 backgroundColor: AppColors.studentBlue,
                                 child: Icon(
@@ -420,7 +426,7 @@ class _SocialPageState extends State<SocialPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             'Guest',
                             style: TextStyle(
                               color: AppColors.pureWhite,
@@ -510,7 +516,7 @@ class _SocialPageState extends State<SocialPage> {
                               user.name,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 color: AppColors.pureWhite,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -564,7 +570,7 @@ class _SocialPageState extends State<SocialPage> {
                   },
                 ),
 
-                _SocialUserMenuTile(
+                if (_session.currentUser?.isCreator == true) _SocialUserMenuTile(
                   icon: Icons.groups_2_outlined,
                   label: 'Gruppi',
                   subtitle: 'I tuoi gruppi e quelli pubblici',
@@ -590,7 +596,7 @@ class _SocialPageState extends State<SocialPage> {
                 if (showAdminPanel)
                   _SocialUserMenuTile(
                     icon: Icons.admin_panel_settings_outlined,
-                    iconColor: Colors.greenAccent,
+                    iconColor: AppColors.greenAccent,
                     label: 'Admin Panel',
                     subtitle: 'Gestione e strumenti amministrativi',
                     onTap: () {
@@ -655,19 +661,12 @@ class _SocialPageState extends State<SocialPage> {
 
         actions: [
           if (!_session.isGuest) ...[
-            IconButton(
-              tooltip: 'Messaggi',
-
-              onPressed: _openMessages,
-
-              icon: const Icon(Icons.chat_bubble_outline_rounded),
+            StudentLabNavActions(
+              onMessages: _openMessages,
+              onNotifications: _openNotifications,
+              barColor: AppColors.brandNightBlue,
             ),
-
-            _SocialNotificationButton(
-              count: _unreadNotificationCount,
-
-              onPressed: _openNotifications,
-            ),
+            const SizedBox(width: 6),
           ],
 
           Padding(
@@ -686,7 +685,7 @@ class _SocialPageState extends State<SocialPage> {
                         borderRadius: BorderRadius.circular(16),
 
                         child: Image.asset(
-                          'assets/mascot/guest_profile.png',
+                          StudentLabBrand.guestAvatar,
 
                           width: 32,
 
@@ -702,7 +701,7 @@ class _SocialPageState extends State<SocialPage> {
 
                                 StackTrace? stackTrace,
                               ) {
-                                return const CircleAvatar(
+                                return CircleAvatar(
                                   radius: 16,
 
                                   backgroundColor: AppColors.studentBlue,
@@ -719,7 +718,7 @@ class _SocialPageState extends State<SocialPage> {
                         ),
                       )
                     : currentUser == null
-                    ? const CircleAvatar(
+                    ? CircleAvatar(
                         radius: 16,
 
                         backgroundColor: AppColors.studentBlue,
@@ -749,29 +748,11 @@ class _SocialPageState extends State<SocialPage> {
                   constraints: const BoxConstraints(maxWidth: 1180),
                   child: IndexedStack(
                     index: _currentIndex,
-                    children: _session.isGuest
-                        ? [
-                            const InstitutionalNewsPage(embedded: true),
-                            _TutorHubSection(onLogin: _openLogin),
-                            _GuestNetworkSection(
-                              onLogin: _openLogin,
-                              onProfileCreated: _onProfileCreated,
-                            ),
-                          ]
-                        : [
-                            const InstitutionalNewsPage(embedded: true),
-                            _TutorHubSection(onLogin: _openLogin),
-                            const _ComingSoonSection(
-                              icon: Icons.menu_book_outlined,
-                              title: 'Libri',
-                              description: 'La sezione Libri è in arrivo.',
-                            ),
-                            const _ComingSoonSection(
-                              icon: Icons.work_outline_rounded,
-                              title: 'Lavori',
-                              description: 'La sezione Lavori è in arrivo.',
-                            ),
-                          ],
+                    children: [
+                      const InstitutionalNewsPage(embedded: true),
+                      _TutorHubSection(onLogin: _openLogin),
+                      const CalendarHomePage(embedded: true),
+                    ],
                   ),
                 ),
               ),
@@ -790,8 +771,7 @@ class _SocialPageState extends State<SocialPage> {
   }
 
   Widget _buildNavigation() {
-    final sections = _session.isGuest
-        ? const [
+    const sections = [
             (
               icon: Icons.newspaper_outlined,
               selectedIcon: Icons.newspaper_rounded,
@@ -803,31 +783,9 @@ class _SocialPageState extends State<SocialPage> {
               label: 'Tutor',
             ),
             (
-              icon: Icons.hub_outlined,
-              selectedIcon: Icons.hub_rounded,
-              label: 'Network',
-            ),
-          ]
-        : const [
-            (
-              icon: Icons.newspaper_outlined,
-              selectedIcon: Icons.newspaper_rounded,
-              label: 'Avvisi',
-            ),
-            (
-              icon: Icons.volunteer_activism_outlined,
-              selectedIcon: Icons.volunteer_activism_rounded,
-              label: 'Tutor',
-            ),
-            (
-              icon: Icons.menu_book_outlined,
-              selectedIcon: Icons.menu_book_rounded,
-              label: 'Libri',
-            ),
-            (
-              icon: Icons.work_outline_rounded,
-              selectedIcon: Icons.work_rounded,
-              label: 'Lavori',
+              icon: Icons.edit_calendar_outlined,
+              selectedIcon: Icons.edit_calendar_rounded,
+              label: 'Calendario',
             ),
           ];
 
@@ -865,7 +823,7 @@ class _SocialPageState extends State<SocialPage> {
 
                 decoration: BoxDecoration(
                   color: selected
-                      ? AppColors.skyBlue.withValues(alpha: 0.16)
+                      ? (index == 2 ? AppColors.adminCoral : AppColors.skyBlue).withValues(alpha: 0.16)
                       : Colors.transparent,
 
                   borderRadius: BorderRadius.circular(12),
@@ -878,7 +836,7 @@ class _SocialPageState extends State<SocialPage> {
                       selected ? section.selectedIcon : section.icon,
                       size: 19,
                       color: selected
-                          ? AppColors.materialSky
+                          ? (index == 2 ? AppColors.adminCoral : AppColors.materialSky)
                           : AppColors.pureWhite.withValues(alpha: 0.45),
                     ),
 
@@ -928,6 +886,7 @@ class _TutorHubSectionState extends State<_TutorHubSection> {
   List<SocialUser> _users = [];
 
   int _selectedFilter = 0;
+  bool _onlyMyCourse = true;
 
   bool _loading = true;
 
@@ -984,7 +943,7 @@ class _TutorHubSectionState extends State<_TutorHubSection> {
             .where(
               (SocialUser user) =>
                   user.id != currentUserId &&
-                  (_canHelp(user) || _offersPrivateLessons(user)),
+                  (_offersPrivateLessons(user) || user.isVerifiedInstitutionalTutor),
             )
             .toList();
 
@@ -1004,17 +963,23 @@ class _TutorHubSectionState extends State<_TutorHubSection> {
 
   List<SocialUser> get _filteredUsers {
     final String query = _searchController.text.trim().toLowerCase();
+    final SocialUser? viewer = AuthSession.instance.currentUser;
+    final enrolled = viewer?.academicPaths.where((path) => path.status == AcademicPathStatus.enrolled).toList() ?? [];
+    final currentPath = enrolled.where((path) => path.isCurrent).firstOrNull ?? enrolled.firstOrNull;
+    final String myCourse = (currentPath?.course ?? viewer?.course ?? '').trim().toLowerCase();
 
     return _users.where((SocialUser user) {
-      final bool canHelp = _canHelp(user);
-
       final bool privateLessons = _offersPrivateLessons(user);
-
-      if (_selectedFilter == 1 && !canHelp) {
+      if (_onlyMyCourse && viewer?.role == 'student' && myCourse.isNotEmpty &&
+          user.course.trim().toLowerCase() != myCourse &&
+          !user.academicPaths.any((path) => path.status == AcademicPathStatus.enrolled &&
+              path.course.trim().toLowerCase() == myCourse)) {
         return false;
       }
-
-      if (_selectedFilter == 2 && !privateLessons) {
+      if (_selectedFilter == 1 && !privateLessons) {
+        return false;
+      }
+      if (_selectedFilter == 2 && !user.isVerifiedInstitutionalTutor) {
         return false;
       }
 
@@ -1060,7 +1025,7 @@ class _TutorHubSectionState extends State<_TutorHubSection> {
         physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.all(20),
         children: [
-          const Text(
+          Text(
             'Tutor',
             style: TextStyle(
               color: AppColors.pureWhite,
@@ -1070,7 +1035,7 @@ class _TutorHubSectionState extends State<_TutorHubSection> {
           ),
           const SizedBox(height: 6),
           Text(
-            'Trova utenti disponibili ad aiutarti nello studio o a offrire lezioni private.',
+            'Trova chi offre lezioni private o tutoraggio universitario verificato.',
             style: TextStyle(
               color: AppColors.pureWhite.withValues(alpha: 0.50),
               fontSize: 11,
@@ -1083,11 +1048,11 @@ class _TutorHubSectionState extends State<_TutorHubSection> {
             onChanged: (_) {
               setState(() {});
             },
-            style: const TextStyle(color: AppColors.pureWhite),
+            style: TextStyle(color: AppColors.pureWhite),
             decoration: InputDecoration(
               hintText: 'Cerca tutor o materia...',
-              hintStyle: const TextStyle(color: Colors.white38),
-              prefixIcon: const Icon(
+              hintStyle: TextStyle(color: AppColors.white38),
+              prefixIcon: Icon(
                 Icons.search_rounded,
                 color: AppColors.skyBlue,
               ),
@@ -1100,14 +1065,21 @@ class _TutorHubSectionState extends State<_TutorHubSection> {
             ),
           ),
           const SizedBox(height: 14),
+          if (AuthSession.instance.currentUser?.role == 'student' &&
+              ((AuthSession.instance.currentUser?.course.trim().isNotEmpty ?? false) ||
+               (AuthSession.instance.currentUser?.academicPaths.isNotEmpty ?? false)))
+            Padding(padding: const EdgeInsets.only(bottom: 10), child: FilterChip(
+              label: const Text('Il mio corso'), selected: _onlyMyCourse,
+              onSelected: (value) => setState(() => _onlyMyCourse = value))),
+          if (_users.where((user) => user.isVerifiedInstitutionalTutor).length > 1)
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               children: List.generate(3, (int index) {
                 const List<String> labels = [
                   'Tutti',
-                  'Aiuto',
                   'Lezioni private',
+                  'Tutoraggio UNICT',
                 ];
 
                 return Padding(
@@ -1291,7 +1263,7 @@ class _ComingSoonSection extends StatelessWidget {
 
                     Text(
                       title,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.pureWhite,
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
@@ -1345,12 +1317,12 @@ class _SocialUserMenuTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color color = danger ? Colors.redAccent : AppColors.pureWhite;
+    final Color color = danger ? AppColors.redAccent : AppColors.pureWhite;
 
     return ListTile(
       leading: Icon(
         icon,
-        color: danger ? Colors.redAccent : iconColor ?? AppColors.skyBlue,
+        color: danger ? AppColors.redAccent : iconColor ?? AppColors.skyBlue,
       ),
       title: Text(
         label,
@@ -1366,61 +1338,13 @@ class _SocialUserMenuTile extends StatelessWidget {
               ),
             ),
       trailing: showArrow
-          ? const Icon(
+          ? Icon(
               Icons.arrow_forward_ios_rounded,
-              color: Colors.white30,
+              color: AppColors.white30,
               size: 14,
             )
           : null,
       onTap: onTap,
-    );
-  }
-}
-
-class _SocialNotificationButton extends StatelessWidget {
-  final int count;
-  final VoidCallback onPressed;
-
-  const _SocialNotificationButton({
-    required this.count,
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      tooltip: 'Notifiche',
-      onPressed: onPressed,
-      icon: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          const Icon(Icons.notifications_none_rounded),
-
-          if (count > 0)
-            Positioned(
-              top: -5,
-              right: -7,
-              child: Container(
-                constraints: const BoxConstraints(minWidth: 17, minHeight: 17),
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Colors.redAccent,
-                  borderRadius: BorderRadius.circular(9),
-                  border: Border.all(color: AppColors.brandNightBlue, width: 2),
-                ),
-                child: Text(
-                  count > 99 ? '99+' : '$count',
-                  style: const TextStyle(
-                    color: AppColors.pureWhite,
-                    fontSize: 8,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-            ),
-        ],
-      ),
     );
   }
 }
@@ -1576,7 +1500,7 @@ class _GuestSocialPageState extends State<_GuestSocialPage> {
 
                       const SizedBox(height: 28),
 
-                      const Row(
+                      Row(
                         children: [
                           Icon(
                             Icons.people_outline_rounded,
@@ -1661,7 +1585,7 @@ class _GuestSocialPageState extends State<_GuestSocialPage> {
               borderRadius: BorderRadius.circular(13),
             ),
 
-            child: const Icon(
+            child: Icon(
               Icons.explore_outlined,
 
               color: AppColors.skyBlue,
@@ -1677,7 +1601,7 @@ class _GuestSocialPageState extends State<_GuestSocialPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
 
               children: [
-                const Text(
+                Text(
                   'Esplora la community',
 
                   style: TextStyle(
@@ -1747,7 +1671,7 @@ class _GuestSocialPageState extends State<_GuestSocialPage> {
                   borderRadius: BorderRadius.circular(13),
                 ),
 
-                child: const Icon(
+                child: Icon(
                   Icons.groups_2_outlined,
 
                   color: AppColors.skyBlue,
@@ -1763,7 +1687,7 @@ class _GuestSocialPageState extends State<_GuestSocialPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
 
                   children: [
-                    const Text(
+                    Text(
                       'Gruppi pubblici',
 
                       style: TextStyle(
@@ -2171,7 +2095,7 @@ class _SocialProfilePageState extends State<_SocialProfilePage> {
                     Text(
                       user.name.isEmpty ? 'Profilo StudentLab' : user.name,
 
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.pureWhite,
 
                         fontSize: 21,
@@ -2201,10 +2125,10 @@ class _SocialProfilePageState extends State<_SocialProfilePage> {
                         if (isTeacher && user.isVerifiedTeacher) ...[
                           const SizedBox(width: 5),
 
-                          const Icon(
+                          Icon(
                             Icons.verified_rounded,
 
-                            color: Colors.greenAccent,
+                            color: AppColors.greenAccent,
 
                             size: 15,
                           ),
@@ -2267,7 +2191,7 @@ class _SocialProfilePageState extends State<_SocialProfilePage> {
 
             const SizedBox(height: 14),
 
-            const Text(
+            Text(
               'Titoli conseguiti',
 
               style: TextStyle(
@@ -2300,7 +2224,7 @@ class _SocialProfilePageState extends State<_SocialProfilePage> {
 
             const SizedBox(height: 14),
 
-            const Text(
+            Text(
               'Percorsi accademici',
 
               style: TextStyle(
@@ -2335,7 +2259,7 @@ class _SocialProfilePageState extends State<_SocialProfilePage> {
           Text(
             isTeacher ? 'Insegnamenti' : 'Materie',
 
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.pureWhite,
 
               fontSize: 15,
@@ -2377,7 +2301,7 @@ class _SocialProfilePageState extends State<_SocialProfilePage> {
 
           const SizedBox(height: 14),
 
-          const Text(
+          Text(
             'Descrizione',
 
             style: TextStyle(
@@ -2461,6 +2385,7 @@ class _SocialUsersPageState extends State<_SocialUsersPage> {
   List<SocialUser> _users = [];
 
   int _selectedFilter = 0;
+  int _academicScope = 0;
 
   bool _loading = true;
 
@@ -2531,6 +2456,12 @@ class _SocialUsersPageState extends State<_SocialUsersPage> {
 
   List<SocialUser> get _filteredUsers {
     final String query = _searchController.text.trim().toLowerCase();
+    final current = AuthSession.instance.currentUser;
+    final enrolled = current?.academicPaths.where((p) => p.status == AcademicPathStatus.enrolled).toList() ?? [];
+    final path = enrolled.where((p) => p.isCurrent).firstOrNull ?? enrolled.firstOrNull;
+    final university = path?.university.trim().toLowerCase() ?? current?.university.trim().toLowerCase() ?? '';
+    final department = path?.department.trim().toLowerCase() ?? current?.department.trim().toLowerCase() ?? '';
+    final course = path?.course.trim().toLowerCase() ?? current?.course.trim().toLowerCase() ?? '';
 
     return _users.where((SocialUser user) {
       final bool canHelp = _canHelp(user);
@@ -2538,15 +2469,16 @@ class _SocialUsersPageState extends State<_SocialUsersPage> {
       final bool privateLessons = _offersPrivateLessons(user);
 
       if (widget.tutorOnly) {
-        if (!canHelp && !privateLessons) {
+        final structured = user.isVerifiedInstitutionalTutor;
+        if (!structured && !privateLessons) {
           return false;
         }
 
-        if (_selectedFilter == 1 && !canHelp) {
+        if (_selectedFilter == 1 && !structured) {
           return false;
         }
 
-        if (_selectedFilter == 2 && !privateLessons) {
+        if (_selectedFilter == 2 && (structured || !privateLessons)) {
           return false;
         }
       } else {
@@ -2561,6 +2493,21 @@ class _SocialUsersPageState extends State<_SocialUsersPage> {
         if (_selectedFilter == 3 && !canHelp && !privateLessons) {
           return false;
         }
+      }
+
+      if (!widget.tutorOnly && _academicScope != 0) {
+        if (university.isEmpty || department.isEmpty || (_academicScope == 1 && course.isEmpty)) return false;
+        final candidatePaths = user.academicPaths.where((p) => p.status == AcademicPathStatus.enrolled).toList();
+        final matches = candidatePaths.isEmpty
+            ? [(university: user.university.trim().toLowerCase(), department: user.department.trim().toLowerCase(), course: user.course.trim().toLowerCase())]
+            : candidatePaths.map((p) => (university: p.university.trim().toLowerCase(), department: p.department.trim().toLowerCase(), course: p.course.trim().toLowerCase()));
+        if (!matches.any((p) => switch (_academicScope) {
+          1 => p.university == university && p.department == department && p.course == course,
+          2 => p.university == university && p.department == department && p.course != course,
+          3 => p.university == university && p.department != department,
+          4 => p.university.isNotEmpty && p.university != university,
+          _ => true,
+        })) return false;
       }
 
       if (query.isEmpty) {
@@ -2645,16 +2592,16 @@ class _SocialUsersPageState extends State<_SocialUsersPage> {
                       setState(() {});
                     },
 
-                    style: const TextStyle(color: AppColors.pureWhite),
+                    style: TextStyle(color: AppColors.pureWhite),
 
                     decoration: InputDecoration(
                       hintText: widget.tutorOnly
                           ? 'Cerca tutor, materie, corsi...'
                           : 'Cerca studenti, insegnanti, materie...',
 
-                      hintStyle: const TextStyle(color: Colors.white38),
+                      hintStyle: TextStyle(color: AppColors.white38),
 
-                      prefixIcon: const Icon(
+                      prefixIcon: Icon(
                         Icons.search_rounded,
 
                         color: AppColors.skyBlue,
@@ -2676,6 +2623,21 @@ class _SocialUsersPageState extends State<_SocialUsersPage> {
 
                   _buildFilters(),
 
+                  if (!widget.tutorOnly) ...[
+                    const SizedBox(height: 10),
+                    SingleChildScrollView(scrollDirection: Axis.horizontal,
+                      child: Row(children: [
+                        for (var i = 0; i < 5; i++) Padding(
+                          padding: const EdgeInsets.only(right: 8),
+                          child: ChoiceChip(
+                            label: Text(const ['Tutti i percorsi', 'Il mio corso', 'Altri corsi del dipartimento', 'Altri dipartimenti', 'Altre università'][i]),
+                            selected: _academicScope == i,
+                            onSelected: (_) => setState(() => _academicScope = i),
+                          ),
+                        ),
+                      ])),
+                  ],
+
                   const SizedBox(height: 22),
 
                   _buildUserList(),
@@ -2690,7 +2652,7 @@ class _SocialUsersPageState extends State<_SocialUsersPage> {
 
   Widget _buildFilters() {
     final List<String> labels = widget.tutorOnly
-        ? const ['Tutti', 'Aiuto', 'Lezioni private']
+        ? const ['Tutti', 'Tutor UNICT verificati', 'Lezioni private']
         : const ['Tutti', 'Studenti', 'Insegnanti', 'Disponibili'];
 
     return SingleChildScrollView(
@@ -3009,7 +2971,7 @@ class _SocialGroupsPageState extends State<_SocialGroupsPage> {
               borderRadius: BorderRadius.circular(14),
             ),
 
-            child: const Icon(
+            child: Icon(
               Icons.groups_2_rounded,
 
               color: AppColors.skyBlue,
@@ -3025,7 +2987,7 @@ class _SocialGroupsPageState extends State<_SocialGroupsPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
 
               children: [
-                const Text(
+                Text(
                   'I tuoi gruppi',
 
                   style: TextStyle(
@@ -3346,7 +3308,7 @@ class _UserGroupFilterChip extends StatelessWidget {
               child: Text(
                 '$count',
 
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.materialSky,
 
                   fontSize: 9,
@@ -3401,7 +3363,7 @@ class _EmptyGroupHubCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
             ),
 
-            child: const Icon(
+            child: Icon(
               Icons.groups_outlined,
 
               color: AppColors.skyBlue,
@@ -3419,7 +3381,7 @@ class _EmptyGroupHubCard extends StatelessWidget {
 
             textAlign: TextAlign.center,
 
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.pureWhite,
 
               fontSize: 15,
@@ -3500,7 +3462,7 @@ class _AvailabilityBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color color = available ? Colors.greenAccent : Colors.white30;
+    final Color color = available ? AppColors.greenAccent : AppColors.white30;
 
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -3557,7 +3519,7 @@ class _ProfileInfoRow extends StatelessWidget {
               Text(
                 title,
 
-                style: const TextStyle(color: Colors.white38, fontSize: 10),
+                style: TextStyle(color: AppColors.white38, fontSize: 10),
               ),
 
               const SizedBox(height: 2),
@@ -3565,7 +3527,7 @@ class _ProfileInfoRow extends StatelessWidget {
               Text(
                 value,
 
-                style: const TextStyle(color: Colors.white70, fontSize: 12),
+                style: TextStyle(color: AppColors.white70, fontSize: 12),
               ),
             ],
           ),
@@ -3594,7 +3556,7 @@ class _SubjectChip extends StatelessWidget {
       child: Text(
         label,
 
-        style: const TextStyle(color: Colors.white70, fontSize: 11),
+        style: TextStyle(color: AppColors.white70, fontSize: 11),
       ),
     );
   }
@@ -3631,7 +3593,7 @@ class _ProfileCapabilityChip extends StatelessWidget {
           Text(
             label,
 
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.materialSky,
 
               fontSize: 10,
@@ -3666,7 +3628,7 @@ class _ProfileAcademicTitleCard extends StatelessWidget {
 
         borderRadius: BorderRadius.circular(12),
 
-        border: Border.all(color: Colors.amber.withValues(alpha: 0.18)),
+        border: Border.all(color: AppColors.amber.withValues(alpha: 0.18)),
       ),
 
       child: Column(
@@ -3683,15 +3645,15 @@ class _ProfileAcademicTitleCard extends StatelessWidget {
                 height: 34,
 
                 decoration: BoxDecoration(
-                  color: Colors.amber.withValues(alpha: 0.10),
+                  color: AppColors.amber.withValues(alpha: 0.10),
 
                   borderRadius: BorderRadius.circular(10),
                 ),
 
-                child: const Icon(
+                child: Icon(
                   Icons.workspace_premium_outlined,
 
-                  color: Colors.amber,
+                  color: AppColors.amber,
 
                   size: 19,
                 ),
@@ -3707,7 +3669,7 @@ class _ProfileAcademicTitleCard extends StatelessWidget {
                     Text(
                       label,
 
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.pureWhite,
 
                         fontSize: 13,
@@ -3815,7 +3777,7 @@ class _ProfileAcademicPathCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
 
             children: [
-              const Icon(
+              Icon(
                 Icons.account_balance_outlined,
 
                 color: AppColors.skyBlue,
@@ -3831,7 +3793,7 @@ class _ProfileAcademicPathCard extends StatelessWidget {
                       ? 'Ateneo non specificato'
                       : path.university,
 
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.pureWhite,
 
                     fontSize: 12,
@@ -4003,7 +3965,7 @@ class _ProfileAcademicStatusBadge extends StatelessWidget {
           Text(
             label,
 
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.materialSky,
 
               fontSize: 9,
@@ -4069,15 +4031,15 @@ class _ProfileVerificationBadge extends StatelessWidget {
 
     if (verified) {
       label = 'VERIFICATO';
-      color = Colors.greenAccent;
+      color = AppColors.greenAccent;
       icon = Icons.verified_rounded;
     } else if (rejected) {
       label = 'RIFIUTATO';
-      color = Colors.redAccent;
+      color = AppColors.redAccent;
       icon = Icons.cancel_outlined;
     } else if (pending) {
       label = 'DA VERIFICARE';
-      color = Colors.amber;
+      color = AppColors.amber;
       icon = Icons.schedule_rounded;
     } else {
       label = 'DICHIARATO';
@@ -4147,7 +4109,7 @@ class _ProfileSubjectCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.menu_book_outlined,
 
                 color: AppColors.skyBlue,
@@ -4161,7 +4123,7 @@ class _ProfileSubjectCard extends StatelessWidget {
                 child: Text(
                   subject.name,
 
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.skyBlue,
 
                     fontSize: 13,
@@ -4275,7 +4237,7 @@ class _ProfileTeacherAssignmentCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
 
             children: [
-              const Icon(
+              Icon(
                 Icons.school_outlined,
 
                 color: AppColors.skyBlue,
@@ -4289,7 +4251,7 @@ class _ProfileTeacherAssignmentCard extends StatelessWidget {
                 child: Text(
                   assignment.subject.name,
 
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.skyBlue,
 
                     fontSize: 13,
@@ -4363,7 +4325,7 @@ class _ProfileSubjectBadge extends StatelessWidget {
           Text(
             label,
 
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.materialSky,
 
               fontSize: 8,
@@ -4397,12 +4359,12 @@ class _ProfileReviewSummary extends StatelessWidget {
 
       child: Row(
         children: [
-          const Icon(Icons.star_rounded, color: Colors.amber, size: 20),
+          Icon(Icons.star_rounded, color: AppColors.amber, size: 20),
 
           const SizedBox(width: 6),
 
           if (user.reviews.isEmpty)
-            const Text(
+            Text(
               'Nessuna recensione',
 
               style: TextStyle(color: AppColors.pureWhite, fontSize: 12),
@@ -4411,7 +4373,7 @@ class _ProfileReviewSummary extends StatelessWidget {
             Text(
               user.averageRating.toStringAsFixed(1),
 
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.pureWhite,
 
                 fontWeight: FontWeight.bold,
@@ -4470,7 +4432,7 @@ class _StatisticCard extends StatelessWidget {
           Text(
             value,
 
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.pureWhite,
 
               fontSize: 17,
@@ -4482,7 +4444,7 @@ class _StatisticCard extends StatelessWidget {
           Text(
             label,
 
-            style: const TextStyle(color: Colors.white38, fontSize: 9),
+            style: TextStyle(color: AppColors.white38, fontSize: 9),
           ),
         ],
       ),
@@ -4510,10 +4472,10 @@ class _ErrorCard extends StatelessWidget {
 
       child: Column(
         children: [
-          const Icon(
+          Icon(
             Icons.error_outline_rounded,
 
-            color: Colors.redAccent,
+            color: AppColors.redAccent,
 
             size: 35,
           ),
@@ -4525,7 +4487,7 @@ class _ErrorCard extends StatelessWidget {
 
             textAlign: TextAlign.center,
 
-            style: const TextStyle(color: Colors.white60, fontSize: 11),
+            style: TextStyle(color: AppColors.white60, fontSize: 11),
           ),
 
           const SizedBox(height: 14),
@@ -4573,14 +4535,14 @@ class _EmptyCard extends StatelessWidget {
 
       child: Column(
         children: [
-          Icon(icon, color: Colors.white30, size: 40),
+          Icon(icon, color: AppColors.white30, size: 40),
 
           const SizedBox(height: 10),
 
           Text(
             title,
 
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.pureWhite,
 
               fontSize: 14,
@@ -4596,7 +4558,7 @@ class _EmptyCard extends StatelessWidget {
 
             textAlign: TextAlign.center,
 
-            style: const TextStyle(color: Colors.white54, fontSize: 11),
+            style: TextStyle(color: AppColors.white54, fontSize: 11),
           ),
         ],
       ),

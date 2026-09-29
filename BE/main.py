@@ -6,6 +6,10 @@ from datetime import (
 from routes.developer_architecture import (
     router as developer_architecture_router,
 )
+from routes.dmi_external_notice import router as dmi_external_notice_router
+from routes.contact import router as contact_router
+from routes.institutional_tutors import router as institutional_tutors_router
+from routes.student_verifications import router as student_verifications_router
 
 from fastapi import (
     Depends,
@@ -16,6 +20,8 @@ from fastapi import (
 from fastapi.middleware.cors import (
     CORSMiddleware,
 )
+
+from sqlalchemy import func
 
 from sqlalchemy.exc import (
     IntegrityError,
@@ -88,6 +94,10 @@ from models.notification import (
     Notification,
 )
 
+from models.personal_material import PersonalSyncedMaterial
+from models.material_share import MaterialShare
+from models.teacher_material_request import TeacherMaterialRequest
+
 from models.profile_error_report import (
     ProfileErrorReport,
 )
@@ -124,6 +134,16 @@ from models.quiz_assignment import (
 from models.quiz_attempt import (
     QuizAttempt,
     QuizAttemptAnswer,
+)
+
+from models.device_session import (
+    DeviceSession,
+)
+
+from models.study_plan import (
+    StudyPlanContribution,
+    StudyPlanItem,
+    StudyPlanProgress,
 )
 
 from schemas.app_config import (
@@ -237,6 +257,7 @@ from services.registration import (
 )
 
 from services.quiz_service import (
+    available_quiz_paths,
     arguments,
     question_count,
     quiz_availability,
@@ -362,6 +383,10 @@ from routes.question_attachment import (
     router as question_attachment_router,
 )
 
+from routes.question_moderation import (
+    router as question_moderation_router,
+)
+
 from routes.quiz_attempts import (
     router as quiz_attempts_router,
 )
@@ -418,6 +443,16 @@ from routes.material_sync import (
     router as material_sync_router,
 )
 
+from routes.personal_material import router as personal_material_router
+from routes.material_share import router as material_share_router
+from routes.student_material_request import router as student_material_request_router
+from routes.teacher_material_request import router as teacher_material_request_router
+from routes.material_lifecycle import router as material_lifecycle_router
+
+from routes.material_path_suggestions import router as material_path_suggestions_router
+from routes.material_course_proposals import router as material_course_proposals_router
+from routes.material_drive_retry import router as material_drive_retry_router
+
 from routes.admin_material_storage import (
     router as admin_material_storage_router,
 )
@@ -454,12 +489,20 @@ from routes.user_public_key import (
     router as user_public_key_router,
 )
 
+from routes.study_plan import (
+    router as study_plan_router,
+)
+
 from routes.news_report import (
     router as news_report_router,
 )
 
 
+from routes.academic_catalog import router as academic_catalog_router
+from services.academic_catalog import classify_path, course_options
+
 app = FastAPI()
+app.include_router(academic_catalog_router)
 
 
 app.include_router(
@@ -476,6 +519,10 @@ app.include_router(
 
 app.include_router(
     question_attachment_router,
+)
+
+app.include_router(
+    question_moderation_router,
 )
 
 app.include_router(
@@ -534,6 +581,15 @@ app.include_router(
     material_sync_router,
 )
 
+app.include_router(material_path_suggestions_router)
+app.include_router(material_course_proposals_router)
+app.include_router(material_drive_retry_router)
+app.include_router(personal_material_router)
+app.include_router(material_share_router)
+app.include_router(student_material_request_router)
+app.include_router(teacher_material_request_router)
+app.include_router(material_lifecycle_router)
+
 app.include_router(
     admin_material_storage_router,
 )
@@ -557,6 +613,10 @@ app.include_router(
 app.include_router(
     public_news_router,
 )
+app.include_router(dmi_external_notice_router)
+app.include_router(contact_router)
+app.include_router(institutional_tutors_router)
+app.include_router(student_verifications_router)
 
 app.include_router(
     public_news_report_router,
@@ -568,6 +628,10 @@ app.include_router(
 
 app.include_router(
     user_public_key_router,
+)
+
+app.include_router(
+    study_plan_router,
 )
 
 app.include_router(
@@ -677,7 +741,7 @@ def api_shuffle_filter(
 ):
     selected_arguments = (
         []
-        if request.all_arguments
+        if request.all_arguments or request.question_ids
         else request.arguments
     )
 
@@ -687,6 +751,7 @@ def api_shuffle_filter(
         subject=request.subject,
         selected_arguments=selected_arguments,
         number_of_questions=request.number_of_questions,
+        question_ids=request.question_ids,
     )
 
 
@@ -762,6 +827,12 @@ def api_subjects(
     )
 
 
+@app.get('/quiz/available-paths')
+def api_quiz_available_paths():
+    """Catalogo dei soli percorsi che hanno quiz in question/*.json."""
+    return available_quiz_paths()
+
+
 
 @app.get(
     "/universities",
@@ -788,7 +859,7 @@ def api_universities(
         .all()
     )
 
-    return [
+    universities = [
         {
             "code":
                 code,
@@ -797,7 +868,10 @@ def api_universities(
         }
         for code, name in rows
     ]
-    
+    for option in course_options(db):
+        if not any(u['code'] == option['university_code'] for u in universities):
+            universities.append({'code': option['university_code'], 'name': option['university']})
+    return universities
 
 
 @app.get(
@@ -828,7 +902,7 @@ def api_departments(
         .all()
     )
 
-    return [
+    departments = [
         {
             "code":
                 code,
@@ -837,6 +911,11 @@ def api_departments(
         }
         for code, name in rows
     ]
+    for option in course_options(db):
+        if option['university_code'].casefold() == university_code.casefold() and not any(
+                d['code'] == option['department_code'] for d in departments):
+            departments.append({'code': option['department_code'], 'name': option['department']})
+    return departments
 
 
 @app.get(
@@ -871,7 +950,7 @@ def api_courses(
         .all()
     )
 
-    return [
+    courses = [
         {
             "code":
                 code,
@@ -886,6 +965,44 @@ def api_courses(
             degree_type,
         ) in rows
     ]
+
+    # I corsi magistrali restano selezionabili prima dell'importazione delle materie.
+    if university_code.strip().upper() == "UNICT" and department_code.strip().upper() == "DMI":
+        for code, name in (("LM-40", "Matematica magistrale (LM-40)"),
+                           ("LM-18", "Informatica magistrale (LM-18)")):
+            magistrale = next((item for item in courses
+                               if str(item["code"]).strip().upper() == code), None)
+            if magistrale is None:
+                courses.append({"code": code, "name": name, "degree_type": code})
+            else:
+                magistrale["name"] = name
+                magistrale["degree_type"] = code
+    for option in course_options(db):
+        if (option['university_code'].casefold() == university_code.casefold() and
+                option['department_code'].casefold() == department_code.casefold() and
+                not any(c['code'] == option['course_code'] for c in courses)):
+            courses.append({'code': option['course_code'], 'name': option['course'],
+                            'degree_type': option['degree_type']})
+    # Il catalogo conserva i nomi storici delle materie. Mostra una sola voce
+    # quando due nomi indicano il medesimo corso, senza cambiare il codice usato
+    # per caricare le materie dal database.
+    if university_code.strip().upper() == 'UNICT' and department_code.strip().upper() == 'DMI':
+        from services.news_filter_scope import code as known_academic_code
+
+        unique_courses = {}
+        for item in courses:
+            academic_code = (known_academic_code(str(item['code']), 'course') or
+                             known_academic_code(str(item['name']), 'course'))
+            key = academic_code or str(item['code']).strip().casefold()
+            existing = unique_courses.get(key)
+            if existing is None or (academic_code and
+                                    str(item['code']).strip().upper() == academic_code and
+                                    str(existing['code']).strip().upper() != academic_code):
+                unique_courses[key] = item
+        if 'L-31' in unique_courses:
+            unique_courses['L-31'] = {**unique_courses['L-31'], 'name': 'Informatica (L-31)'}
+        courses = list(unique_courses.values())
+    return courses
 
 
 @app.get(
@@ -903,17 +1020,21 @@ def api_catalog_subjects(
         get_db,
     ),
 ):
+    normalized_university_code = university_code.strip().lower()
+    normalized_department_code = department_code.strip().lower()
+    normalized_course_code = course_code.strip().lower()
+
     query = (
         db.query(
             Subject,
         )
         .filter(
-            Subject.university_code ==
-            university_code,
-            Subject.department_code ==
-            department_code,
-            Subject.course_code ==
-            course_code,
+            func.lower(Subject.university_code) ==
+            normalized_university_code,
+            func.lower(Subject.department_code) ==
+            normalized_department_code,
+            func.lower(Subject.course_code) ==
+            normalized_course_code,
             Subject.is_active.is_(
                 True,
             ),
@@ -946,10 +1067,14 @@ def api_users(
     db: Session = Depends(
         get_db,
     ),
+    current_user: User | None = Depends(get_optional_current_user),
 ):
-    return get_available_users(
-        db,
-    )
+    users = get_available_users(db)
+    if current_user is None:
+        return users
+    from services.user_block import get_mutually_restricted_user_ids
+    excluded = get_mutually_restricted_user_ids(db, current_user.id)
+    return [user for user in users if user.id not in excluded]
 
 
 @app.get(
@@ -961,7 +1086,12 @@ def api_user(
     db: Session = Depends(
         get_db,
     ),
+    current_user: User | None = Depends(get_optional_current_user),
 ):
+    if current_user is not None:
+        from services.user_block import is_block_relationship_present
+        if is_block_relationship_present(db, current_user.id, user_id):
+            raise HTTPException(status_code=404, detail="Utente non trovato.")
     user = get_available_user_by_id(
         db,
         user_id,
@@ -1009,6 +1139,14 @@ def api_update_user(
             status_code=404,
             detail="Utente non trovato.",
         )
+
+    if ((request.first_name is not None and request.first_name.strip() != user.first_name)
+            or (request.last_name is not None and request.last_name.strip() != user.last_name)):
+        from services.verification_lock import require_identifiers_editable, PENDING_MESSAGE
+        try:
+            require_identifiers_editable(db, user)
+        except ValueError:
+            raise HTTPException(status_code=409, detail=PENDING_MESSAGE)
 
     return update_user(
         db,
@@ -1058,22 +1196,18 @@ def api_create_academic_path(
         get_db,
     ),
 ):
-    existing = (
-        db.query(
-            UserAcademicPath,
-        )
-        .filter(
-            UserAcademicPath.user_id ==
-            current_user.id,
-            UserAcademicPath.university_code ==
-            request.university_code,
-            UserAcademicPath.department_code ==
-            request.department_code,
-            UserAcademicPath.course_code ==
-            request.course_code,
-        )
-        .first()
-    )
+    existing_query = db.query(UserAcademicPath).filter(UserAcademicPath.user_id == current_user.id)
+    if request.university_code and request.department_code and request.course_code:
+        existing_query = existing_query.filter(
+            UserAcademicPath.university_code == request.university_code,
+            UserAcademicPath.department_code == request.department_code,
+            UserAcademicPath.course_code == request.course_code)
+    else:
+        existing_query = existing_query.filter(
+            func.lower(UserAcademicPath.university) == request.university.strip().lower(),
+            func.lower(UserAcademicPath.department) == request.department.strip().lower(),
+            func.lower(UserAcademicPath.course) == request.course.strip().lower())
+    existing = existing_query.first()
 
     if existing is not None:
         raise HTTPException(
@@ -1082,11 +1216,14 @@ def api_create_academic_path(
         )
 
     try:
-        return create_academic_path(
+        created_path = create_academic_path(
             db,
             current_user,
             request,
         )
+        classify_path(db, current_user, created_path)
+        db.commit()
+        return created_path
 
     except ValueError as exception:
         db.rollback()
@@ -1140,12 +1277,15 @@ def api_update_academic_path(
     )
 
     try:
-        return update_academic_path(
+        updated_path = update_academic_path(
             db,
             current_user,
             academic_path,
             request,
         )
+        classify_path(db, current_user, updated_path)
+        db.commit()
+        return updated_path
 
     except ValueError as exception:
         db.rollback()
@@ -2868,6 +3008,11 @@ async def api_group_material_complete(
                     "mime_type"
                 ]
             ),
+            expected_sha256=(
+                completion[
+                    "file_hash"
+                ]
+            ),
         )
 
         return create_group_material_record(
@@ -3211,12 +3356,10 @@ def api_register(
         for value in academic_values
     )
 
+    # Con l'inserimento manuale i tre nomi servono, i codici di catalogo no.
     has_complete_academic_data = all(
-        value is not None
-        and str(
-            value,
-        ).strip()
-        for value in academic_values
+        value is not None and str(value).strip()
+        for value in (request.university, request.department, request.course)
     )
 
     if (
@@ -3399,21 +3542,15 @@ def api_register(
                 university=(
                     request.university
                 ),
-                university_code=(
-                    request.university_code
-                ),
+                university_code=(request.university_code or ""),
                 department=(
                     request.department
                 ),
-                department_code=(
-                    request.department_code
-                ),
+                department_code=(request.department_code or ""),
                 course=(
                     request.course
                 ),
-                course_code=(
-                    request.course_code
-                ),
+                course_code=(request.course_code or ""),
                 degree_type=(
                     request.degree_type
                 ),
@@ -3444,6 +3581,8 @@ def api_register(
             db.add(
                 academic_path,
             )
+            db.flush()
+            classify_path(db, user, academic_path)
 
         db.commit()
 
@@ -4103,8 +4242,12 @@ def api_teacher_subjects(
                 subject.name,
             "department":
                 subject.department,
+            "department_code":
+                subject.department_code,
             "course":
                 subject.course,
+            "course_code":
+                subject.course_code,
         }
         for subject in teacher_subjects
     ]
@@ -4272,6 +4415,11 @@ async def api_teacher_material_complete(
             expected_mime_type=(
                 completion[
                     "mime_type"
+                ]
+            ),
+            expected_sha256=(
+                completion[
+                    "file_hash"
                 ]
             ),
         )
@@ -4735,3 +4883,83 @@ async def api_admin_group_material_download(
         ),
         inline=False,
     )
+
+# ============================================================================
+# ROUTER MATERIALI - VERIFICA FINALE DI REGISTRAZIONE
+# ============================================================================
+#
+# Mantiene idempotente la registrazione dei router materiali anche in caso di
+# refactoring dell'ordine di inizializzazione di main.py.
+#
+def _ensure_router_registered(router, expected_prefix: str) -> None:
+    existing_paths = {
+        getattr(route, "path", "")
+        for route in app.routes
+    }
+
+    if not any(
+        path == expected_prefix or path.startswith(f"{expected_prefix}/")
+        for path in existing_paths
+    ):
+        app.include_router(router)
+
+
+_ensure_router_registered(
+    personal_material_router,
+    "/personal-materials",
+)
+_ensure_router_registered(
+    material_share_router,
+    "/material-shares",
+)
+_ensure_router_registered(
+    student_material_request_router,
+    "/student-material-requests",
+)
+_ensure_router_registered(
+    teacher_material_request_router,
+    "/teacher-material-requests",
+)
+
+# Domande degli studenti e racconti d'esame.
+from routes.faq import router as faq_router  # noqa: E402
+_ensure_router_registered(faq_router, "/faq")
+
+
+from routes.dictionary import router as dictionary_router  # noqa: E402
+_ensure_router_registered(dictionary_router, '/dictionary')
+
+
+# Calendario accademico (lezioni, sessioni, appelli, promemoria).
+from routes.academic_calendar import router as academic_calendar_router  # noqa: E402
+
+_ensure_router_registered(
+    academic_calendar_router,
+    "/calendar",
+)
+
+
+# Dizionario: registro delle fonti e moderazione delle bozze (v17).
+from routes.dictionary_moderation import router as dictionary_moderation_router  # noqa: E402
+
+_ensure_router_registered(
+    dictionary_moderation_router,
+    "/dictionary/drafts",
+)
+
+
+# Esercizi dei nuovi tipi, flashcard, banca esercizi (v18).
+from routes.exercises import router as exercises_router  # noqa: E402
+
+_ensure_router_registered(
+    exercises_router,
+    "/exercises/catalog",
+)
+
+# Allegati delle domande (immagini e documenti): l'app li chiedeva ma la route mancava (v18).
+from routes.exercises import question_content_router  # noqa: E402
+
+_ensure_router_registered(
+    question_content_router,
+    "/question-attachments/content",
+)

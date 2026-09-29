@@ -177,7 +177,17 @@ class _StudentSocialFormState
 
   String? _subjectsError;
 
+  String? _firstNameError;
+
+  String? _lastNameError;
+
+  String? _dateOfBirthError;
+
+  String? _emailError;
+
   String? _passwordError;
+
+  String? _confirmPasswordError;
 
   String? _titlesError;
 
@@ -1191,34 +1201,46 @@ class _StudentSocialFormState
           _formatDate(
         selectedDate,
       );
+
+      _dateOfBirthError = null;
     });
   }
 
   Future<void> _continue() async {
+    FocusScope.of(context).unfocus();
+
+    final String? firstNameError =
+        _validateName(_firstNameController.text, 'nome');
+    final String? lastNameError =
+        _validateName(_lastNameController.text, 'cognome');
+    final String? dateOfBirthError =
+        _validateDateOfBirth(_dateOfBirthController.text);
+    final String? emailError =
+        _validateEmail(_emailController.text);
+    final String? passwordError =
+        _validatePassword(_passwordController.text);
+    final String? confirmPasswordError =
+        _validateConfirmPassword(_confirmPasswordController.text);
+
     final bool formValid =
-        _formKey.currentState!
-            .validate();
-
-    String? passwordError =
-        _validatePassword(
-      _passwordController.text,
-    );
-
-    if (passwordError == null &&
-        _passwordController.text !=
-            _confirmPasswordController.text) {
-      passwordError =
-          'Le password non coincidono.';
-    }
+        _formKey.currentState!.validate();
 
     setState(() {
-      _passwordError =
-          passwordError;
+      _firstNameError = firstNameError;
+      _lastNameError = lastNameError;
+      _dateOfBirthError = dateOfBirthError;
+      _emailError = emailError;
+      _passwordError = passwordError;
+      _confirmPasswordError = confirmPasswordError;
     });
 
     if (!formValid ||
+        firstNameError != null ||
+        lastNameError != null ||
+        dateOfBirthError != null ||
+        emailError != null ||
         passwordError != null ||
-        _selectedDateOfBirth == null) {
+        confirmPasswordError != null) {
       return;
     }
 
@@ -1940,7 +1962,7 @@ class _StudentSocialFormState
           onChanged,
 
       style:
-          const TextStyle(
+          TextStyle(
         color:
             AppColors.pureWhite,
       ),
@@ -1982,7 +2004,7 @@ class _StudentSocialFormState
 
         suffixIcon:
             loading
-                ? const Padding(
+                ? Padding(
                     padding:
                         EdgeInsets.all(
                       14,
@@ -2016,7 +2038,7 @@ class _StudentSocialFormState
                             AppColors.eleganceDeepNavy,
 
                         icon:
-                            const Icon(
+                            Icon(
                           Icons.arrow_drop_down_rounded,
 
                           color:
@@ -2044,7 +2066,7 @@ class _StudentSocialFormState
                                     option,
 
                                     style:
-                                        const TextStyle(
+                                        TextStyle(
                                       color:
                                           AppColors.pureWhite,
                                     ),
@@ -2511,7 +2533,7 @@ class _StudentSocialFormState
                     ),
 
                     children: [
-                      const Text(
+                      Text(
                         'Crea il tuo profilo',
 
                         style:
@@ -2556,6 +2578,11 @@ class _StudentSocialFormState
                             28,
                       ),
 
+                      if (_firstNameError != null) ...[
+                        _buildInlineError(_firstNameError!),
+                        const SizedBox(height: 8),
+                      ],
+
                       _buildRequiredField(
                         controller:
                             _firstNameController,
@@ -2574,6 +2601,11 @@ class _StudentSocialFormState
                         height:
                             16,
                       ),
+
+                      if (_lastNameError != null) ...[
+                        _buildInlineError(_lastNameError!),
+                        const SizedBox(height: 8),
+                      ],
 
                       _buildRequiredField(
                         controller:
@@ -2594,6 +2626,11 @@ class _StudentSocialFormState
                             16,
                       ),
 
+                      if (_dateOfBirthError != null) ...[
+                        _buildInlineError(_dateOfBirthError!),
+                        const SizedBox(height: 8),
+                      ],
+
                       TextFormField(
                         controller:
                             _dateOfBirthController,
@@ -2602,13 +2639,13 @@ class _StudentSocialFormState
                             true,
 
                         style:
-                            const TextStyle(
+                            TextStyle(
                           color:
                               AppColors.pureWhite,
                         ),
 
                         validator:
-                            _validateDateOfBirth,
+                            (_) => null,
 
                         onTap:
                             _selectDateOfBirth,
@@ -2619,13 +2656,13 @@ class _StudentSocialFormState
                               'Data di nascita',
 
                           hint:
-                              'Seleziona la data di nascita',
+                              'gg/mm/aaaa',
 
                           icon:
                               Icons.cake_outlined,
                         ).copyWith(
                           suffixIcon:
-                              const Icon(
+                              Icon(
                             Icons.calendar_month_outlined,
 
                             color:
@@ -2638,6 +2675,11 @@ class _StudentSocialFormState
                         height:
                             16,
                       ),
+
+                      if (_emailError != null) ...[
+                        _buildInlineError(_emailError!),
+                        const SizedBox(height: 8),
+                      ],
 
                       TextFormField(
                         controller:
@@ -2652,13 +2694,13 @@ class _StudentSocialFormState
                         ],
 
                         style:
-                            const TextStyle(
+                            TextStyle(
                           color:
                               AppColors.pureWhite,
                         ),
 
                         validator:
-                            _validateEmail,
+                            (_) => null,
 
                         decoration:
                             _decoration(
@@ -2677,6 +2719,11 @@ class _StudentSocialFormState
                         height:
                             16,
                       ),
+
+                      if (_passwordError != null) ...[
+                        _buildInlineError(_passwordError!),
+                        const SizedBox(height: 8),
+                      ],
 
                       TextFormField(
                         controller:
@@ -2697,13 +2744,13 @@ class _StudentSocialFormState
                         ],
 
                         style:
-                            const TextStyle(
+                            TextStyle(
                           color:
                               AppColors.pureWhite,
                         ),
 
                         validator:
-                            _validatePassword,
+                            (_) => null,
 
                         decoration:
                             _passwordDecoration(
@@ -2752,6 +2799,11 @@ class _StudentSocialFormState
                             16,
                       ),
 
+                      if (_confirmPasswordError != null) ...[
+                        _buildInlineError(_confirmPasswordError!),
+                        const SizedBox(height: 8),
+                      ],
+
                       TextFormField(
                         controller:
                             _confirmPasswordController,
@@ -2769,13 +2821,13 @@ class _StudentSocialFormState
                             TextInputAction.next,
 
                         style:
-                            const TextStyle(
+                            TextStyle(
                           color:
                               AppColors.pureWhite,
                         ),
 
                         validator:
-                            _validateConfirmPassword,
+                            (_) => null,
 
                         decoration:
                             _passwordDecoration(
@@ -2798,23 +2850,12 @@ class _StudentSocialFormState
                         ),
                       ),
 
-                      if (_passwordError != null) ...[
-                        const SizedBox(
-                          height:
-                              12,
-                        ),
-
-                        _buildInlineError(
-                          _passwordError!,
-                        ),
-                      ],
-
                       const SizedBox(
                         height:
                             28,
                       ),
 
-                      const Text(
+                      Text(
                         'Percorsi accademici',
 
                         style:
@@ -2906,7 +2947,7 @@ class _StudentSocialFormState
                               CrossAxisAlignment.start,
 
                           children: [
-                            const Row(
+                            Row(
                               children: [
                                 Icon(
                                   Icons.school_outlined,
@@ -3036,6 +3077,14 @@ class _StudentSocialFormState
                                 );
                               },
                             ),
+                            const Padding(
+                              padding: EdgeInsets.only(top: 8),
+                              child: Text(
+                                'Se il corso non è nell’elenco, scrivilo: puoi registrarti ugualmente. '
+                                'StudentLab proverà a riconoscerlo e, se necessario, invierà una richiesta all’admin.',
+                                style: TextStyle(fontSize: 12, color: Colors.amberAccent),
+                              ),
+                            ),
 
                             const SizedBox(
                               height:
@@ -3063,7 +3112,7 @@ class _StudentSocialFormState
                               ),
 
                               items:
-                                  const [
+                                  [
                                 DropdownMenuItem<
                                     AcademicPathStatus>(
                                   value:
@@ -3161,7 +3210,7 @@ class _StudentSocialFormState
                                   TextInputType.number,
 
                               style:
-                                  const TextStyle(
+                                  TextStyle(
                                 color:
                                     AppColors.pureWhite,
                               ),
@@ -3216,7 +3265,7 @@ class _StudentSocialFormState
                             style:
                                 TextButton.styleFrom(
                               foregroundColor:
-                                  Colors.redAccent,
+                                  AppColors.redAccent,
                             ),
                           ),
                         ),
@@ -3293,7 +3342,7 @@ class _StudentSocialFormState
 
                       Row(
                         children: [
-                          const Expanded(
+                          Expanded(
                             child:
                                 Text(
                               'Altri percorsi',
@@ -3320,7 +3369,7 @@ class _StudentSocialFormState
                                 _addAdditionalAcademicPath,
 
                             icon:
-                                const Icon(
+                                Icon(
                               Icons.add_circle_outline_rounded,
 
                               color:
@@ -3486,7 +3535,7 @@ class _StudentSocialFormState
                             28,
                       ),
 
-                      const Text(
+                      Text(
                         'Titoli conseguiti',
 
                         style:
@@ -3705,7 +3754,7 @@ class _StudentSocialFormState
                         decoration:
                             BoxDecoration(
                           color:
-                              Colors.amber.withOpacity(
+                              AppColors.amber.withOpacity(
                             0.06,
                           ),
 
@@ -3717,7 +3766,7 @@ class _StudentSocialFormState
                           border:
                               Border.all(
                             color:
-                                Colors.amber.withOpacity(
+                                AppColors.amber.withOpacity(
                               0.16,
                             ),
                           ),
@@ -3804,7 +3853,7 @@ class _StudentSocialFormState
                                       overflow:
                                           TextOverflow.ellipsis,
                                       style:
-                                          const TextStyle(
+                                          TextStyle(
                                         color:
                                             AppColors.pureWhite,
                                       ),
@@ -3871,7 +3920,7 @@ class _StudentSocialFormState
                                       overflow:
                                           TextOverflow.ellipsis,
                                       style:
-                                          const TextStyle(
+                                          TextStyle(
                                         color:
                                             AppColors.pureWhite,
                                       ),
@@ -3943,7 +3992,7 @@ class _StudentSocialFormState
                                       overflow:
                                           TextOverflow.ellipsis,
                                       style:
-                                          const TextStyle(
+                                          TextStyle(
                                         color:
                                             AppColors.pureWhite,
                                       ),
@@ -4039,7 +4088,7 @@ class _StudentSocialFormState
                             28,
                       ),
 
-                      const Row(
+                      Row(
                         children: [
                           Icon(
                             Icons.menu_book_outlined,
@@ -4186,7 +4235,7 @@ class _StudentSocialFormState
                             5,
 
                         style:
-                            const TextStyle(
+                            TextStyle(
                           color:
                               AppColors.pureWhite,
                         ),
@@ -4400,7 +4449,7 @@ class _StudentSocialFormState
         children: [
           Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.menu_book_outlined,
 
                 color:
@@ -4418,7 +4467,7 @@ class _StudentSocialFormState
                   'Materia ${index + 1}',
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
                         AppColors.pureWhite,
 
@@ -4444,7 +4493,7 @@ class _StudentSocialFormState
                   ),
 
                   color:
-                      Colors.redAccent,
+                      AppColors.redAccent,
                 ),
             ],
           ),
@@ -4507,7 +4556,7 @@ class _StudentSocialFormState
                         TextOverflow.ellipsis,
 
                     style:
-                        const TextStyle(
+                        TextStyle(
                       color:
                           AppColors.pureWhite,
                     ),
@@ -4540,7 +4589,7 @@ class _StudentSocialFormState
                 TextInputType.number,
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
                   AppColors.pureWhite,
             ),
@@ -4614,7 +4663,7 @@ class _StudentSocialFormState
                 AppColors.skyBlue,
 
             title:
-                const Text(
+                Text(
               'Posso aiutare',
 
               style:
@@ -4670,7 +4719,7 @@ class _StudentSocialFormState
                 AppColors.skyBlue,
 
             title:
-                const Text(
+                Text(
               'Lezioni private',
 
               style:
@@ -4717,7 +4766,7 @@ class _StudentSocialFormState
                 3,
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
                   AppColors.pureWhite,
             ),
@@ -4817,6 +4866,20 @@ class _StudentSocialFormState
     return '$day/$month/${date.year}';
   }
 
+  String? _validateName(
+    String? value,
+    String fieldName,
+  ) {
+    final String normalized = value?.trim() ?? '';
+    if (normalized.isEmpty) {
+      return 'Inserisci il $fieldName';
+    }
+    if (normalized.length > 100) {
+      return 'Il $fieldName non può superare 100 caratteri';
+    }
+    return null;
+  }
+
   String? _requiredValidator(
     String? value,
   ) {
@@ -4843,17 +4906,16 @@ class _StudentSocialFormState
     final String email =
         value.trim();
 
-    final RegExp emailRegex =
-        RegExp(
-      r'^[^@\s]+@[^@\s]+.[^@\s]+$',
+    if (email.length > 320) {
+      return 'L\'email non può superare 320 caratteri';
+    }
+
+    final RegExp emailRegex = RegExp(
+      r"^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)+$",
     );
 
-    if (
-      !emailRegex.hasMatch(
-        email,
-      )
-    ) {
-      return 'Inserisci una email valida';
+    if (!emailRegex.hasMatch(email)) {
+      return 'Inserisci un indirizzo email valido';
     }
 
     return null;
@@ -4868,6 +4930,9 @@ class _StudentSocialFormState
     }
     if (password.length < 8) {
       return 'Usa almeno 8 caratteri';
+    }
+    if (password.length > 128) {
+      return 'La password non può superare 128 caratteri';
     }
     if (!RegExp(r'[a-z]').hasMatch(password)) {
       return 'Aggiungi almeno una lettera minuscola';
@@ -5004,24 +5069,13 @@ class _StudentSocialFormState
           controller,
 
       style:
-          const TextStyle(
+          TextStyle(
         color:
             AppColors.pureWhite,
       ),
 
       validator:
-          (
-        String? value,
-      ) {
-        if (
-          value == null ||
-          value.trim().isEmpty
-        ) {
-          return 'Campo obbligatorio';
-        }
-
-        return null;
-      },
+          (_) => null,
 
       decoration:
           _decoration(
@@ -5111,7 +5165,7 @@ class _StudentSocialFormState
         ),
 
         borderSide:
-            const BorderSide(
+            BorderSide(
           color:
               AppColors.socialBlue,
         ),
@@ -5152,7 +5206,7 @@ class _StudentSocialFormState
       ),
 
       prefixIcon:
-          const Icon(
+          Icon(
         Icons.lock_outline_rounded,
 
         color:
@@ -5219,7 +5273,7 @@ class _StudentSocialFormState
         ),
 
         borderSide:
-            const BorderSide(
+            BorderSide(
           color:
               AppColors.socialBlue,
         ),
@@ -5261,7 +5315,7 @@ class _StudentSocialFormState
           title,
 
           style:
-              const TextStyle(
+              TextStyle(
             color:
                 AppColors.pureWhite,
 
@@ -5305,7 +5359,7 @@ class _StudentSocialFormState
       decoration:
           BoxDecoration(
         color:
-            Colors.redAccent
+            AppColors.redAccent
                 .withValues(alpha: 0.08),
 
         borderRadius:
@@ -5316,7 +5370,7 @@ class _StudentSocialFormState
         border:
             Border.all(
           color:
-              Colors.redAccent
+              AppColors.redAccent
                   .withValues(alpha: 0.20),
         ),
       ),
@@ -5327,11 +5381,11 @@ class _StudentSocialFormState
             CrossAxisAlignment.start,
 
         children: [
-          const Icon(
+          Icon(
             Icons.error_outline_rounded,
 
             color:
-                Colors.redAccent,
+                AppColors.redAccent,
 
             size:
                 20,
@@ -6184,7 +6238,7 @@ class _InlineAcademicPathEditorState
                         : 'Modifica percorso',
 
                     style:
-                        const TextStyle(
+                        TextStyle(
                       color:
                           AppColors.pureWhite,
 
@@ -6205,11 +6259,11 @@ class _InlineAcademicPathEditorState
                       widget.onCancel,
 
                   icon:
-                      const Icon(
+                      Icon(
                     Icons.close_rounded,
 
                     color:
-                        Colors.white54,
+                        AppColors.white54,
                   ),
                 ),
               ],
@@ -6373,7 +6427,7 @@ class _InlineAcademicPathEditorState
               ),
 
               items:
-                  const [
+                  [
                 DropdownMenuItem(
                   value:
                       AcademicPathStatus.enrolled,
@@ -6478,7 +6532,7 @@ class _InlineAcademicPathEditorState
                   _validateStartYear,
 
               style:
-                  const TextStyle(
+                  TextStyle(
                 color:
                     AppColors.pureWhite,
               ),
@@ -6519,7 +6573,7 @@ class _InlineAcademicPathEditorState
                       : null,
 
               title:
-                  const Text(
+                  Text(
                 'Percorso corrente',
 
                 style:
@@ -6551,7 +6605,7 @@ class _InlineAcademicPathEditorState
               },
 
               title:
-                  const Text(
+                  Text(
                 'Percorso principale',
 
                 style:
@@ -7339,7 +7393,7 @@ class _InlineAcademicTitleEditorState
         border:
             Border.all(
           color:
-              Colors.amber.withOpacity(
+              AppColors.amber.withOpacity(
             0.20,
           ),
         ),
@@ -7366,7 +7420,7 @@ class _InlineAcademicTitleEditorState
                         : 'Modifica titolo',
 
                     style:
-                        const TextStyle(
+                        TextStyle(
                       color:
                           AppColors.pureWhite,
 
@@ -7387,11 +7441,11 @@ class _InlineAcademicTitleEditorState
                       widget.onCancel,
 
                   icon:
-                      const Icon(
+                      Icon(
                     Icons.close_rounded,
 
                     color:
-                        Colors.white54,
+                        AppColors.white54,
                   ),
                 ),
               ],
@@ -7618,7 +7672,7 @@ class _InlineAcademicTitleEditorState
                   _validateGraduationYear,
 
               style:
-                  const TextStyle(
+                  TextStyle(
                 color:
                     AppColors.pureWhite,
               ),
@@ -7629,7 +7683,7 @@ class _InlineAcademicTitleEditorState
                     'Anno di conseguimento',
 
                 prefixIcon:
-                    const Icon(
+                    Icon(
                   Icons.calendar_month_outlined,
 
                   color:
@@ -7718,7 +7772,7 @@ class _InlineHybridAcademicField
           onChanged,
 
       style:
-          const TextStyle(
+          TextStyle(
         color:
             AppColors.pureWhite,
       ),
@@ -7771,7 +7825,7 @@ class _InlineHybridAcademicField
 
         suffixIcon:
             loading
-                ? const Padding(
+                ? Padding(
                     padding:
                         EdgeInsets.all(
                       14,
@@ -7805,7 +7859,7 @@ class _InlineHybridAcademicField
                             AppColors.eleganceDeepNavy,
 
                         icon:
-                            const Icon(
+                            Icon(
                           Icons.arrow_drop_down_rounded,
 
                           color:
@@ -7833,7 +7887,7 @@ class _InlineHybridAcademicField
                                     option,
 
                                     style:
-                                        const TextStyle(
+                                        TextStyle(
                                       color:
                                           AppColors.pureWhite,
                                     ),
@@ -7900,7 +7954,7 @@ class _AcademicTitleDraftCard
         border:
             Border.all(
           color:
-              Colors.amber.withOpacity(
+              AppColors.amber.withOpacity(
             0.18,
           ),
         ),
@@ -7912,11 +7966,11 @@ class _AcademicTitleDraftCard
             CrossAxisAlignment.start,
 
         children: [
-          const Icon(
+          Icon(
             Icons.workspace_premium_outlined,
 
             color:
-                Colors.amber,
+                AppColors.amber,
 
             size:
                 20,
@@ -7938,7 +7992,7 @@ class _AcademicTitleDraftCard
                   title.degreeType,
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
                         AppColors.pureWhite,
 
@@ -8021,7 +8075,7 @@ class _AcademicTitleDraftCard
                 onEdit,
 
             icon:
-                const Icon(
+                Icon(
               Icons.edit_outlined,
 
               color:
@@ -8040,11 +8094,11 @@ class _AcademicTitleDraftCard
                 onDelete,
 
             icon:
-                const Icon(
+                Icon(
               Icons.delete_outline_rounded,
 
               color:
-                  Colors.redAccent,
+                  AppColors.redAccent,
 
               size:
                   18,
@@ -8105,7 +8159,7 @@ class _AdditionalAcademicPathCard
             crossAxisAlignment:
                 CrossAxisAlignment.start,
             children: [
-              const Icon(
+              Icon(
                 Icons.school_outlined,
                 color:
                     AppColors.skyBlue,
@@ -8125,7 +8179,7 @@ class _AdditionalAcademicPathCard
                     Text(
                       path.course,
                       style:
-                          const TextStyle(
+                          TextStyle(
                         color:
                             AppColors.pureWhite,
                         fontSize:
@@ -8164,7 +8218,7 @@ class _AdditionalAcademicPathCard
                 onPressed:
                     onEdit,
                 icon:
-                    const Icon(
+                    Icon(
                   Icons.edit_outlined,
                   color:
                       AppColors.materialSky,
@@ -8178,10 +8232,10 @@ class _AdditionalAcademicPathCard
                 onPressed:
                     onDelete,
                 icon:
-                    const Icon(
+                    Icon(
                   Icons.delete_outline_rounded,
                   color:
-                      Colors.redAccent,
+                      AppColors.redAccent,
                   size:
                       18,
                 ),
@@ -8282,9 +8336,9 @@ class _AcademicDraftBadge
           Text(
         label,
         style:
-            const TextStyle(
+            TextStyle(
           color:
-              Colors.white60,
+              AppColors.white60,
           fontSize:
               9,
         ),

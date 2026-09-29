@@ -1,0 +1,62 @@
+{
+  "schema": "studentlab.dictionary/1",
+  "metadata": {
+    "university": "UNICT",
+    "department": "Dipartimento di Matematica e Informatica",
+    "department_code": "DMI",
+    "course": "L-31 Informatica",
+    "course_code": "L-31",
+    "subject": "Interazione e Multimedia",
+    "academic_year": "2025/2026",
+    "teachers": [
+      "Filippo Stanco - Dario Allegra"
+    ],
+    "source": "dmi/l-31/question/interazione_e_multimedia.json"
+  },
+  "topics": [
+    {
+      "id": "interpolazione",
+      "title": "Interpolazione",
+      "order": 7
+    },
+    {
+      "id": "filtri",
+      "title": "Filtri",
+      "order": 13
+    }
+  ],
+  "entries": [
+    {
+      "id": "demosaicking-e-come-si-realizza",
+      "term": "Demosaicking e come si realizza",
+      "aliases": [],
+      "topic": "interpolazione",
+      "formal_definition": "La ricostruzione cromatica da dati mosaico stima, per ogni posizione del sensore, le componenti non direttamente misurate utilizzando i campioni disponibili nelle posizioni vicine. Metodi diversi possono scegliere vicinati e pesi differenti, producendo compromessi diversi tra costo computazionale e qualità.",
+      "informal_definition": "Il sensore conosce solo una parte del colore in ogni punto. Per completare il pixel si guardano i campioni vicini e si stimano le componenti mancanti, un po' come riempire le caselle mancanti di una griglia usando ciò che c'è intorno.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        9
+      ]
+    },
+    {
+      "id": "bayer-pattern",
+      "term": "Bayer Pattern",
+      "aliases": [],
+      "topic": "filtri",
+      "formal_definition": "Nei sensori a singolo elemento fotosensibile per posizione, l'informazione cromatica viene separata mediante una matrice di filtri spettrali posta sopra i fotositi. Ogni posizione misura quindi soltanto una parte dell'informazione cromatica e la struttura spaziale del mosaico determina quali componenti sono disponibili nei diversi punti.",
+      "informal_definition": "Ogni piccolo sensore vede soprattutto una componente di colore perché sopra di lui c'è un filtro. Il risultato grezzo è quindi un mosaico di misure parziali, non ancora una normale immagine a colori completa.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        30
+      ]
+    }
+  ]
+}

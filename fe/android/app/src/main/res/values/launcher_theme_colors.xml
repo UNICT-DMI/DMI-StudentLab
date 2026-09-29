@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Sfondi delle icone adattive per tema (StudentLab). -->
+<resources>
+    <color name="ic_launcher_background_ardesia">#163F32</color>
+    <color name="ic_launcher_background_terra">#3C2623</color>
+    <color name="ic_launcher_background_bosco">#243C1E</color>
+    <color name="ic_launcher_background_pietra">#3C342E</color>
+    <color name="ic_launcher_background_fico">#3F193A</color>
+    <color name="ic_launcher_background_torbiera">#363A22</color>
+    <color name="ic_launcher_background_kiwi">#303F1B</color>
+    <color name="ic_launcher_background_pesca">#3F2721</color>
+    <color name="ic_launcher_background_antartide">#173842</color>
+    <color name="ic_launcher_background_cocco">#36241D</color>
+    <color name="ic_launcher_background_laguna">#163F38</color>
+    <color name="ic_launcher_background_focus">#2E383F</color>
+    <color name="ic_launcher_background_argilla">#3E2321</color>
+</resources>

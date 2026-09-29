@@ -248,7 +248,7 @@ class _GroupChatLayerState
               ),
 
               child:
-                  const Icon(
+                  Icon(
                 Icons.forum_outlined,
 
                 color:
@@ -264,7 +264,7 @@ class _GroupChatLayerState
                   18,
             ),
 
-            const Text(
+            Text(
               'Nessun messaggio',
 
               style:
@@ -395,7 +395,7 @@ class _GroupChatLayerState
                 message.text,
 
                 style:
-                    const TextStyle(
+                    TextStyle(
                   color:
                       AppColors.pureWhite,
 
@@ -507,7 +507,7 @@ class _GroupChatLayerState
                 message.senderName,
 
                 style:
-                    const TextStyle(
+                    TextStyle(
                   color:
                       AppColors.skyBlue,
 
@@ -529,7 +529,7 @@ class _GroupChatLayerState
               message.text,
 
               style:
-                  const TextStyle(
+                  TextStyle(
                 color:
                     AppColors.pureWhite,
 
@@ -629,7 +629,7 @@ class _GroupChatLayerState
                     TextInputAction.newline,
 
                 style:
-                    const TextStyle(
+                    TextStyle(
                   color:
                       AppColors.pureWhite,
                 ),
@@ -684,7 +684,7 @@ class _GroupChatLayerState
 
             Container(
               decoration:
-                  const BoxDecoration(
+                  BoxDecoration(
                 color:
                     AppColors.socialBlue,
 
@@ -701,7 +701,7 @@ class _GroupChatLayerState
                     _sendMessage,
 
                 icon:
-                    const Icon(
+                    Icon(
                   Icons.send_rounded,
 
                   color:

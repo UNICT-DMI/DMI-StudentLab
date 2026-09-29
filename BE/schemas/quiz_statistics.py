@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Any
 
 from pydantic import (
@@ -85,6 +86,7 @@ class QuizQuestionStatisticsResponse(BaseModel):
     last_selected_option_id: str | None
     last_selected_option_text: str | None
     last_selected_answer_explanation: str | None
+    last_answered_at: datetime | None = None
 
 
 class QuizReviewQuestionResponse(

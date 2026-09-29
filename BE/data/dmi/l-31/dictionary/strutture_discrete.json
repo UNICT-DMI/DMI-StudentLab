@@ -1,0 +1,1866 @@
+{
+  "schema": "studentlab.dictionary/1",
+  "metadata": {
+    "university": "UNICT",
+    "department": "Dipartimento di Matematica e Informatica",
+    "department_code": "DMI",
+    "course": "L-31 Informatica",
+    "course_code": "L-31",
+    "subject": "Strutture Discrete",
+    "academic_year": "2025/2026",
+    "teachers": [
+      "Vincenzo Cutello"
+    ],
+    "source": "dmi/l-31/question/strutture_discrete.json"
+  },
+  "topics": [
+    {
+      "id": "logica-proposizionale",
+      "title": "Logica Proposizionale",
+      "order": 1
+    },
+    {
+      "id": "insiemi",
+      "title": "Insiemi",
+      "order": 2
+    },
+    {
+      "id": "famiglie-di-insiemi",
+      "title": "Famiglie di insiemi",
+      "order": 3
+    },
+    {
+      "id": "insieme-prodotto",
+      "title": "Insieme prodotto",
+      "order": 4
+    },
+    {
+      "id": "relazioni-e-funzioni",
+      "title": "Relazioni e Funzioni",
+      "order": 5
+    },
+    {
+      "id": "relazioni-d-ordine",
+      "title": "Relazioni d'ordine",
+      "order": 6
+    },
+    {
+      "id": "hitting-set",
+      "title": "Hitting Set",
+      "order": 7
+    },
+    {
+      "id": "numeri-interi",
+      "title": "Numeri Interi",
+      "order": 8
+    },
+    {
+      "id": "divisibilita",
+      "title": "Divisibilità",
+      "order": 9
+    },
+    {
+      "id": "mcd-ed-euclide",
+      "title": "MCD ed Euclide",
+      "order": 10
+    },
+    {
+      "id": "numeri-primi",
+      "title": "Numeri Primi",
+      "order": 11
+    },
+    {
+      "id": "criteri-di-divisibilita",
+      "title": "Criteri di divisibilità",
+      "order": 12
+    },
+    {
+      "id": "aritmetica-modulare",
+      "title": "Aritmetica Modulare",
+      "order": 13
+    },
+    {
+      "id": "funzione-di-eulero",
+      "title": "Funzione φ di Eulero",
+      "order": 14
+    },
+    {
+      "id": "calcolo-combinatorio",
+      "title": "Calcolo Combinatorio",
+      "order": 15
+    },
+    {
+      "id": "principio-dei-cassetti",
+      "title": "Principio dei cassetti",
+      "order": 16
+    },
+    {
+      "id": "probabilita-discrete",
+      "title": "Probabilità Discrete",
+      "order": 17
+    },
+    {
+      "id": "variabili-casuali",
+      "title": "Variabili casuali",
+      "order": 18
+    },
+    {
+      "id": "teoria-dei-grafi",
+      "title": "Teoria dei Grafi",
+      "order": 19
+    },
+    {
+      "id": "sottografi",
+      "title": "Sottografi",
+      "order": 20
+    },
+    {
+      "id": "isomorfismi-e-omeomorfismi",
+      "title": "Isomorfismi e Omeomorfismi",
+      "order": 21
+    },
+    {
+      "id": "percorsi-cammini-e-cicli",
+      "title": "Percorsi, cammini e cicli",
+      "order": 22
+    },
+    {
+      "id": "grafi-connessi",
+      "title": "Grafi connessi",
+      "order": 23
+    },
+    {
+      "id": "grafi-euleriani-e-hamiltoniani",
+      "title": "Grafi Euleriani e Hamiltoniani",
+      "order": 24
+    },
+    {
+      "id": "grafi-planari",
+      "title": "Grafi planari",
+      "order": 25
+    },
+    {
+      "id": "alberi",
+      "title": "Alberi",
+      "order": 26
+    }
+  ],
+  "entries": [
+    {
+      "id": "formula-soddisfacibile",
+      "term": "Formula soddisfacibile",
+      "aliases": [],
+      "topic": "logica-proposizionale",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Data una formula P, la formula è soddisfacibile se esiste una interpretazione I delle variabili proposizionali presenti nella formula, cioè un'assegnazione T/F, tale che I(P) è vera.",
+      "informal_definition": "Basta un solo assegnamento che renda vera la formula.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        1,
+        3
+      ]
+    },
+    {
+      "id": "formula-insoddisfacibile",
+      "term": "Formula insoddisfacibile",
+      "aliases": [],
+      "topic": "logica-proposizionale",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Data una formula P, la formula è insoddisfacibile se non esiste una interpretazione I delle variabili proposizionali presenti nella formula tale che I(P) è vera.",
+      "informal_definition": "La formula è falsa per ogni assegnamento.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        4,
+        6
+      ]
+    },
+    {
+      "id": "tautologia-o-formula-valida",
+      "term": "Tautologia o formula valida",
+      "aliases": [],
+      "topic": "logica-proposizionale",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Una formula P si dice tautologia o valida se per ogni interpretazione I delle variabili proposizionali presenti nella formula, la formula risulta vera.",
+      "informal_definition": "Una tautologia è sempre vera.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        7,
+        9
+      ]
+    },
+    {
+      "id": "equivalenza-logica",
+      "term": "Equivalenza logica",
+      "aliases": [],
+      "topic": "logica-proposizionale",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Due formule P e Q aventi le stesse variabili proposizionali si dicono equivalenti se, comunque si assegnino i valori alle variabili, P risulta vera se e solo se Q risulta vera.",
+      "informal_definition": "Le due formule hanno la stessa tavola di verità.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        10,
+        12
+      ]
+    },
+    {
+      "id": "forma-normale-congiuntiva-cnf",
+      "term": "Forma Normale Congiuntiva (CNF)",
+      "aliases": [],
+      "topic": "logica-proposizionale",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Una formula è in Forma Normale Congiuntiva se è scritta come congiunzione di disgiunzioni.",
+      "informal_definition": "La struttura esterna è una AND di clausole OR.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        13,
+        15
+      ]
+    },
+    {
+      "id": "forma-normale-disgiuntiva-dnf",
+      "term": "Forma Normale Disgiuntiva (DNF)",
+      "aliases": [],
+      "topic": "logica-proposizionale",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Una formula è in Forma Normale Disgiuntiva se è scritta come disgiunzione di congiunzioni.",
+      "informal_definition": "La struttura esterna è una OR di termini AND.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        16,
+        18
+      ]
+    },
+    {
+      "id": "uguaglianza-tra-insiemi",
+      "term": "Uguaglianza tra insiemi",
+      "aliases": [],
+      "topic": "insiemi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Due insiemi A e B sono uguali se hanno gli stessi elementi: A = B se e solo se, per ogni x, x appartiene ad A se e solo se x appartiene a B.",
+      "informal_definition": "L'ordine e le ripetizioni con cui si elencano gli elementi non contano.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        19,
+        21
+      ]
+    },
+    {
+      "id": "cardinalita",
+      "term": "Cardinalità",
+      "aliases": [],
+      "topic": "insiemi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Dato un insieme A, il numero di elementi che lo costituisce è denominato cardinalità dell'insieme ed è denotato con |A|. Se |A| è un numero intero l'insieme si dice finito, altrimenti infinito.",
+      "informal_definition": "Per un insieme finito conta quanti elementi distinti contiene.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        22,
+        24
+      ]
+    },
+    {
+      "id": "inclusione",
+      "term": "Inclusione",
+      "aliases": [],
+      "topic": "insiemi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: A è un sottoinsieme di B, denotato con A ⊆ B, se e solo se per ogni x, se x appartiene ad A allora x appartiene anche a B.",
+      "informal_definition": "Tutto ciò che sta in A deve stare anche in B.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        25,
+        27
+      ]
+    },
+    {
+      "id": "insieme-discreto",
+      "term": "Insieme discreto",
+      "aliases": [],
+      "topic": "insiemi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un insieme A si dice discreto se è possibile ordinare i suoi elementi in maniera tale che tra un qualunque elemento ed il successivo nell'ordinamento dato non vi siano altri elementi dell'insieme.",
+      "informal_definition": "Ogni insieme finito è discreto.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        28,
+        30
+      ]
+    },
+    {
+      "id": "chiusura-rispetto-all-unione",
+      "term": "Chiusura rispetto all'unione",
+      "aliases": [],
+      "topic": "famiglie-di-insiemi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Una famiglia di insiemi F è chiusa rispetto all'unione se per ogni coppia di insiemi X e Y appartenenti a F anche X ∪ Y appartiene a F.",
+      "informal_definition": "Unendo due membri della famiglia si deve rimanere nella famiglia.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        31,
+        33
+      ]
+    },
+    {
+      "id": "chiusura-rispetto-all-intersezione",
+      "term": "Chiusura rispetto all'intersezione",
+      "aliases": [],
+      "topic": "famiglie-di-insiemi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Una famiglia di insiemi F è chiusa rispetto all'intersezione se per ogni coppia di insiemi X e Y appartenenti a F anche X ∩ Y appartiene a F.",
+      "informal_definition": "Intersecando due membri della famiglia si deve rimanere nella famiglia.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        34,
+        36
+      ]
+    },
+    {
+      "id": "partizione",
+      "term": "Partizione",
+      "aliases": [],
+      "topic": "famiglie-di-insiemi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Una famiglia di insiemi F è una partizione di U se ogni X ∈ F è un sottoinsieme di U, l'unione di tutti gli elementi di F è U e due elementi distinti X,Y ∈ F sono disgiunti.",
+      "informal_definition": "Le tre idee da ricordare sono: sottoinsiemi di U, copertura completa, disgiunzione a due a due.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        37,
+        39
+      ]
+    },
+    {
+      "id": "prodotto-cartesiano",
+      "term": "Prodotto cartesiano",
+      "aliases": [],
+      "topic": "insieme-prodotto",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Dati due insiemi non vuoti A e B, il prodotto A × B è l'insieme di tutte le coppie ordinate (x,y) con x ∈ A e y ∈ B.",
+      "informal_definition": "L'ordine nella coppia è importante.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        40,
+        42
+      ]
+    },
+    {
+      "id": "relazione-binaria",
+      "term": "Relazione binaria",
+      "aliases": [],
+      "topic": "relazioni-e-funzioni",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Una relazione binaria tra due insiemi A e B è un sottoinsieme del prodotto cartesiano A × B, cioè un insieme di coppie ordinate (x,y) con x ∈ A e y ∈ B.",
+      "informal_definition": "Una relazione può essere vista come un insieme di coppie ordinate.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        43,
+        45
+      ]
+    },
+    {
+      "id": "funzione",
+      "term": "Funzione",
+      "aliases": [],
+      "topic": "relazioni-e-funzioni",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Una relazione f definita su A × B si dice funzione di A in B se per ogni x ∈ A esiste uno ed uno solo y ∈ B tale che (x,y) ∈ f.",
+      "informal_definition": "Ogni elemento del dominio deve avere esattamente un'immagine.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        46,
+        48
+      ]
+    },
+    {
+      "id": "funzione-surgettiva",
+      "term": "Funzione surgettiva",
+      "aliases": [],
+      "topic": "relazioni-e-funzioni",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Data un'applicazione f : A → B, se l'immagine f(A) = B allora la funzione si dice surgettiva.",
+      "informal_definition": "Ogni elemento del codominio viene raggiunto.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        49,
+        51
+      ]
+    },
+    {
+      "id": "funzione-iniettiva",
+      "term": "Funzione iniettiva",
+      "aliases": [],
+      "topic": "relazioni-e-funzioni",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Data un'applicazione f : A → B, se porta punti distinti su punti distinti allora la funzione si dice iniettiva: per ogni x,y ∈ A, se x ≠ y allora f(x) ≠ f(y).",
+      "informal_definition": "Elementi distinti del dominio non possono avere la stessa immagine.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        52,
+        54
+      ]
+    },
+    {
+      "id": "funzione-biiettiva",
+      "term": "Funzione biiettiva",
+      "aliases": [],
+      "topic": "relazioni-e-funzioni",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un'applicazione f : A → B si dice biiettiva, o corrispondenza biunivoca, se è sia iniettiva sia surgettiva.",
+      "informal_definition": "È una corrispondenza uno-a-uno che copre tutto il codominio.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        55,
+        57
+      ]
+    },
+    {
+      "id": "relazione-di-equivalenza",
+      "term": "Relazione di equivalenza",
+      "aliases": [],
+      "topic": "relazioni-e-funzioni",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Una relazione R su U si dice relazione di equivalenza se è riflessiva, simmetrica e transitiva.",
+      "informal_definition": "Sono le tre proprietà da scrivere sempre nella definizione.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        58,
+        60
+      ]
+    },
+    {
+      "id": "classe-di-equivalenza",
+      "term": "Classe di equivalenza",
+      "aliases": [],
+      "topic": "relazioni-e-funzioni",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Data una relazione di equivalenza in U e preso x ∈ U, la classe di equivalenza di x è [x] = {y ∈ U : x ≈ y}.",
+      "informal_definition": "Raccoglie tutti e soli gli elementi equivalenti a x.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        61,
+        63
+      ]
+    },
+    {
+      "id": "preordinamento",
+      "term": "Preordinamento",
+      "aliases": [],
+      "topic": "relazioni-d-ordine",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Si dice preordinamento, o preordine, una relazione binaria assegnata in un insieme che gode della proprietà riflessiva e transitiva.",
+      "informal_definition": "La simmetria e l'antisimmetria non sono richieste.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        64,
+        66
+      ]
+    },
+    {
+      "id": "ordinamento",
+      "term": "Ordinamento",
+      "aliases": [],
+      "topic": "relazioni-d-ordine",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Si dice ordinamento un preordinamento che gode anche della proprietà antisimmetrica. Pertanto un ordinamento è riflessivo, antisimmetrico e transitivo.",
+      "informal_definition": "È un preordine con in più l'antisimmetria.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        67,
+        69
+      ]
+    },
+    {
+      "id": "massimo-e-massimale",
+      "term": "Massimo e massimale",
+      "aliases": [],
+      "topic": "relazioni-d-ordine",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un elemento M di un insieme ordinato U si dice massimo se per ogni x ∈ U si ha x ≤ M. Si dice invece massimale se non vi è alcun elemento di U che lo supera.",
+      "informal_definition": "Ogni massimo è massimale, ma non ogni massimale è massimo.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        70,
+        72
+      ]
+    },
+    {
+      "id": "hitting-set-minimale-e-minimo",
+      "term": "Hitting set minimale e minimo",
+      "aliases": [],
+      "topic": "hitting-set",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Sia H un hitting set per una famiglia A. H è minimale se per ogni x ∈ H, H \\ {x} non è più un hitting set. H è minimo se ha cardinalità minima tra tutti gli hitting set per A.",
+      "informal_definition": "Minimale e minimo non sono sinonimi.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        73,
+        75
+      ]
+    },
+    {
+      "id": "principio-di-induzione",
+      "term": "Principio di induzione",
+      "aliases": [],
+      "topic": "numeri-interi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Sia P una affermazione riguardante i numeri naturali. Se P(0) è vera e, per ogni numero naturale n, quando P(n) è vera allora è vera anche P(n+1), allora P è vera per ogni numero naturale.",
+      "informal_definition": "Per gli interi positivi il caso base può partire da 1.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        76,
+        78
+      ]
+    },
+    {
+      "id": "teorema-della-divisione",
+      "term": "Teorema della divisione",
+      "aliases": [],
+      "topic": "numeri-interi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Dati due interi n,m con m ≠ 0, esistono unici q e r tali che n = qm + r e 0 ≤ r < |m|.",
+      "informal_definition": "Quoziente e resto sono unici.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        79,
+        81
+      ]
+    },
+    {
+      "id": "divisibilita",
+      "term": "Divisibilità",
+      "aliases": [],
+      "topic": "divisibilita",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Dati due interi n,m, si dice che m è un divisore di n se esiste un intero k tale che n = k·m. In tal caso si scrive m | n.",
+      "informal_definition": "Equivalentemente, il resto della divisione di n per m è zero.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        82,
+        84
+      ]
+    },
+    {
+      "id": "numero-pari",
+      "term": "Numero pari",
+      "aliases": [],
+      "topic": "divisibilita",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un intero n si dice pari se esiste un intero k tale che n = 2k.",
+      "informal_definition": "Il resto della divisione per 2 è zero.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        85,
+        87
+      ]
+    },
+    {
+      "id": "numero-dispari",
+      "term": "Numero dispari",
+      "aliases": [],
+      "topic": "divisibilita",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un intero n si dice dispari se esiste un intero k tale che n = 2k + 1.",
+      "informal_definition": "Il resto della divisione per 2 è uno.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        88,
+        90
+      ]
+    },
+    {
+      "id": "minimo-comune-multiplo-mcm",
+      "term": "Minimo Comune Multiplo (MCM)",
+      "aliases": [],
+      "topic": "divisibilita",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Siano a,b ∈ Z non entrambi nulli. Il MCM è un intero positivo m tale che a | m e b | m e, se x è un multiplo comune di a e b, allora m | x.",
+      "informal_definition": "La definizione formale non dice solo 'il più piccolo': esprime anche la proprietà di divisibilità.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        91,
+        93
+      ]
+    },
+    {
+      "id": "massimo-comune-divisore-mcd",
+      "term": "Massimo Comune Divisore (MCD)",
+      "aliases": [],
+      "topic": "mcd-ed-euclide",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Siano a,b ∈ Z non entrambi nulli. Un MCD è un intero d tale che d | a e d | b e, se x è un divisore comune di a e b, allora x | d; per convenzione si sceglie quello positivo.",
+      "informal_definition": "Il MCD è unico a meno del segno; per convenzione è positivo.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        94,
+        96
+      ]
+    },
+    {
+      "id": "passo-dell-algoritmo-di-euclide",
+      "term": "Passo dell'algoritmo di Euclide",
+      "aliases": [],
+      "topic": "mcd-ed-euclide",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Se a = qb + r con 0 ≤ r < |b|, allora MCD(a,b) = MCD(b,r).",
+      "informal_definition": "È l'identità che giustifica l'algoritmo di Euclide.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        97,
+        99
+      ]
+    },
+    {
+      "id": "numero-primo",
+      "term": "Numero primo",
+      "aliases": [],
+      "topic": "numeri-primi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un numero primo è un intero p diverso da ±1 che ha come unici divisori quelli banali; tradizionalmente si considerano i primi naturali positivi 2,3,5,7,...",
+      "informal_definition": "Nel corso la definizione formale viene poi ricondotta ai primi naturali positivi.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        100,
+        102
+      ]
+    },
+    {
+      "id": "numeri-coprimi",
+      "term": "Numeri coprimi",
+      "aliases": [],
+      "topic": "numeri-primi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Due interi a,b si dicono coprimi se MCD(a,b) = 1.",
+      "informal_definition": "Essere coprimi non significa necessariamente essere entrambi primi.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        103,
+        105
+      ]
+    },
+    {
+      "id": "teorema-fondamentale-dell-aritmetica",
+      "term": "Teorema fondamentale dell'aritmetica",
+      "aliases": [],
+      "topic": "numeri-primi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Ogni intero naturale maggiore di 1 si può scrivere come prodotto di numeri primi e tale fattorizzazione è unica a meno dell'ordine dei fattori.",
+      "informal_definition": "È la base della formula generale della funzione φ.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        106,
+        108
+      ]
+    },
+    {
+      "id": "criterio-di-divisibilita-per-2",
+      "term": "Criterio di divisibilità per 2",
+      "aliases": [],
+      "topic": "criteri-di-divisibilita",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un intero n è divisibile per 2 se e solo se la sua cifra delle unità è una tra 0,2,4,6,8.",
+      "informal_definition": "È il criterio standard per la parità.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        109,
+        111
+      ]
+    },
+    {
+      "id": "criterio-di-divisibilita-per-3",
+      "term": "Criterio di divisibilità per 3",
+      "aliases": [],
+      "topic": "criteri-di-divisibilita",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un intero n è divisibile per 3 se e solo se la somma delle sue cifre è divisibile per 3.",
+      "informal_definition": "Il procedimento può essere iterato sulla somma delle cifre.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        112,
+        114
+      ]
+    },
+    {
+      "id": "criterio-di-divisibilita-per-7",
+      "term": "Criterio di divisibilità per 7",
+      "aliases": [],
+      "topic": "criteri-di-divisibilita",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Se n = 10q + r, allora n è divisibile per 7 se e solo se q - 2r è divisibile per 7.",
+      "informal_definition": "q è il numero senza la cifra delle unità e r è la cifra delle unità.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        115,
+        117
+      ]
+    },
+    {
+      "id": "congruenza-modulo-m",
+      "term": "Congruenza modulo m",
+      "aliases": [],
+      "topic": "aritmetica-modulare",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Fissato un intero m, a è congruo a b modulo m se a-b è un multiplo di m; equivalentemente, a mod m = b mod m. Si scrive a ≡ b (mod m).",
+      "informal_definition": "Due numeri congrui hanno lo stesso resto modulo m.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        118,
+        120
+      ]
+    },
+    {
+      "id": "congruenza-come-relazione-di-equivalenza",
+      "term": "Congruenza come relazione di equivalenza",
+      "aliases": [],
+      "topic": "aritmetica-modulare",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: La relazione di congruenza modulo m è riflessiva, simmetrica e transitiva e quindi è una relazione di equivalenza su Z.",
+      "informal_definition": "Le classi di equivalenza sono le classi resto modulo m.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        121,
+        123
+      ]
+    },
+    {
+      "id": "invarianza-della-congruenza-rispetto-alla-somma",
+      "term": "Invarianza della congruenza rispetto alla somma",
+      "aliases": [],
+      "topic": "aritmetica-modulare",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Se a ≡ b (mod m) e c ≡ d (mod m), allora a+c ≡ b+d (mod m).",
+      "informal_definition": "La somma conserva la congruenza.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        124,
+        126
+      ]
+    },
+    {
+      "id": "invarianza-della-congruenza-rispetto-al-prodotto",
+      "term": "Invarianza della congruenza rispetto al prodotto",
+      "aliases": [],
+      "topic": "aritmetica-modulare",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Se a ≡ b (mod m) e c ≡ d (mod m), allora ac ≡ bd (mod m).",
+      "informal_definition": "Il prodotto conserva la congruenza.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        127,
+        129
+      ]
+    },
+    {
+      "id": "funzione-di-eulero",
+      "term": "Funzione φ di Eulero",
+      "aliases": [],
+      "topic": "funzione-di-eulero",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Per n > 0, φ(n) è il numero degli interi x con 0 < x ≤ n che sono coprimi con n: φ(n) = |{x ∈ N : 0 < x ≤ n e MCD(n,x)=1}|.",
+      "informal_definition": "Per n>1 equivale a contare i predecessori positivi coprimi con n.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        130,
+        132
+      ]
+    },
+    {
+      "id": "di-un-numero-primo",
+      "term": "Φ di un numero primo",
+      "aliases": [],
+      "topic": "funzione-di-eulero",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Se p è primo, allora φ(p) = p - 1.",
+      "informal_definition": "Tutti i numeri positivi minori di p sono coprimi con p.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        133,
+        135
+      ]
+    },
+    {
+      "id": "di-una-potenza-di-primo",
+      "term": "Φ di una potenza di primo",
+      "aliases": [],
+      "topic": "funzione-di-eulero",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Se n = p^k con p primo, allora φ(p^k) = p^k - p^(k-1).",
+      "informal_definition": "Si eliminano i multipli di p.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        136,
+        138
+      ]
+    },
+    {
+      "id": "moltiplicativita-di",
+      "term": "Moltiplicatività di φ",
+      "aliases": [],
+      "topic": "funzione-di-eulero",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Se n = h·k con h e k interi positivi coprimi, allora φ(n) = φ(h)·φ(k).",
+      "informal_definition": "La moltiplicatività richiede che i fattori siano coprimi.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        139,
+        141
+      ]
+    },
+    {
+      "id": "teorema-di-eulero",
+      "term": "Teorema di Eulero",
+      "aliases": [],
+      "topic": "funzione-di-eulero",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Siano n,m > 0. Se MCD(n,m)=1 allora n^φ(m) ≡ 1 (mod m).",
+      "informal_definition": "È il teorema fondamentale usato per l'esponenziazione modulare.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        142,
+        144
+      ]
+    },
+    {
+      "id": "piccolo-teorema-di-fermat",
+      "term": "Piccolo Teorema di Fermat",
+      "aliases": [],
+      "topic": "funzione-di-eulero",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Se p è primo e MCD(a,p)=1, allora a^(p-1) ≡ 1 (mod p).",
+      "informal_definition": "È una conseguenza del Teorema di Eulero.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        145,
+        147
+      ]
+    },
+    {
+      "id": "inverso-modulare",
+      "term": "Inverso modulare",
+      "aliases": [],
+      "topic": "aritmetica-modulare",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un intero k è inverso di a modulo m se a·k ≡ 1 (mod m). L'inverso esiste quando a e m sono coprimi.",
+      "informal_definition": "Nel corso può essere calcolato usando il Teorema di Eulero.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        148,
+        150
+      ]
+    },
+    {
+      "id": "disposizioni-con-ripetizione",
+      "term": "Disposizioni con ripetizione",
+      "aliases": [],
+      "topic": "calcolo-combinatorio",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Dati |A|=k e |B|=n, il numero delle applicazioni di A in B è il numero delle disposizioni con ripetizione di n elementi di classe k ed è n^k.",
+      "informal_definition": "Ogni posizione può scegliere indipendentemente uno degli n valori.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        151,
+        153
+      ]
+    },
+    {
+      "id": "disposizioni-semplici",
+      "term": "Disposizioni semplici",
+      "aliases": [],
+      "topic": "calcolo-combinatorio",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Dati |A|=k e |B|=n con k≤n, il numero delle applicazioni iniettive di A in B è D(n,k)=n·(n-1)·...·(n-k+1)=n!/(n-k)!.",
+      "informal_definition": "L'ordine conta e gli elementi scelti non si ripetono.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        154,
+        156
+      ]
+    },
+    {
+      "id": "permutazioni",
+      "term": "Permutazioni",
+      "aliases": [],
+      "topic": "calcolo-combinatorio",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Le permutazioni di n elementi sono le disposizioni semplici di classe n; il loro numero è n! e corrisponde al numero delle biiezioni di un insieme di n elementi in un insieme della stessa cardinalità.",
+      "informal_definition": "Sono riordinamenti di tutti gli n elementi.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        157,
+        159
+      ]
+    },
+    {
+      "id": "combinazioni",
+      "term": "Combinazioni",
+      "aliases": [],
+      "topic": "calcolo-combinatorio",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Le combinazioni di n elementi di classe k sono i sottoinsiemi di k elementi di un insieme di n elementi; il loro numero è C(n,k)=n!/[k!(n-k)!].",
+      "informal_definition": "L'ordine non conta.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        160,
+        162
+      ]
+    },
+    {
+      "id": "coefficiente-binomiale",
+      "term": "Coefficiente binomiale",
+      "aliases": [],
+      "topic": "calcolo-combinatorio",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Il numero C(n,k) delle combinazioni di n elementi di classe k è anche detto coefficiente binomiale e si indica con (n su k).",
+      "informal_definition": "È il coefficiente che compare nel Teorema Binomiale.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        163,
+        165
+      ]
+    },
+    {
+      "id": "teorema-binomiale",
+      "term": "Teorema Binomiale",
+      "aliases": [],
+      "topic": "calcolo-combinatorio",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Siano a e b numeri reali. Allora (a+b)^n = Σ(k=0..n) (n su k) a^(n-k) b^k.",
+      "informal_definition": "È la formula di Newton.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        166,
+        168
+      ]
+    },
+    {
+      "id": "combinazioni-con-ripetizione",
+      "term": "Combinazioni con ripetizione",
+      "aliases": [],
+      "topic": "calcolo-combinatorio",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Dato un insieme di n variabili e un intero k, il numero dei monomi di grado k è C_r(n,k) = (n+k-1 su k).",
+      "informal_definition": "È la formula usata per i monomi con ripetizione delle variabili.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        169,
+        171
+      ]
+    },
+    {
+      "id": "pigeonhole-principle",
+      "term": "Pigeonhole principle",
+      "aliases": [],
+      "topic": "principio-dei-cassetti",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Se dobbiamo sistemare n+1 oggetti in n contenitori, almeno un contenitore deve contenere più di un oggetto.",
+      "informal_definition": "È il principio dei cassetti nella forma più semplice.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        172,
+        174
+      ]
+    },
+    {
+      "id": "pigeonhole-principle-generalizzato",
+      "term": "Pigeonhole principle generalizzato",
+      "aliases": [],
+      "topic": "principio-dei-cassetti",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Se abbiamo km+1 oggetti da sistemare in m contenitori, almeno un contenitore deve contenere almeno k+1 oggetti.",
+      "informal_definition": "È la forma generalizzata usata negli esercizi d'esame.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        175,
+        177
+      ]
+    },
+    {
+      "id": "spazio-dei-campioni",
+      "term": "Spazio dei campioni",
+      "aliases": [],
+      "topic": "probabilita-discrete",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Lo spazio dei campioni S è l'insieme di tutti i possibili risultati elementari dell'esperimento casuale.",
+      "informal_definition": "Gli eventi sono sottoinsiemi di S.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        178,
+        180
+      ]
+    },
+    {
+      "id": "evento",
+      "term": "Evento",
+      "aliases": [],
+      "topic": "probabilita-discrete",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un evento è un sottoinsieme dello spazio dei campioni S.",
+      "informal_definition": "Un evento può contenere uno o più risultati elementari.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        181,
+        183
+      ]
+    },
+    {
+      "id": "assioma-a1-della-probabilita",
+      "term": "Assioma A1 della probabilità",
+      "aliases": [],
+      "topic": "probabilita-discrete",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Per ogni evento A vale 0 ≤ P(A) ≤ 1.",
+      "informal_definition": "Una probabilità è sempre compresa tra zero e uno.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        184,
+        186
+      ]
+    },
+    {
+      "id": "assioma-a2-della-probabilita",
+      "term": "Assioma A2 della probabilità",
+      "aliases": [],
+      "topic": "probabilita-discrete",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: La probabilità dello spazio dei campioni è P(S)=1 e la probabilità dell'insieme vuoto è P(∅)=0.",
+      "informal_definition": "L'evento certo ha probabilità uno, quello impossibile zero.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        187,
+        189
+      ]
+    },
+    {
+      "id": "assioma-a3-della-probabilita",
+      "term": "Assioma A3 della probabilità",
+      "aliases": [],
+      "topic": "probabilita-discrete",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Per due eventi A e B, P(A∪B)=P(A)+P(B)-P(A∩B).",
+      "informal_definition": "L'intersezione viene sottratta perché sarebbe altrimenti contata due volte.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        190,
+        192
+      ]
+    },
+    {
+      "id": "per-due-eventi-a-e-b-p-ab-p-a-p-b-p-ab",
+      "term": "Per due eventi A e B, P(A∪B)=P(A)+P(B)-P(A∩B)",
+      "aliases": [],
+      "topic": "probabilita-discrete",
+      "formal_definition": "La formulazione riportata è quella di \"Assioma A3 della probabilità\".",
+      "informal_definition": "L'intersezione viene sottratta perché sarebbe altrimenti contata due volte.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        191
+      ]
+    },
+    {
+      "id": "distribuzione-uniforme",
+      "term": "Distribuzione uniforme",
+      "aliases": [],
+      "topic": "probabilita-discrete",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Una distribuzione di probabilità è detta uniforme se tutti gli eventi elementari considerati sono equiprobabili.",
+      "informal_definition": "È il caso tipico del dado non truccato.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        193,
+        195
+      ]
+    },
+    {
+      "id": "probabilita-condizionata",
+      "term": "Probabilità condizionata",
+      "aliases": [],
+      "topic": "probabilita-discrete",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Per P(B)≠0, la probabilità di A condizionata al verificarsi di B è P(A|B)=P(A∩B)/P(B).",
+      "informal_definition": "Si restringe lo spazio dei casi all'evento B.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        196,
+        198
+      ]
+    },
+    {
+      "id": "eventi-indipendenti",
+      "term": "Eventi indipendenti",
+      "aliases": [],
+      "topic": "probabilita-discrete",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Due eventi A e B sono indipendenti se P(A|B)=P(A) e P(B|A)=P(B); equivalentemente P(A∩B)=P(A)P(B).",
+      "informal_definition": "Il verificarsi di uno non modifica la probabilità dell'altro.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        199,
+        201
+      ]
+    },
+    {
+      "id": "regola-di-bayes",
+      "term": "Regola di Bayes",
+      "aliases": [],
+      "topic": "probabilita-discrete",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Per eventi A e B con probabilità non nulle, P(B|A) = P(A|B)·P(B)/P(A).",
+      "informal_definition": "Permette di invertire il condizionamento.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        202,
+        204
+      ]
+    },
+    {
+      "id": "teorema-della-probabilita-totale",
+      "term": "Teorema della Probabilità Totale",
+      "aliases": [],
+      "topic": "probabilita-discrete",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Sia A un evento e B1,...,Bn eventi mutuamente esclusivi, esaustivi e con P(Bi)≠0. Allora P(A)=Σ(i=1..n) P(A|Bi)P(Bi).",
+      "informal_definition": "Si scompone A rispetto a una partizione di casi.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        205,
+        207
+      ]
+    },
+    {
+      "id": "variabile-casuale",
+      "term": "Variabile casuale",
+      "aliases": [],
+      "topic": "variabili-casuali",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Una variabile casuale è una funzione X che associa un numero reale ad un evento.",
+      "informal_definition": "Permette di tradurre risultati casuali in numeri.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        208,
+        210
+      ]
+    },
+    {
+      "id": "valore-atteso",
+      "term": "Valore atteso",
+      "aliases": [],
+      "topic": "variabili-casuali",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Il valore atteso di una variabile casuale X è E[X]=Σx x·P[X=x].",
+      "informal_definition": "È una media pesata dei possibili valori.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        211,
+        213
+      ]
+    },
+    {
+      "id": "linearita-del-valore-atteso",
+      "term": "Linearità del valore atteso",
+      "aliases": [],
+      "topic": "variabili-casuali",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Per due variabili casuali X e Y vale E[X+Y]=E[X]+E[Y].",
+      "informal_definition": "Non richiede necessariamente indipendenza.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        214,
+        216
+      ]
+    },
+    {
+      "id": "prova-di-bernoulli",
+      "term": "Prova di Bernoulli",
+      "aliases": [],
+      "topic": "variabili-casuali",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Una prova di Bernoulli, o prova binomiale, è un esperimento probabilistico che ha esattamente due risultati: successo o fallimento.",
+      "informal_definition": "È il modello base di molti esperimenti binari.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        217,
+        219
+      ]
+    },
+    {
+      "id": "eventi-mutuamente-esclusivi",
+      "term": "Eventi mutuamente esclusivi",
+      "aliases": [],
+      "topic": "probabilita-discrete",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Due eventi A e B sono mutuamente esclusivi se A∩B=∅, cioè non possono verificarsi contemporaneamente.",
+      "informal_definition": "In questo caso P(A∪B)=P(A)+P(B).",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        220,
+        222
+      ]
+    },
+    {
+      "id": "evento-complementare",
+      "term": "Evento complementare",
+      "aliases": [],
+      "topic": "probabilita-discrete",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Il complementare di A è l'evento ¬A che si verifica quando A non si verifica; vale P(¬A)=1-P(A).",
+      "informal_definition": "A e il suo complementare coprono tutto lo spazio e sono disgiunti.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        223,
+        225
+      ]
+    },
+    {
+      "id": "grafo-semplice-non-orientato",
+      "term": "Grafo semplice non orientato",
+      "aliases": [],
+      "topic": "teoria-dei-grafi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un grafo semplice non orientato G=(V,E) consiste di un insieme finito non vuoto V di vertici e di un insieme finito E i cui elementi sono sottoinsiemi di V di cardinalità due, detti archi.",
+      "informal_definition": "Nel grafo semplice non orientato non ci sono archi multipli tra la stessa coppia.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        226,
+        228
+      ]
+    },
+    {
+      "id": "grafo-semplice-orientato",
+      "term": "Grafo semplice orientato",
+      "aliases": [],
+      "topic": "teoria-dei-grafi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un grafo semplice orientato, o digrafo, G=(V,E) consiste di un insieme finito non vuoto V e di un insieme finito E i cui elementi sono coppie ordinate (i,j) di vertici.",
+      "informal_definition": "Il verso dell'arco è parte dell'informazione.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        229,
+        231
+      ]
+    },
+    {
+      "id": "grado-di-un-vertice",
+      "term": "Grado di un vertice",
+      "aliases": [],
+      "topic": "teoria-dei-grafi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Dato un grafo G=(V,E), il grado δ(v) di un vertice v è il numero di archi incidenti a v, ossia il numero di vertici ad esso adiacenti.",
+      "informal_definition": "Nel digrafo si distinguono grado in ingresso e grado in uscita.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        232,
+        234
+      ]
+    },
+    {
+      "id": "handshaking-theorem",
+      "term": "Handshaking Theorem",
+      "aliases": [],
+      "topic": "teoria-dei-grafi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: In un grafo non orientato G=(V,E), la somma dei gradi di tutti i vertici è uguale a 2|E|.",
+      "informal_definition": "Ogni arco contribuisce due volte alla somma dei gradi.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        235,
+        237
+      ]
+    },
+    {
+      "id": "grafo-regolare",
+      "term": "Grafo regolare",
+      "aliases": [],
+      "topic": "teoria-dei-grafi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un grafo non orientato si dice regolare di grado r se tutti i suoi vertici hanno lo stesso grado r.",
+      "informal_definition": "In un grafo regolare tutti i vertici hanno lo stesso grado.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        238,
+        240
+      ]
+    },
+    {
+      "id": "grafo-completo",
+      "term": "Grafo completo",
+      "aliases": [],
+      "topic": "teoria-dei-grafi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un grafo non orientato G=(V,E) si dice completo se ogni coppia di vertici è connessa da un arco.",
+      "informal_definition": "Il grafo completo con n vertici si indica con K_n.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        241,
+        243
+      ]
+    },
+    {
+      "id": "grafo-bipartito",
+      "term": "Grafo bipartito",
+      "aliases": [],
+      "topic": "teoria-dei-grafi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un grafo non orientato G=(V,E) è bipartito se V può essere partizionato in due insiemi V1 e V2 in modo che ogni arco abbia un estremo in V1 e l'altro in V2.",
+      "informal_definition": "Non ci sono archi tra due vertici della stessa parte.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        244,
+        246
+      ]
+    },
+    {
+      "id": "sottografo",
+      "term": "Sottografo",
+      "aliases": [],
+      "topic": "sottografi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: G'=(V',E') è un sottografo di G=(V,E) se V'⊆V, E'⊆E e per ogni arco di E' entrambi i suoi estremi appartengono a V'.",
+      "informal_definition": "Un sottografo seleziona vertici e archi compatibili del grafo originale.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        247,
+        249
+      ]
+    },
+    {
+      "id": "sottografo-indotto",
+      "term": "Sottografo indotto",
+      "aliases": [],
+      "topic": "sottografi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Dato V'⊆V, il sottografo indotto da V' si ottiene eliminando da G tutti i vertici non appartenenti a V' e tutti gli archi incidenti ad almeno uno dei vertici eliminati.",
+      "informal_definition": "Scelti i vertici, gli archi interni sono determinati automaticamente.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        250,
+        252
+      ]
+    },
+    {
+      "id": "isomorfismo-tra-grafi",
+      "term": "Isomorfismo tra grafi",
+      "aliases": [],
+      "topic": "isomorfismi-e-omeomorfismi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Due grafi G1=(V1,E1) e G2=(V2,E2), entrambi orientati oppure entrambi non orientati, sono isomorfi se esiste una biiezione f:V1→V2 tale che (f(u),f(v)) è un arco di E2 se e solo se (u,v) è un arco di E1.",
+      "informal_definition": "La biiezione f viene detta isomorfismo.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        253,
+        255
+      ]
+    },
+    {
+      "id": "suddivisione-di-un-arco",
+      "term": "Suddivisione di un arco",
+      "aliases": [],
+      "topic": "isomorfismi-e-omeomorfismi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Sia e=(u,v) un arco di un grafo non orientato. Una suddivisione di e si ottiene introducendo un nuovo vertice w e sostituendo (u,v) con (u,w) e (w,v).",
+      "informal_definition": "È l'operazione usata nella definizione di omeomorfismo.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        256,
+        258
+      ]
+    },
+    {
+      "id": "omeomorfismo-tra-grafi",
+      "term": "Omeomorfismo tra grafi",
+      "aliases": [],
+      "topic": "isomorfismi-e-omeomorfismi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Due grafi non orientati G1 e G2 si dicono omeomorfi se, attraverso una serie di suddivisioni di archi di G1 e G2, si possono ottenere due grafi che sono isomorfi.",
+      "informal_definition": "L'omeomorfismo cattura l'idea di stessa forma topologica.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        259,
+        261
+      ]
+    },
+    {
+      "id": "percorso",
+      "term": "Percorso",
+      "aliases": [],
+      "topic": "percorsi-cammini-e-cicli",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un percorso in un grafo è una sequenza di nodi v1,...,vk adiacenti, cioè tali che per ogni i l'arco (vi,vi+1) appartiene al grafo. La sua lunghezza è il numero di archi, quindi k-1.",
+      "informal_definition": "In un percorso i vertici possono ripetersi.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        262,
+        264
+      ]
+    },
+    {
+      "id": "cammino",
+      "term": "Cammino",
+      "aliases": [],
+      "topic": "percorsi-cammini-e-cicli",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un percorso viene detto cammino se tutti i nodi sono diversi.",
+      "informal_definition": "La distinzione fondamentale rispetto al percorso è l'assenza di ripetizioni.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        265,
+        267
+      ]
+    },
+    {
+      "id": "circuito",
+      "term": "Circuito",
+      "aliases": [],
+      "topic": "percorsi-cammini-e-cicli",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un circuito è un percorso chiuso, cioè un percorso v1,...,vk tale che v1=vk.",
+      "informal_definition": "Un circuito può ripetere nodi intermedi.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        268,
+        270
+      ]
+    },
+    {
+      "id": "ciclo",
+      "term": "Ciclo",
+      "aliases": [],
+      "topic": "percorsi-cammini-e-cicli",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un ciclo è un cammino chiuso: v1=vk e, a parte la coincidenza tra primo e ultimo, i vertici non si ripetono.",
+      "informal_definition": "Un ciclo è più restrittivo di un circuito.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        271,
+        273
+      ]
+    },
+    {
+      "id": "grafo-aciclico",
+      "term": "Grafo aciclico",
+      "aliases": [],
+      "topic": "grafi-connessi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un grafo, o digrafo, G=(V,E) si dice aciclico se non possiede cicli.",
+      "informal_definition": "Un albero libero è connesso e aciclico.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        274,
+        276
+      ]
+    },
+    {
+      "id": "grafo-connesso",
+      "term": "Grafo connesso",
+      "aliases": [],
+      "topic": "grafi-connessi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un grafo si dice connesso se ha una sola componente connessa, cioè se dati comunque due vertici di V, i due vertici sono connessi.",
+      "informal_definition": "Non esistono componenti separate.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        277,
+        279
+      ]
+    },
+    {
+      "id": "digrafo-debolmente-connesso",
+      "term": "Digrafo debolmente connesso",
+      "aliases": [],
+      "topic": "grafi-connessi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un digrafo G=(V,E) si dice debolmente connesso se il grafo non orientato ottenuto eliminando l'orientamento degli archi è connesso.",
+      "informal_definition": "Si ignora il verso degli archi per verificare la connessione debole.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        280,
+        282
+      ]
+    },
+    {
+      "id": "circuito-euleriano",
+      "term": "Circuito euleriano",
+      "aliases": [],
+      "topic": "grafi-euleriani-e-hamiltoniani",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Sia G=(V,E) un grafo connesso. Un circuito euleriano è un circuito che passa per tutti i vertici e percorre ogni arco esattamente una sola volta. G è euleriano se possiede un circuito euleriano.",
+      "informal_definition": "L'oggetto centrale sono gli archi, non i vertici.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        283,
+        285
+      ]
+    },
+    {
+      "id": "teorema-di-eulero-sui-grafi-euleriani",
+      "term": "Teorema di Eulero sui grafi euleriani",
+      "aliases": [],
+      "topic": "grafi-euleriani-e-hamiltoniani",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un grafo G=(V,E) è euleriano se e solo se è connesso e tutti i suoi vertici hanno grado pari.",
+      "informal_definition": "È una caratterizzazione necessaria e sufficiente.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        286,
+        288
+      ]
+    },
+    {
+      "id": "cammino-euleriano",
+      "term": "Cammino euleriano",
+      "aliases": [],
+      "topic": "grafi-euleriani-e-hamiltoniani",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un grafo possiede un cammino euleriano se e solo se è connesso e tutti i vertici, tranne al più due, hanno grado pari; gli eventuali due vertici dispari sono il primo e l'ultimo del cammino.",
+      "informal_definition": "Con due dispari il cammino parte da uno e termina nell'altro.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        289,
+        291
+      ]
+    },
+    {
+      "id": "cammino-e-ciclo-hamiltoniano",
+      "term": "Cammino e ciclo hamiltoniano",
+      "aliases": [],
+      "topic": "grafi-euleriani-e-hamiltoniani",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un cammino hamiltoniano passa una ed una sola volta per tutti i vertici del grafo; se è chiuso si parla di ciclo hamiltoniano. Un grafo è hamiltoniano se possiede un ciclo hamiltoniano.",
+      "informal_definition": "A differenza di Eulero, qui l'attenzione è sui vertici.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        292,
+        294
+      ]
+    },
+    {
+      "id": "grafo-planare",
+      "term": "Grafo planare",
+      "aliases": [],
+      "topic": "grafi-planari",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un grafo non orientato G=(V,E) si dice planare se può essere disegnato nel piano in modo che gli archi non si intersechino.",
+      "informal_definition": "La planarità riguarda l'esistenza di un embedding senza incroci.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        295,
+        297
+      ]
+    },
+    {
+      "id": "albero-libero-altezza-e-fattore-di-ramificazione",
+      "term": "Albero libero, altezza e fattore di ramificazione",
+      "aliases": [],
+      "topic": "alberi",
+      "formal_definition": "Per preparare la domanda aperta va ricordata questa formulazione: Un albero libero è un grafo connesso e aciclico. In un albero radicato, l'altezza è la lunghezza del cammino più lungo dalla radice ad una foglia e il fattore di ramificazione è il numero massimo di figli di un nodo.",
+      "informal_definition": "Per un albero libero con |V| vertici valgono |E|=|V|-1 archi.",
+      "examples": [],
+      "exercises": [],
+      "exam_questions": [],
+      "related": [],
+      "resources": [],
+      "quiz_question_ids": [
+        298,
+        300
+      ]
+    }
+  ]
+}

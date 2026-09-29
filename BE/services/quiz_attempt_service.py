@@ -9,6 +9,14 @@ from models.user import User
 from schemas.quiz_attempt import QuizAttemptStart, QuizAttemptSubmit
 from services.quiz_assignment_service import can_user_access_quiz_assignment, get_quiz_assignment_by_id
 from services.quiz_service import find_question, question_count, shuffle_filter
+from services import exercise_items
+from services.exercise_types import EXERCISE_TYPES, solution_summary
+
+MULTIPLE_CHOICE = "multiple_choice"
+
+
+def _is_exercise(question: dict) -> bool:
+    return isinstance(question, dict) and question.get("type") in EXERCISE_TYPES and "public" in question
 
 
 def utc_now():
@@ -40,6 +48,8 @@ def _option_text(question: dict, option_id: str | None) -> str | None:
 
 
 def _snapshot(question: dict) -> dict:
+    if _is_exercise(question):
+        return deepcopy(question)
     result = deepcopy(question)
     result["metadata"] = deepcopy(_metadata(question))
     result["attachments"] = deepcopy(_attachments(question))
@@ -50,6 +60,8 @@ def _snapshot(question: dict) -> dict:
 
 
 def _public_question(question: dict) -> dict:
+    if _is_exercise(question):
+        return exercise_items.public_from_snapshot(question)
     return {
         "id_question": str(question.get("id_question")),
         "estimed_time": question.get("estimed_time"),
@@ -166,6 +178,20 @@ def _create_quiz_attempt(
 
 def start_quiz_attempt(db: Session, user: User, data: QuizAttemptStart):
     selected_arguments = [] if data.all_arguments else data.arguments
+    requested_ids = {str(value).strip() for value in data.question_ids if str(value).strip()}
+    if requested_ids:
+        questions = shuffle_filter(
+            department=data.department, course=data.course, subject=data.subject,
+            selected_arguments=[], question_ids=list(requested_ids),
+            number_of_questions=min(data.number_of_questions, len(requested_ids)),
+        )
+        if not questions:
+            raise ValueError('Le domande da ripassare non sono più disponibili.')
+        return _create_quiz_attempt(
+            db, user, department=data.department, course=data.course,
+            subject=data.subject, questions=questions, time_limit_seconds=data.time_limit_seconds,
+            execution_mode='practice', external_activity_policy='disabled',
+        )
     available = question_count(
         department=data.department,
         course=data.course,
@@ -202,7 +228,64 @@ def start_quiz_attempt(db: Session, user: User, data: QuizAttemptStart):
     )
 
 
-def start_assigned_quiz_attempt(db: Session, user: User, assignment_id: int):
+def assignment_exercise_types(assignment) -> list[str]:
+    types = [t for t in (getattr(assignment, "question_types", None) or []) if t in EXERCISE_TYPES]
+    return types
+
+
+def _mixed_assignment_items(db: Session, assignment) -> list[dict]:
+    """Domande a risposta multipla + esercizi dei nuovi tipi, secondo l'assegnazione."""
+    rng = random.Random()
+    exercise_types = assignment_exercise_types(assignment)
+    with_mc = MULTIPLE_CHOICE in (assignment.question_types or [])
+    items: list[dict] = []
+    if assignment.selection_mode == "selected_questions":
+        for raw_id in assignment.selected_question_ids or []:
+            value = str(raw_id)
+            if exercise_items.valid_item_id(value):
+                item = exercise_items.resolve(db, assignment.department, assignment.course, assignment.subject, value)
+                if item is None and value.startswith("ex:") and value.count(":") == 1:
+                    # modello generato: ogni studente riceve una variante diversa
+                    item = exercise_items.resolve(db, assignment.department, assignment.course, assignment.subject,
+                                                  f"{value}:{rng.randint(1, 2 ** 31 - 2)}")
+                if item is None:
+                    raise ValueError(f"L'esercizio {value} non è più disponibile.")
+                items.append(exercise_items.snapshot(item, rng))
+            else:
+                question = find_question(id_question=value, department=assignment.department,
+                                         course=assignment.course, subject=assignment.subject, include_hidden=False)
+                if question is None:
+                    raise ValueError(f"La domanda {value} non è più disponibile.")
+                items.append(question)
+        return items
+    arguments = (assignment.selected_arguments or []) if assignment.selection_mode == "arguments" else []
+    total = assignment.question_count
+    kinds = len(exercise_types) + (1 if with_mc else 0)
+    mc_share = round(total / kinds) if with_mc else 0
+    picked = exercise_items.pick(db, assignment.department, assignment.course, assignment.subject,
+                                 types=exercise_types, arguments=arguments, count=total - mc_share, rng=rng,
+                                 code_runner=_code_runner_ready(), graded=True)
+    mc_needed = total - len(picked)
+    if mc_needed > 0 and with_mc:
+        available = question_count(department=assignment.department, course=assignment.course,
+                                   subject=assignment.subject, selected_arguments=arguments)
+        items.extend(shuffle_filter(department=assignment.department, course=assignment.course,
+                                    subject=assignment.subject, selected_arguments=arguments,
+                                    number_of_questions=min(mc_needed, available)))
+    items.extend(exercise_items.snapshot(item, rng) for item in picked)
+    rng.shuffle(items)
+    return items
+
+
+def _code_runner_ready() -> bool:
+    try:
+        from services.code_runner import configured
+        return configured()
+    except Exception:
+        return False
+
+
+def start_assigned_quiz_attempt(db: Session, user: User, assignment_id: int, supported_types: set[str] | None = None):
     assignment = get_quiz_assignment_by_id(db, assignment_id)
 
     if assignment is None:
@@ -224,10 +307,31 @@ def start_assigned_quiz_attempt(db: Session, user: User, assignment_id: int):
         .first()
     )
 
+    required = set(assignment_exercise_types(assignment))
+    if required and not required <= set(supported_types or ()):
+        raise ValueError("Questa assegnazione contiene esercizi nuovi: aggiorna StudentLab per svolgerla.")
+
     if existing is not None:
         if existing.status == "completed":
             raise ValueError("Hai già completato questo quiz assegnato.")
         return _public_attempt(existing)
+
+    if required:
+        questions = _mixed_assignment_items(db, assignment)
+        if not questions:
+            raise ValueError("Non ci sono esercizi disponibili per questa assegnazione.")
+        return _create_quiz_attempt(
+            db,
+            user,
+            assignment_id=assignment.id,
+            department=assignment.department,
+            course=assignment.course,
+            subject=assignment.subject,
+            questions=questions,
+            time_limit_seconds=assignment.time_limit_seconds,
+            execution_mode=assignment.execution_mode,
+            external_activity_policy=assignment.external_activity_policy,
+        )
 
     if assignment.selection_mode == "selected_questions":
         questions = []
@@ -305,6 +409,67 @@ def resume_quiz_attempt(db: Session, user: User, attempt_id: int):
     return _public_attempt(attempt)
 
 
+def _grade_exercise_answer(attempt: QuizAttempt, question: dict, answer) -> tuple[QuizAttemptAnswer, str]:
+    """Corregge un esercizio dei nuovi tipi (sempre sul server, dallo snapshot)."""
+    item = exercise_items.item_from_snapshot(question)
+    payload = getattr(answer, "answer_payload", None) if answer is not None else None
+    payload = payload if isinstance(payload, dict) and payload else None
+    checks = question.get("_checks") if isinstance(question.get("_checks"), dict) else {}
+    final = checks.get("final") if isinstance(checks.get("final"), dict) else None
+    if item["type"] == "flashcard":
+        # autovalutazione: non conta nel voto
+        result = {"is_correct": False, "score": 0.0, "correct_payload": None, "feedback": {}}
+    elif final is not None:
+        # controllato durante il tentativo e chiuso (giusto o tentativi finiti): vale quella risposta
+        payload = {k: v for k, v in (final.get("answer") or {}).items() if k != "_run"} or None
+        result = final.get("result") or {}
+    else:
+        run = None
+        if payload is not None and item["type"] == "codice":
+            from services.code_runner import rate_limited, run_tests
+            if attempt.assignment_id is None and rate_limited(attempt.user_id):
+                run = {"results": [], "error": "Troppe esecuzioni di codice di recente: esercizio non valutato."}
+            else:
+                run = run_tests(item["data"], str(payload.get("code") or ""), include_hidden=True)
+        if payload is None:
+            result = {"is_correct": False, "score": 0.0, "correct_payload": None, "feedback": {}}
+        else:
+            result = exercise_items.grade_item(item, payload, run=run)
+    stored_payload = dict(payload or {})
+    if item["type"] == "codice" and stored_payload.get("code"):
+        stored_payload["code"] = str(stored_payload["code"])[:10000]
+    try:
+        correct_payload = exercise_items.types_.grade(item["type"], item["data"], {}).get("correct_payload")
+    except Exception:
+        correct_payload = None
+    summary = solution_summary(item["type"], item["data"])
+    saved = QuizAttemptAnswer(
+        attempt_id=attempt.id,
+        question_id=str(question.get("id_question")),
+        argument=(question.get("metadata") or {}).get("argoment"),
+        question_text=str(question.get("text", "")),
+        attachments_snapshot=deepcopy(question.get("attachments") or []),
+        options_snapshot=[],
+        selected_option_id=None,
+        selected_option_text=None,
+        correct_option_id="",
+        correct_option_text=summary[:4000],
+        is_answered=payload is not None,
+        is_correct=bool(result.get("is_correct")),
+        response_time_seconds=getattr(answer, "response_time_seconds", None) if answer is not None else None,
+        formal_explanation=question.get("explanation") or None,
+        informal_explanation=None,
+        selected_answer_explanation=None,
+        correct_answer_explanation=summary[:4000] or None,
+        question_type=item["type"],
+        answer_payload={**stored_payload, "feedback": result.get("feedback") or {}} if payload is not None else None,
+        correct_payload=correct_payload,
+        score=float(result.get("score") or 0.0),
+    )
+    outcome = "unanswered" if payload is None else ("correct" if saved.is_correct else "wrong")
+    return saved, outcome
+
+
 def complete_quiz_attempt(db: Session, user: User, attempt_id: int, data: QuizAttemptSubmit):
     attempt = get_quiz_attempt_by_id(db, attempt_id)
 
@@ -320,6 +485,7 @@ def complete_quiz_attempt(db: Session, user: User, attempt_id: int, data: QuizAt
     correct_count = 0
     wrong_count = 0
     unanswered_count = 0
+    score_total = 0.0
 
     for question_id in attempt.question_ids or []:
         question = _snapshot_question(attempt, str(question_id))
@@ -327,6 +493,17 @@ def complete_quiz_attempt(db: Session, user: User, attempt_id: int, data: QuizAt
             raise ValueError(f"Snapshot della domanda {question_id} non disponibile.")
 
         answer = submitted.get(str(question_id))
+        if _is_exercise(question):
+            saved, outcome = _grade_exercise_answer(attempt, question, answer)
+            saved_answers.append(saved)
+            score_total += saved.score or 0.0
+            if outcome == "correct":
+                correct_count += 1
+            elif outcome == "wrong":
+                wrong_count += 1
+            else:
+                unanswered_count += 1
+            continue
         selected_option_id = answer.selected_option_id if answer is not None else None
         response_time_seconds = answer.response_time_seconds if answer is not None else None
         correct_option_id = str(question.get("id_correct", ""))
@@ -337,6 +514,7 @@ def complete_quiz_attempt(db: Session, user: User, attempt_id: int, data: QuizAt
 
         if is_correct:
             correct_count += 1
+            score_total += 1.0
         elif is_answered:
             wrong_count += 1
         else:
@@ -369,10 +547,13 @@ def complete_quiz_attempt(db: Session, user: User, attempt_id: int, data: QuizAt
                 informal_explanation=question.get("informal_explanation"),
                 selected_answer_explanation=explanations.get(selected_option_id) if selected_option_id else None,
                 correct_answer_explanation=explanations.get(correct_option_id),
+                question_type=MULTIPLE_CHOICE,
+                score=1.0 if is_correct else 0.0,
             )
         )
 
-    percentage = (correct_count / attempt.question_count) * 100 if attempt.question_count > 0 else 0.0
+    # Con i nuovi tipi vale il punteggio parziale; con sole domande a risposta multipla è identico a prima.
+    percentage = (score_total / attempt.question_count) * 100 if attempt.question_count > 0 else 0.0
     real_elapsed = max(0, int((utc_now() - attempt.started_at).total_seconds()))
     requested_elapsed = max(0, data.elapsed_seconds)
     elapsed = max(real_elapsed, requested_elapsed)

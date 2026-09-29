@@ -113,9 +113,9 @@ class _StudentLabErrorScreenState extends State<StudentLabErrorScreen> {
   Color get _reportColor {
     switch (_reportState) {
       case _ErrorReportState.sent:
-        return Colors.greenAccent;
+        return AppColors.greenAccent;
       case _ErrorReportState.failed:
-        return Colors.orangeAccent;
+        return AppColors.orangeAccent;
       case _ErrorReportState.sending:
       case _ErrorReportState.idle:
         return AppColors.skyBlue;
@@ -139,16 +139,16 @@ class _StudentLabErrorScreenState extends State<StudentLabErrorScreen> {
                   color: AppColors.eleganceMidnight,
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
-                    color: Colors.orangeAccent.withValues(alpha: 0.22),
+                    color: AppColors.orangeAccent.withValues(alpha: 0.22),
                   ),
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.error_outline_rounded,
                       size: 58,
-                      color: Colors.orangeAccent,
+                      color: AppColors.orangeAccent,
                     ),
                     const SizedBox(height: 22),
                     Row(

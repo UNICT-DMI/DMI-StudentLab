@@ -1,0 +1,121 @@
+[
+  {
+    "id_exercise": "1",
+    "type": "numerica",
+    "text": "",
+    "hint": "",
+    "explanation": "",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Sistemi di numerazione",
+      "teacher": [
+        "Massimo Orazio Spata"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "generator": {
+      "name": "base_conversion",
+      "difficulty": 2
+    },
+    "created_at": "2026-09-27T16:23:55.709359+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.709359+00:00",
+    "updated_by": "StudentLab (esempi)"
+  },
+  {
+    "id_exercise": "2",
+    "type": "numerica",
+    "text": "Rappresenta −5 in complemento a due su 8 bit.",
+    "hint": "",
+    "explanation": "",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Complemento a due",
+      "teacher": [
+        "Massimo Orazio Spata"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "data": {
+      "steps": [
+        {
+          "id": "u",
+          "label": "Valore dei bit letto come intero senza segno",
+          "answer": 251.0,
+          "tolerance": 0.0,
+          "tolerance_pct": 0.0,
+          "unit": "",
+          "hint": "",
+          "check": "256 − 5"
+        }
+      ]
+    },
+    "created_at": "2026-09-27T16:23:55.709389+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.709389+00:00",
+    "updated_by": "StudentLab (esempi)"
+  },
+  {
+    "id_exercise": "3",
+    "type": "ordina",
+    "text": "Metti in ordine le fasi della pipeline classica a 5 stadi.",
+    "hint": "",
+    "explanation": "",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Pipeline",
+      "teacher": [
+        "Massimo Orazio Spata"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "data": {
+      "items": [
+        {
+          "id": "p16cffd4f25",
+          "text": "IF – prelievo dell’istruzione"
+        },
+        {
+          "id": "p558757870f",
+          "text": "ID – decodifica e lettura dei registri"
+        },
+        {
+          "id": "pcdfc7c6ab0",
+          "text": "EX – esecuzione"
+        },
+        {
+          "id": "p40f763cd77",
+          "text": "MEM – accesso alla memoria"
+        },
+        {
+          "id": "p987f875d5f",
+          "text": "WB – scrittura del risultato"
+        }
+      ],
+      "order": [
+        "p16cffd4f25",
+        "p558757870f",
+        "pcdfc7c6ab0",
+        "p40f763cd77",
+        "p987f875d5f"
+      ],
+      "accepted_orders": []
+    },
+    "created_at": "2026-09-27T16:23:55.709428+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.709428+00:00",
+    "updated_by": "StudentLab (esempi)"
+  }
+]

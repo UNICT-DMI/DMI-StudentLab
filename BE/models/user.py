@@ -132,6 +132,9 @@ class User(Base):
         index=True,
     )
 
+    institutional_tutor_status = Column(String(30), nullable=False, default='none', index=True)
+    student_verification_status = Column(String(30), nullable=False, default='none', index=True)
+
     teacher_verified_by = Column(
         Integer,
         ForeignKey(

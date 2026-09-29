@@ -320,6 +320,7 @@ class TeacherMaterialVerifyResponse(
 class TeacherMaterialCompleteRequest(
     BaseModel,
 ):
+    distribution_mode: Literal["persistent", "temporary"] = "persistent"
     subject_id: int = Field(
         gt=0,
     )
@@ -458,7 +459,6 @@ class TeacherMaterialCompleteRequest(
             value
         )
 
-
 class TeacherMaterialUpdate(
     BaseModel,
 ):
@@ -493,6 +493,8 @@ class TeacherMaterialSubjectResponse(
 class TeacherMaterialResponse(
     BaseModel,
 ):
+    distribution_mode: str = "persistent"
+    cloud_expires_at: datetime | None = None
     model_config = ConfigDict(
         from_attributes=True,
     )

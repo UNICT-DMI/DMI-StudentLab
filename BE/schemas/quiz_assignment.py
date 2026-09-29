@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
 SelectionMode = Literal["random", "arguments", "selected_questions"]
@@ -35,6 +35,10 @@ class QuizAssignmentCreate(BaseModel):
     due_at: datetime | None = None
     user_ids: list[int] = Field(default_factory=list)
     group_ids: list[int] = Field(default_factory=list)
+    # v18 · tipi di esercizio (None o ["multiple_choice"] = come prima) ed esercizi scelti a mano ("ex:12", "dz:4"…)
+    question_types: list[str] | None = Field(default=None, max_length=12)
+    item_ids: list[str] = Field(default_factory=list, max_length=200)
+    attempts_per_item: int | None = Field(default=None, ge=1, le=5)
 
 
 class QuizAssignmentUpdate(BaseModel):
@@ -54,6 +58,9 @@ class QuizAssignmentUpdate(BaseModel):
     is_active: bool | None = None
     user_ids: list[int] | None = None
     group_ids: list[int] | None = None
+    question_types: list[str] | None = Field(default=None, max_length=12)
+    item_ids: list[str] | None = Field(default=None, max_length=200)
+    attempts_per_item: int | None = Field(default=None, ge=1, le=5)
 
 
 class QuizAssignmentResponse(BaseModel):
@@ -71,10 +78,13 @@ class QuizAssignmentResponse(BaseModel):
     execution_mode: ExecutionMode
     external_activity_policy: ExternalActivityPolicy
     selected_arguments: list[str] = Field(default_factory=list)
-    selected_question_ids: list[int] = Field(default_factory=list)
+    selected_question_ids: list[int | str] = Field(default_factory=list)
     question_count: int
     time_limit_seconds: int | None = None
     due_at: datetime | None = None
+    question_types: list[str] | None = None
+    attempts_per_item: int | None = None
+    assigned_by_role: str = "teacher"
     is_active: bool
     created_at: datetime
     updated_at: datetime

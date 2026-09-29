@@ -1,0 +1,290 @@
+[
+  {
+    "id_exercise": "1",
+    "type": "ordina",
+    "text": "Metti in ordine la gestione di un page fault.",
+    "hint": "",
+    "explanation": "",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Gestione della Memoria",
+      "teacher": [
+        "Mario Di Raimondo",
+        "Mario Francesco Pavone"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "data": {
+      "items": [
+        {
+          "id": "p2b3c369d0e",
+          "text": "L’accesso a una pagina non presente genera una trap al sistema operativo"
+        },
+        {
+          "id": "pf53474e1c1",
+          "text": "Il sistema operativo verifica che l’indirizzo sia valido"
+        },
+        {
+          "id": "p121e3181d6",
+          "text": "Trova un frame libero (o sceglie una vittima)"
+        },
+        {
+          "id": "p4ca9735391",
+          "text": "Legge la pagina dal disco nel frame"
+        },
+        {
+          "id": "p5105afc1ab",
+          "text": "Aggiorna la tabella delle pagine"
+        },
+        {
+          "id": "p160ecf964e",
+          "text": "Riavvia l’istruzione che aveva causato il fault"
+        }
+      ],
+      "order": [
+        "p2b3c369d0e",
+        "pf53474e1c1",
+        "p121e3181d6",
+        "p4ca9735391",
+        "p5105afc1ab",
+        "p160ecf964e"
+      ],
+      "accepted_orders": []
+    },
+    "created_at": "2026-09-27T16:23:55.707844+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.707844+00:00",
+    "updated_by": "StudentLab (esempi)"
+  },
+  {
+    "id_exercise": "2",
+    "type": "abbina",
+    "text": "Abbina ogni algoritmo di scheduling alla sua caratteristica.",
+    "hint": "",
+    "explanation": "",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Scheduling della CPU",
+      "teacher": [
+        "Mario Di Raimondo",
+        "Mario Francesco Pavone"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "data": {
+      "left": [
+        {
+          "id": "l8bbe3e2c7a",
+          "text": "FCFS"
+        },
+        {
+          "id": "la91a3461f8",
+          "text": "SJF"
+        },
+        {
+          "id": "l1c0a486688",
+          "text": "Round Robin"
+        },
+        {
+          "id": "lff5835cd39",
+          "text": "Priorità"
+        }
+      ],
+      "right": [
+        {
+          "id": "r1c9f59407e",
+          "text": "Effetto convoglio con processi lunghi in testa"
+        },
+        {
+          "id": "rc918c58ef0",
+          "text": "Minimo tempo di attesa medio (senza prelazione)"
+        },
+        {
+          "id": "rfbbfbca65f",
+          "text": "Quanto di tempo e coda circolare"
+        },
+        {
+          "id": "rf9d32f9be7",
+          "text": "Rischio di starvation, si corregge con l’aging"
+        }
+      ],
+      "pairs": {
+        "l8bbe3e2c7a": "r1c9f59407e",
+        "la91a3461f8": "rc918c58ef0",
+        "l1c0a486688": "rfbbfbca65f",
+        "lff5835cd39": "rf9d32f9be7"
+      }
+    },
+    "created_at": "2026-09-27T16:23:55.707880+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.707880+00:00",
+    "updated_by": "StudentLab (esempi)"
+  },
+  {
+    "id_exercise": "3",
+    "type": "numerica",
+    "text": "P1 (24 ms), P2 (3 ms), P3 (3 ms) arrivano insieme in quest’ordine.",
+    "hint": "",
+    "explanation": "",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Scheduling della CPU",
+      "teacher": [
+        "Mario Di Raimondo",
+        "Mario Francesco Pavone"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "data": {
+      "steps": [
+        {
+          "id": "fcfs",
+          "label": "Attesa media con FCFS",
+          "answer": 17.0,
+          "tolerance": 0.0,
+          "tolerance_pct": 0.0,
+          "unit": "ms",
+          "hint": "",
+          "check": "(0 + 24 + 27) / 3"
+        },
+        {
+          "id": "sjf",
+          "label": "Attesa media con SJF",
+          "answer": 3.0,
+          "tolerance": 0.0,
+          "tolerance_pct": 0.0,
+          "unit": "ms",
+          "hint": "",
+          "check": "(0 + 3 + 6) / 3"
+        }
+      ]
+    },
+    "created_at": "2026-09-27T16:23:55.707903+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.707903+00:00",
+    "updated_by": "StudentLab (esempi)"
+  },
+  {
+    "id_exercise": "4",
+    "type": "completa",
+    "text": "Completa le condizioni necessarie per lo stallo (Coffman).",
+    "hint": "",
+    "explanation": "",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Concorrenza e Cooperazione tra Processi",
+      "teacher": [
+        "Mario Di Raimondo",
+        "Mario Francesco Pavone"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "data": {
+      "text": "Mutua esclusione, [[1]], nessuna prelazione e [[2]].",
+      "blanks": [
+        {
+          "id": "1",
+          "accepted": [
+            "possesso e attesa",
+            "hold and wait"
+          ],
+          "numeric": false,
+          "tolerance": 0.0
+        },
+        {
+          "id": "2",
+          "accepted": [
+            "attesa circolare",
+            "circular wait"
+          ],
+          "numeric": false,
+          "tolerance": 0.0
+        }
+      ],
+      "bank": [
+        "possesso e attesa",
+        "attesa circolare",
+        "prelazione",
+        "starvation"
+      ],
+      "case_sensitive": false
+    },
+    "created_at": "2026-09-27T16:23:55.707928+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.707928+00:00",
+    "updated_by": "StudentLab (esempi)"
+  },
+  {
+    "id_exercise": "5",
+    "type": "errore",
+    "text": "Il produttore può portare allo stallo. Tocca la riga sbagliata.",
+    "hint": "",
+    "explanation": "",
+    "estimed_time": 60,
+    "metadata": {
+      "argoment": "Concorrenza e Cooperazione tra Processi",
+      "teacher": [
+        "Mario Di Raimondo",
+        "Mario Francesco Pavone"
+      ],
+      "year_of_validity": "2025/2026",
+      "difficulty": 2
+    },
+    "attachments": [],
+    "is_active": true,
+    "is_hidden": false,
+    "data": {
+      "lines": [
+        "produttore:",
+        "  while (true) {",
+        "    item = produci();",
+        "    wait(mutex);",
+        "    wait(empty);",
+        "    inserisci(item);",
+        "    signal(mutex);",
+        "    signal(full);",
+        "  }"
+      ],
+      "language": "pseudocodice",
+      "error_lines": [
+        4
+      ],
+      "reasons": [
+        {
+          "id": "m1dcebe6354",
+          "text": "Con il buffer pieno si blocca su empty tenendo il mutex: il consumatore non entra più"
+        },
+        {
+          "id": "m6f95b23c76",
+          "text": "signal(full) va prima di signal(mutex)"
+        },
+        {
+          "id": "mb47c1198d6",
+          "text": "Manca wait(full)"
+        }
+      ],
+      "correct_reason": "m1dcebe6354",
+      "fix": "Prima wait(empty), poi wait(mutex)."
+    },
+    "created_at": "2026-09-27T16:23:55.707961+00:00",
+    "created_by": "StudentLab (esempi)",
+    "updated_at": "2026-09-27T16:23:55.707961+00:00",
+    "updated_by": "StudentLab (esempi)"
+  }
+]

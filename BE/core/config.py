@@ -36,6 +36,15 @@ class Settings:
             or self._env("BLOB_READ_WRITE_TOKEN")
         )
 
+        # OAuth credentials for the account that owns the selected Drive folder.
+        # Keep refresh tokens in deployment environment variables only.
+        self.drive_folder_id = self._env("StudentLab_DRIVE_FOLDER_ID") or "16YGvrGatUcbQixmZ5WR-Kui_XH2oH28M"
+        self.drive_account_email = self._env("StudentLab_DRIVE_ACCOUNT_EMAIL") or "studentlabdmi@gmail.com"
+        self.drive_client_id = self._env("StudentLab_DRIVE_CLIENT_ID")
+        self.drive_client_secret = self._env("StudentLab_DRIVE_CLIENT_SECRET")
+        self.drive_refresh_token = self._env("StudentLab_DRIVE_REFRESH_TOKEN")
+        self.drive_cron_secret = self._env("CRON_SECRET") or self._env("StudentLab_DRIVE_CRON_SECRET")
+
         self.secret_key = (
             self._env("StudentLab_SECRET_KEY")
             or self._env("SECRET_KEY")
@@ -156,6 +165,30 @@ class Settings:
             ),
             default=False,
         )
+
+        self.hostinger_mail_api_token = (
+            self._env("HOSTINGER_MAIL_API_TOKEN")
+            or self._env("StudentLab_HOSTINGER_MAIL_API_TOKEN")
+            or ""
+        ).strip()
+
+        self.hostinger_mailbox_resource_id = (
+            self._env("HOSTINGER_MAILBOX_RESOURCE_ID")
+            or self._env("StudentLab_HOSTINGER_MAILBOX_RESOURCE_ID")
+            or ""
+        ).strip()
+
+        self.mail_from_email = (
+            self._env("STUDENTLAB_MAIL_FROM")
+            or self._env("StudentLab_MAIL_FROM")
+            or "uni@studentlab.net"
+        ).strip()
+
+        self.mail_from_name = (
+            self._env("STUDENTLAB_MAIL_FROM_NAME")
+            or self._env("StudentLab_MAIL_FROM_NAME")
+            or "StudentLab"
+        ).strip()
 
         self.compliance_key_id = (
             self._env("StudentLab_COMPLIANCE_KEY_ID")

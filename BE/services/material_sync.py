@@ -1,778 +1,92 @@
-from datetime import (
-    datetime,
-    timezone,
-)
+import json
 
-from sqlalchemy.orm import (
-    Session,
-)
+from datetime import datetime, timezone
 
-from models.group import (
-    GroupMember,
-    StudyGroup,
-)
+from sqlalchemy.orm import Session
 
-from models.material import (
-    GroupMaterial,
-)
-
-from models.public_material import (
-    PublicMaterial,
-)
-
-from models.teacher_material import (
-    TeacherMaterial,
-)
-
-from schemas.material_sync import (
-    MaterialSyncItem,
-    MaterialSyncManifestResponse,
-)
-
-from services.teacher_material_assignment import (
-    get_accessible_teacher_material_ids,
-)
+from models.group import GroupMember, StudyGroup
+from models.material import GroupMaterial
+from models.material_share import MaterialShare
+from models.personal_material import PersonalSyncedMaterial
+from models.public_material import PublicMaterial
+from models.teacher_material import TeacherMaterial
+from schemas.material_sync import MaterialSyncItem, MaterialSyncManifestResponse
+from services.material_share import process_expired_shares
+from services.personal_material import process_personal_retention
+from services.teacher_material_assignment import get_accessible_teacher_material_ids
+from services.public_material_access import can_read_public_material
 
 
 def utc_now():
-    return datetime.now(
-        timezone.utc,
-    )
+    return datetime.now(timezone.utc)
 
 
-def _to_utc(
-    value: datetime | None,
-):
+def _utc(value):
     if value is None:
         return None
-
-    if value.tzinfo is None:
-        return value.replace(
-            tzinfo=timezone.utc,
-        )
-
-    return value.astimezone(
-        timezone.utc,
-    )
+    return value.replace(tzinfo=timezone.utc) if value.tzinfo is None else value.astimezone(timezone.utc)
 
 
-def _normalize_status(
-    status: str | None,
-    *,
-    is_active: bool,
-):
-    normalized = (
-        status
-        or (
-            "active"
-            if is_active
-            else "removed"
-        )
-    )
-
-    normalized = (
-        normalized
-        .strip()
-        .lower()
-    )
-
-    if normalized not in {
-        "active",
-        "hidden",
-        "removed",
-    }:
-        return (
-            "active"
-            if is_active
-            else "removed"
-        )
-
-    return normalized
-
-
-def _changed_since(
-    *,
-    updated_at: datetime | None,
-    removed_at: datetime | None,
-    created_at: datetime | None,
-    since: datetime | None,
-):
+def _changed(record,since):
     if since is None:
         return True
-
-    normalized_since = _to_utc(
-        since,
-    )
-
-    candidates = [
-        _to_utc(
-            value,
-        )
-        for value in (
-            updated_at,
-            removed_at,
-            created_at,
-        )
-        if value is not None
-    ]
-
-    if not candidates:
-        return False
-
-    return any(
-        value >
-        normalized_since
-        for value in candidates
-    )
+    values=[_utc(getattr(record,name,None)) for name in ("updated_at","removed_at","created_at","deleted_at") if getattr(record,name,None) is not None]
+    return any(v>_utc(since) for v in values)
 
 
-def _public_material_to_sync_item(
-    material: PublicMaterial,
-):
-    is_visible = bool(
-        getattr(
-            material,
-            "is_visible",
-            True,
-        )
-    )
-
-    raw_active = bool(
-        getattr(
-            material,
-            "is_active",
-            is_visible,
-        )
-    )
-
-    status = _normalize_status(
-        getattr(
-            material,
-            "status",
-            None,
-        ),
-        is_active=(
-            raw_active
-            and is_visible
-        ),
-    )
-
-    is_active = (
-        status ==
-        "active"
-        and raw_active
-        and is_visible
-    )
-
-    return MaterialSyncItem(
-        key=(
-            f"public:{material.id}"
-        ),
-        source="public",
-        material_id=material.id,
-        subject_id=(
-            getattr(
-                material,
-                "subject_id",
-                None,
-            )
-        ),
-        group_id=None,
-        version=(
-            getattr(
-                material,
-                "version",
-                1,
-            )
-            or 1
-        ),
-        status=status,
-        is_active=is_active,
-        is_visible=is_visible,
-        is_tombstone=(
-            not is_active
-        ),
-        original_name=(
-            None
-            if not is_active
-            else getattr(
-                material,
-                "original_name",
-                None,
-            )
-        ),
-        mime_type=(
-            None
-            if not is_active
-            else getattr(
-                material,
-                "mime_type",
-                None,
-            )
-        ),
-        size=(
-            None
-            if not is_active
-            else getattr(
-                material,
-                "size",
-                None,
-            )
-        ),
-        file_hash=(
-            None
-            if not is_active
-            else getattr(
-                material,
-                "file_hash",
-                None,
-            )
-        ),
-        updated_at=(
-            _to_utc(
-                getattr(
-                    material,
-                    "updated_at",
-                    None,
-                )
-            )
-        ),
-        removed_at=(
-            _to_utc(
-                getattr(
-                    material,
-                    "removed_at",
-                    None,
-                )
-            )
-        ),
-    )
+def _public(record, allowed):
+    active=allowed and record.status=="published" and bool(record.is_visible) and getattr(record,"visibility_state","visible")=="visible" and not getattr(record,"drive_activation_pending",False)
+    return MaterialSyncItem(key=f"public:{record.id}",source="public",material_id=record.id,subject_id=(record.subject_id if active else None),version=record.version or 1,status=("active" if active else "removed" if record.status=="removed" else "hidden"),is_active=active,is_visible=active,is_tombstone=not active,original_name=(record.original_name if active else None),university=(record.university if active else None),department=(record.department if active else None),course=(record.course if active else None),subject_name=(getattr(record.subject,"name",None) if active and getattr(record,"subject",None) else None),path_segments=(json.loads(record.catalog_path_json or '[]') if active else []),mime_type=(record.mime_type if active else None),size=(record.size if active else None),file_hash=(record.file_hash if active else None),cloud_policy="persistent",updated_at=_utc(record.updated_at),removed_at=_utc(getattr(record,"removed_at",None)))
 
 
-def _teacher_material_to_sync_item(
-    material: TeacherMaterial,
-    *,
-    visible: bool,
-):
-    raw_active = bool(
-        material.is_active
-    )
-
-    status = _normalize_status(
-        material.status,
-        is_active=raw_active,
-    )
-
-    is_active = (
-        status ==
-        "active"
-        and raw_active
-        and visible
-    )
-
-    return MaterialSyncItem(
-        key=(
-            f"teacher:{material.id}"
-        ),
-        source="teacher",
-        material_id=material.id,
-        subject_id=material.subject_id,
-        group_id=None,
-        version=(
-            material.version
-            or 1
-        ),
-        status=status,
-        is_active=is_active,
-        is_visible=visible,
-        is_tombstone=(
-            not is_active
-        ),
-        original_name=(
-            None
-            if not is_active
-            else material.original_name
-        ),
-        mime_type=(
-            None
-            if not is_active
-            else material.mime_type
-        ),
-        size=(
-            None
-            if not is_active
-            else material.size
-        ),
-        file_hash=(
-            None
-            if not is_active
-            else material.file_hash
-        ),
-        updated_at=(
-            _to_utc(
-                getattr(
-                    material,
-                    "updated_at",
-                    None,
-                )
-            )
-        ),
-        removed_at=(
-            _to_utc(
-                getattr(
-                    material,
-                    "removed_at",
-                    None,
-                )
-            )
-        ),
-    )
+def _subject_location(subject):
+    return dict(university=subject.university, department=subject.department,
+                course=subject.course, subject_name=subject.name) if subject else {}
 
 
-def _group_material_to_sync_item(
-    material: GroupMaterial,
-    *,
-    visible: bool,
-    subject_id: int | None,
-):
-    raw_active = bool(
-        material.is_active
-    )
-
-    status = _normalize_status(
-        material.status,
-        is_active=raw_active,
-    )
-
-    is_active = (
-        status ==
-        "active"
-        and raw_active
-        and visible
-    )
-
-    return MaterialSyncItem(
-        key=(
-            f"group:{material.id}"
-        ),
-        source="group",
-        material_id=material.id,
-        subject_id=subject_id,
-        group_id=material.group_id,
-        version=(
-            material.version
-            or 1
-        ),
-        status=status,
-        is_active=is_active,
-        is_visible=visible,
-        is_tombstone=(
-            not is_active
-        ),
-        original_name=(
-            None
-            if not is_active
-            else material.original_name
-        ),
-        mime_type=(
-            None
-            if not is_active
-            else material.mime_type
-        ),
-        size=(
-            None
-            if not is_active
-            else material.size
-        ),
-        file_hash=(
-            None
-            if not is_active
-            else material.file_hash
-        ),
-        updated_at=(
-            _to_utc(
-                getattr(
-                    material,
-                    "updated_at",
-                    None,
-                )
-            )
-        ),
-        removed_at=(
-            _to_utc(
-                getattr(
-                    material,
-                    "removed_at",
-                    None,
-                )
-            )
-        ),
-    )
+def _teacher(record,visible):
+    active=record.status=="active" and bool(record.is_active) and visible
+    return MaterialSyncItem(key=f"teacher:{record.id}",source="teacher",material_id=record.id,subject_id=record.subject_id,version=record.version or 1,status=("active" if active else "removed"),is_active=active,is_visible=visible,is_tombstone=not active,original_name=(record.original_name if active else None),**_subject_location(getattr(record, "subject", None)),mime_type=(record.mime_type if active else None),size=(record.size if active else None),file_hash=(record.file_hash if active else None),cloud_policy=getattr(record,"distribution_mode","persistent"),cloud_expires_at=_utc(getattr(record,"cloud_expires_at",None)),updated_at=_utc(record.updated_at),removed_at=_utc(getattr(record,"removed_at",None)))
 
 
-def _get_user_group_ids(
-    db: Session,
-    user_id: int,
-):
-    return {
-        group_id
-        for (
-            group_id,
-        ) in (
-            db.query(
-                GroupMember.group_id,
-            )
-            .join(
-                StudyGroup,
-                StudyGroup.id ==
-                GroupMember.group_id,
-            )
-            .filter(
-                GroupMember.user_id ==
-                user_id,
-                StudyGroup.status ==
-                "active",
-            )
-            .all()
-        )
-    }
+def _personal(record):
+    active=record.status=="active"
+    return MaterialSyncItem(key=f"personal_sync:{record.id}",source="personal_sync",material_id=record.id,subject_id=record.subject_id,version=record.version or 1,status=("active" if active else "removed"),is_active=active,is_visible=active,is_tombstone=not active,original_name=(record.original_name if active else None),university=record.university,department=record.department,course=record.course,subject_name=record.subject_name,mime_type=(record.mime_type if active else None),size=(record.size if active else None),file_hash=(record.file_hash if active else None),cloud_policy="my_devices",cloud_expires_at=_utc(record.retention_expires_at),retention_status=record.retention_status,updated_at=_utc(record.updated_at),removed_at=_utc(record.deleted_at))
 
 
-def _get_public_group_ids(
-    db: Session,
-):
-    return {
-        group_id
-        for (
-            group_id,
-        ) in (
-            db.query(
-                StudyGroup.id,
-            )
-            .filter(
-                StudyGroup.is_private.is_(
-                    False,
-                ),
-                StudyGroup.status ==
-                "active",
-            )
-            .all()
-        )
-    }
+def _share(record,user_id):
+    visible=record.recipient_user_id==user_id and record.status in {"pending","accepted","delivered"}
+    return MaterialSyncItem(key=f"shared_user:{record.id}",source="shared_user",material_id=record.id,subject_id=record.subject_id,version=1,status=("active" if visible else "removed"),is_active=visible,is_visible=visible,is_tombstone=not visible,original_name=(record.original_name if visible else None),**_subject_location(getattr(record, "subject", None)),mime_type=(record.mime_type if visible else None),size=(record.size if visible else None),file_hash=(record.file_hash if visible else None),cloud_policy="temporary",cloud_expires_at=_utc(record.cloud_expires_at),shared_by_user_id=record.sender_user_id,updated_at=_utc(record.updated_at))
 
 
-def _get_visible_group_subjects(
-    db: Session,
-    group_ids: set[int],
-):
-    if not group_ids:
-        return {}
-
-    rows = (
-        db.query(
-            StudyGroup.id,
-            StudyGroup.subject_id,
-        )
-        .filter(
-            StudyGroup.id.in_(
-                group_ids,
-            ),
-            StudyGroup.status ==
-            "active",
-        )
-        .all()
-    )
-
-    return {
-        group_id: subject_id
-        for (
-            group_id,
-            subject_id,
-        ) in rows
-    }
-
-
-def _get_visible_teacher_material_ids(
-    db: Session,
-    user_id: int,
-):
-    assigned_ids = (
-        get_accessible_teacher_material_ids(
-            db,
-            user_id,
-        )
-    )
-
-    student_visible_ids = {
-        material_id
-        for (
-            material_id,
-        ) in (
-            db.query(
-                TeacherMaterial.id,
-            )
-            .filter(
-                TeacherMaterial.visibility ==
-                "students",
-                TeacherMaterial.status ==
-                "active",
-                TeacherMaterial.is_active.is_(
-                    True,
-                ),
-            )
-            .all()
-        )
-    }
-
-    owned_ids = {
-        material_id
-        for (
-            material_id,
-        ) in (
-            db.query(
-                TeacherMaterial.id,
-            )
-            .filter(
-                TeacherMaterial.uploaded_by ==
-                user_id,
-                TeacherMaterial.status ==
-                "active",
-                TeacherMaterial.is_active.is_(
-                    True,
-                ),
-            )
-            .all()
-        )
-    }
-
-    return (
-        assigned_ids
-        | student_visible_ids
-        | owned_ids
-    )
-
-
-def build_material_sync_manifest(
-    db: Session,
-    *,
-    user_id: int,
-    since: datetime | None = None,
-):
-    generated_at = utc_now()
-
-    normalized_since = _to_utc(
-        since,
-    )
-
-    visible_keys: set[str] = set()
-
-    items: list[
-        MaterialSyncItem
-    ] = []
-
-    public_materials = (
-        db.query(
-            PublicMaterial,
-        )
-        .order_by(
-            PublicMaterial.id.asc(),
-        )
-        .all()
-    )
-
-    for material in public_materials:
-        item = (
-            _public_material_to_sync_item(
-                material,
-            )
-        )
-
-        if item.is_active:
-            visible_keys.add(
-                item.key,
-            )
-
-        if _changed_since(
-            updated_at=(
-                item.updated_at
-            ),
-            removed_at=(
-                item.removed_at
-            ),
-            created_at=(
-                _to_utc(
-                    getattr(
-                        material,
-                        "created_at",
-                        None,
-                    )
-                )
-            ),
-            since=normalized_since,
-        ):
-            items.append(
-                item,
-            )
-
-    visible_teacher_ids = (
-        _get_visible_teacher_material_ids(
-            db,
-            user_id,
-        )
-    )
-
-    teacher_materials = (
-        db.query(
-            TeacherMaterial,
-        )
-        .order_by(
-            TeacherMaterial.id.asc(),
-        )
-        .all()
-    )
-
-    for material in teacher_materials:
-        visible = (
-            material.id
-            in visible_teacher_ids
-        )
-
-        if not visible:
-            continue
-
-        item = (
-            _teacher_material_to_sync_item(
-                material,
-                visible=True,
-            )
-        )
-
-        if item.is_active:
-            visible_keys.add(
-                item.key,
-            )
-
-        if _changed_since(
-            updated_at=(
-                item.updated_at
-            ),
-            removed_at=(
-                item.removed_at
-            ),
-            created_at=(
-                _to_utc(
-                    getattr(
-                        material,
-                        "created_at",
-                        None,
-                    )
-                )
-            ),
-            since=normalized_since,
-        ):
-            items.append(
-                item,
-            )
-
-    user_group_ids = (
-        _get_user_group_ids(
-            db,
-            user_id,
-        )
-    )
-
-    public_group_ids = (
-        _get_public_group_ids(
-            db,
-        )
-    )
-
-    visible_group_ids = (
-        user_group_ids
-        | public_group_ids
-    )
-
-    group_subjects = (
-        _get_visible_group_subjects(
-            db,
-            visible_group_ids,
-        )
-    )
-
-    if visible_group_ids:
-        group_materials = (
-            db.query(
-                GroupMaterial,
-            )
-            .filter(
-                GroupMaterial.group_id.in_(
-                    visible_group_ids,
-                )
-            )
-            .order_by(
-                GroupMaterial.id.asc(),
-            )
-            .all()
-        )
-    else:
-        group_materials = []
-
-    for material in group_materials:
-        item = (
-            _group_material_to_sync_item(
-                material,
-                visible=True,
-                subject_id=(
-                    group_subjects.get(
-                        material.group_id,
-                    )
-                ),
-            )
-        )
-
-        if item.is_active:
-            visible_keys.add(
-                item.key,
-            )
-
-        if _changed_since(
-            updated_at=(
-                item.updated_at
-            ),
-            removed_at=(
-                item.removed_at
-            ),
-            created_at=(
-                _to_utc(
-                    getattr(
-                        material,
-                        "created_at",
-                        None,
-                    )
-                )
-            ),
-            since=normalized_since,
-        ):
-            items.append(
-                item,
-            )
-
-    items.sort(
-        key=lambda item: (
-            item.source,
-            item.material_id,
-        )
-    )
-
-    return MaterialSyncManifestResponse(
-        generated_at=generated_at,
-        since=normalized_since,
-        incremental=(
-            normalized_since
-            is not None
-        ),
-        visible_keys=sorted(
-            visible_keys,
-        ),
-        items=items,
-    )
+def build_material_sync_manifest(db:Session,user_id:int|None,since:datetime|None=None):
+    if user_id is not None:
+        process_personal_retention(db)
+        process_expired_shares(db)
+    items=[]
+    public=db.query(PublicMaterial).all()
+    for row in public:
+        if _changed(row,since):
+            items.append(_public(row, can_read_public_material(db, row, user_id)))
+    if user_id is not None:
+        accessible_ids=set(get_accessible_teacher_material_ids(db,user_id))
+        teacher_rows=db.query(TeacherMaterial).filter((TeacherMaterial.uploaded_by==user_id)|(TeacherMaterial.id.in_(accessible_ids) if accessible_ids else False)).all()
+        for row in teacher_rows:
+            if _changed(row,since):
+                items.append(_teacher(row,True))
+        memberships=db.query(GroupMember.group_id).filter(GroupMember.user_id==user_id).all()
+        group_ids={r[0] for r in memberships}
+        if group_ids:
+            groups={g.id:g for g in db.query(StudyGroup).filter(StudyGroup.id.in_(group_ids)).all()}
+            for row in db.query(GroupMaterial).filter(GroupMaterial.group_id.in_(group_ids)).all():
+                if _changed(row,since):
+                    visible=groups.get(row.group_id) is not None and groups[row.group_id].status=="active"
+                    items.append(MaterialSyncItem(key=f"group:{row.id}",source="group",material_id=row.id,group_id=row.group_id,version=getattr(row,"version",1) or 1,status=("active" if visible and row.status=="active" and row.is_active else "removed"),is_active=visible and row.status=="active" and row.is_active,is_visible=visible,is_tombstone=not(visible and row.status=="active" and row.is_active),original_name=(row.original_name if visible else None),mime_type=(row.mime_type if visible else None),size=(row.size if visible else None),file_hash=(row.file_hash if visible else None),university=getattr(groups[row.group_id], "university", None),department=groups[row.group_id].department,course=groups[row.group_id].course,subject_name=(groups[row.group_id].subject.name if groups[row.group_id].subject else None),subject_id=groups[row.group_id].subject_id,cloud_policy="persistent",updated_at=_utc(row.updated_at),removed_at=_utc(getattr(row,"removed_at",None))))
+        for row in db.query(PersonalSyncedMaterial).filter(PersonalSyncedMaterial.owner_user_id==user_id).all():
+            if _changed(row,since):
+                items.append(_personal(row))
+        for row in db.query(MaterialShare).filter(MaterialShare.recipient_user_id==user_id).all():
+            if _changed(row,since):
+                items.append(_share(row,user_id))
+    visible=[item.key for item in items if item.is_active and item.is_visible and not item.is_tombstone]
+    return MaterialSyncManifestResponse(generated_at=utc_now(),incremental=since is not None,visible_keys=visible,items=items)

@@ -81,7 +81,7 @@ class _UserBlockActionState extends State<UserBlockAction> {
         builder: (BuildContext dialogContext) {
           return AlertDialog(
             backgroundColor: AppColors.eleganceDeepNavy,
-            title: const Text(
+            title: Text(
               'Blocca utente',
               style: TextStyle(color: AppColors.pureWhite),
             ),
@@ -122,6 +122,7 @@ class _UserBlockActionState extends State<UserBlockAction> {
       setState(() {
         _blocked = !_blocked;
       });
+      if (_blocked) Navigator.of(context).pop();
     } catch (error) {
       if (!mounted) return;
       _showError(_friendlyError(error));
@@ -201,9 +202,9 @@ class _UserBlockActionState extends State<UserBlockAction> {
         ),
         style: OutlinedButton.styleFrom(
           foregroundColor:
-              _blocked ? AppColors.materialSky : Colors.redAccent,
+              _blocked ? AppColors.materialSky : AppColors.redAccent,
           side: BorderSide(
-            color: (_blocked ? AppColors.materialSky : Colors.redAccent)
+            color: (_blocked ? AppColors.materialSky : AppColors.redAccent)
                 .withValues(alpha: 0.35),
           ),
           padding: const EdgeInsets.symmetric(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+
 import '../../theme/nightTheme.dart';
-import 'services/assigned_quiz_service.dart';
 import 'quiz.dart';
+import 'services/assigned_quiz_service.dart';
+import 'package:fe/quiz/exercises/exercise_session_page.dart';
 
 class AssignedQuizzesPage extends StatefulWidget {
   const AssignedQuizzesPage({super.key});
@@ -12,7 +14,8 @@ class AssignedQuizzesPage extends StatefulWidget {
 
 class _AssignedQuizzesPageState extends State<AssignedQuizzesPage> {
   final AssignedQuizService _service = AssignedQuizService();
-  List<Map<String, dynamic>> _items = [];
+
+  List<Map<String, dynamic>> _items = <Map<String, dynamic>>[];
   bool _loading = true;
   int? _startingAssignmentId;
   String? _error;
@@ -28,18 +31,23 @@ class _AssignedQuizzesPageState extends State<AssignedQuizzesPage> {
       _loading = true;
       _error = null;
     });
+
     try {
-      final items = await _service.getAssignedQuizzes();
+      final List<Map<String, dynamic>> items = await _service
+          .getAssignedQuizzes();
+
       if (!mounted) return;
+
       setState(() {
         _items = items;
         _loading = false;
       });
     } catch (error) {
       if (!mounted) return;
+
       setState(() {
         _loading = false;
-        _error = _cleanError(error);
+        _error = _friendlyError(error);
       });
     }
   }
@@ -52,7 +60,7 @@ class _AssignedQuizzesPageState extends State<AssignedQuizzesPage> {
         backgroundColor: AppColors.brandNightBlue,
         foregroundColor: AppColors.pureWhite,
         title: const Text('Quiz assegnati'),
-        actions: [
+        actions: <Widget>[
           IconButton(
             tooltip: 'Aggiorna',
             onPressed: _loading ? null : _load,
@@ -68,13 +76,16 @@ class _AssignedQuizzesPageState extends State<AssignedQuizzesPage> {
     if (_loading) {
       return const Center(child: CircularProgressIndicator());
     }
+
     if (_error != null) {
       return _state(
         icon: Icons.error_outline_rounded,
         title: 'Impossibile caricare i quiz',
         message: _error!,
+        showRetry: true,
       );
     }
+
     if (_items.isEmpty) {
       return _state(
         icon: Icons.assignment_outlined,
@@ -82,15 +93,18 @@ class _AssignedQuizzesPageState extends State<AssignedQuizzesPage> {
         message: 'Quando un docente ti assegnerà un quiz, comparirà qui.',
       );
     }
+
     return RefreshIndicator(
       onRefresh: _load,
       child: ListView.separated(
+        physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.all(16),
         itemCount: _items.length,
         separatorBuilder: (_, __) => const SizedBox(height: 12),
-        itemBuilder: (_, index) {
-          final item = _items[index];
-          final id = _toInt(item['id']);
+        itemBuilder: (_, int index) {
+          final Map<String, dynamic> item = _items[index];
+          final int? id = _toInt(item['id']);
+
           return _AssignedQuizCard(
             data: item,
             busy: id != null && _startingAssignmentId == id,
@@ -105,19 +119,24 @@ class _AssignedQuizzesPageState extends State<AssignedQuizzesPage> {
     required IconData icon,
     required String title,
     required String message,
+    bool showRetry = false,
   }) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, color: AppColors.skyBlue, size: 48),
+          children: <Widget>[
+            Icon(
+              icon,
+              color: showRetry ? AppColors.redAccent : AppColors.skyBlue,
+              size: 48,
+            ),
             const SizedBox(height: 12),
             Text(
               title,
               textAlign: TextAlign.center,
-              style: const TextStyle(
+              style: TextStyle(
                 color: AppColors.pureWhite,
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
@@ -127,8 +146,16 @@ class _AssignedQuizzesPageState extends State<AssignedQuizzesPage> {
             Text(
               message,
               textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.white54),
+              style: TextStyle(color: AppColors.white54),
             ),
+            if (showRetry) ...<Widget>[
+              const SizedBox(height: 14),
+              OutlinedButton.icon(
+                onPressed: _load,
+                icon: const Icon(Icons.refresh_rounded),
+                label: const Text('Riprova'),
+              ),
+            ],
           ],
         ),
       ),
@@ -136,11 +163,11 @@ class _AssignedQuizzesPageState extends State<AssignedQuizzesPage> {
   }
 
   Future<void> _handleQuiz(Map<String, dynamic> item, int assignmentId) async {
-    final isExpired = item['is_expired'] == true;
-    final isCompleted = item['is_completed'] == true;
-    final isInProgress = item['is_in_progress'] == true;
-    final canStart = item['can_start'] == true;
-    final attemptId = _toInt(item['attempt_id']);
+    final bool isExpired = item['is_expired'] == true;
+    final bool isCompleted = item['is_completed'] == true;
+    final bool isInProgress = item['is_in_progress'] == true;
+    final bool canStart = item['can_start'] == true;
+    final int? attemptId = _toInt(item['attempt_id']);
 
     if (isExpired && !isCompleted) {
       _showMessage('Questo quiz è scaduto.');
@@ -148,16 +175,40 @@ class _AssignedQuizzesPageState extends State<AssignedQuizzesPage> {
     }
 
     if (isCompleted && attemptId != null) {
-      final attempt = await _safeGetAttempt(attemptId);
+      final Map<String, dynamic>? attempt = await _safeGetAttempt(attemptId);
+
       if (!mounted || attempt == null) return;
+
       await _showAttemptSummary(attempt, completed: true);
       return;
     }
 
     if (isInProgress && attemptId != null) {
-      _showMessage(
-        'Hai già un tentativo in corso. La ripresa sicura dello snapshot verrà collegata al relativo endpoint.',
-      );
+      setState(() {
+        _startingAssignmentId = assignmentId;
+      });
+
+      try {
+        final Map<String, dynamic> attempt = await _service.resumeAttempt(
+          attemptId,
+        );
+
+        if (!mounted) return;
+
+        await _openAssignedAttempt(attempt);
+
+        if (!mounted) return;
+        await _load();
+      } catch (error) {
+        if (!mounted) return;
+        _showMessage(_friendlyError(error));
+      } finally {
+        if (mounted) {
+          setState(() {
+            _startingAssignmentId = null;
+          });
+        }
+      }
       return;
     }
 
@@ -166,14 +217,12 @@ class _AssignedQuizzesPageState extends State<AssignedQuizzesPage> {
       return;
     }
 
-    final confirmed = await showDialog<bool>(
+    final bool? confirmed = await showDialog<bool>(
       context: context,
-      builder: (dialogContext) => AlertDialog(
+      builder: (BuildContext dialogContext) => AlertDialog(
         title: const Text('Avviare il quiz?'),
-        content: Text(
-          _startWarning(item),
-        ),
-        actions: [
+        content: Text(_startWarning(item)),
+        actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.pop(dialogContext, false),
             child: const Text('Annulla'),
@@ -188,89 +237,75 @@ class _AssignedQuizzesPageState extends State<AssignedQuizzesPage> {
 
     if (confirmed != true || !mounted) return;
 
-    setState(() => _startingAssignmentId = assignmentId);
+    setState(() {
+      _startingAssignmentId = assignmentId;
+    });
+
     try {
-      final attempt = await _service.startAssignedQuiz(assignmentId);
+      final Map<String, dynamic> attempt = await _service.startAssignedQuiz(
+        assignmentId,
+      );
+
       if (!mounted) return;
+
       await _openAssignedAttempt(attempt);
+
       if (!mounted) return;
       await _load();
     } catch (error) {
       if (!mounted) return;
-      _showMessage(_cleanError(error));
+      _showMessage(_friendlyError(error));
     } finally {
       if (mounted) {
-        setState(() => _startingAssignmentId = null);
+        setState(() {
+          _startingAssignmentId = null;
+        });
       }
     }
   }
 
-  Future<void> _openAssignedAttempt(
-    Map<String, dynamic> attempt,
-  ) async {
-    final int? attemptId =
-        _toInt(attempt['attempt_id']);
+  Future<void> _openAssignedAttempt(Map<String, dynamic> attempt) async {
+    final int? attemptId = _toInt(attempt['attempt_id']);
 
-    final String department =
-        attempt['department']
-                ?.toString()
-                .trim() ??
-            '';
-
-    final String course =
-        attempt['course']
-                ?.toString()
-                .trim() ??
-            '';
-
-    final String subject =
-        attempt['subject']
-                ?.toString()
-                .trim() ??
-            '';
-
-    final dynamic rawQuestions =
-        attempt['questions'];
+    final String department = attempt['department']?.toString().trim() ?? '';
+    final String course = attempt['course']?.toString().trim() ?? '';
+    final String subject = attempt['subject']?.toString().trim() ?? '';
+    final dynamic rawQuestions = attempt['questions'];
 
     if (attemptId == null ||
         department.isEmpty ||
         course.isEmpty ||
         subject.isEmpty ||
         rawQuestions is! List) {
-      _showMessage(
-        'Il quiz ricevuto dal server non è valido.',
-      );
+      _showMessage('Il quiz ricevuto dal server non è valido.');
       return;
     }
 
-    final List<Map<String, dynamic>>
-        questions = rawQuestions
-            .whereType<Map>()
-            .map(
-              (item) =>
-                  Map<String, dynamic>.from(
-                item,
-              ),
-            )
-            .toList();
+    final List<Map<String, dynamic>> questions = rawQuestions
+        .whereType<Map>()
+        .map((Map item) => Map<String, dynamic>.from(item))
+        .toList();
 
     if (questions.isEmpty) {
-      _showMessage(
-        'Il quiz non contiene domande.',
+      _showMessage('Il quiz non contiene domande.');
+      return;
+    }
+
+    // v18: con esercizi dei nuovi tipi si apre la sessione esercizi (anche per le domande miste).
+    if (questions.any((Map<String, dynamic> q) =>
+        (q['type']?.toString() ?? 'multiple_choice') != 'multiple_choice')) {
+      await Navigator.of(context).push(
+        MaterialPageRoute<void>(
+          builder: (_) => ExerciseSessionPage.attempt(attempt: attempt),
+        ),
       );
       return;
     }
 
-    final int? timeLimitSeconds =
-        _toInt(
-      attempt['time_limit_seconds'],
-    );
+    final int? timeLimitSeconds = _toInt(attempt['time_limit_seconds']);
 
-    final DateTime? startedAt =
-        DateTime.tryParse(
-      attempt['started_at']
-              ?.toString() ??
-          '',
+    final DateTime? startedAt = DateTime.tryParse(
+      attempt['started_at']?.toString() ?? '',
     );
 
     await Navigator.of(context).push(
@@ -281,12 +316,9 @@ class _AssignedQuizzesPageState extends State<AssignedQuizzesPage> {
           course: course,
           sub: subject,
           assignedQuestions: questions,
-          timeLimitSeconds:
-              timeLimitSeconds,
-          assignedStartedAt:
-              startedAt?.toLocal(),
-          executionMode:
-              attempt['execution_mode']?.toString() ?? 'practice',
+          timeLimitSeconds: timeLimitSeconds,
+          assignedStartedAt: startedAt?.toLocal(),
+          executionMode: attempt['execution_mode']?.toString() ?? 'practice',
           externalActivityPolicy:
               attempt['external_activity_policy']?.toString() ?? 'disabled',
         ),
@@ -298,7 +330,9 @@ class _AssignedQuizzesPageState extends State<AssignedQuizzesPage> {
     try {
       return await _service.getAttempt(attemptId);
     } catch (error) {
-      if (mounted) _showMessage(_cleanError(error));
+      if (mounted) {
+        _showMessage(_friendlyError(error));
+      }
       return null;
     }
   }
@@ -307,17 +341,18 @@ class _AssignedQuizzesPageState extends State<AssignedQuizzesPage> {
     Map<String, dynamic> attempt, {
     required bool completed,
   }) {
-    final questionCount = _toInt(attempt['question_count']) ?? 0;
-    final timeLimit = _toInt(attempt['time_limit_seconds']);
-    final percentage = _toDouble(attempt['percentage']);
+    final int questionCount = _toInt(attempt['question_count']) ?? 0;
+    final int? timeLimit = _toInt(attempt['time_limit_seconds']);
+    final double? percentage = _toDouble(attempt['percentage']);
+
     return showDialog<void>(
       context: context,
-      builder: (dialogContext) => AlertDialog(
+      builder: (BuildContext dialogContext) => AlertDialog(
         title: Text(completed ? 'Quiz completato' : 'Tentativo pronto'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: <Widget>[
             Text('${attempt['subject'] ?? 'Materia'}'),
             const SizedBox(height: 8),
             Text('$questionCount domande'),
@@ -325,15 +360,9 @@ class _AssignedQuizzesPageState extends State<AssignedQuizzesPage> {
               Text('${(timeLimit / 60).ceil()} minuti disponibili'),
             if (completed && percentage != null)
               Text('Risultato: ${percentage.toStringAsFixed(1)}%'),
-            if (!completed) ...[
-              const SizedBox(height: 12),
-              const Text(
-                'Il tentativo è stato creato correttamente. Nel prossimo passaggio colleghiamo questo snapshot al QuizPage esistente.',
-              ),
-            ],
           ],
         ),
-        actions: [
+        actions: <Widget>[
           FilledButton(
             onPressed: () => Navigator.pop(dialogContext),
             child: const Text('Chiudi'),
@@ -344,49 +373,92 @@ class _AssignedQuizzesPageState extends State<AssignedQuizzesPage> {
   }
 
   String _startWarning(Map<String, dynamic> item) {
-    final count = _toInt(item['question_count']) ?? 0;
-    final seconds = _toInt(item['time_limit_seconds']);
-    final dueAt = DateTime.tryParse(item['due_at']?.toString() ?? '')?.toLocal();
-    final parts = <String>['Il quiz contiene $count domande.'];
+    final int count = _toInt(item['question_count']) ?? 0;
+    final int? seconds = _toInt(item['time_limit_seconds']);
+    final DateTime? dueAt = DateTime.tryParse(
+      item['due_at']?.toString() ?? '',
+    )?.toLocal();
+
+    final List<String> parts = <String>['Il quiz contiene $count domande.'];
+
     if (seconds != null) {
       parts.add('Tempo limite: ${(seconds / 60).ceil()} minuti.');
     }
+
     if (dueAt != null) {
       parts.add('Scadenza: ${_formatDate(dueAt)}.');
     }
-    parts.add('Dopo l’avvio verrà creato il tuo unico tentativo per questa assegnazione.');
+
+    parts.add(
+      'Dopo l’avvio verrà creato il tuo unico tentativo per questa assegnazione.',
+    );
+
     return parts.join('\n\n');
   }
 
+  String _friendlyError(Object error) {
+    final String raw = error.toString().trim();
+    final String normalized = raw.toLowerCase();
+
+    if (normalized.contains('401') ||
+        normalized.contains('non autenticato') ||
+        normalized.contains('sessione non è più valida')) {
+      return 'La sessione non è più valida. Accedi nuovamente a StudentLab.';
+    }
+
+    if (normalized.contains('socket') ||
+        normalized.contains('network') ||
+        normalized.contains('connection') ||
+        normalized.contains('timeout') ||
+        normalized.contains('host lookup')) {
+      return 'Non è stato possibile contattare StudentLab. Controlla la connessione e riprova.';
+    }
+
+    if (normalized.contains('500') ||
+        normalized.contains('internal server') ||
+        normalized.contains('errore tecnico')) {
+      return 'StudentLab non riesce a caricare i quiz assegnati in questo momento. Riprova.';
+    }
+
+    String message = raw;
+
+    if (message.startsWith('Exception: ')) {
+      message = message.substring('Exception: '.length);
+    }
+
+    if (message.startsWith('Bad state: ')) {
+      message = message.substring('Bad state: '.length);
+    }
+
+    return message.isEmpty
+        ? 'Non è stato possibile completare l’operazione.'
+        : message;
+  }
+
   void _showMessage(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
 
   int? _toInt(dynamic value) {
     if (value is int) return value;
     if (value is num) return value.toInt();
+
     return int.tryParse(value?.toString() ?? '');
   }
 
   double? _toDouble(dynamic value) {
     if (value is num) return value.toDouble();
+
     return double.tryParse(value?.toString() ?? '');
   }
 
   String _formatDate(DateTime value) {
-    String two(int n) => n.toString().padLeft(2, '0');
+    String two(int number) => number.toString().padLeft(2, '0');
+
     return '${two(value.day)}/${two(value.month)}/${value.year} '
         '${two(value.hour)}:${two(value.minute)}';
-  }
-
-  String _cleanError(Object error) {
-    var message = error.toString().trim();
-    if (message.startsWith('Exception: ')) {
-      message = message.substring('Exception: '.length);
-    }
-    return message.isEmpty ? 'Operazione non riuscita.' : message;
   }
 }
 
@@ -403,11 +475,13 @@ class _AssignedQuizCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final status = _status(data);
-    final dueAt = DateTime.tryParse(data['due_at']?.toString() ?? '')?.toLocal();
-    final questionCount = _toInt(data['question_count']) ?? 0;
-    final seconds = _toInt(data['time_limit_seconds']);
-    final description = data['description']?.toString().trim() ?? '';
+    final (String, _StatusTone) status = _status(data);
+    final DateTime? dueAt = DateTime.tryParse(
+      data['due_at']?.toString() ?? '',
+    )?.toLocal();
+    final int questionCount = _toInt(data['question_count']) ?? 0;
+    final int? seconds = _toInt(data['time_limit_seconds']);
+    final String description = data['description']?.toString().trim() ?? '';
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -418,13 +492,13 @@ class _AssignedQuizCard extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children: <Widget>[
           Row(
-            children: [
+            children: <Widget>[
               Expanded(
                 child: Text(
                   data['title']?.toString() ?? 'Quiz',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.pureWhite,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -437,18 +511,18 @@ class _AssignedQuizCard extends StatelessWidget {
           const SizedBox(height: 5),
           Text(
             data['subject']?.toString() ?? '',
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.skyBlue,
               fontSize: 11,
               fontWeight: FontWeight.w600,
             ),
           ),
-          if (description.isNotEmpty) ...[
+          if (description.isNotEmpty) ...<Widget>[
             const SizedBox(height: 8),
             Text(
               description,
-              style: const TextStyle(
-                color: Colors.white54,
+              style: TextStyle(
+                color: AppColors.white54,
                 fontSize: 11,
                 height: 1.4,
               ),
@@ -458,7 +532,7 @@ class _AssignedQuizCard extends StatelessWidget {
           Wrap(
             spacing: 8,
             runSpacing: 8,
-            children: [
+            children: <Widget>[
               _InfoChip(
                 icon: Icons.quiz_outlined,
                 label: '$questionCount domande',
@@ -500,12 +574,15 @@ class _AssignedQuizCard extends StatelessWidget {
     if (data['is_completed'] == true) {
       return ('Completato', _StatusTone.completed);
     }
+
     if (data['is_expired'] == true) {
       return ('Scaduto', _StatusTone.expired);
     }
+
     if (data['is_in_progress'] == true) {
       return ('In corso', _StatusTone.progress);
     }
+
     return ('Da svolgere', _StatusTone.pending);
   }
 
@@ -513,24 +590,36 @@ class _AssignedQuizCard extends StatelessWidget {
     if (data['is_completed'] == true) return 'Vedi risultato';
     if (data['is_expired'] == true) return 'Quiz scaduto';
     if (data['is_in_progress'] == true) return 'Riprendi quiz';
+
     return 'Avvia quiz';
   }
 
   static IconData _buttonIcon(Map<String, dynamic> data) {
-    if (data['is_completed'] == true) return Icons.insights_outlined;
-    if (data['is_expired'] == true) return Icons.lock_clock_outlined;
-    if (data['is_in_progress'] == true) return Icons.play_circle_outline_rounded;
+    if (data['is_completed'] == true) {
+      return Icons.insights_outlined;
+    }
+
+    if (data['is_expired'] == true) {
+      return Icons.lock_clock_outlined;
+    }
+
+    if (data['is_in_progress'] == true) {
+      return Icons.play_circle_outline_rounded;
+    }
+
     return Icons.play_arrow_rounded;
   }
 
   static int? _toInt(dynamic value) {
     if (value is int) return value;
     if (value is num) return value.toInt();
+
     return int.tryParse(value?.toString() ?? '');
   }
 
   static String _formatDate(DateTime value) {
-    String two(int n) => n.toString().padLeft(2, '0');
+    String two(int number) => number.toString().padLeft(2, '0');
+
     return '${two(value.day)}/${two(value.month)} '
         '${two(value.hour)}:${two(value.minute)}';
   }
@@ -546,12 +635,13 @@ class _StatusBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = switch (tone) {
+    final Color color = switch (tone) {
       _StatusTone.pending => AppColors.skyBlue,
-      _StatusTone.progress => Colors.amberAccent,
-      _StatusTone.completed => Colors.greenAccent,
-      _StatusTone.expired => Colors.redAccent,
+      _StatusTone.progress => AppColors.amberAccent,
+      _StatusTone.completed => AppColors.greenAccent,
+      _StatusTone.expired => AppColors.redAccent,
     };
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 5),
       decoration: BoxDecoration(
@@ -586,12 +676,12 @@ class _InfoChip extends StatelessWidget {
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        children: [
+        children: <Widget>[
           Icon(icon, color: AppColors.skyBlue, size: 14),
           const SizedBox(width: 5),
           Text(
             label,
-            style: const TextStyle(color: Colors.white70, fontSize: 10),
+            style: TextStyle(color: AppColors.white70, fontSize: 10),
           ),
         ],
       ),

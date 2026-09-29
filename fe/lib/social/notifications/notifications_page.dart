@@ -267,7 +267,7 @@ super.initState();
                   .eleganceDeepNavy,
 
           title:
-              const Text(
+              Text(
             'Rifiuta proprietà',
 
             style:
@@ -589,7 +589,7 @@ super.initState();
                 MainAxisSize.min,
 
             children: [
-              const Icon(
+              Icon(
                 Icons
                     .cloud_off_rounded,
 
@@ -597,7 +597,7 @@ super.initState();
                     46,
 
                 color:
-                    Colors.white38,
+                    AppColors.white38,
               ),
 
               const SizedBox(
@@ -688,7 +688,7 @@ super.initState();
                     14,
               ),
 
-              const Text(
+              Text(
                 'Nessuna notifica',
 
                 style:
@@ -885,7 +885,7 @@ super.initState();
                                     8,
 
                                 decoration:
-                                    const BoxDecoration(
+                                    BoxDecoration(
                                   color:
                                       AppColors
                                           .skyBlue,
@@ -1284,7 +1284,7 @@ super.initState();
                 .check_circle_outline_rounded;
 
         color =
-            Colors.greenAccent;
+            AppColors.greenAccent;
         break;
 
       case 'rejected':
@@ -1296,7 +1296,7 @@ super.initState();
                 .cancel_outlined;
 
         color =
-            Colors.redAccent;
+            AppColors.redAccent;
         break;
 
       case 'expired':
@@ -1308,7 +1308,7 @@ super.initState();
                 .schedule_outlined;
 
         color =
-            Colors.orangeAccent;
+            AppColors.orangeAccent;
         break;
 
       case 'cancelled':
@@ -1320,7 +1320,7 @@ super.initState();
                 .block_outlined;
 
         color =
-            Colors.white54;
+            AppColors.white54;
         break;
 
       default:

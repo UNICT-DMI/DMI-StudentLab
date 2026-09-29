@@ -52,14 +52,14 @@ class _DeveloperGraphPageState
         _graph = graph;
         _loading = false;
       });
-    } catch (error) {
+    } catch (_) {
       if (!mounted) {
         return;
       }
 
       setState(() {
         _loading = false;
-        _error = error.toString();
+        _error = 'Non è stato possibile caricare il grafo. Riprova tra poco.';
       });
     }
   }
@@ -99,7 +99,7 @@ class _DeveloperGraphPageState
                   DeveloperUiStyle.maxContentWidth,
             ),
             child: _loading
-                ? const Center(
+                ? Center(
                     child:
                         CircularProgressIndicator(
                       color:
@@ -147,7 +147,7 @@ class _DeveloperGraphPageState
                                     ),
                                   ),
                                   child:
-                                      const Icon(
+                                      Icon(
                                     Icons.hub_outlined,
                                     color: AppColors
                                         .lavenderBlue,
@@ -303,7 +303,7 @@ class _DeveloperGraphPageState
                           .description_outlined,
                   color: target
                           .securityCritical
-                      ? Colors.redAccent
+                      ? AppColors.redAccent
                       : AppColors
                           .materialSky,
                   size: 17,
@@ -311,7 +311,7 @@ class _DeveloperGraphPageState
               ),
               title: Text(
                 '${edge.label} → ${target.label}',
-                style: const TextStyle(
+                style: TextStyle(
                   color:
                       AppColors.pureWhite,
                   fontSize: 11,
@@ -326,11 +326,11 @@ class _DeveloperGraphPageState
               ),
               trailing:
                   target.securityCritical
-                      ? const Icon(
+                      ? Icon(
                           Icons
                               .lock_outline_rounded,
                           color:
-                              Colors.redAccent,
+                              AppColors.redAccent,
                           size: 16,
                         )
                       : null,
@@ -347,7 +347,7 @@ class _DeveloperGraphPageState
               DeveloperUiStyle.panelDecoration(
             borderColor:
                 file.securityCritical
-                    ? Colors.redAccent
+                    ? AppColors.redAccent
                     : DeveloperUiStyle
                         .layerColor(
                         file.layer ??
@@ -362,7 +362,7 @@ class _DeveloperGraphPageState
             ),
             child: ExpansionTile(
               collapsedIconColor:
-                  Colors.white38,
+                  AppColors.white38,
               iconColor:
                   AppColors.skyBlue,
               leading: Container(
@@ -384,7 +384,7 @@ class _DeveloperGraphPageState
                           .description_outlined,
                   color:
                       file.securityCritical
-                          ? Colors.redAccent
+                          ? AppColors.redAccent
                           : AppColors
                               .skyBlue,
                   size: 19,
@@ -395,7 +395,7 @@ class _DeveloperGraphPageState
                 maxLines: 1,
                 overflow:
                     TextOverflow.ellipsis,
-                style: const TextStyle(
+                style: TextStyle(
                   color:
                       AppColors.pureWhite,
                   fontSize: 12,
@@ -410,14 +410,14 @@ class _DeveloperGraphPageState
                     DeveloperUiStyle.bodyMuted,
               ),
               children: children.isEmpty
-                  ? const [
+                  ? [
                       ListTile(
                         title: Text(
                           'Nessuna relazione '
                           'diretta visibile.',
                           style: TextStyle(
                             color:
-                                Colors.white38,
+                                AppColors.white38,
                             fontSize: 10,
                           ),
                         ),

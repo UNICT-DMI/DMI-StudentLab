@@ -13,7 +13,7 @@ class LocalFileService {
   final AppDatabase _database;
 
   LocalFileService({AppDatabase? database})
-      : _database = database ?? AppDatabase.instance;
+    : _database = database ?? AppDatabase.instance;
 
   String _userRoot(int userId) => 'studentlab/users/$userId';
 
@@ -50,19 +50,15 @@ class LocalFileService {
     if (bytes.isEmpty) throw ArgumentError('Il file è vuoto.');
     final Database db = await _database.database;
     final String now = DateTime.now().toUtc().toIso8601String();
-    await db.insert(
-      DatabaseTables.localFileBlobs,
-      <String, Object?>{
-        'path': path,
-        'file_name': fileName,
-        'mime_type': mimeType,
-        'data': bytes,
-        'size': bytes.length,
-        'created_at': now,
-        'updated_at': now,
-      },
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    await db.insert(DatabaseTables.localFileBlobs, <String, Object?>{
+      'path': path,
+      'file_name': fileName,
+      'mime_type': mimeType,
+      'data': bytes,
+      'size': bytes.length,
+      'created_at': now,
+      'updated_at': now,
+    }, conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   Future<Map<String, Object?>?> _row(String path) async {
@@ -213,8 +209,51 @@ class LocalFileService {
   Future<Uint8List?> readBytes(String path) async {
     final Map<String, Object?>? row = await _row(path);
     final Object? data = row?['data'];
-    if (data is Uint8List) return data;
-    if (data is List<int>) return Uint8List.fromList(data);
+
+    if (data == null) {
+      return null;
+    }
+
+    if (data is Uint8List) {
+      return data;
+    }
+
+    if (data is ByteBuffer) {
+      return data.asUint8List();
+    }
+
+    if (data is ByteData) {
+      return data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+    }
+
+    if (data is TypedData) {
+      return data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+    }
+
+    if (data is List<int>) {
+      return Uint8List.fromList(data);
+    }
+
+    if (data is List) {
+      try {
+        return Uint8List.fromList(
+          data.map<int>((Object? value) {
+            if (value is int) {
+              return value;
+            }
+
+            if (value is num) {
+              return value.toInt();
+            }
+
+            throw StateError('Formato BLOB locale non riconosciuto.');
+          }).toList(),
+        );
+      } catch (_) {
+        return null;
+      }
+    }
+
     return null;
   }
 
@@ -230,7 +269,9 @@ class LocalFileService {
 
   Future<String?> calculateSha256(String path) async {
     final Uint8List? bytes = await readBytes(path);
-    return bytes == null ? null : sha256.convert(bytes).toString().toLowerCase();
+    return bytes == null
+        ? null
+        : sha256.convert(bytes).toString().toLowerCase();
   }
 
   Future<bool> matchesSha256({
@@ -265,7 +306,8 @@ class LocalFileService {
     );
   }
 
-  Future<void> deleteUserFiles(int userId) => deleteDirectory(_userRoot(userId));
+  Future<void> deleteUserFiles(int userId) =>
+      deleteDirectory(_userRoot(userId));
 
   Future<String> getUserStoragePath(int userId) async => _userRoot(userId);
 
@@ -273,12 +315,12 @@ class LocalFileService {
     required int userId,
     required int groupId,
   }) async => p.posix.join(
-        _userRoot(userId),
-        'uploads',
-        'pending',
-        'groups',
-        '$groupId',
-      );
+    _userRoot(userId),
+    'uploads',
+    'pending',
+    'groups',
+    '$groupId',
+  );
 
   Future<String> getDownloadDirectoryPath({
     required int userId,
@@ -286,21 +328,21 @@ class LocalFileService {
     int? remoteId,
     int? groupId,
   }) async => p.posix.joinAll(<String>[
-        _userRoot(userId),
-        'downloads',
-        _normalizeSource(source),
-        if (source.trim().toLowerCase() == 'group' && groupId != null) '$groupId',
-        if (remoteId != null && remoteId > 0) '$remoteId',
-      ]);
+    _userRoot(userId),
+    'downloads',
+    _normalizeSource(source),
+    if (source.trim().toLowerCase() == 'group' && groupId != null) '$groupId',
+    if (remoteId != null && remoteId > 0) '$remoteId',
+  ]);
 
   Future<String> getGroupDownloadDirectoryPath({
     required int userId,
     required int groupId,
   }) => getDownloadDirectoryPath(
-        userId: userId,
-        source: 'group',
-        groupId: groupId,
-      );
+    userId: userId,
+    source: 'group',
+    groupId: groupId,
+  );
 
   Future<void> openStoredFile(
     String path, {

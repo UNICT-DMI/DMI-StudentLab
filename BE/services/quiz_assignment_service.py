@@ -137,6 +137,74 @@ def _validate_configuration(
         raise ValueError(f"Il numero massimo di domande disponibili è {available}.")
 
 
+MULTIPLE_CHOICE = "multiple_choice"
+
+
+def _normalize_types(values: list[str] | None) -> list[str] | None:
+    """None / ["multiple_choice"] = assegnazione classica (nessun cambiamento)."""
+    from services.exercise_types import EXERCISE_TYPES
+    if not values:
+        return None
+    result = []
+    for value in values:
+        value = str(value).strip()
+        if value not in EXERCISE_TYPES and value != MULTIPLE_CHOICE:
+            raise ValueError(f"Tipo di esercizio non valido: {value}.")
+        if value == "flashcard":
+            raise ValueError("Le flashcard sono autovalutazione: non si assegnano con voto.")
+        if value not in result:
+            result.append(value)
+    return None if result == [MULTIPLE_CHOICE] else result
+
+
+def _validate_mixed(db: Session, department: str, course: str, subject: str, selection_mode: str,
+                    arguments: list[str], question_ids: list[int], item_ids: list[str], count: int,
+                    types: list[str]) -> list:
+    """Valida un'assegnazione con i nuovi tipi. Restituisce gli id scelti a mano (domande + esercizi)."""
+    from services import exercise_items
+    from services.code_runner import configured
+    if selection_mode == "selected_questions":
+        chosen: list = []
+        for question_id in question_ids:
+            if find_question(id_question=question_id, department=department, course=course, subject=subject,
+                             include_hidden=False) is None:
+                raise ValueError(f"La domanda {question_id} non è disponibile.")
+            chosen.append(int(question_id))
+        for item_id in item_ids:
+            item_id = str(item_id).strip()
+            item = exercise_items.resolve(db, department, course, subject, item_id)
+            if item is None and item_id.startswith("ex:") and item_id.count(":") == 1:
+                item = exercise_items.resolve(db, department, course, subject, f"{item_id}:1")
+            if item is None:
+                raise ValueError(f"L'esercizio {item_id} non è disponibile.")
+            if item["type"] == "flashcard":
+                raise ValueError("Le flashcard sono autovalutazione: non si assegnano con voto.")
+            if item["type"] == "codice" and not configured():
+                raise ValueError("Gli esercizi di codice richiedono il servizio di esecuzione (CODE_RUNNER_URL).")
+            chosen.append(item_id)
+        if not chosen:
+            raise ValueError("Scegli almeno una domanda o un esercizio.")
+        if len({str(c) for c in chosen}) != len(chosen):
+            raise ValueError("Lo stesso elemento non può essere scelto più volte.")
+        return chosen
+    if selection_mode == "arguments" and not arguments:
+        raise ValueError("Devi selezionare almeno un argomento.")
+    if count <= 0:
+        raise ValueError("Il numero di esercizi deve essere maggiore di zero.")
+    selected = arguments if selection_mode == "arguments" else []
+    exercise_types = [t for t in types if t != MULTIPLE_CHOICE]
+    available = len(exercise_items.pick(db, department, course, subject, types=exercise_types, arguments=selected,
+                                        count=count, code_runner=configured(), graded=True))
+    if MULTIPLE_CHOICE in types:
+        available += question_count(department=department, course=course, subject=subject,
+                                    selected_arguments=selected)
+    if available <= 0:
+        raise ValueError("Non ci sono esercizi disponibili per questa configurazione.")
+    if count > available:
+        raise ValueError(f"Il numero massimo di esercizi disponibili è {available}.")
+    return []
+
+
 def _normalize_ids(values: list[int]) -> list[int]:
     return list(dict.fromkeys(int(value) for value in values))
 
@@ -173,12 +241,15 @@ def _notify(db: Session, assignment: QuizAssignment, actor: User, user_ids: set[
         if value and value.strip()
     ) or "Un docente"
     mode_label = "simulazione" if assignment.execution_mode == "simulation" else "esercitazione"
+    typed = bool(getattr(assignment, "question_types", None))
+    if getattr(assignment, "assigned_by_role", "teacher") == "admin":
+        actor_name = "StudentLab"
     for user_id in sorted(user_ids):
         create_notification(
             db=db,
             user_id=user_id,
             notification_type="quiz_assignment",
-            title="Nuovo quiz assegnato",
+            title="Nuovi esercizi assegnati" if typed else "Nuovo quiz assegnato",
             message=f'{actor_name} ti ha assegnato "{assignment.title}" per {assignment.subject} in modalità {mode_label}.',
             actor_user_id=actor.id,
             resource_type="quiz_assignment",
@@ -217,15 +288,22 @@ def create_quiz_assignment(db: Session, actor: User, data: QuizAssignmentCreate)
     if subject_record is None:
         raise ValueError("Materia non trovata.")
     _require_teacher_subject(db, actor, subject_record)
-    _validate_configuration(
-        data.department,
-        data.course,
-        data.subject,
-        data.selection_mode,
-        list(data.arguments),
-        list(data.question_ids),
-        data.question_count,
-    )
+    question_types = _normalize_types(data.question_types)
+    chosen_items: list = []
+    if question_types is None:
+        _validate_configuration(
+            data.department,
+            data.course,
+            data.subject,
+            data.selection_mode,
+            list(data.arguments),
+            list(data.question_ids),
+            data.question_count,
+        )
+    else:
+        chosen_items = _validate_mixed(db, data.department, data.course, data.subject, data.selection_mode,
+                                       list(data.arguments), list(data.question_ids), list(data.item_ids),
+                                       data.question_count, question_types)
     user_ids = _normalize_ids(list(data.user_ids))
     group_ids = _normalize_ids(list(data.group_ids))
     _validate_recipients(db, actor, user_ids, group_ids)
@@ -244,10 +322,15 @@ def create_quiz_assignment(db: Session, actor: User, data: QuizAssignmentCreate)
         execution_mode=data.execution_mode,
         external_activity_policy=data.external_activity_policy,
         selected_arguments=list(data.arguments) if data.selection_mode == "arguments" else [],
-        selected_question_ids=list(data.question_ids) if data.selection_mode == "selected_questions" else [],
-        question_count=len(data.question_ids) if data.selection_mode == "selected_questions" else data.question_count,
+        selected_question_ids=(chosen_items if question_types else list(data.question_ids))
+        if data.selection_mode == "selected_questions" else [],
+        question_count=(len(chosen_items) if question_types else len(data.question_ids))
+        if data.selection_mode == "selected_questions" else data.question_count,
         time_limit_seconds=data.time_limit_seconds,
         due_at=due_at,
+        question_types=question_types,
+        attempts_per_item=data.attempts_per_item,
+        assigned_by_role="admin" if actor.role in {"admin", "creator"} else "teacher",
         is_active=True,
     )
     try:
@@ -278,7 +361,8 @@ def update_quiz_assignment(
 
     structural_fields = {
         "department", "course", "subject", "selection_mode", "execution_mode", "external_activity_policy",
-        "arguments", "question_ids", "question_count", "time_limit_seconds",
+        "arguments", "question_ids", "question_count", "time_limit_seconds", "question_types", "item_ids",
+        "attempts_per_item",
     }
     if _has_attempts(db, assignment.id) and structural_fields.intersection(values):
         raise ValueError("Non puoi modificare struttura, modalità o tempo del quiz dopo l'avvio di un tentativo.")
@@ -293,7 +377,30 @@ def update_quiz_assignment(
     if "description" in values:
         values["description"] = values["description"].strip() if values["description"] else None
 
-    if any(key in values for key in {"selection_mode", "arguments", "question_ids", "question_count"}):
+    if "question_types" in values:
+        values["question_types"] = _normalize_types(values["question_types"])
+    question_types = values.get("question_types", assignment.question_types)
+    item_ids = values.pop("item_ids", None)
+    if item_ids and not question_types:
+        raise ValueError("Per assegnare esercizi dei nuovi tipi indica anche i tipi scelti.")
+    if question_types and (item_ids is not None or any(key in values for key in {
+            "selection_mode", "arguments", "question_ids", "question_count", "question_types"})):
+        selection_mode = values.get("selection_mode", assignment.selection_mode)
+        arguments = values.get("arguments", assignment.selected_arguments or [])
+        previous = assignment.selected_question_ids or []
+        question_ids = values.get("question_ids", [p for p in previous if not isinstance(p, str)])
+        items = item_ids if item_ids is not None else [p for p in previous if isinstance(p, str)]
+        count = values.get("question_count", assignment.question_count)
+        chosen = _validate_mixed(db, assignment.department, assignment.course, assignment.subject, selection_mode,
+                                 list(arguments or []), list(question_ids or []), list(items or []), count,
+                                 question_types or [MULTIPLE_CHOICE])
+        values["selected_arguments"] = list(arguments or []) if selection_mode == "arguments" else []
+        values["selected_question_ids"] = chosen if selection_mode == "selected_questions" else []
+        values.pop("arguments", None)
+        values.pop("question_ids", None)
+        if selection_mode == "selected_questions":
+            values["question_count"] = len(chosen)
+    elif any(key in values for key in {"selection_mode", "arguments", "question_ids", "question_count"}):
         selection_mode = values.get("selection_mode", assignment.selection_mode)
         arguments = values.get("arguments", assignment.selected_arguments or [])
         question_ids = values.get("question_ids", assignment.selected_question_ids or [])
@@ -445,6 +552,9 @@ def get_user_quiz_assignments(db: Session, user_id: int) -> list[dict]:
             "question_count": assignment.question_count,
             "time_limit_seconds": assignment.time_limit_seconds,
             "due_at": assignment.due_at,
+            "question_types": assignment.question_types,
+            "attempts_per_item": assignment.attempts_per_item,
+            "assigned_by_role": assignment.assigned_by_role or "teacher",
             "is_active": assignment.is_active,
             "created_at": assignment.created_at,
             "updated_at": assignment.updated_at,

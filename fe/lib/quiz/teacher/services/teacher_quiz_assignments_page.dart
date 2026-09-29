@@ -285,7 +285,7 @@ class _TeacherQuizAssignmentsPageState
               textAlign:
                   TextAlign.center,
               style:
-                  const TextStyle(
+                  TextStyle(
                 color:
                     AppColors.pureWhite,
                 fontSize:
@@ -303,9 +303,9 @@ class _TeacherQuizAssignmentsPageState
               textAlign:
                   TextAlign.center,
               style:
-                  const TextStyle(
+                  TextStyle(
                 color:
-                    Colors.white54,
+                    AppColors.white54,
               ),
             ),
           ],
@@ -654,7 +654,7 @@ class _AssignmentCard
                     Text(
                   title,
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
                         AppColors.pureWhite,
                     fontSize:
@@ -676,12 +676,12 @@ class _AssignmentCard
                     BoxDecoration(
                   color:
                       active
-                          ? Colors.greenAccent
+                          ? AppColors.greenAccent
                               .withValues(
                             alpha:
                                 0.1,
                           )
-                          : Colors.white10,
+                          : AppColors.white10,
                   borderRadius:
                       BorderRadius.circular(
                     20,
@@ -696,8 +696,8 @@ class _AssignmentCard
                       TextStyle(
                     color:
                         active
-                            ? Colors.greenAccent
-                            : Colors.white54,
+                            ? AppColors.greenAccent
+                            : AppColors.white54,
                     fontSize:
                         10,
                   ),
@@ -839,9 +839,9 @@ class _AssignmentCard
           Text(
             text,
             style:
-                const TextStyle(
+                TextStyle(
               color:
-                  Colors.white70,
+                  AppColors.white70,
               fontSize:
                   10,
             ),

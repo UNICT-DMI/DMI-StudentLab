@@ -17,6 +17,8 @@ class QuizAssignment(Base):
         CheckConstraint("execution_mode IN ('practice','simulation')", name="chk_quiz_assignment_execution_mode"),
         CheckConstraint("external_activity_policy IN ('disabled','structured_devices')", name="chk_quiz_assignment_external_activity_policy"),
         CheckConstraint("question_count > 0", name="chk_quiz_assignment_question_count"),
+        CheckConstraint("assigned_by_role IN ('teacher','admin')", name="chk_quiz_assignment_assigned_by_role"),
+        CheckConstraint("attempts_per_item IS NULL OR attempts_per_item BETWEEN 1 AND 5", name="chk_quiz_assignment_attempts_per_item"),
     )
 
     id = Column(Integer, primary_key=True, index=True)
@@ -35,6 +37,10 @@ class QuizAssignment(Base):
     question_count = Column(Integer, nullable=False)
     time_limit_seconds = Column(Integer, nullable=True)
     due_at = Column(DateTime(timezone=True), nullable=True, index=True)
+    # v18 · tipi di esercizio assegnati (NULL = solo domande a risposta multipla, come prima).
+    question_types = Column(JSON, nullable=True)
+    attempts_per_item = Column(Integer, nullable=True)
+    assigned_by_role = Column(String(20), nullable=False, default="teacher", server_default="teacher")
     is_active = Column(Boolean, nullable=False, default=True, index=True)
     created_at = Column(DateTime(timezone=True), nullable=False, default=utc_now)
     updated_at = Column(DateTime(timezone=True), nullable=False, default=utc_now, onupdate=utc_now)

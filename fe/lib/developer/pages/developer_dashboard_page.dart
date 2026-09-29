@@ -56,14 +56,14 @@ class _DeveloperDashboardPageState
         _status = status;
         _loading = false;
       });
-    } catch (error) {
+    } catch (_) {
       if (!mounted) {
         return;
       }
 
       setState(() {
         _loading = false;
-        _error = error.toString();
+        _error = 'Non è stato possibile caricare il riepilogo. Riprova tra poco.';
       });
     }
   }
@@ -106,7 +106,7 @@ class _DeveloperDashboardPageState
                   _buildHeader(status),
                   const SizedBox(height: 20),
                   if (_loading)
-                    const Padding(
+                    Padding(
                       padding:
                           EdgeInsets.symmetric(vertical: 45),
                       child: Center(
@@ -170,7 +170,7 @@ class _DeveloperDashboardPageState
               color: AppColors.brandNightBlue,
               borderRadius: BorderRadius.circular(16),
             ),
-            child: const Icon(
+            child: Icon(
               Icons.developer_mode_rounded,
               color: AppColors.skyBlue,
               size: 30,
@@ -205,7 +205,7 @@ class _DeveloperDashboardPageState
                       _HeaderBadge(
                         icon: Icons.verified_user_outlined,
                         label: widget.authorizedRole!,
-                        color: Colors.greenAccent,
+                        color: AppColors.greenAccent,
                       ),
                     if (status?.branch != null)
                       _HeaderBadge(
@@ -222,8 +222,8 @@ class _DeveloperDashboardPageState
                             ? 'Git connected'
                             : 'Git unavailable',
                         color: status.gitAvailable
-                            ? Colors.greenAccent
-                            : Colors.amber,
+                            ? AppColors.greenAccent
+                            : AppColors.amber,
                       ),
                   ],
                 ),
@@ -255,13 +255,13 @@ class _DeveloperDashboardPageState
         icon: Icons.verified_outlined,
         value: '${status.documentedFiles}',
         label: 'Documentati',
-        color: Colors.greenAccent,
+        color: AppColors.greenAccent,
       ),
       _MetricData(
         icon: Icons.warning_amber_rounded,
         value: '${status.outdatedFiles}',
         label: 'Outdated',
-        color: Colors.amber,
+        color: AppColors.amber,
       ),
       _MetricData(
         icon: Icons.change_circle_outlined,
@@ -273,7 +273,7 @@ class _DeveloperDashboardPageState
         icon: Icons.lock_outline_rounded,
         value: '${status.securityCriticalFiles}',
         label: 'Security',
-        color: Colors.redAccent,
+        color: AppColors.redAccent,
       ),
     ];
 
@@ -408,7 +408,7 @@ class _DeveloperDashboardPageState
               color: AppColors.brandNightBlue,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: const Icon(
+            child: Icon(
               Icons.source_outlined,
               color: AppColors.skyBlue,
               size: 22,
@@ -443,14 +443,14 @@ class _DeveloperDashboardPageState
               vertical: 5,
             ),
             decoration: BoxDecoration(
-              color: Colors.greenAccent
+              color: AppColors.greenAccent
                   .withValues(alpha: 0.08),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Text(
+            child: Text(
               'READ-ONLY',
               style: TextStyle(
-                color: Colors.greenAccent,
+                color: AppColors.greenAccent,
                 fontSize: 8,
                 fontWeight: FontWeight.bold,
               ),
@@ -504,7 +504,7 @@ class _MetricCard extends StatelessWidget {
           const Spacer(),
           Text(
             data.value,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.pureWhite,
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -587,9 +587,9 @@ class _DeveloperModuleCard
                     ),
                   ),
                   const Spacer(),
-                  const Icon(
+                  Icon(
                     Icons.arrow_forward_ios_rounded,
-                    color: Colors.white30,
+                    color: AppColors.white30,
                     size: 14,
                   ),
                 ],
@@ -597,7 +597,7 @@ class _DeveloperModuleCard
               const SizedBox(height: 13),
               Text(
                 data.title,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.pureWhite,
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -717,13 +717,13 @@ class _DeveloperErrorCard
       padding: const EdgeInsets.all(20),
       decoration:
           DeveloperUiStyle.panelDecoration(
-        borderColor: Colors.redAccent,
+        borderColor: AppColors.redAccent,
       ),
       child: Column(
         children: [
-          const Icon(
+          Icon(
             Icons.error_outline_rounded,
-            color: Colors.redAccent,
+            color: AppColors.redAccent,
             size: 34,
           ),
           const SizedBox(height: 10),

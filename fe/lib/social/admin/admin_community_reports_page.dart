@@ -250,7 +250,7 @@ class _AdminCommunityReportsPageState extends State<_AdminCommunityReportsPage> 
                     children: [
                       Text(
                         'Gestisci ${_title.toLowerCase()}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.pureWhite,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -321,7 +321,7 @@ class _AdminCommunityReportsPageState extends State<_AdminCommunityReportsPage> 
                         minLines: 3,
                         maxLines: 6,
                         maxLength: 2000,
-                        style: const TextStyle(color: AppColors.pureWhite),
+                        style: TextStyle(color: AppColors.pureWhite),
                         decoration: const InputDecoration(
                           labelText: 'Nota moderazione',
                           alignLabelWithHint: true,
@@ -470,7 +470,7 @@ class _AdminCommunityReportsPageState extends State<_AdminCommunityReportsPage> 
     if (_error != null) {
       return _StateMessage(
         icon: Icons.error_outline_rounded,
-        color: Colors.redAccent,
+        color: AppColors.redAccent,
         message: _error!,
         action: 'Riprova',
         onAction: _load,
@@ -478,9 +478,9 @@ class _AdminCommunityReportsPageState extends State<_AdminCommunityReportsPage> 
     }
 
     if (_reports.isEmpty) {
-      return const _StateMessage(
+      return _StateMessage(
         icon: Icons.verified_outlined,
-        color: Colors.greenAccent,
+        color: AppColors.greenAccent,
         message: 'Nessuna segnalazione in questa sezione.',
       );
     }
@@ -687,7 +687,7 @@ class _ReportCard extends StatelessWidget {
                       title,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.pureWhite,
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
@@ -699,8 +699,8 @@ class _ReportCard extends StatelessWidget {
                         subtitle,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          color: Colors.white54,
+                        style: TextStyle(
+                          color: AppColors.white54,
                           fontSize: 10,
                         ),
                       ),
@@ -715,9 +715,9 @@ class _ReportCard extends StatelessWidget {
           const SizedBox(height: 13),
           Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.person_outline_rounded,
-                color: Colors.white38,
+                color: AppColors.white38,
                 size: 15,
               ),
               const SizedBox(width: 6),
@@ -726,8 +726,8 @@ class _ReportCard extends StatelessWidget {
                   kind == AdminCommunityReportKind.groups
                       ? 'Segnalato da $reporterName'
                       : 'Segnalazione di $reporterName',
-                  style: const TextStyle(
-                    color: Colors.white54,
+                  style: TextStyle(
+                    color: AppColors.white54,
                     fontSize: 10,
                   ),
                 ),
@@ -735,8 +735,8 @@ class _ReportCard extends StatelessWidget {
               if (date.isNotEmpty)
                 Text(
                   date,
-                  style: const TextStyle(
-                    color: Colors.white30,
+                  style: TextStyle(
+                    color: AppColors.white30,
                     fontSize: 9,
                   ),
                 ),
@@ -752,8 +752,8 @@ class _ReportCard extends StatelessWidget {
             ),
             child: Text(
               '“$description”',
-              style: const TextStyle(
-                color: Colors.white70,
+              style: TextStyle(
+                color: AppColors.white70,
                 fontSize: 11,
                 height: 1.45,
               ),
@@ -920,7 +920,7 @@ class _DetailCard extends StatelessWidget {
           const SizedBox(height: 12),
           Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.pureWhite,
               fontSize: 19,
               fontWeight: FontWeight.bold,
@@ -929,8 +929,8 @@ class _DetailCard extends StatelessWidget {
           const SizedBox(height: 9),
           SelectableText(
             description,
-            style: const TextStyle(
-              color: Colors.white60,
+            style: TextStyle(
+              color: AppColors.white60,
               fontSize: 11,
               height: 1.5,
             ),
@@ -946,8 +946,8 @@ class _DetailCard extends StatelessWidget {
                       width: 96,
                       child: Text(
                         value.$1,
-                        style: const TextStyle(
-                          color: Colors.white38,
+                        style: TextStyle(
+                          color: AppColors.white38,
                           fontSize: 10,
                         ),
                       ),
@@ -956,8 +956,8 @@ class _DetailCard extends StatelessWidget {
                       child: Text(
                         value.$2,
                         textAlign: TextAlign.right,
-                        style: const TextStyle(
-                          color: Colors.white70,
+                        style: TextStyle(
+                          color: AppColors.white70,
                           fontSize: 10,
                           fontWeight: FontWeight.w500,
                         ),
@@ -983,24 +983,24 @@ class _ReasonBadge extends StatelessWidget {
       constraints: const BoxConstraints(maxWidth: 145),
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
       decoration: BoxDecoration(
-        color: Colors.orangeAccent.withValues(alpha: 0.08),
+        color: AppColors.orangeAccent.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(9),
         border: Border.all(
-          color: Colors.orangeAccent.withValues(alpha: 0.16),
+          color: AppColors.orangeAccent.withValues(alpha: 0.16),
         ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.flag_outlined, color: Colors.orangeAccent, size: 13),
+          Icon(Icons.flag_outlined, color: AppColors.orangeAccent, size: 13),
           const SizedBox(width: 5),
           Flexible(
             child: Text(
               reason,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                color: Colors.orangeAccent,
+              style: TextStyle(
+                color: AppColors.orangeAccent,
                 fontSize: 9,
                 fontWeight: FontWeight.w600,
               ),
@@ -1067,8 +1067,8 @@ class _StateMessage extends StatelessWidget {
             Text(
               message,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.white54,
+              style: TextStyle(
+                color: AppColors.white54,
                 fontSize: 11,
                 height: 1.4,
               ),
@@ -1154,17 +1154,17 @@ String _statusLabel(String value) {
 Color _statusColor(String value) {
   switch (value.trim().toLowerCase()) {
     case 'pending':
-      return Colors.amber;
+      return AppColors.amber;
     case 'under_review':
     case 'reviewing':
       return AppColors.skyBlue;
     case 'resolved':
-      return Colors.greenAccent;
+      return AppColors.greenAccent;
     case 'dismissed':
     case 'rejected':
-      return Colors.white38;
+      return AppColors.white38;
     default:
-      return Colors.white54;
+      return AppColors.white54;
   }
 }
 

@@ -60,7 +60,7 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
       builder: (BuildContext dialogContext) {
         return AlertDialog(
           backgroundColor: AppColors.eleganceDeepNavy,
-          title: const Text(
+          title: Text(
             'Modifica nome e cognome',
             style: TextStyle(color: AppColors.pureWhite),
           ),
@@ -72,7 +72,7 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
                   controller: firstNameController,
                   textInputAction: TextInputAction.next,
                   textCapitalization: TextCapitalization.words,
-                  style: const TextStyle(color: AppColors.pureWhite),
+                  style: TextStyle(color: AppColors.pureWhite),
                   decoration: const InputDecoration(labelText: 'Nome'),
                 ),
                 const SizedBox(height: 12),
@@ -80,7 +80,7 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
                   controller: lastNameController,
                   textInputAction: TextInputAction.done,
                   textCapitalization: TextCapitalization.words,
-                  style: const TextStyle(color: AppColors.pureWhite),
+                  style: TextStyle(color: AppColors.pureWhite),
                   decoration: const InputDecoration(labelText: 'Cognome'),
                 ),
               ],
@@ -150,7 +150,7 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
       builder: (BuildContext dialogContext) {
         return AlertDialog(
           backgroundColor: AppColors.eleganceDeepNavy,
-          title: const Text(
+          title: Text(
             'Modifica password',
             style: TextStyle(color: AppColors.pureWhite),
           ),
@@ -162,7 +162,7 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
                   controller: currentController,
                   obscureText: true,
                   textInputAction: TextInputAction.next,
-                  style: const TextStyle(color: AppColors.pureWhite),
+                  style: TextStyle(color: AppColors.pureWhite),
                   decoration: const InputDecoration(
                     labelText: 'Password attuale',
                   ),
@@ -172,7 +172,7 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
                   controller: newController,
                   obscureText: true,
                   textInputAction: TextInputAction.next,
-                  style: const TextStyle(color: AppColors.pureWhite),
+                  style: TextStyle(color: AppColors.pureWhite),
                   decoration: const InputDecoration(
                     labelText: 'Nuova password',
                     helperText:
@@ -184,7 +184,7 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
                   controller: confirmController,
                   obscureText: true,
                   textInputAction: TextInputAction.done,
-                  style: const TextStyle(color: AppColors.pureWhite),
+                  style: TextStyle(color: AppColors.pureWhite),
                   decoration: const InputDecoration(
                     labelText: 'Conferma nuova password',
                   ),
@@ -272,7 +272,7 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
       builder: (BuildContext dialogContext) {
         return AlertDialog(
           backgroundColor: AppColors.eleganceDeepNavy,
-          title: const Text(
+          title: Text(
             'Modifica email',
             style: TextStyle(color: AppColors.pureWhite),
           ),
@@ -286,7 +286,7 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
                   textInputAction: TextInputAction.next,
                   autocorrect: false,
                   enableSuggestions: false,
-                  style: const TextStyle(color: AppColors.pureWhite),
+                  style: TextStyle(color: AppColors.pureWhite),
                   decoration: const InputDecoration(labelText: 'Nuova email'),
                 ),
                 const SizedBox(height: 12),
@@ -294,7 +294,7 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
                   controller: passwordController,
                   obscureText: true,
                   textInputAction: TextInputAction.done,
-                  style: const TextStyle(color: AppColors.pureWhite),
+                  style: TextStyle(color: AppColors.pureWhite),
                   decoration: const InputDecoration(
                     labelText: 'Password attuale',
                     helperText: 'Serve per confermare che sei tu.',
@@ -382,7 +382,7 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
       builder: (BuildContext dialogContext) {
         return AlertDialog(
           backgroundColor: AppColors.eleganceDeepNavy,
-          title: const Text(
+          title: Text(
             'Verifica nuova email',
             style: TextStyle(color: AppColors.pureWhite),
           ),
@@ -391,7 +391,7 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
             children: [
               Text(
                 'Inserisci il codice di 6 cifre inviato a $email.',
-                style: const TextStyle(color: Colors.white70),
+                style: TextStyle(color: AppColors.white70),
               ),
               const SizedBox(height: 12),
               TextField(
@@ -399,7 +399,7 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
                 keyboardType: TextInputType.number,
                 textAlign: TextAlign.center,
                 maxLength: 6,
-                style: const TextStyle(color: AppColors.pureWhite),
+                style: TextStyle(color: AppColors.pureWhite),
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
                   LengthLimitingTextInputFormatter(6),
@@ -468,9 +468,11 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
 
   void _showMessage(String message) {
     if (!mounted) return;
+    final bool pending = message.toLowerCase().contains('in verifica');
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(SnackBar(content: Text(message)));
+      ..showSnackBar(SnackBar(backgroundColor: pending ? Colors.amber.shade800 : null,
+          content: Text(message)));
   }
 
   Widget _accountTile({
@@ -487,18 +489,18 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
       leading: Icon(icon, color: AppColors.skyBlue),
       title: Text(
         title,
-        style: const TextStyle(
+        style: TextStyle(
           color: AppColors.pureWhite,
           fontWeight: FontWeight.w600,
         ),
       ),
       subtitle: Text(
         subtitle,
-        style: const TextStyle(color: Colors.white54),
+        style: TextStyle(color: AppColors.white54),
       ),
-      trailing: const Icon(
+      trailing: Icon(
         Icons.chevron_right_rounded,
-        color: Colors.white54,
+        color: AppColors.white54,
       ),
       onTap: _loading ? null : onTap,
     );

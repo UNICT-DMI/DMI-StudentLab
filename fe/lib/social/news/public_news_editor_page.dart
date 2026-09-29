@@ -174,7 +174,7 @@ class _PublicNewsEditorPageState extends State<PublicNewsEditorPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Seleziona materia',
                         style: TextStyle(
                           color: AppColors.pureWhite,
@@ -184,7 +184,7 @@ class _PublicNewsEditorPageState extends State<PublicNewsEditorPage> {
                       ),
                       const SizedBox(height: 12),
                       TextField(
-                        style: const TextStyle(color: AppColors.pureWhite),
+                        style: TextStyle(color: AppColors.pureWhite),
                         decoration: const InputDecoration(
                           hintText: 'Cerca materia...',
                           prefixIcon: Icon(Icons.search_rounded),
@@ -198,10 +198,10 @@ class _PublicNewsEditorPageState extends State<PublicNewsEditorPage> {
                       const SizedBox(height: 12),
                       Expanded(
                         child: visible.isEmpty
-                            ? const Center(
+                            ? Center(
                                 child: Text(
                                   'Nessuna materia disponibile.',
-                                  style: TextStyle(color: Colors.white54),
+                                  style: TextStyle(color: AppColors.white54),
                                 ),
                               )
                             : ListView.builder(
@@ -209,18 +209,18 @@ class _PublicNewsEditorPageState extends State<PublicNewsEditorPage> {
                                 itemBuilder: (BuildContext context, int index) {
                                   final Map<String, dynamic> subject = visible[index];
                                   return ListTile(
-                                    leading: const Icon(
+                                    leading: Icon(
                                       Icons.menu_book_outlined,
                                       color: AppColors.materialSky,
                                     ),
                                     title: Text(
                                       _subjectLabel(subject),
-                                      style: const TextStyle(color: AppColors.pureWhite),
+                                      style: TextStyle(color: AppColors.pureWhite),
                                     ),
                                     subtitle: Text(
                                       _subjectContext(subject),
-                                      style: const TextStyle(
-                                        color: Colors.white38,
+                                      style: TextStyle(
+                                        color: AppColors.white38,
                                         fontSize: 9,
                                       ),
                                     ),
@@ -383,7 +383,7 @@ class _PublicNewsEditorPageState extends State<PublicNewsEditorPage> {
                     controller: _titleController,
                     enabled: !_sending,
                     maxLength: 160,
-                    style: const TextStyle(color: AppColors.pureWhite),
+                    style: TextStyle(color: AppColors.pureWhite),
                     decoration: const InputDecoration(
                       labelText: 'Titolo',
                       prefixIcon: Icon(Icons.title_rounded),
@@ -445,7 +445,7 @@ class _PublicNewsEditorPageState extends State<PublicNewsEditorPage> {
                           readOnly: true,
                           enabled: !_sending && !_loadingContext,
                           onTap: _chooseSubject,
-                          style: const TextStyle(color: AppColors.pureWhite),
+                          style: TextStyle(color: AppColors.pureWhite),
                           decoration: const InputDecoration(
                             labelText: 'Materia',
                             prefixIcon: Icon(Icons.menu_book_outlined),
@@ -458,7 +458,7 @@ class _PublicNewsEditorPageState extends State<PublicNewsEditorPage> {
                         TextFormField(
                           enabled: !_sending,
                           keyboardType: TextInputType.number,
-                          style: const TextStyle(color: AppColors.pureWhite),
+                          style: TextStyle(color: AppColors.pureWhite),
                           decoration: const InputDecoration(
                             labelText: 'ID materia',
                             prefixIcon: Icon(Icons.tag_rounded),
@@ -476,16 +476,16 @@ class _PublicNewsEditorPageState extends State<PublicNewsEditorPage> {
                         Container(
                           padding: const EdgeInsets.all(14),
                           decoration: BoxDecoration(
-                            color: Colors.orangeAccent.withValues(alpha: 0.06),
+                            color: AppColors.orangeAccent.withValues(alpha: 0.06),
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
-                              color: Colors.orangeAccent.withValues(alpha: 0.15),
+                              color: AppColors.orangeAccent.withValues(alpha: 0.15),
                             ),
                           ),
-                          child: const Text(
+                          child: Text(
                             'Non risultano materie verificate disponibili per questo docente.',
                             style: TextStyle(
-                              color: Colors.orangeAccent,
+                              color: AppColors.orangeAccent,
                               fontSize: 10,
                             ),
                           ),
@@ -499,7 +499,7 @@ class _PublicNewsEditorPageState extends State<PublicNewsEditorPage> {
                     minLines: 7,
                     maxLines: 14,
                     maxLength: 5000,
-                    style: const TextStyle(color: AppColors.pureWhite),
+                    style: TextStyle(color: AppColors.pureWhite),
                     decoration: const InputDecoration(
                       labelText: 'Contenuto',
                       alignLabelWithHint: true,
@@ -518,12 +518,12 @@ class _PublicNewsEditorPageState extends State<PublicNewsEditorPage> {
                     child: FilledButton.icon(
                       onPressed: _sending ? null : _submit,
                       icon: _sending
-                          ? const SizedBox(
+                          ? SizedBox(
                               width: 18,
                               height: 18,
                               child: CircularProgressIndicator(
                                 strokeWidth: 2,
-                                color: Colors.white,
+                                color: AppColors.white,
                               ),
                             )
                           : const Icon(Icons.send_rounded),
@@ -551,7 +551,7 @@ class _PublicNewsEditorPageState extends State<PublicNewsEditorPage> {
       ),
       child: Row(
         children: [
-          const Icon(
+          Icon(
             Icons.auto_awesome_outlined,
             color: AppColors.materialSky,
             size: 27,
@@ -604,12 +604,12 @@ class _PublicNewsEditorPageState extends State<PublicNewsEditorPage> {
     return Container(
       padding: const EdgeInsets.all(13),
       decoration: BoxDecoration(
-        color: Colors.redAccent.withValues(alpha: 0.08),
+        color: AppColors.redAccent.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Text(
         _error!,
-        style: const TextStyle(color: Colors.white70, fontSize: 11),
+        style: TextStyle(color: AppColors.white70, fontSize: 11),
       ),
     );
   }
@@ -742,7 +742,7 @@ class _HybridAcademicField extends StatelessWidget {
           focusNode: focusNode,
           enabled: enabled,
           validator: validator,
-          style: const TextStyle(color: AppColors.pureWhite),
+          style: TextStyle(color: AppColors.pureWhite),
           decoration: InputDecoration(
             labelText: label,
             prefixIcon: Icon(icon),

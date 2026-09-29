@@ -6,10 +6,10 @@ import '../../social/social_models.dart';
 import 'services/question_management_service.dart';
 import 'services/quiz_assignment_service.dart';
 import 'widgets/quiz_assignment_mode_section.dart';
+import 'package:fe/quiz/exercises/exercise_models.dart';
+import 'package:fe/quiz/exercises/teacher/exercise_types_section.dart';
 
-
-class QuizAssignmentFormPage
-    extends StatefulWidget {
+class QuizAssignmentFormPage extends StatefulWidget {
   final int subjectId;
   final String department;
   final String course;
@@ -25,97 +25,76 @@ class QuizAssignmentFormPage
     this.assignment,
   });
 
-  bool get isEditing =>
-      assignment != null;
+  bool get isEditing => assignment != null;
 
   @override
-  State<QuizAssignmentFormPage>
-      createState() =>
-          _QuizAssignmentFormPageState();
+  State<QuizAssignmentFormPage> createState() => _QuizAssignmentFormPageState();
 }
 
+class _QuizAssignmentFormPageState extends State<QuizAssignmentFormPage> {
+  final ApiService _apiService = ApiService();
 
-class _QuizAssignmentFormPageState
-    extends State<QuizAssignmentFormPage> {
-  final ApiService _apiService =
-      ApiService();
+  final QuizAssignmentService _service = QuizAssignmentService();
 
-  final QuizAssignmentService _service =
-      QuizAssignmentService();
-
-  final QuestionManagementService
-      _questionService =
+  final QuestionManagementService _questionService =
       QuestionManagementService();
 
-  final GlobalKey<FormState> _formKey =
-      GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _titleController =
-      TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
 
-  final TextEditingController
-      _descriptionController =
-      TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
 
-  final TextEditingController
-      _questionCountController =
-      TextEditingController(
+  final TextEditingController _questionCountController = TextEditingController(
     text: '10',
   );
 
-  final TextEditingController
-      _timeLimitController =
-      TextEditingController(
+  final TextEditingController _timeLimitController = TextEditingController(
     text: '30',
   );
 
-  String _selectionMode =
-      'random';
+  String _selectionMode = 'random';
 
-  String _executionMode =
-      'practice';
+  String _executionMode = 'practice';
 
-  String _externalActivityPolicy =
-      'disabled';
+  String _externalActivityPolicy = 'disabled';
 
   DateTime? _dueAt;
 
-  List<SocialUser> _users =
-      [];
+  List<SocialUser> _users = [];
 
-  List<Map<String, dynamic>> _groups =
-      [];
+  List<Map<String, dynamic>> _groups = [];
 
-  List<Map<String, dynamic>> _questions =
-      [];
+  List<Map<String, dynamic>> _questions = [];
 
-  final Set<int> _selectedUserIds =
-      {};
+  final Set<int> _selectedUserIds = {};
 
-  final Set<int> _selectedGroupIds =
-      {};
+  final Set<int> _selectedGroupIds = {};
 
-  final Set<int> _selectedQuestionIds =
-      {};
+  final Set<int> _selectedQuestionIds = {};
 
-  final Set<String> _selectedArguments =
-      {};
+  final Set<String> _selectedArguments = {};
 
-  bool _loading =
-      true;
+  // v18 · tipi di esercizio ("multiple_choice" da solo = assegnazione di sempre)
+  Set<String> _types = <String>{kMultipleChoice};
 
-  bool _saving =
-      false;
+  final Set<String> _selectedItemIds = <String>{};
+
+  int? _attemptsPerItem;
+
+  bool get _hasExercises => _types.any((String t) => t != kMultipleChoice);
+
+  bool _loading = true;
+
+  bool _saving = false;
 
   String? _error;
-
 
   @override
   void initState() {
     super.initState();
     _load();
   }
-
 
   @override
   void dispose() {
@@ -126,29 +105,19 @@ class _QuizAssignmentFormPageState
     super.dispose();
   }
 
-
   Future<void> _load() async {
     try {
-      final List<SocialUser> users =
-          await _apiService
-              .getSocialUsers();
+      final List<SocialUser> users = await _apiService.getSocialUsers();
 
-      final List<Map<String, dynamic>> groups =
-          await _apiService
-              .getGroups();
+      final List<Map<String, dynamic>> groups = await _apiService.getGroups();
 
-      final List<Map<String, dynamic>> questions =
-          await _questionService
-              .getQuestions(
-        department:
-            widget.department,
-        course:
-            widget.course,
-        subject:
-            widget.subject,
-        includeHidden:
-            false,
-      );
+      final List<Map<String, dynamic>> questions = await _questionService
+          .getQuestions(
+            department: widget.department,
+            course: widget.course,
+            subject: widget.subject,
+            includeHidden: false,
+          );
 
       _loadAssignmentValues();
 
@@ -157,17 +126,13 @@ class _QuizAssignmentFormPageState
       }
 
       setState(() {
-        _users =
-            users;
+        _users = users;
 
-        _groups =
-            groups;
+        _groups = groups;
 
-        _questions =
-            questions;
+        _questions = questions;
 
-        _loading =
-            false;
+        _loading = false;
       });
     } catch (error) {
       if (!mounted) {
@@ -175,122 +140,85 @@ class _QuizAssignmentFormPageState
       }
 
       setState(() {
-        _loading =
-            false;
+        _loading = false;
 
-        _error =
-            _cleanError(
-          error,
-        );
+        _error = _cleanError(error);
       });
     }
   }
 
-
   void _loadAssignmentValues() {
-    final Map<String, dynamic>? data =
-        widget.assignment;
+    final Map<String, dynamic>? data = widget.assignment;
 
     if (data == null) {
       return;
     }
 
-    _titleController.text =
-        data['title']
-            ?.toString() ??
-        '';
+    _titleController.text = data['title']?.toString() ?? '';
 
-    _descriptionController.text =
-        data['description']
-            ?.toString() ??
-        '';
+    _descriptionController.text = data['description']?.toString() ?? '';
 
-    _selectionMode =
-        data['selection_mode']
-            ?.toString() ??
-        'random';
+    _selectionMode = data['selection_mode']?.toString() ?? 'random';
 
-    _executionMode =
-        data['execution_mode']
-            ?.toString() ??
-        'practice';
+    _executionMode = data['execution_mode']?.toString() ?? 'practice';
 
     _externalActivityPolicy =
-        data['external_activity_policy']
-            ?.toString() ??
-        'disabled';
+        data['external_activity_policy']?.toString() ?? 'disabled';
 
-    _questionCountController.text =
-        data['question_count']
-            ?.toString() ??
-        '10';
+    _questionCountController.text = data['question_count']?.toString() ?? '10';
 
-    final dynamic secondsRaw =
-        data['time_limit_seconds'];
+    final dynamic secondsRaw = data['time_limit_seconds'];
 
     if (secondsRaw != null) {
-      final int? seconds =
-          int.tryParse(
-        secondsRaw.toString(),
-      );
+      final int? seconds = int.tryParse(secondsRaw.toString());
 
       if (seconds != null) {
-        _timeLimitController.text =
-            (seconds / 60)
-                .ceil()
-                .toString();
+        _timeLimitController.text = (seconds / 60).ceil().toString();
       }
     }
 
-    final String due =
-        data['due_at']
-            ?.toString() ??
-        '';
+    final String due = data['due_at']?.toString() ?? '';
 
     if (due.isNotEmpty) {
-      _dueAt =
-          DateTime.tryParse(
-        due,
-      )?.toLocal();
+      _dueAt = DateTime.tryParse(due)?.toLocal();
     }
 
-    final dynamic args =
-        data['selected_arguments'];
+    final dynamic args = data['selected_arguments'];
 
     if (args is List) {
       _selectedArguments.addAll(
         args
-            .map(
-              (dynamic e) =>
-                  e.toString(),
-            )
-            .where(
-              (String e) =>
-                  e.trim().isNotEmpty,
-            ),
+            .map((dynamic e) => e.toString())
+            .where((String e) => e.trim().isNotEmpty),
       );
     }
 
-    final dynamic questionIds =
-        data['selected_question_ids'];
+    final dynamic questionIds = data['selected_question_ids'];
 
     if (questionIds is List) {
       for (final dynamic raw in questionIds) {
-        final int? id =
-            _toInt(
-          raw,
-        );
+        if (raw is String && raw.contains(':')) {
+          _selectedItemIds.add(raw);
+          continue;
+        }
+
+        final int? id = _toInt(raw);
 
         if (id != null) {
-          _selectedQuestionIds.add(
-            id,
-          );
+          _selectedQuestionIds.add(id);
         }
       }
     }
 
-    final dynamic recipients =
-        data['recipients'];
+    final dynamic types = data['question_types'];
+
+    if (types is List && types.isNotEmpty) {
+      _types = types.map((dynamic t) => t.toString()).toSet();
+    }
+
+    _attemptsPerItem = _toInt(data['attempts_per_item']);
+
+    final dynamic recipients = data['recipients'];
 
     if (recipients is List) {
       for (final dynamic raw in recipients) {
@@ -298,434 +226,255 @@ class _QuizAssignmentFormPageState
           continue;
         }
 
-        final int? userId =
-            _toInt(
-          raw['user_id'],
-        );
+        final int? userId = _toInt(raw['user_id']);
 
-        final int? groupId =
-            _toInt(
-          raw['group_id'],
-        );
+        final int? groupId = _toInt(raw['group_id']);
 
         if (userId != null) {
-          _selectedUserIds.add(
-            userId,
-          );
+          _selectedUserIds.add(userId);
         }
 
         if (groupId != null) {
-          _selectedGroupIds.add(
-            groupId,
-          );
+          _selectedGroupIds.add(groupId);
         }
       }
     }
   }
 
-
   List<String> get _arguments {
-    final Set<String> values =
-        {};
+    final Set<String> values = {};
 
     for (final Map<String, dynamic> question in _questions) {
-      final dynamic metadata =
-          question['metadata'];
+      final dynamic metadata = question['metadata'];
 
       if (metadata is! Map) {
         continue;
       }
 
-      final String argument =
-          metadata['argoment']
-              ?.toString()
-              .trim() ??
-          '';
+      final String argument = metadata['argoment']?.toString().trim() ?? '';
 
       if (argument.isNotEmpty) {
-        values.add(
-          argument,
-        );
+        values.add(argument);
       }
     }
 
-    final List<String> result =
-        values.toList()
-          ..sort();
+    final List<String> result = values.toList()..sort();
 
     return result;
   }
 
-
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:
-          AppColors.darkElegance,
-      appBar:
-          AppBar(
-        backgroundColor:
-            AppColors.brandNightBlue,
-        foregroundColor:
-            AppColors.pureWhite,
-        title:
-            Text(
-          widget.isEditing
-              ? 'Modifica quiz'
-              : 'Nuovo quiz',
-        ),
+      backgroundColor: AppColors.darkElegance,
+      appBar: AppBar(
+        backgroundColor: AppColors.brandNightBlue,
+        foregroundColor: AppColors.pureWhite,
+        title: Text(widget.isEditing ? 'Modifica quiz' : 'Nuovo quiz'),
       ),
-      body:
-          _loading
-              ? const Center(
-                  child:
-                      CircularProgressIndicator(),
-                )
-              : _error != null
-                  ? Center(
-                      child:
-                          Padding(
-                        padding:
-                            const EdgeInsets.all(
-                          24,
+      body: _loading
+          ? const Center(child: CircularProgressIndicator())
+          : _error != null
+          ? Center(
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: Text(
+                  _error!,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: AppColors.white70),
+                ),
+              ),
+            )
+          : SafeArea(
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 820),
+                  child: Form(
+                    key: _formKey,
+                    child: ListView(
+                      padding: const EdgeInsets.all(20),
+                      children: [
+                        _header(),
+                        const SizedBox(height: 20),
+                        _textField(
+                          controller: _titleController,
+                          label: 'Titolo',
+                          required: true,
+                          icon: Icons.title_rounded,
                         ),
-                        child:
-                            Text(
-                          _error!,
-                          textAlign:
-                              TextAlign.center,
-                          style:
-                              const TextStyle(
-                            color:
-                                Colors.white70,
+                        const SizedBox(height: 14),
+                        _textField(
+                          controller: _descriptionController,
+                          label: 'Descrizione',
+                          icon: Icons.notes_rounded,
+                          minLines: 3,
+                          maxLines: 6,
+                        ),
+                        const SizedBox(height: 22),
+                        _section('Modalità di svolgimento'),
+                        const SizedBox(height: 10),
+                        QuizAssignmentModeSection(
+                          executionMode: _executionMode,
+                          externalActivityPolicy: _externalActivityPolicy,
+                          onExecutionModeChanged: (value) {
+                            setState(() {
+                              _executionMode = value;
+                              if (value == 'practice') {
+                                _externalActivityPolicy = 'disabled';
+                              }
+                            });
+                          },
+                          onExternalActivityPolicyChanged: (value) {
+                            setState(() {
+                              _externalActivityPolicy = value;
+                            });
+                          },
+                        ),
+                        const SizedBox(height: 22),
+                        _section('Tipi di esercizio'),
+                        const SizedBox(height: 10),
+                        _card(
+                          ExerciseTypesSection(
+                            selected: _types,
+                            practice: _executionMode == 'practice',
+                            attemptsPerItem: _attemptsPerItem,
+                            onAttemptsChanged: (int? value) => setState(() => _attemptsPerItem = value),
+                            onChanged: (Set<String> value) => setState(() => _types = value),
                           ),
                         ),
-                      ),
-                    )
-                  : SafeArea(
-                      child:
-                          Center(
-                        child:
-                            ConstrainedBox(
-                          constraints:
-                              const BoxConstraints(
-                            maxWidth:
-                                820,
+                        const SizedBox(height: 22),
+                        _section('Selezione domande'),
+                        const SizedBox(height: 10),
+                        _selectionModeCard(),
+                        if (_selectionMode == 'random') ...[
+                          const SizedBox(height: 14),
+                          _textField(
+                            controller: _questionCountController,
+                            label: 'Numero domande',
+                            required: true,
+                            icon: Icons.numbers_rounded,
+                            keyboardType: TextInputType.number,
                           ),
-                          child:
-                              Form(
-                            key:
-                                _formKey,
-                            child:
-                                ListView(
-                              padding:
-                                  const EdgeInsets.all(
-                                20,
+                        ],
+                        if (_selectionMode == 'arguments') ...[
+                          const SizedBox(height: 14),
+                          _argumentsCard(),
+                          const SizedBox(height: 14),
+                          _textField(
+                            controller: _questionCountController,
+                            label: 'Numero domande',
+                            required: true,
+                            icon: Icons.numbers_rounded,
+                            keyboardType: TextInputType.number,
+                          ),
+                        ],
+                        if (_selectionMode == 'selected_questions') ...[
+                          if (_types.contains(kMultipleChoice)) ...[
+                            const SizedBox(height: 14),
+                            _questionsCard(),
+                          ],
+                          if (_hasExercises) ...[
+                            const SizedBox(height: 14),
+                            _card(
+                              ExerciseItemPicker(
+                                department: widget.department,
+                                course: widget.course,
+                                subject: widget.subject,
+                                types: _types,
+                                selected: _selectedItemIds,
+                                onChanged: (Set<String> value) => setState(() {
+                                  _selectedItemIds
+                                    ..clear()
+                                    ..addAll(value);
+                                }),
                               ),
-                              children: [
-                                _header(),
-                                const SizedBox(
-                                  height:
-                                      20,
-                                ),
-                                _textField(
-                                  controller:
-                                      _titleController,
-                                  label:
-                                      'Titolo',
-                                  required:
-                                      true,
-                                  icon:
-                                      Icons.title_rounded,
-                                ),
-                                const SizedBox(
-                                  height:
-                                      14,
-                                ),
-                                _textField(
-                                  controller:
-                                      _descriptionController,
-                                  label:
-                                      'Descrizione',
-                                  icon:
-                                      Icons.notes_rounded,
-                                  minLines:
-                                      3,
-                                  maxLines:
-                                      6,
-                                ),
-                                const SizedBox(
-                                  height:
-                                      22,
-                                ),
-                                _section(
-                                  'Modalità di svolgimento',
-                                ),
-                                const SizedBox(
-                                  height:
-                                      10,
-                                ),
-                                QuizAssignmentModeSection(
-                                  executionMode:
-                                      _executionMode,
-                                  externalActivityPolicy:
-                                      _externalActivityPolicy,
-                                  onExecutionModeChanged:
-                                      (value) {
-                                    setState(() {
-                                      _executionMode =
-                                          value;
-                                      if (value ==
-                                          'practice') {
-                                        _externalActivityPolicy =
-                                            'disabled';
-                                      }
-                                    });
-                                  },
-                                  onExternalActivityPolicyChanged:
-                                      (value) {
-                                    setState(() {
-                                      _externalActivityPolicy =
-                                          value;
-                                    });
-                                  },
-                                ),
-                                const SizedBox(
-                                  height:
-                                      22,
-                                ),
-                                _section(
-                                  'Selezione domande',
-                                ),
-                                const SizedBox(
-                                  height:
-                                      10,
-                                ),
-                                _selectionModeCard(),
-                                if (
-                                  _selectionMode ==
-                                  'random'
-                                ) ...[
-                                  const SizedBox(
-                                    height:
-                                        14,
-                                  ),
-                                  _textField(
-                                    controller:
-                                        _questionCountController,
-                                    label:
-                                        'Numero domande',
-                                    required:
-                                        true,
-                                    icon:
-                                        Icons.numbers_rounded,
-                                    keyboardType:
-                                        TextInputType.number,
-                                  ),
-                                ],
-                                if (
-                                  _selectionMode ==
-                                  'arguments'
-                                ) ...[
-                                  const SizedBox(
-                                    height:
-                                        14,
-                                  ),
-                                  _argumentsCard(),
-                                  const SizedBox(
-                                    height:
-                                        14,
-                                  ),
-                                  _textField(
-                                    controller:
-                                        _questionCountController,
-                                    label:
-                                        'Numero domande',
-                                    required:
-                                        true,
-                                    icon:
-                                        Icons.numbers_rounded,
-                                    keyboardType:
-                                        TextInputType.number,
-                                  ),
-                                ],
-                                if (
-                                  _selectionMode ==
-                                  'selected_questions'
-                                ) ...[
-                                  const SizedBox(
-                                    height:
-                                        14,
-                                  ),
-                                  _questionsCard(),
-                                ],
-                                const SizedBox(
-                                  height:
-                                      22,
-                                ),
-                                _section(
-                                  'Tempo e scadenza',
-                                ),
-                                const SizedBox(
-                                  height:
-                                      10,
-                                ),
-                                _textField(
-                                  controller:
-                                      _timeLimitController,
-                                  label:
-                                      'Tempo limite',
-                                  icon:
-                                      Icons.timer_outlined,
-                                  keyboardType:
-                                      TextInputType.number,
-                                  suffixText:
-                                      'minuti',
-                                ),
-                                const SizedBox(
-                                  height:
-                                      12,
-                                ),
-                                _dueDateCard(),
-                                const SizedBox(
-                                  height:
-                                      22,
-                                ),
-                                _section(
-                                  'Destinatari',
-                                ),
-                                const SizedBox(
-                                  height:
-                                      10,
-                                ),
-                                _recipientsCard(),
-                                if (
-                                  _error != null
-                                ) ...[
-                                  const SizedBox(
-                                    height:
-                                        16,
-                                  ),
-                                  Text(
-                                    _error!,
-                                    style:
-                                        const TextStyle(
-                                      color:
-                                          Colors.redAccent,
+                            ),
+                          ],
+                        ],
+                        const SizedBox(height: 22),
+                        _section('Tempo e scadenza'),
+                        const SizedBox(height: 10),
+                        _textField(
+                          controller: _timeLimitController,
+                          label: 'Tempo limite',
+                          icon: Icons.timer_outlined,
+                          keyboardType: TextInputType.number,
+                          suffixText: 'minuti',
+                        ),
+                        const SizedBox(height: 12),
+                        _dueDateCard(),
+                        const SizedBox(height: 22),
+                        _section('Destinatari'),
+                        const SizedBox(height: 10),
+                        _recipientsCard(),
+                        if (_error != null) ...[
+                          const SizedBox(height: 16),
+                          Text(
+                            _error!,
+                            style: TextStyle(color: AppColors.redAccent),
+                          ),
+                        ],
+                        const SizedBox(height: 24),
+                        SizedBox(
+                          height: 52,
+                          child: FilledButton.icon(
+                            onPressed: _saving ? null : _save,
+                            icon: _saving
+                                ? const SizedBox(
+                                    width: 18,
+                                    height: 18,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
                                     ),
+                                  )
+                                : const Icon(
+                                    Icons.assignment_turned_in_outlined,
                                   ),
-                                ],
-                                const SizedBox(
-                                  height:
-                                      24,
-                                ),
-                                SizedBox(
-                                  height:
-                                      52,
-                                  child:
-                                      FilledButton.icon(
-                                    onPressed:
-                                        _saving
-                                            ? null
-                                            : _save,
-                                    icon:
-                                        _saving
-                                            ? const SizedBox(
-                                                width:
-                                                    18,
-                                                height:
-                                                    18,
-                                                child:
-                                                    CircularProgressIndicator(
-                                                  strokeWidth:
-                                                      2,
-                                                ),
-                                              )
-                                            : const Icon(
-                                                Icons.assignment_turned_in_outlined,
-                                              ),
-                                    label:
-                                        Text(
-                                      _saving
-                                          ? 'Salvataggio...'
-                                          : widget.isEditing
-                                              ? 'Salva modifiche'
-                                              : 'Assegna quiz',
-                                    ),
-                                  ),
-                                ),
-                              ],
+                            label: Text(
+                              _saving
+                                  ? 'Salvataggio...'
+                                  : widget.isEditing
+                                  ? 'Salva modifiche'
+                                  : 'Assegna quiz',
                             ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
+                  ),
+                ),
+              ),
+            ),
     );
   }
 
-
   Widget _header() {
     return Container(
-      padding:
-          const EdgeInsets.all(
-        18,
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: AppColors.eleganceDeepNavy,
+        borderRadius: BorderRadius.circular(16),
       ),
-      decoration:
-          BoxDecoration(
-        color:
-            AppColors.eleganceDeepNavy,
-        borderRadius:
-            BorderRadius.circular(
-          16,
-        ),
-      ),
-      child:
-          Row(
+      child: Row(
         children: [
-          const Icon(
-            Icons.quiz_outlined,
-            color:
-                AppColors.skyBlue,
-            size:
-                30,
-          ),
-          const SizedBox(
-            width:
-                12,
-          ),
+          Icon(Icons.quiz_outlined, color: AppColors.skyBlue, size: 30),
+          const SizedBox(width: 12),
           Expanded(
-            child:
-                Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   widget.subject,
-                  style:
-                      const TextStyle(
-                    color:
-                        AppColors.pureWhite,
-                    fontSize:
-                        16,
-                    fontWeight:
-                        FontWeight.bold,
+                  style: TextStyle(
+                    color: AppColors.pureWhite,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(
-                  height:
-                      3,
-                ),
+                const SizedBox(height: 3),
                 Text(
                   '${widget.department} • ${widget.course}',
-                  style:
-                      const TextStyle(
-                    color:
-                        Colors.white54,
-                    fontSize:
-                        11,
-                  ),
+                  style: TextStyle(color: AppColors.white54, fontSize: 11),
                 ),
               ],
             ),
@@ -735,89 +484,50 @@ class _QuizAssignmentFormPageState
     );
   }
 
-
-  Widget _section(
-    String title,
-  ) {
+  Widget _section(String title) {
     return Text(
       title,
-      style:
-          const TextStyle(
-        color:
-            AppColors.pureWhite,
-        fontSize:
-            17,
-        fontWeight:
-            FontWeight.bold,
+      style: TextStyle(
+        color: AppColors.pureWhite,
+        fontSize: 17,
+        fontWeight: FontWeight.bold,
       ),
     );
   }
-
 
   Widget _selectionModeCard() {
     return _card(
       Column(
         children: [
           RadioListTile<String>(
-            value:
-                'random',
-            groupValue:
-                _selectionMode,
-            onChanged:
-                _setMode,
-            title:
-                const Text(
+            value: 'random',
+            groupValue: _selectionMode,
+            onChanged: _setMode,
+            title: Text(
               'Casuale',
-              style:
-                  TextStyle(
-                color:
-                    AppColors.pureWhite,
-              ),
+              style: TextStyle(color: AppColors.pureWhite),
             ),
-            subtitle:
-                const Text(
+            subtitle: Text(
               'Il server sceglie casualmente le domande.',
-              style:
-                  TextStyle(
-                color:
-                    Colors.white54,
-                fontSize:
-                    11,
-              ),
+              style: TextStyle(color: AppColors.white54, fontSize: 11),
             ),
           ),
           RadioListTile<String>(
-            value:
-                'arguments',
-            groupValue:
-                _selectionMode,
-            onChanged:
-                _setMode,
-            title:
-                const Text(
+            value: 'arguments',
+            groupValue: _selectionMode,
+            onChanged: _setMode,
+            title: Text(
               'Per argomento',
-              style:
-                  TextStyle(
-                color:
-                    AppColors.pureWhite,
-              ),
+              style: TextStyle(color: AppColors.pureWhite),
             ),
           ),
           RadioListTile<String>(
-            value:
-                'selected_questions',
-            groupValue:
-                _selectionMode,
-            onChanged:
-                _setMode,
-            title:
-                const Text(
+            value: 'selected_questions',
+            groupValue: _selectionMode,
+            onChanged: _setMode,
+            title: Text(
               'Domande specifiche',
-              style:
-                  TextStyle(
-                color:
-                    AppColors.pureWhite,
-              ),
+              style: TextStyle(color: AppColors.pureWhite),
             ),
           ),
         ],
@@ -825,68 +535,39 @@ class _QuizAssignmentFormPageState
     );
   }
 
-
-  void _setMode(
-    String? value,
-  ) {
+  void _setMode(String? value) {
     if (value == null) {
       return;
     }
 
     setState(() {
-      _selectionMode =
-          value;
+      _selectionMode = value;
     });
   }
 
-
   Widget _argumentsCard() {
-    final List<String> arguments =
-        _arguments;
+    final List<String> arguments = _arguments;
 
     return _card(
       arguments.isEmpty
-          ? const Text(
+          ? Text(
               'Nessun argomento disponibile.',
-              style:
-                  TextStyle(
-                color:
-                    Colors.white54,
-              ),
+              style: TextStyle(color: AppColors.white54),
             )
           : Wrap(
-              spacing:
-                  8,
-              runSpacing:
-                  8,
+              spacing: 8,
+              runSpacing: 8,
               children: [
-                for (
-                  final String argument
-                  in arguments
-                )
+                for (final String argument in arguments)
                   FilterChip(
-                    selected:
-                        _selectedArguments
-                            .contains(
-                      argument,
-                    ),
-                    label:
-                        Text(
-                      argument,
-                    ),
-                    onSelected:
-                        (
-                      bool value,
-                    ) {
+                    selected: _selectedArguments.contains(argument),
+                    label: Text(argument),
+                    onSelected: (bool value) {
                       setState(() {
                         if (value) {
-                          _selectedArguments.add(
-                            argument,
-                          );
+                          _selectedArguments.add(argument);
                         } else {
-                          _selectedArguments.remove(
-                            argument,
-                          );
+                          _selectedArguments.remove(argument);
                         }
                       });
                     },
@@ -896,35 +577,17 @@ class _QuizAssignmentFormPageState
     );
   }
 
-
   Widget _questionsCard() {
     return _card(
       Column(
         children: [
-          for (
-            final Map<String, dynamic> question
-            in _questions
-          )
+          for (final Map<String, dynamic> question in _questions)
             CheckboxListTile(
-              value:
-                  _selectedQuestionIds
-                      .contains(
-                _toInt(
-                  question[
-                    'id_question'
-                  ],
-                ),
+              value: _selectedQuestionIds.contains(
+                _toInt(question['id_question']),
               ),
-              onChanged:
-                  (
-                bool? value,
-              ) {
-                final int? id =
-                    _toInt(
-                  question[
-                    'id_question'
-                  ],
-                );
+              onChanged: (bool? value) {
+                final int? id = _toInt(question['id_question']);
 
                 if (id == null) {
                   return;
@@ -932,32 +595,19 @@ class _QuizAssignmentFormPageState
 
                 setState(() {
                   if (value == true) {
-                    _selectedQuestionIds.add(
-                      id,
-                    );
+                    _selectedQuestionIds.add(id);
                   } else {
-                    _selectedQuestionIds.remove(
-                      id,
-                    );
+                    _selectedQuestionIds.remove(id);
                   }
                 });
               },
-              title:
-                  Text(
-                question[
-                        'text']
-                    ?.toString() ??
-                    'Domanda',
-                maxLines:
-                    2,
-                overflow:
-                    TextOverflow.ellipsis,
-                style:
-                    const TextStyle(
-                  color:
-                      AppColors.pureWhite,
-                  fontSize:
-                      12,
+              title: Text(
+                question['text']?.toString() ?? 'Domanda',
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: AppColors.pureWhite,
+                  fontSize: 12,
                 ),
               ),
             ),
@@ -965,199 +615,104 @@ class _QuizAssignmentFormPageState
       ),
     );
   }
-
 
   Widget _dueDateCard() {
     return _card(
       Row(
         children: [
-          const Icon(
-            Icons.event_outlined,
-            color:
-                AppColors.skyBlue,
-          ),
-          const SizedBox(
-            width:
-                10,
-          ),
+          Icon(Icons.event_outlined, color: AppColors.skyBlue),
+          const SizedBox(width: 10),
           Expanded(
-            child:
-                Text(
-              _dueAt == null
-                  ? 'Nessuna scadenza'
-                  : _formatDate(
-                      _dueAt!,
-                    ),
-              style:
-                  const TextStyle(
-                color:
-                    AppColors.pureWhite,
-              ),
+            child: Text(
+              _dueAt == null ? 'Nessuna scadenza' : _formatDate(_dueAt!),
+              style: TextStyle(color: AppColors.pureWhite),
             ),
           ),
-          TextButton(
-            onPressed:
-                _pickDueAt,
-            child:
-                const Text(
-              'Imposta',
-            ),
-          ),
-          if (
-            _dueAt != null
-          )
+          TextButton(onPressed: _pickDueAt, child: const Text('Imposta')),
+          if (_dueAt != null)
             IconButton(
-              tooltip:
-                  'Rimuovi scadenza',
-              onPressed:
-                  () {
+              tooltip: 'Rimuovi scadenza',
+              onPressed: () {
                 setState(() {
-                  _dueAt =
-                      null;
+                  _dueAt = null;
                 });
               },
-              icon:
-                  const Icon(
-                Icons.close_rounded,
-              ),
+              icon: const Icon(Icons.close_rounded),
             ),
         ],
       ),
     );
   }
 
-
   Widget _recipientsCard() {
     return _card(
       Column(
-        crossAxisAlignment:
-            CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Studenti',
-            style:
-                TextStyle(
-              color:
-                  AppColors.pureWhite,
-              fontWeight:
-                  FontWeight.bold,
+            style: TextStyle(
+              color: AppColors.pureWhite,
+              fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(
-            height:
-                8,
-          ),
-          for (
-            final SocialUser user
-            in _users
-          )
+          const SizedBox(height: 8),
+          for (final SocialUser user in _users)
             CheckboxListTile(
-              dense:
-                  true,
-              value:
-                  _selectedUserIds
-                      .contains(
-                user.id,
-              ),
-              onChanged:
-                  (
-                bool? selected,
-              ) {
+              dense: true,
+              value: _selectedUserIds.contains(user.id),
+              onChanged: (bool? selected) {
                 setState(() {
                   if (selected == true) {
-                    _selectedUserIds.add(
-                      user.id,
-                    );
+                    _selectedUserIds.add(user.id);
                   } else {
-                    _selectedUserIds.remove(
-                      user.id,
-                    );
+                    _selectedUserIds.remove(user.id);
                   }
                 });
               },
-              title:
-                  Text(
+              title: Text(
                 user.name,
-                style:
-                    const TextStyle(
-                  color:
-                      AppColors.pureWhite,
-                  fontSize:
-                      12,
+                style: TextStyle(
+                  color: AppColors.pureWhite,
+                  fontSize: 12,
                 ),
               ),
             ),
           const Divider(),
-          const Text(
+          Text(
             'Gruppi',
-            style:
-                TextStyle(
-              color:
-                  AppColors.pureWhite,
-              fontWeight:
-                  FontWeight.bold,
+            style: TextStyle(
+              color: AppColors.pureWhite,
+              fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(
-            height:
-                8,
-          ),
-          for (
-            final Map<String, dynamic> group
-            in _groups
-          )
+          const SizedBox(height: 8),
+          for (final Map<String, dynamic> group in _groups)
             Builder(
-              builder:
-                  (
-                BuildContext context,
-              ) {
-                final int? id =
-                    _toInt(
-                  group[
-                    'id'
-                  ],
-                );
+              builder: (BuildContext context) {
+                final int? id = _toInt(group['id']);
 
                 if (id == null) {
                   return const SizedBox.shrink();
                 }
 
                 return CheckboxListTile(
-                  dense:
-                      true,
-                  value:
-                      _selectedGroupIds
-                          .contains(
-                    id,
-                  ),
-                  onChanged:
-                      (
-                    bool? selected,
-                  ) {
+                  dense: true,
+                  value: _selectedGroupIds.contains(id),
+                  onChanged: (bool? selected) {
                     setState(() {
                       if (selected == true) {
-                        _selectedGroupIds.add(
-                          id,
-                        );
+                        _selectedGroupIds.add(id);
                       } else {
-                        _selectedGroupIds.remove(
-                          id,
-                        );
+                        _selectedGroupIds.remove(id);
                       }
                     });
                   },
-                  title:
-                      Text(
-                    group[
-                            'name']
-                        ?.toString() ??
-                        'Gruppo #$id',
-                    style:
-                        const TextStyle(
-                      color:
-                          AppColors.pureWhite,
-                      fontSize:
-                          12,
+                  title: Text(
+                    group['name']?.toString() ?? 'Gruppo #$id',
+                    style: TextStyle(
+                      color: AppColors.pureWhite,
+                      fontSize: 12,
                     ),
                   ),
                 );
@@ -1168,31 +723,17 @@ class _QuizAssignmentFormPageState
     );
   }
 
-
-  Widget _card(
-    Widget child,
-  ) {
+  Widget _card(Widget child) {
     return Container(
-      width:
-          double.infinity,
-      padding:
-          const EdgeInsets.all(
-        14,
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: AppColors.eleganceDeepNavy,
+        borderRadius: BorderRadius.circular(15),
       ),
-      decoration:
-          BoxDecoration(
-        color:
-            AppColors.eleganceDeepNavy,
-        borderRadius:
-            BorderRadius.circular(
-          15,
-        ),
-      ),
-      child:
-          child,
+      child: child,
     );
   }
-
 
   Widget _textField({
     required TextEditingController controller,
@@ -1205,118 +746,56 @@ class _QuizAssignmentFormPageState
     String? suffixText,
   }) {
     return TextFormField(
-      controller:
-          controller,
-      minLines:
-          minLines,
-      maxLines:
-          maxLines,
-      keyboardType:
-          keyboardType,
-      style:
-          const TextStyle(
-        color:
-            AppColors.pureWhite,
-      ),
-      validator:
-          (
-        String? value,
-      ) {
-        if (
-          required &&
-          (
-            value == null ||
-            value.trim().isEmpty
-          )
-        ) {
+      controller: controller,
+      minLines: minLines,
+      maxLines: maxLines,
+      keyboardType: keyboardType,
+      style: TextStyle(color: AppColors.pureWhite),
+      validator: (String? value) {
+        if (required && (value == null || value.trim().isEmpty)) {
           return 'Campo obbligatorio.';
         }
 
         return null;
       },
-      decoration:
-          InputDecoration(
-        labelText:
-            label,
-        prefixIcon:
-            Icon(
-          icon,
-        ),
-        suffixText:
-            suffixText,
-        filled:
-            true,
-        fillColor:
-            AppColors.eleganceDeepNavy,
-        border:
-            OutlineInputBorder(
-          borderRadius:
-              BorderRadius.circular(
-            13,
-          ),
-        ),
+      decoration: InputDecoration(
+        labelText: label,
+        prefixIcon: Icon(icon),
+        suffixText: suffixText,
+        filled: true,
+        fillColor: AppColors.eleganceDeepNavy,
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(13)),
       ),
     );
   }
 
-
   Future<void> _pickDueAt() async {
-    final DateTime now =
-        DateTime.now();
+    final DateTime now = DateTime.now();
 
-    final DateTime? date =
-        await showDatePicker(
-      context:
-          context,
-      firstDate:
-          now,
-      lastDate:
-          DateTime(
-        now.year + 5,
-      ),
-      initialDate:
-          _dueAt ??
-          now.add(
-            const Duration(
-              days:
-                  1,
-            ),
-          ),
+    final DateTime? date = await showDatePicker(
+      context: context,
+      firstDate: now,
+      lastDate: DateTime(now.year + 5),
+      initialDate: _dueAt ?? now.add(const Duration(days: 1)),
     );
 
-    if (
-      date == null ||
-      !mounted
-    ) {
+    if (date == null || !mounted) {
       return;
     }
 
-    final TimeOfDay? time =
-        await showTimePicker(
-      context:
-          context,
-      initialTime:
-          _dueAt == null
-              ? const TimeOfDay(
-                  hour:
-                      23,
-                  minute:
-                      59,
-                )
-              : TimeOfDay.fromDateTime(
-                  _dueAt!,
-                ),
+    final TimeOfDay? time = await showTimePicker(
+      context: context,
+      initialTime: _dueAt == null
+          ? const TimeOfDay(hour: 23, minute: 59)
+          : TimeOfDay.fromDateTime(_dueAt!),
     );
 
-    if (
-      time == null
-    ) {
+    if (time == null) {
       return;
     }
 
     setState(() {
-      _dueAt =
-          DateTime(
+      _dueAt = DateTime(
         date.year,
         date.month,
         date.day,
@@ -1326,236 +805,157 @@ class _QuizAssignmentFormPageState
     });
   }
 
-
   Future<void> _save() async {
-    FocusScope.of(
-      context,
-    ).unfocus();
+    FocusScope.of(context).unfocus();
 
-    if (
-      !(
-        _formKey.currentState
-                ?.validate() ??
-            false
-      )
-    ) {
+    if (!(_formKey.currentState?.validate() ?? false)) {
       return;
     }
 
-    if (
-      _selectedUserIds.isEmpty &&
-      _selectedGroupIds.isEmpty
-    ) {
+    if (_selectedUserIds.isEmpty && _selectedGroupIds.isEmpty) {
       setState(() {
-        _error =
-            'Seleziona almeno uno studente o un gruppo.';
+        _error = 'Seleziona almeno uno studente o un gruppo.';
       });
 
       return;
     }
 
-    if (
-      _selectionMode ==
-          'arguments' &&
-      _selectedArguments.isEmpty
-    ) {
+    if (_selectionMode == 'arguments' && _selectedArguments.isEmpty) {
       setState(() {
-        _error =
-            'Seleziona almeno un argomento.';
+        _error = 'Seleziona almeno un argomento.';
       });
 
       return;
     }
 
-    if (
-      _selectionMode ==
-          'selected_questions' &&
-      _selectedQuestionIds.isEmpty
-    ) {
+    if (_selectionMode == 'selected_questions' &&
+        _selectedQuestionIds.isEmpty &&
+        _selectedItemIds.isEmpty) {
       setState(() {
-        _error =
-            'Seleziona almeno una domanda.';
+        _error = _hasExercises
+            ? 'Seleziona almeno una domanda o un esercizio.'
+            : 'Seleziona almeno una domanda.';
       });
 
       return;
     }
 
-    final int? questionCount =
-        int.tryParse(
-      _questionCountController
-          .text
-          .trim(),
+    final int? questionCount = int.tryParse(
+      _questionCountController.text.trim(),
     );
 
-    if (
-      _selectionMode !=
-          'selected_questions' &&
-      (
-        questionCount == null ||
-        questionCount <= 0
-      )
-    ) {
+    if (_selectionMode != 'selected_questions' &&
+        (questionCount == null || questionCount <= 0)) {
       setState(() {
-        _error =
-            'Numero domande non valido.';
+        _error = 'Numero domande non valido.';
       });
 
       return;
     }
 
-    final String timeText =
-        _timeLimitController.text
-            .trim();
+    final String timeText = _timeLimitController.text.trim();
 
-    final int? minutes =
-        timeText.isEmpty
-            ? null
-            : int.tryParse(
-                timeText,
-              );
+    final int? minutes = timeText.isEmpty ? null : int.tryParse(timeText);
 
-    if (
-      minutes != null &&
-      minutes <= 0
-    ) {
+    if (_executionMode == 'simulation' && (minutes == null || minutes <= 0)) {
       setState(() {
         _error =
-            'Tempo limite non valido.';
+            'Per un quiz controllato devi impostare un tempo limite valido.';
+      });
+
+      return;
+    }
+
+    if (minutes != null && minutes <= 0) {
+      setState(() {
+        _error = 'Tempo limite non valido.';
       });
 
       return;
     }
 
     setState(() {
-      _saving =
-          true;
+      _saving = true;
 
-      _error =
-          null;
+      _error = null;
     });
 
     try {
       final Map<String, dynamic> payload = {
-        'department':
-            widget.department,
-        'course':
-            widget.course,
-        'subject':
-            widget.subject,
-        'title':
-            _titleController.text
-                .trim(),
-        'description':
-            _descriptionController.text
-                .trim(),
-        'selection_mode':
-            _selectionMode,
-        'execution_mode':
-            _executionMode,
-        'external_activity_policy':
-            _executionMode == 'simulation'
-                ? _externalActivityPolicy
-                : 'disabled',
-        'arguments':
-            _selectionMode ==
-                    'arguments'
-                ? _selectedArguments
-                    .toList()
-                : <String>[],
-        'question_ids':
-            _selectionMode ==
-                    'selected_questions'
-                ? _selectedQuestionIds
-                    .toList()
-                : <int>[],
-        'question_count':
-            _selectionMode ==
-                    'selected_questions'
-                ? _selectedQuestionIds.length
-                : questionCount,
-        'time_limit_seconds':
-            minutes == null
-                ? null
-                : minutes * 60,
-        'due_at':
-            _dueAt
-                ?.toUtc()
-                .toIso8601String(),
-        'user_ids':
-            _selectedUserIds
-                .toList(),
-        'group_ids':
-            _selectedGroupIds
-                .toList(),
+        'department': widget.department,
+        'course': widget.course,
+        'subject': widget.subject,
+        'title': _titleController.text.trim(),
+        'description': _descriptionController.text.trim(),
+        'selection_mode': _selectionMode,
+        'execution_mode': _executionMode,
+        'external_activity_policy': _executionMode == 'simulation'
+            ? _externalActivityPolicy
+            : 'disabled',
+        'arguments': _selectionMode == 'arguments'
+            ? _selectedArguments.toList()
+            : <String>[],
+        'question_ids': _selectionMode == 'selected_questions' &&
+                _types.contains(kMultipleChoice)
+            ? _selectedQuestionIds.toList()
+            : <int>[],
+        'question_count': _selectionMode == 'selected_questions'
+            ? _selectedQuestionIds.length + _selectedItemIds.length
+            : questionCount,
+        // v18 · null / ["multiple_choice"] = assegnazione di sempre
+        'question_types': _hasExercises ? _types.toList() : null,
+        'item_ids': _selectionMode == 'selected_questions' && _hasExercises
+            ? _selectedItemIds.toList()
+            : <String>[],
+        'attempts_per_item': _hasExercises && _executionMode == 'practice'
+            ? _attemptsPerItem
+            : null,
+        'time_limit_seconds': minutes == null ? null : minutes * 60,
+        'due_at': _dueAt?.toUtc().toIso8601String(),
+        'user_ids': _selectedUserIds.toList(),
+        'group_ids': _selectedGroupIds.toList(),
       };
 
       late final Map<String, dynamic> result;
 
-      if (
-        widget.isEditing
-      ) {
-        final int? assignmentId =
-            _toInt(
-          widget.assignment![
-            'id'
-          ],
-        );
+      if (widget.isEditing) {
+        final int? assignmentId = _toInt(widget.assignment!['id']);
 
         if (assignmentId == null) {
-          throw Exception(
-            'Quiz non valido.',
-          );
+          throw Exception('Quiz non valido.');
         }
 
-        result =
-            await _service
-                .updateAssignment(
-          assignmentId:
-              assignmentId,
-          data:
-              payload,
+        result = await _service.updateAssignment(
+          assignmentId: assignmentId,
+          data: payload,
         );
       } else {
-        result =
-            await _service
-                .createAssignment(
-          payload,
-        );
+        result = await _service.createAssignment(payload);
       }
 
       if (!mounted) {
         return;
       }
 
-      Navigator.pop(
-        context,
-        result,
-      );
+      Navigator.pop(context, result);
     } catch (error) {
       if (!mounted) {
         return;
       }
 
       setState(() {
-        _error =
-            _cleanError(
-          error,
-        );
+        _error = _cleanError(error);
       });
     } finally {
       if (mounted) {
         setState(() {
-          _saving =
-              false;
+          _saving = false;
         });
       }
     }
   }
 
-
-  int? _toInt(
-    dynamic value,
-  ) {
+  int? _toInt(dynamic value) {
     if (value is int) {
       return value;
     }
@@ -1564,67 +964,26 @@ class _QuizAssignmentFormPageState
       return value.toInt();
     }
 
-    return int.tryParse(
-      value?.toString() ??
-          '',
-    );
+    return int.tryParse(value?.toString() ?? '');
   }
 
+  String _formatDate(DateTime value) {
+    final String day = value.day.toString().padLeft(2, '0');
 
-  String _formatDate(
-    DateTime value,
-  ) {
-    final String day =
-        value.day
-            .toString()
-            .padLeft(
-              2,
-              '0',
-            );
+    final String month = value.month.toString().padLeft(2, '0');
 
-    final String month =
-        value.month
-            .toString()
-            .padLeft(
-              2,
-              '0',
-            );
+    final String hour = value.hour.toString().padLeft(2, '0');
 
-    final String hour =
-        value.hour
-            .toString()
-            .padLeft(
-              2,
-              '0',
-            );
-
-    final String minute =
-        value.minute
-            .toString()
-            .padLeft(
-              2,
-              '0',
-            );
+    final String minute = value.minute.toString().padLeft(2, '0');
 
     return '$day/$month/${value.year} $hour:$minute';
   }
 
+  String _cleanError(Object error) {
+    String value = error.toString();
 
-  String _cleanError(
-    Object error,
-  ) {
-    String value =
-        error.toString();
-
-    if (
-      value.startsWith(
-        'Exception: ',
-      )
-    ) {
-      value =
-          value.substring(
-        11,
-      );
+    if (value.startsWith('Exception: ')) {
+      value = value.substring(11);
     }
 
     return value.trim();

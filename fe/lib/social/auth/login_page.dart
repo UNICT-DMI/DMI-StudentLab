@@ -370,7 +370,7 @@ super.dispose();
 
         borderRadius: BorderRadius.circular(14),
 
-        borderSide: const BorderSide(color: AppColors.socialBlue),
+        borderSide: BorderSide(color: AppColors.socialBlue),
 
       ),
 
@@ -378,7 +378,7 @@ super.dispose();
 
         borderRadius: BorderRadius.circular(14),
 
-        borderSide: const BorderSide(color: Colors.redAccent),
+        borderSide: BorderSide(color: AppColors.redAccent),
 
       ),
 
@@ -386,7 +386,7 @@ super.dispose();
 
         borderRadius: BorderRadius.circular(14),
 
-        borderSide: const BorderSide(color: Colors.redAccent),
+        borderSide: BorderSide(color: AppColors.redAccent),
 
       ),
 
@@ -450,11 +450,11 @@ super.dispose();
 
       decoration: BoxDecoration(
 
-        color: Colors.redAccent.withValues(alpha: 0.08),
+        color: AppColors.redAccent.withValues(alpha: 0.08),
 
         borderRadius: BorderRadius.circular(12),
 
-        border: Border.all(color: Colors.redAccent.withValues(alpha: 0.20)),
+        border: Border.all(color: AppColors.redAccent.withValues(alpha: 0.20)),
 
       ),
 
@@ -464,11 +464,11 @@ super.dispose();
 
         children: [
 
-          const Icon(
+          Icon(
 
             Icons.error_outline_rounded,
 
-            color: Colors.redAccent,
+            color: AppColors.redAccent,
 
             size: 20,
 
@@ -584,7 +584,7 @@ super.dispose();
 
                             ),
 
-                            child: const Icon(
+                            child: Icon(
 
                               Icons.lock_open_rounded,
 
@@ -600,7 +600,7 @@ super.dispose();
 
                         const SizedBox(height: 24),
 
-                        const Text(
+                        Text(
 
                           'Bentornato',
 
@@ -656,7 +656,7 @@ super.dispose();
 
                           enableSuggestions: false,
 
-                          style: const TextStyle(color: AppColors.pureWhite),
+                          style: TextStyle(color: AppColors.pureWhite),
 
                           validator: _validateEmail,
 
@@ -690,7 +690,7 @@ super.dispose();
 
                           autofillHints: const [AutofillHints.password],
 
-                          style: const TextStyle(color: AppColors.pureWhite),
+                          style: TextStyle(color: AppColors.pureWhite),
 
                           validator: _validatePassword,
 
@@ -734,7 +734,7 @@ super.dispose();
 
                             icon: _loading
 
-                                ? const SizedBox(
+                                ? SizedBox(
 
                                     width: 18,
 
@@ -832,7 +832,7 @@ super.dispose();
 
                                     ),
 
-                                    child: const Icon(
+                                    child: Icon(
 
                                       Icons.person_add_alt_1_rounded,
 
@@ -854,7 +854,7 @@ super.dispose();
 
                                       children: [
 
-                                        const Text(
+                                        Text(
 
                                           'Non hai ancora un account?',
 
@@ -894,7 +894,7 @@ super.dispose();
 
                                   const SizedBox(width: 8),
 
-                                  const Text(
+                                  Text(
 
                                     'Registrati',
 
@@ -912,7 +912,7 @@ super.dispose();
 
                                   const SizedBox(width: 4),
 
-                                  const Icon(
+                                  Icon(
 
                                     Icons.arrow_forward_ios_rounded,
 

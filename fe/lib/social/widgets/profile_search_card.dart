@@ -373,7 +373,7 @@ class StudentLabProfileSearchCard extends StatelessWidget {
                 overflow:
                     TextOverflow.ellipsis,
                 style:
-                    const TextStyle(
+                    TextStyle(
                   color:
                       AppColors.pureWhite,
                   fontSize:
@@ -435,7 +435,7 @@ class StudentLabProfileSearchCard extends StatelessWidget {
               8,
         ),
 
-        const Padding(
+        Padding(
           padding:
               EdgeInsets.only(
             top:
@@ -445,7 +445,7 @@ class StudentLabProfileSearchCard extends StatelessWidget {
               Icon(
             Icons.arrow_forward_ios_rounded,
             color:
-                Colors.white30,
+                AppColors.white30,
             size:
                 14,
           ),
@@ -532,7 +532,7 @@ class _AvailabilityStatus
   Widget build(
     BuildContext context,
   ) {
-    return const Row(
+    return Row(
       mainAxisSize:
           MainAxisSize.min,
       children: [
@@ -546,7 +546,7 @@ class _AvailabilityStatus
             decoration:
                 BoxDecoration(
               color:
-                  Colors.greenAccent,
+                  AppColors.greenAccent,
               shape:
                   BoxShape.circle,
             ),
@@ -563,7 +563,7 @@ class _AvailabilityStatus
           style:
               TextStyle(
             color:
-                Colors.greenAccent,
+                AppColors.greenAccent,
             fontSize:
                 11,
             fontWeight:
@@ -628,7 +628,7 @@ class _SectionTitle
         Text(
           label,
           style:
-              const TextStyle(
+              TextStyle(
             color:
                 AppColors.pureWhite,
             fontSize:
@@ -852,7 +852,7 @@ class _SubjectChip
           Text(
         value,
         style:
-            const TextStyle(
+            TextStyle(
           color:
               AppColors.materialSky,
           fontSize:

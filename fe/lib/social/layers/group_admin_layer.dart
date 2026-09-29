@@ -642,7 +642,7 @@ class _GroupAdminLayerState
             ),
 
             child:
-                const Icon(
+                Icon(
               Icons.groups_rounded,
 
               color:
@@ -675,7 +675,7 @@ class _GroupAdminLayerState
                       TextOverflow.ellipsis,
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
                         AppColors.pureWhite,
 
@@ -772,7 +772,7 @@ class _GroupAdminLayerState
             ),
 
             child:
-                const Text(
+                Text(
               'OWNER',
 
               style:
@@ -868,7 +868,7 @@ class _GroupAdminLayerState
                               1,
 
                           color:
-                              Colors.white
+                              AppColors.white
                                   .withOpacity(
                             0.07,
                           ),
@@ -964,7 +964,7 @@ class _GroupAdminLayerState
                               1,
 
                           color:
-                              Colors.white
+                              AppColors.white
                                   .withOpacity(
                             0.07,
                           ),
@@ -1042,7 +1042,7 @@ class _GroupAdminLayerState
           child:
               Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.search_rounded,
 
                 color:
@@ -1076,11 +1076,11 @@ class _GroupAdminLayerState
                 ),
               ),
 
-              const Icon(
+              Icon(
                 Icons.chevron_right_rounded,
 
                 color:
-                    Colors.white38,
+                    AppColors.white38,
               ),
             ],
           ),
@@ -1362,7 +1362,7 @@ class _GroupAdminLayerState
                         CrossAxisAlignment.start,
 
                     children: [
-                      const Text(
+                      Text(
                         'Invita partecipanti',
 
                         style:
@@ -1400,7 +1400,7 @@ class _GroupAdminLayerState
                         },
 
                         style:
-                            const TextStyle(
+                            TextStyle(
                           color:
                               AppColors.pureWhite,
                         ),
@@ -1411,13 +1411,13 @@ class _GroupAdminLayerState
                               'Cerca utente...',
 
                           hintStyle:
-                              const TextStyle(
+                              TextStyle(
                             color:
-                                Colors.white38,
+                                AppColors.white38,
                           ),
 
                           prefixIcon:
-                              const Icon(
+                              Icon(
                             Icons.search_rounded,
 
                             color:
@@ -1451,7 +1451,7 @@ class _GroupAdminLayerState
                       Expanded(
                         child:
                             users.isEmpty
-                                ? const Center(
+                                ? Center(
                                     child:
                                         Text(
                                       'Nessun utente disponibile.',
@@ -1459,7 +1459,7 @@ class _GroupAdminLayerState
                                       style:
                                           TextStyle(
                                         color:
-                                            Colors.white54,
+                                            AppColors.white54,
                                       ),
                                     ),
                                   )
@@ -1767,7 +1767,7 @@ class _GroupAdminLayerState
               AppColors.eleganceDeepNavy,
 
           title:
-              const Text(
+              Text(
             'Privacy del gruppo',
 
             style:
@@ -1833,7 +1833,7 @@ class _GroupAdminLayerState
               AppColors.eleganceDeepNavy,
 
           title:
-              const Text(
+              Text(
             'Eliminare il gruppo?',
 
             style:
@@ -1883,13 +1883,13 @@ class _GroupAdminLayerState
               },
 
               child:
-                  const Text(
+                  Text(
                 'Elimina',
 
                 style:
                     TextStyle(
                   color:
-                      Colors.redAccent,
+                      AppColors.redAccent,
                 ),
               ),
             ),
@@ -1968,7 +1968,7 @@ class _GroupAdminLayerState
             icon,
 
             color:
-                Colors.white38,
+                AppColors.white38,
 
             size:
                 32,
@@ -1986,9 +1986,9 @@ class _GroupAdminLayerState
                 TextAlign.center,
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
-                  Colors.white54,
+                  AppColors.white54,
 
               fontSize:
                   12,
@@ -2156,7 +2156,7 @@ class _AdminSection
                       title,
 
                       style:
-                          const TextStyle(
+                          TextStyle(
                         color:
                             AppColors.pureWhite,
 
@@ -2264,7 +2264,7 @@ class _ParticipantTile
                 40,
 
             decoration:
-                const BoxDecoration(
+                BoxDecoration(
               color:
                   AppColors.brandNightBlue,
 
@@ -2273,7 +2273,7 @@ class _ParticipantTile
             ),
 
             child:
-                const Icon(
+                Icon(
               Icons.person_outline_rounded,
 
               color:
@@ -2310,7 +2310,7 @@ class _ParticipantTile
                             TextOverflow.ellipsis,
 
                         style:
-                            const TextStyle(
+                            TextStyle(
                           color:
                               AppColors.pureWhite,
 
@@ -2397,11 +2397,11 @@ class _ParticipantTile
                         onRemove,
 
                     icon:
-                        const Icon(
+                        Icon(
                       Icons.remove_circle_outline,
 
                       color:
-                          Colors.white38,
+                          AppColors.white38,
 
                       size:
                           20,
@@ -2460,7 +2460,7 @@ class _RequestTile
                 40,
 
             decoration:
-                const BoxDecoration(
+                BoxDecoration(
               color:
                   AppColors.brandNightBlue,
 
@@ -2469,7 +2469,7 @@ class _RequestTile
             ),
 
             child:
-                const Icon(
+                Icon(
               Icons.person_add_alt_1_rounded,
 
               color:
@@ -2496,7 +2496,7 @@ class _RequestTile
                   request.user.name,
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
                         AppColors.pureWhite,
 
@@ -2569,11 +2569,11 @@ class _RequestTile
                   onReject,
 
               icon:
-                  const Icon(
+                  Icon(
                 Icons.close_rounded,
 
                 color:
-                    Colors.redAccent,
+                    AppColors.redAccent,
 
                 size:
                     20,
@@ -2588,7 +2588,7 @@ class _RequestTile
                   onAccept,
 
               icon:
-                  const Icon(
+                  Icon(
                 Icons.check_circle_outline_rounded,
 
                 color:
@@ -2663,7 +2663,7 @@ class _InviteTile
                 38,
 
             decoration:
-                const BoxDecoration(
+                BoxDecoration(
               color:
                   AppColors.eleganceMidnight,
 
@@ -2672,7 +2672,7 @@ class _InviteTile
             ),
 
             child:
-                const Icon(
+                Icon(
               Icons.person_outline_rounded,
 
               color:
@@ -2699,7 +2699,7 @@ class _InviteTile
                   user.name,
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
                         AppColors.pureWhite,
 
@@ -2726,9 +2726,9 @@ class _InviteTile
                       TextOverflow.ellipsis,
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
-                        Colors.white54,
+                        AppColors.white54,
 
                     fontSize:
                         10,
@@ -2787,7 +2787,7 @@ class _AdminActionTile
   ) {
     final Color iconColor =
         danger
-            ? Colors.redAccent
+            ? AppColors.redAccent
             : AppColors.skyBlue;
 
 
@@ -2873,7 +2873,7 @@ class _AdminActionTile
                         TextStyle(
                       color:
                           danger
-                              ? Colors.redAccent
+                              ? AppColors.redAccent
                               : AppColors.pureWhite,
 
                       fontSize:
@@ -2914,11 +2914,11 @@ class _AdminActionTile
               ),
             ),
 
-            const Icon(
+            Icon(
               Icons.chevron_right_rounded,
 
               color:
-                  Colors.white38,
+                  AppColors.white38,
 
               size:
                   21,
@@ -2994,7 +2994,7 @@ class _RoleBadge
         text,
 
         style:
-            const TextStyle(
+            TextStyle(
           color:
               AppColors.materialSky,
 
@@ -3058,7 +3058,7 @@ class _Badge
         text,
 
         style:
-            const TextStyle(
+            TextStyle(
           color:
               AppColors.skyBlue,
 
@@ -3126,11 +3126,11 @@ class _AdminErrorCard
             MainAxisSize.min,
 
         children: [
-          const Icon(
+          Icon(
             Icons.error_outline_rounded,
 
             color:
-                Colors.redAccent,
+                AppColors.redAccent,
 
             size:
                 40,
@@ -3141,7 +3141,7 @@ class _AdminErrorCard
                 12,
           ),
 
-          const Text(
+          Text(
             'Errore caricamento amministrazione',
 
             textAlign:
@@ -3169,9 +3169,9 @@ class _AdminErrorCard
                 TextAlign.center,
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
-                  Colors.white54,
+                  AppColors.white54,
 
               fontSize:
                   11,

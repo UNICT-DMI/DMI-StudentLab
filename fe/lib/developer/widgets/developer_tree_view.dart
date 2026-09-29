@@ -60,7 +60,7 @@ class _Node extends StatelessWidget {
               borderRadius: BorderRadius.circular(13),
               border: Border.all(
                 color: node.securityCritical
-                    ? Colors.redAccent.withValues(alpha: 0.16)
+                    ? AppColors.redAccent.withValues(alpha: 0.16)
                     : AppColors.skyBlue.withValues(alpha: 0.10),
               ),
             ),
@@ -76,7 +76,7 @@ class _Node extends StatelessWidget {
                   child: Icon(
                     _fileIcon(node.name),
                     color: node.securityCritical
-                        ? Colors.redAccent
+                        ? AppColors.redAccent
                         : AppColors.skyBlue,
                     size: 19,
                   ),
@@ -91,7 +91,7 @@ class _Node extends StatelessWidget {
                         node.name,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.pureWhite,
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
@@ -122,7 +122,7 @@ class _Node extends StatelessWidget {
                     ),
                     child: Text(
                       '${node.functionCount} fn',
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: AppColors.materialSky,
                         fontSize: 8,
                         fontWeight: FontWeight.bold,
@@ -131,9 +131,9 @@ class _Node extends StatelessWidget {
                   ),
                 ],
                 const SizedBox(width: 6),
-                const Icon(
+                Icon(
                   Icons.chevron_right_rounded,
-                  color: Colors.white30,
+                  color: AppColors.white30,
                   size: 18,
                 ),
               ],
@@ -156,7 +156,7 @@ class _Node extends StatelessWidget {
           0,
         ),
         childrenPadding: EdgeInsets.zero,
-        collapsedIconColor: Colors.white38,
+        collapsedIconColor: AppColors.white38,
         iconColor: AppColors.skyBlue,
         leading: Container(
           width: 34,
@@ -165,7 +165,7 @@ class _Node extends StatelessWidget {
             color: AppColors.brandNightBlue,
             borderRadius: BorderRadius.circular(10),
           ),
-          child: const Icon(
+          child: Icon(
             Icons.folder_outlined,
             color: AppColors.skyBlue,
             size: 18,
@@ -173,7 +173,7 @@ class _Node extends StatelessWidget {
         ),
         title: Text(
           node.name,
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.pureWhite,
             fontSize: 12,
             fontWeight: FontWeight.w600,

@@ -1,9 +1,12 @@
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../theme/nightTheme.dart';
+import '../../services/blob_upload_service.dart';
+import '../../services/picked_file_bridge.dart';
+import '../../services/auth_session.dart';
 import 'services/question_management_service.dart';
-
 
 class QuestionEditorPage extends StatefulWidget {
   final String department;
@@ -11,6 +14,7 @@ class QuestionEditorPage extends StatefulWidget {
   final String subject;
   final Map<String, dynamic> metadataBase;
   final Map<String, dynamic>? question;
+  final bool draftOnly;
 
   const QuestionEditorPage({
     super.key,
@@ -19,32 +23,35 @@ class QuestionEditorPage extends StatefulWidget {
     required this.subject,
     required this.metadataBase,
     this.question,
-  });
+  }) : draftOnly = false;
+
+  const QuestionEditorPage.draft({
+    super.key,
+    required this.department,
+    required this.course,
+    required this.subject,
+    required this.metadataBase,
+    this.question,
+  }) : draftOnly = true;
 
   bool get isEditing => question != null;
 
   @override
-  State<QuestionEditorPage> createState() =>
-      _QuestionEditorPageState();
+  State<QuestionEditorPage> createState() => _QuestionEditorPageState();
 }
 
+class _QuestionEditorPageState extends State<QuestionEditorPage> {
+  final QuestionManagementService _service = QuestionManagementService();
+  final StudentLabUploadService _uploadService = StudentLabUploadService();
+  final PickedFileBridge _pickedFileBridge = PickedFileBridge();
 
-class _QuestionEditorPageState
-    extends State<QuestionEditorPage> {
-  final QuestionManagementService _service =
-      QuestionManagementService();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final GlobalKey<FormState> _formKey =
-      GlobalKey<FormState>();
+  final TextEditingController _argumentController = TextEditingController();
 
-  final TextEditingController _argumentController =
-      TextEditingController();
+  final TextEditingController _questionController = TextEditingController();
 
-  final TextEditingController _questionController =
-      TextEditingController();
-
-  final TextEditingController _estimatedTimeController =
-      TextEditingController(
+  final TextEditingController _estimatedTimeController = TextEditingController(
     text: '15',
   );
 
@@ -54,36 +61,29 @@ class _QuestionEditorPageState
   final TextEditingController _informalExplanationController =
       TextEditingController();
 
-  final Map<String, TextEditingController>
-      _optionControllers = {
+  final Map<String, TextEditingController> _optionControllers = {
     'a': TextEditingController(),
     'b': TextEditingController(),
     'c': TextEditingController(),
     'd': TextEditingController(),
   };
 
-  final Map<String, TextEditingController>
-      _answerExplanationControllers = {
+  final Map<String, TextEditingController> _answerExplanationControllers = {
     'a': TextEditingController(),
     'b': TextEditingController(),
     'c': TextEditingController(),
     'd': TextEditingController(),
   };
 
-  String _correctOption =
-      'a';
+  String _correctOption = 'a';
 
-  List<Map<String, dynamic>>
-      _existingAttachments = [];
+  List<Map<String, dynamic>> _existingAttachments = [];
 
-  final List<_PendingAttachment>
-      _pendingAttachments = [];
+  final List<_PendingAttachment> _pendingAttachments = [];
 
-  bool _saving =
-      false;
+  bool _saving = false;
 
   String? _error;
-
 
   @override
   void initState() {
@@ -91,52 +91,33 @@ class _QuestionEditorPageState
     _loadQuestion();
   }
 
-
   void _loadQuestion() {
-    final Map<String, dynamic>? question =
-        widget.question;
+    final Map<String, dynamic>? question = widget.question;
 
     if (question == null) {
       return;
     }
 
-    final dynamic metadataRaw =
-        question['metadata'];
+    final dynamic metadataRaw = question['metadata'];
 
-    final Map<String, dynamic> metadata =
-        metadataRaw is Map
-            ? Map<String, dynamic>.from(
-                metadataRaw,
-              )
-            : {};
+    final Map<String, dynamic> metadata = metadataRaw is Map
+        ? Map<String, dynamic>.from(metadataRaw)
+        : {};
 
-    _argumentController.text =
-        metadata['argoment']
-            ?.toString() ??
-        '';
+    _argumentController.text = metadata['argoment']?.toString() ?? '';
 
-    _questionController.text =
-        question['text']
-            ?.toString() ??
-        '';
+    _questionController.text = question['text']?.toString() ?? '';
 
     _estimatedTimeController.text =
-        question['estimed_time']
-            ?.toString() ??
-        '15';
+        question['estimed_time']?.toString() ?? '15';
 
     _formalExplanationController.text =
-        question['formal_explanation']
-            ?.toString() ??
-        '';
+        question['formal_explanation']?.toString() ?? '';
 
     _informalExplanationController.text =
-        question['informal_explanation']
-            ?.toString() ??
-        '';
+        question['informal_explanation']?.toString() ?? '';
 
-    final dynamic optionsRaw =
-        question['option'];
+    final dynamic optionsRaw = question['option'];
 
     if (optionsRaw is List) {
       for (final dynamic raw in optionsRaw) {
@@ -144,114 +125,49 @@ class _QuestionEditorPageState
           continue;
         }
 
-        final String id =
-            raw['id']
-                ?.toString()
-                .trim()
-                .toLowerCase() ??
-            '';
+        final String id = raw['id']?.toString().trim().toLowerCase() ?? '';
 
-        if (
-          !_optionControllers
-              .containsKey(
-            id,
-          )
-        ) {
+        if (!_optionControllers.containsKey(id)) {
           continue;
         }
 
-        _optionControllers[
-          id
-        ]!.text =
-            raw['text']
-                ?.toString() ??
-            '';
+        _optionControllers[id]!.text = raw['text']?.toString() ?? '';
       }
     }
 
     final String correct =
-        question['id_correct']
-            ?.toString()
-            .trim()
-            .toLowerCase() ??
-        'a';
+        question['id_correct']?.toString().trim().toLowerCase() ?? 'a';
 
-    if (
-      _optionControllers
-          .containsKey(
-        correct,
-      )
-    ) {
-      _correctOption =
-          correct;
+    if (_optionControllers.containsKey(correct)) {
+      _correctOption = correct;
     }
 
-    final dynamic explanationsRaw =
-        question[
-            'question_response_explanation'];
+    final dynamic explanationsRaw = question['question_response_explanation'];
 
-    if (
-      explanationsRaw is Map
-    ) {
-      for (
-        final MapEntry<dynamic, dynamic>
-            entry
-        in explanationsRaw.entries
-      ) {
-        final String id =
-            entry.key
-                .toString()
-                .trim()
-                .toLowerCase();
+    if (explanationsRaw is Map) {
+      for (final MapEntry<dynamic, dynamic> entry in explanationsRaw.entries) {
+        final String id = entry.key.toString().trim().toLowerCase();
 
-        if (
-          !_answerExplanationControllers
-              .containsKey(
-            id,
-          )
-        ) {
+        if (!_answerExplanationControllers.containsKey(id)) {
           continue;
         }
 
-        _answerExplanationControllers[
-          id
-        ]!.text =
-            entry.value
-                ?.toString() ??
-            '';
+        _answerExplanationControllers[id]!.text = entry.value?.toString() ?? '';
       }
-    } else if (
-      explanationsRaw
-          is String &&
-      explanationsRaw
-          .trim()
-          .isNotEmpty
-    ) {
-      _answerExplanationControllers[
-        _correctOption
-      ]!.text =
-          explanationsRaw.trim();
+    } else if (explanationsRaw is String && explanationsRaw.trim().isNotEmpty) {
+      _answerExplanationControllers[_correctOption]!.text = explanationsRaw
+          .trim();
     }
 
-    final dynamic attachmentsRaw =
-        question['attachments'];
+    final dynamic attachmentsRaw = question['attachments'];
 
     if (attachmentsRaw is List) {
-      _existingAttachments =
-          attachmentsRaw
-              .whereType<Map>()
-              .map(
-                (
-                  Map raw,
-                ) =>
-                    Map<String, dynamic>.from(
-                  raw,
-                ),
-              )
-              .toList();
+      _existingAttachments = attachmentsRaw
+          .whereType<Map>()
+          .map((Map raw) => Map<String, dynamic>.from(raw))
+          .toList();
     }
   }
-
 
   @override
   void dispose() {
@@ -261,273 +177,149 @@ class _QuestionEditorPageState
     _formalExplanationController.dispose();
     _informalExplanationController.dispose();
 
-    for (
-      final TextEditingController controller
-      in _optionControllers.values
-    ) {
+    for (final TextEditingController controller in _optionControllers.values) {
       controller.dispose();
     }
 
-    for (
-      final TextEditingController controller
-      in _answerExplanationControllers.values
-    ) {
+    for (final TextEditingController controller
+        in _answerExplanationControllers.values) {
       controller.dispose();
     }
 
     super.dispose();
   }
 
-
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:
-          AppColors.darkElegance,
-      appBar:
-          AppBar(
-        backgroundColor:
-            AppColors.brandNightBlue,
-        foregroundColor:
-            AppColors.pureWhite,
-        elevation:
-            0,
-        title:
-            Text(
-          widget.isEditing
+      backgroundColor: AppColors.darkElegance,
+      appBar: AppBar(
+        backgroundColor: AppColors.brandNightBlue,
+        foregroundColor: AppColors.pureWhite,
+        elevation: 0,
+        title: Text(
+          widget.draftOnly
+              ? 'Proponi domanda'
+              : widget.isEditing
               ? 'Modifica domanda'
               : 'Nuova domanda',
-          style:
-              const TextStyle(
-            fontSize:
-                18,
-            fontWeight:
-                FontWeight.w600,
-          ),
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
         ),
       ),
-      body:
-          SafeArea(
-        child:
-            Center(
-          child:
-              ConstrainedBox(
-            constraints:
-                const BoxConstraints(
-              maxWidth:
-                  820,
-            ),
-            child:
-                Form(
-              key:
-                  _formKey,
-              child:
-                  ListView(
-                padding:
-                    const EdgeInsets.all(
-                  20,
-                ),
+      body: SafeArea(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 820),
+            child: Form(
+              key: _formKey,
+              child: ListView(
+                padding: const EdgeInsets.all(20),
                 children: [
                   _buildHeader(),
-                  const SizedBox(
-                    height:
-                        24,
-                  ),
+                  const SizedBox(height: 24),
                   _sectionTitle(
                     'Contesto',
                     'Definisci argomento e tempo medio previsto.',
                   ),
-                  const SizedBox(
-                    height:
-                        12,
-                  ),
+                  const SizedBox(height: 12),
                   _SectionCard(
-                    child:
-                        Column(
+                    child: Column(
                       children: [
                         _buildTextField(
-                          controller:
-                              _argumentController,
-                          label:
-                              'Argomento',
-                          hint:
-                              'Es. Puntatori',
-                          icon:
-                              Icons.topic_outlined,
-                          required:
-                              true,
+                          controller: _argumentController,
+                          label: 'Argomento',
+                          hint: 'Es. Puntatori',
+                          icon: Icons.topic_outlined,
+                          required: true,
                         ),
-                        const SizedBox(
-                          height:
-                              16,
-                        ),
+                        const SizedBox(height: 16),
                         _buildTextField(
-                          controller:
-                              _estimatedTimeController,
-                          label:
-                              'Tempo stimato',
-                          hint:
-                              '15',
-                          icon:
-                              Icons.timer_outlined,
-                          required:
-                              true,
-                          keyboardType:
-                              TextInputType.number,
-                          suffixText:
-                              'secondi',
-                          validator:
-                              _validateEstimatedTime,
+                          controller: _estimatedTimeController,
+                          label: 'Tempo stimato',
+                          hint: '15',
+                          icon: Icons.timer_outlined,
+                          required: true,
+                          keyboardType: TextInputType.number,
+                          suffixText: 'secondi',
+                          validator: _validateEstimatedTime,
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height:
-                        24,
-                  ),
+                  const SizedBox(height: 24),
                   _sectionTitle(
                     'Domanda',
                     'Scrivi il testo che verrà mostrato allo studente.',
                   ),
-                  const SizedBox(
-                    height:
-                        12,
-                  ),
+                  const SizedBox(height: 12),
                   _SectionCard(
-                    child:
-                        _buildTextField(
-                      controller:
-                          _questionController,
-                      label:
-                          'Testo della domanda',
-                      hint:
-                          'Inserisci la domanda...',
-                      icon:
-                          Icons.quiz_outlined,
-                      required:
-                          true,
-                      minLines:
-                          3,
-                      maxLines:
-                          7,
+                    child: _buildTextField(
+                      controller: _questionController,
+                      label: 'Testo della domanda',
+                      hint: 'Inserisci la domanda...',
+                      icon: Icons.quiz_outlined,
+                      required: true,
+                      minLines: 3,
+                      maxLines: 7,
                     ),
                   ),
-                  const SizedBox(
-                    height:
-                        24,
-                  ),
+                  const SizedBox(height: 24),
                   _sectionTitle(
                     'Risposte',
                     'Inserisci quattro opzioni e indica quella corretta.',
                   ),
-                  const SizedBox(
-                    height:
-                        12,
-                  ),
+                  const SizedBox(height: 12),
                   _buildAnswersCard(),
-                  const SizedBox(
-                    height:
-                        24,
-                  ),
+                  const SizedBox(height: 24),
                   _sectionTitle(
                     'Spiegazioni',
-                    'Aggiungi il feedback mostrato dopo la risposta.',
+                    'Per ogni risposta spiega perché quella corretta è corretta e perché le altre sono errate.',
                   ),
-                  const SizedBox(
-                    height:
-                        12,
-                  ),
+                  const SizedBox(height: 12),
                   _buildExplanationsCard(),
-                  const SizedBox(
-                    height:
-                        24,
-                  ),
+                  const SizedBox(height: 24),
                   _sectionTitle(
-                    'Allegati',
-                    'Aggiungi immagini o documenti utili alla domanda.',
+                    'Allegati facoltativi',
+                    'Puoi aggiungere immagini o documenti utili alla domanda.',
                   ),
-                  const SizedBox(
-                    height:
-                        12,
-                  ),
+                  const SizedBox(height: 12),
                   _buildAttachmentsCard(),
-                  if (
-                    _error != null
-                  ) ...[
-                    const SizedBox(
-                      height:
-                          18,
-                    ),
-                    _ErrorCard(
-                      message:
-                          _error!,
-                    ),
+                  if (_error != null) ...[
+                    const SizedBox(height: 18),
+                    _ErrorCard(message: _error!),
                   ],
-                  const SizedBox(
-                    height:
-                        28,
-                  ),
+                  const SizedBox(height: 28),
                   SizedBox(
-                    height:
-                        54,
-                    child:
-                        ElevatedButton.icon(
-                      onPressed:
-                          _saving
-                              ? null
-                              : _save,
-                      style:
-                          ElevatedButton.styleFrom(
-                        backgroundColor:
-                            AppColors.brandNightBlue,
-                        foregroundColor:
-                            AppColors.pureWhite,
-                        shape:
-                            RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(
-                            14,
-                          ),
+                    height: 54,
+                    child: ElevatedButton.icon(
+                      onPressed: _saving ? null : _save,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.brandNightBlue,
+                        foregroundColor: AppColors.pureWhite,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
                         ),
                       ),
-                      icon:
-                          _saving
-                              ? const SizedBox(
-                                  width:
-                                      20,
-                                  height:
-                                      20,
-                                  child:
-                                      CircularProgressIndicator(
-                                    strokeWidth:
-                                        2,
-                                  ),
-                                )
-                              : const Icon(
-                                  Icons.save_outlined,
-                                ),
-                      label:
-                          Text(
+                      icon: _saving
+                          ? const SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
+                          : const Icon(Icons.save_outlined),
+                      label: Text(
                         _saving
                             ? 'Salvataggio...'
+                            : widget.draftOnly
+                            ? 'Continua'
                             : widget.isEditing
-                                ? 'Salva modifiche'
-                                : 'Crea domanda',
-                        style:
-                            const TextStyle(
-                          fontWeight:
-                              FontWeight.w600,
-                        ),
+                            ? 'Salva modifiche'
+                            : 'Crea domanda',
+                        style: const TextStyle(fontWeight: FontWeight.w600),
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height:
-                        20,
-                  ),
+                  const SizedBox(height: 20),
                 ],
               ),
             ),
@@ -537,95 +329,48 @@ class _QuestionEditorPageState
     );
   }
 
-
   Widget _buildHeader() {
     return Container(
-      padding:
-          const EdgeInsets.all(
-        18,
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: AppColors.eleganceDeepNavy,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: AppColors.skyBlue.withValues(alpha: 0.14)),
       ),
-      decoration:
-          BoxDecoration(
-        color:
-            AppColors.eleganceDeepNavy,
-        borderRadius:
-            BorderRadius.circular(
-          18,
-        ),
-        border:
-            Border.all(
-          color:
-              AppColors.skyBlue
-                  .withValues(
-            alpha:
-                0.14,
-          ),
-        ),
-      ),
-      child:
-          Row(
+      child: Row(
         children: [
           Container(
-            width:
-                52,
-            height:
-                52,
-            decoration:
-                BoxDecoration(
-              color:
-                  AppColors.brandNightBlue,
-              borderRadius:
-                  BorderRadius.circular(
-                15,
-              ),
+            width: 52,
+            height: 52,
+            decoration: BoxDecoration(
+              color: AppColors.brandNightBlue,
+              borderRadius: BorderRadius.circular(15),
             ),
-            child:
-                const Icon(
+            child: Icon(
               Icons.edit_note_rounded,
-              color:
-                  AppColors.skyBlue,
-              size:
-                  28,
+              color: AppColors.skyBlue,
+              size: 28,
             ),
           ),
-          const SizedBox(
-            width:
-                14,
-          ),
+          const SizedBox(width: 14),
           Expanded(
-            child:
-                Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   widget.subject,
-                  style:
-                      const TextStyle(
-                    color:
-                        AppColors.pureWhite,
-                    fontSize:
-                        17,
-                    fontWeight:
-                        FontWeight.bold,
+                  style: TextStyle(
+                    color: AppColors.pureWhite,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(
-                  height:
-                      4,
-                ),
+                const SizedBox(height: 4),
                 Text(
                   '${widget.department} • ${widget.course}',
-                  style:
-                      TextStyle(
-                    color:
-                        AppColors.pureWhite
-                            .withValues(
-                      alpha:
-                          0.5,
-                    ),
-                    fontSize:
-                        12,
+                  style: TextStyle(
+                    color: AppColors.pureWhite.withValues(alpha: 0.5),
+                    fontSize: 12,
                   ),
                 ),
               ],
@@ -636,340 +381,162 @@ class _QuestionEditorPageState
     );
   }
 
-
   Widget _buildAnswersCard() {
     return _SectionCard(
-      child:
-          Column(
+      child: Column(
         children: [
-          for (
-            final String id
-            in const [
-              'a',
-              'b',
-              'c',
-              'd',
-            ]
-          ) ...[
+          for (final String id in const ['a', 'b', 'c', 'd']) ...[
             _AnswerEditor(
-              id:
-                  id,
-              controller:
-                  _optionControllers[
-                    id
-                  ]!,
-              selected:
-                  _correctOption ==
-                      id,
-              onSelected:
-                  () {
+              id: id,
+              controller: _optionControllers[id]!,
+              selected: _correctOption == id,
+              onSelected: () {
                 setState(() {
-                  _correctOption =
-                      id;
+                  _correctOption = id;
                 });
               },
             ),
-            if (
-              id != 'd'
-            )
-              const SizedBox(
-                height:
-                    12,
-              ),
+            if (id != 'd') const SizedBox(height: 12),
           ],
         ],
       ),
     );
   }
-
 
   Widget _buildExplanationsCard() {
     return _SectionCard(
-      child:
-          Column(
+      child: Column(
         children: [
           _buildTextField(
-            controller:
-                _formalExplanationController,
-            label:
-                'Spiegazione formale',
-            hint:
-                'Spiega in modo rigoroso perché la risposta è corretta...',
-            icon:
-                Icons.school_outlined,
-            minLines:
-                3,
-            maxLines:
-                7,
+            controller: _formalExplanationController,
+            label: 'Spiegazione formale',
+            hint: 'Spiega in modo rigoroso perché la risposta è corretta...',
+            icon: Icons.school_outlined,
+            required: true,
+            minLines: 3,
+            maxLines: 7,
           ),
-          const SizedBox(
-            height:
-                18,
-          ),
+          const SizedBox(height: 18),
           _buildTextField(
-            controller:
-                _informalExplanationController,
-            label:
-                'Spiegazione semplice',
-            hint:
-                'Scrivi una spiegazione più intuitiva...',
-            icon:
-                Icons.lightbulb_outline_rounded,
-            minLines:
-                3,
-            maxLines:
-                6,
+            controller: _informalExplanationController,
+            label: 'Spiegazione semplice',
+            hint: 'Scrivi una spiegazione più intuitiva...',
+            icon: Icons.lightbulb_outline_rounded,
+            required: true,
+            minLines: 3,
+            maxLines: 6,
           ),
-          const SizedBox(
-            height:
-                22,
-          ),
+          const SizedBox(height: 22),
           Align(
-            alignment:
-                Alignment.centerLeft,
-            child:
-                Text(
+            alignment: Alignment.centerLeft,
+            child: Text(
               'Spiegazione per risposta',
-              style:
-                  TextStyle(
-                color:
-                    AppColors.pureWhite
-                        .withValues(
-                  alpha:
-                      0.82,
-                ),
-                fontSize:
-                    13,
-                fontWeight:
-                    FontWeight.w600,
+              style: TextStyle(
+                color: AppColors.pureWhite.withValues(alpha: 0.82),
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
-          const SizedBox(
-            height:
-                12,
-          ),
-          for (
-            final String id
-            in const [
-              'a',
-              'b',
-              'c',
-              'd',
-            ]
-          ) ...[
+          const SizedBox(height: 12),
+          for (final String id in const ['a', 'b', 'c', 'd']) ...[
             _buildTextField(
-              controller:
-                  _answerExplanationControllers[
-                    id
-                  ]!,
-              label:
-                  'Risposta ${id.toUpperCase()}',
-              hint:
-                  'Perché questa risposta è corretta o errata...',
-              icon:
-                  id ==
-                          _correctOption
-                      ? Icons.check_circle_outline_rounded
-                      : Icons.info_outline_rounded,
-              minLines:
-                  2,
-              maxLines:
-                  5,
+              controller: _answerExplanationControllers[id]!,
+              label: 'Risposta ${id.toUpperCase()}',
+              hint: 'Perché questa risposta è corretta o errata...',
+              icon: id == _correctOption
+                  ? Icons.check_circle_outline_rounded
+                  : Icons.info_outline_rounded,
+              required: true,
+              minLines: 2,
+              maxLines: 5,
             ),
-            if (
-              id != 'd'
-            )
-              const SizedBox(
-                height:
-                    12,
-              ),
+            if (id != 'd') const SizedBox(height: 12),
           ],
         ],
       ),
     );
   }
 
-
   Widget _buildAttachmentsCard() {
     return _SectionCard(
-      child:
-          Column(
+      child: Column(
         children: [
           InkWell(
-            onTap:
-                _saving
-                    ? null
-                    : _pickAttachments,
-            borderRadius:
-                BorderRadius.circular(
-              13,
-            ),
-            child:
-                Container(
-              width:
-                  double.infinity,
-              padding:
-                  const EdgeInsets.all(
-                14,
-              ),
-              decoration:
-                  BoxDecoration(
-                color:
-                    AppColors.brandNightBlue
-                        .withValues(
-                  alpha:
-                      0.5,
-                ),
-                borderRadius:
-                    BorderRadius.circular(
-                  13,
-                ),
-                border:
-                    Border.all(
-                  color:
-                      AppColors.skyBlue
-                          .withValues(
-                    alpha:
-                        0.14,
-                  ),
+            onTap: _saving ? null : _pickAttachments,
+            borderRadius: BorderRadius.circular(13),
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(
+                color: AppColors.brandNightBlue.withValues(alpha: 0.5),
+                borderRadius: BorderRadius.circular(13),
+                border: Border.all(
+                  color: AppColors.skyBlue.withValues(alpha: 0.14),
                 ),
               ),
-              child:
-                  const Row(
+              child: Row(
                 children: [
-                  Icon(
-                    Icons.attach_file_rounded,
-                    color:
-                        AppColors.skyBlue,
-                  ),
-                  SizedBox(
-                    width:
-                        12,
-                  ),
+                  Icon(Icons.attach_file_rounded, color: AppColors.skyBlue),
+                  SizedBox(width: 12),
                   Expanded(
-                    child:
-                        Column(
-                      crossAxisAlignment:
-                          CrossAxisAlignment.start,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Aggiungi allegato',
-                          style:
-                              TextStyle(
-                            color:
-                                AppColors.pureWhite,
-                            fontSize:
-                                14,
-                            fontWeight:
-                                FontWeight.w600,
+                          style: TextStyle(
+                            color: AppColors.pureWhite,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
-                        SizedBox(
-                          height:
-                              3,
-                        ),
+                        SizedBox(height: 3),
                         Text(
                           'PNG, JPG, WebP, PDF, TXT, DOCX o PPTX · max 50 MB',
-                          style:
-                              TextStyle(
-                            color:
-                                Colors.white54,
-                            fontSize:
-                                11,
-                          ),
+                          style: TextStyle(color: AppColors.white54, fontSize: 11),
                         ),
                       ],
                     ),
                   ),
-                  Icon(
-                    Icons.add_rounded,
-                    color:
-                        AppColors.skyBlue,
-                  ),
+                  Icon(Icons.add_rounded, color: AppColors.skyBlue),
                 ],
               ),
             ),
           ),
-          if (
-            _existingAttachments
-                .isNotEmpty ||
-            _pendingAttachments
-                .isNotEmpty
-          ) ...[
-            const SizedBox(
-              height:
-                  14,
-            ),
-            for (
-              final Map<String, dynamic>
-                  attachment
-              in _existingAttachments
-            )
+          if (_existingAttachments.isNotEmpty ||
+              _pendingAttachments.isNotEmpty) ...[
+            const SizedBox(height: 14),
+            for (final Map<String, dynamic> attachment in _existingAttachments)
               Padding(
-                padding:
-                    const EdgeInsets.only(
-                  bottom:
-                      8,
-                ),
-                child:
-                    _AttachmentTile(
-                  name:
-                      attachment[
-                              'original_name']
-                          ?.toString() ??
-                      'Allegato',
-                  mimeType:
-                      attachment[
-                              'mime_type']
-                          ?.toString() ??
-                      '',
-                  uploaded:
-                      true,
-                  onRemove:
-                      _saving
-                          ? null
-                          : () {
-                              setState(() {
-                                _existingAttachments
-                                    .remove(
-                                  attachment,
-                                );
-                              });
-                            },
+                padding: const EdgeInsets.only(bottom: 8),
+                child: _AttachmentTile(
+                  name: attachment['original_name']?.toString() ?? 'Allegato',
+                  mimeType: attachment['mime_type']?.toString() ?? '',
+                  uploaded: true,
+                  onRemove: _saving
+                      ? null
+                      : () {
+                          setState(() {
+                            _existingAttachments.remove(attachment);
+                          });
+                        },
                 ),
               ),
-            for (
-              final _PendingAttachment
-                  attachment
-              in _pendingAttachments
-            )
+            for (final _PendingAttachment attachment in _pendingAttachments)
               Padding(
-                padding:
-                    const EdgeInsets.only(
-                  bottom:
-                      8,
-                ),
-                child:
-                    _AttachmentTile(
-                  name:
-                      attachment.name,
-                  mimeType:
-                      attachment.extension
-                          .toUpperCase(),
-                  uploaded:
-                      false,
-                  onRemove:
-                      _saving
-                          ? null
-                          : () {
-                              setState(() {
-                                _pendingAttachments
-                                    .remove(
-                                  attachment,
-                                );
-                              });
-                            },
+                padding: const EdgeInsets.only(bottom: 8),
+                child: _AttachmentTile(
+                  name: attachment.name,
+                  mimeType: attachment.extension.toUpperCase(),
+                  uploaded: false,
+                  onRemove: _saving
+                      ? null
+                      : () {
+                          setState(() {
+                            _pendingAttachments.remove(attachment);
+                          });
+                        },
                 ),
               ),
           ],
@@ -978,53 +545,32 @@ class _QuestionEditorPageState
     );
   }
 
-
-  Widget _sectionTitle(
-    String title,
-    String description,
-  ) {
+  Widget _sectionTitle(String title, String description) {
     return Column(
-      crossAxisAlignment:
-          CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
-          style:
-              const TextStyle(
-            color:
-                AppColors.pureWhite,
-            fontSize:
-                18,
-            fontWeight:
-                FontWeight.bold,
+          style: TextStyle(
+            color: AppColors.pureWhite,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
           ),
         ),
-        const SizedBox(
-          height:
-              4,
-        ),
+        const SizedBox(height: 4),
         Text(
           description,
-          style:
-              TextStyle(
-            color:
-                AppColors.pureWhite
-                    .withValues(
-              alpha:
-                  0.5,
-            ),
-            fontSize:
-                12,
+          style: TextStyle(
+            color: AppColors.pureWhite.withValues(alpha: 0.5),
+            fontSize: 12,
           ),
         ),
       ],
     );
   }
 
-
   Widget _buildTextField({
-    required TextEditingController
-        controller,
+    required TextEditingController controller,
     required String label,
     required String hint,
     required IconData icon,
@@ -1036,188 +582,81 @@ class _QuestionEditorPageState
     String? Function(String?)? validator,
   }) {
     return TextFormField(
-      controller:
-          controller,
-      minLines:
-          minLines,
-      maxLines:
-          maxLines,
-      keyboardType:
-          keyboardType,
-      style:
-          const TextStyle(
-        color:
-            AppColors.pureWhite,
-        fontSize:
-            13,
-      ),
+      controller: controller,
+      minLines: minLines,
+      maxLines: maxLines,
+      keyboardType: keyboardType,
+      style: TextStyle(color: AppColors.pureWhite, fontSize: 13),
       validator:
           validator ??
-          (
-            String? value,
-          ) {
-            if (
-              required &&
-              (
-                value == null ||
-                value
-                    .trim()
-                    .isEmpty
-              )
-            ) {
+          (String? value) {
+            if (required && (value == null || value.trim().isEmpty)) {
               return 'Campo obbligatorio.';
             }
 
             return null;
           },
-      decoration:
-          InputDecoration(
-        labelText:
-            required
-                ? '$label *'
-                : label,
-        hintText:
-            hint,
-        suffixText:
-            suffixText,
-        prefixIcon:
-            Icon(
-          icon,
-          color:
-              AppColors.skyBlue,
+      decoration: InputDecoration(
+        labelText: required ? '$label *' : label,
+        hintText: hint,
+        suffixText: suffixText,
+        prefixIcon: Icon(icon, color: AppColors.skyBlue),
+        labelStyle: TextStyle(
+          color: AppColors.pureWhite.withValues(alpha: 0.72),
         ),
-        labelStyle:
-            TextStyle(
-          color:
-              AppColors.pureWhite
-                  .withValues(
-            alpha:
-                0.72,
-          ),
+        hintStyle: TextStyle(
+          color: AppColors.pureWhite.withValues(alpha: 0.35),
         ),
-        hintStyle:
-            TextStyle(
-          color:
-              AppColors.pureWhite
-                  .withValues(
-            alpha:
-                0.35,
+        suffixStyle: TextStyle(
+          color: AppColors.pureWhite.withValues(alpha: 0.45),
+        ),
+        filled: true,
+        fillColor: AppColors.brandNightBlue.withValues(alpha: 0.42),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(
+            color: AppColors.skyBlue.withValues(alpha: 0.08),
           ),
         ),
-        suffixStyle:
-            TextStyle(
-          color:
-              AppColors.pureWhite
-                  .withValues(
-            alpha:
-                0.45,
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(
+            color: AppColors.skyBlue.withValues(alpha: 0.6),
           ),
         ),
-        filled:
-            true,
-        fillColor:
-            AppColors.brandNightBlue
-                .withValues(
-          alpha:
-              0.42,
-        ),
-        border:
-            OutlineInputBorder(
-          borderRadius:
-              BorderRadius.circular(
-            12,
-          ),
-          borderSide:
-              BorderSide.none,
-        ),
-        enabledBorder:
-            OutlineInputBorder(
-          borderRadius:
-              BorderRadius.circular(
-            12,
-          ),
-          borderSide:
-              BorderSide(
-            color:
-                AppColors.skyBlue
-                    .withValues(
-              alpha:
-                  0.08,
-            ),
-          ),
-        ),
-        focusedBorder:
-            OutlineInputBorder(
-          borderRadius:
-              BorderRadius.circular(
-            12,
-          ),
-          borderSide:
-              BorderSide(
-            color:
-                AppColors.skyBlue
-                    .withValues(
-              alpha:
-                  0.6,
-            ),
-          ),
-        ),
-        errorBorder:
-            OutlineInputBorder(
-          borderRadius:
-              BorderRadius.circular(
-            12,
-          ),
-          borderSide:
-              BorderSide(
-            color:
-                Colors.redAccent
-                    .withValues(
-              alpha:
-                  0.75,
-            ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(
+            color: AppColors.redAccent.withValues(alpha: 0.75),
           ),
         ),
       ),
     );
   }
 
+  String? _validateEstimatedTime(String? value) {
+    final int? seconds = int.tryParse(value?.trim() ?? '');
 
-  String? _validateEstimatedTime(
-    String? value,
-  ) {
-    final int? seconds =
-        int.tryParse(
-      value?.trim() ??
-          '',
-    );
-
-    if (
-      seconds == null ||
-      seconds <= 0
-    ) {
+    if (seconds == null || seconds <= 0) {
       return 'Inserisci un tempo valido.';
     }
 
-    if (
-      seconds > 3600
-    ) {
+    if (seconds > 3600) {
       return 'Il tempo stimato non può superare 3600 secondi.';
     }
 
     return null;
   }
 
-
   Future<void> _pickAttachments() async {
-    final FilePickerResult? result =
-        await FilePicker.pickFiles(
-      allowMultiple:
-          true,
-      type:
-          FileType.custom,
-      allowedExtensions:
-          const [
+    final FilePickerResult? result = await FilePicker.pickFiles(
+      allowMultiple: true,
+      type: FileType.custom,
+      allowedExtensions: const [
         'png',
         'jpg',
         'jpeg',
@@ -1227,205 +666,129 @@ class _QuestionEditorPageState
         'docx',
         'pptx',
       ],
+      withData: kIsWeb,
     );
 
-    if (
-      result == null
-    ) {
+    if (result == null) {
       return;
     }
 
-    final List<_PendingAttachment>
-        selected = [];
+    final List<_PendingAttachment> selected = [];
 
-    for (
-      final PlatformFile file
-      in result.files
-    ) {
-      final String? path =
-          file.path;
-
-      if (
-        path == null ||
-        path.trim().isEmpty
-      ) {
-        continue;
-      }
-
-      if (
-        file.size >
-        50 * 1024 * 1024
-      ) {
+    for (final PlatformFile file in result.files) {
+      if (file.size <= 0) {
         if (!mounted) {
           return;
         }
 
         setState(() {
-          _error =
-              '${file.name} supera il limite di 50 MB.';
+          _error = '${file.name} è vuoto.';
+        });
+        continue;
+      }
+
+      if (file.size > 50 * 1024 * 1024) {
+        if (!mounted) {
+          return;
+        }
+
+        setState(() {
+          _error = '${file.name} supera il limite di 50 MB.';
         });
 
         continue;
       }
 
-      final bool alreadySelected =
-          _pendingAttachments.any(
-        (
-          _PendingAttachment item,
-        ) =>
-            item.path ==
-            path,
+      String path;
+      try {
+        path = await _pickedFileBridge.materialize(file);
+      } catch (error) {
+        if (!mounted) {
+          return;
+        }
+        setState(() {
+          _error = _friendlyError(error);
+        });
+        continue;
+      }
+
+      final bool alreadySelected = _pendingAttachments.any(
+        (_PendingAttachment item) => item.path == path,
       );
 
-      if (
-        alreadySelected
-      ) {
+      if (alreadySelected) {
         continue;
       }
 
       selected.add(
         _PendingAttachment(
-          path:
-              path,
-          name:
-              file.name,
-          size:
-              file.size,
-          extension:
-              file.extension ??
-              '',
+          path: path,
+          name: file.name,
+          size: file.size,
+          extension: file.extension ?? '',
         ),
       );
     }
 
-    if (
-      selected.isEmpty
-    ) {
+    if (selected.isEmpty) {
       return;
     }
 
     setState(() {
-      _pendingAttachments
-          .addAll(
-        selected,
-      );
-      _error =
-          null;
+      _pendingAttachments.addAll(selected);
+      _error = null;
     });
   }
 
-
   Map<String, dynamic> _buildPayload() {
-    final Map<String, dynamic> metadata =
-        Map<String, dynamic>.from(
+    final Map<String, dynamic> metadata = Map<String, dynamic>.from(
       widget.metadataBase,
     );
 
-    if (
-      widget.question?[
-          'metadata'] is Map
-    ) {
+    if (widget.question?['metadata'] is Map) {
       metadata.addAll(
-        Map<String, dynamic>.from(
-          widget.question![
-              'metadata'] as Map,
-        ),
+        Map<String, dynamic>.from(widget.question!['metadata'] as Map),
       );
     }
 
-    metadata[
-      'argoment'
-    ] =
-        _argumentController.text
-            .trim();
+    if ((metadata['university']?.toString().trim() ?? '').isEmpty) {
+      final String selectedUniversity = widget.metadataBase['university']?.toString().trim() ?? '';
+      if (selectedUniversity.isNotEmpty) metadata['university'] = selectedUniversity;
+    }
 
-    final List<Map<String, String>>
-        options =
-        const [
-      'a',
-      'b',
-      'c',
-      'd',
-    ]
-            .map(
-              (
-                String id,
-              ) =>
-                  {
-                'id':
-                    id,
-                'text':
-                    _optionControllers[
-                      id
-                    ]!
-                        .text
-                        .trim(),
-              },
-            )
-            .toList();
+    metadata['argoment'] = _argumentController.text.trim();
 
-    final Map<String, String>
-        answerExplanations = {
-      for (
-        final String id
-        in const [
-          'a',
-          'b',
-          'c',
-          'd',
-        ]
-      )
-        id:
-            _answerExplanationControllers[
-              id
-            ]!
-                .text
-                .trim(),
+    final List<Map<String, String>> options = const ['a', 'b', 'c', 'd']
+        .map(
+          (String id) => {
+            'id': id,
+            'text': _optionControllers[id]!.text.trim(),
+          },
+        )
+        .toList();
+
+    final Map<String, String> answerExplanations = {
+      for (final String id in const ['a', 'b', 'c', 'd'])
+        id: _answerExplanationControllers[id]!.text.trim(),
     };
 
     return {
-      'estimed_time':
-          int.parse(
-        _estimatedTimeController
-            .text
-            .trim(),
-      ),
-      'metadata':
-          metadata,
-      'text':
-          _questionController
-              .text
-              .trim(),
-      'option':
-          options,
-      'id_correct':
-          _correctOption,
-      'formal_explanation':
-          _formalExplanationController
-              .text
-              .trim(),
-      'informal_explanation':
-          _informalExplanationController
-              .text
-              .trim(),
-      'question_response_explanation':
-          answerExplanations,
+      'estimed_time': int.parse(_estimatedTimeController.text.trim()),
+      'metadata': metadata,
+      'text': _questionController.text.trim(),
+      'option': options,
+      'id_correct': _correctOption,
+      'formal_explanation': _formalExplanationController.text.trim(),
+      'informal_explanation': _informalExplanationController.text.trim(),
+      'question_response_explanation': answerExplanations,
+      'attachments': List<Map<String, dynamic>>.from(_existingAttachments),
     };
   }
 
-
   bool _validateAnswers() {
-    for (
-      final MapEntry<String,
-              TextEditingController>
-          entry
-      in _optionControllers.entries
-    ) {
-      if (
-        entry.value.text
-            .trim()
-            .isEmpty
-      ) {
+    for (final MapEntry<String, TextEditingController> entry
+        in _optionControllers.entries) {
+      if (entry.value.text.trim().isEmpty) {
         setState(() {
           _error =
               'Inserisci il testo della risposta ${entry.key.toUpperCase()}.';
@@ -1435,111 +798,138 @@ class _QuestionEditorPageState
       }
     }
 
+    for (final MapEntry<String, TextEditingController> entry
+        in _answerExplanationControllers.entries) {
+      if (entry.value.text.trim().isEmpty) {
+        setState(() {
+          _error =
+              'Inserisci la spiegazione della risposta ${entry.key.toUpperCase()}: indica perché è corretta oppure perché è errata.';
+        });
+
+        return false;
+      }
+    }
+
     return true;
   }
 
+  bool _validateMetadata() {
+    final Map<String, dynamic> metadata = Map<String, dynamic>.from(
+      widget.metadataBase,
+    );
+
+    if (widget.question?['metadata'] is Map) {
+      metadata.addAll(
+        Map<String, dynamic>.from(widget.question!['metadata'] as Map),
+      );
+    }
+
+    final String university = metadata['university']?.toString().trim() ?? '';
+
+    // Creator e admin possono modificare domande storiche prive di ateneo:
+    // il backend ricava l'ateneo dalla materia canonica selezionata.
+    if (university.isEmpty && AuthSession.instance.currentUser?.isAdmin != true) {
+      setState(() {
+        _error =
+            'I dati accademici della materia sono incompleti: manca l’ateneo associato al profilo docente.';
+      });
+
+      return false;
+    }
+
+    return true;
+  }
 
   Future<void> _save() async {
-    FocusScope.of(
-      context,
-    ).unfocus();
+    FocusScope.of(context).unfocus();
 
     setState(() {
-      _error =
-          null;
+      _error = null;
     });
 
-    if (
-      !(
-        _formKey.currentState
-                ?.validate() ??
-            false
-      )
-    ) {
+    if (!(_formKey.currentState?.validate() ?? false)) {
       return;
     }
 
-    if (
-      !_validateAnswers()
-    ) {
+    if (!_validateAnswers()) {
+      return;
+    }
+
+    if (!_validateMetadata()) {
       return;
     }
 
     setState(() {
-      _saving =
-          true;
+      _saving = true;
     });
 
     try {
-      final Map<String, dynamic>
-          payload =
-          _buildPayload();
+      final Map<String, dynamic> payload = _buildPayload();
 
-      final List<String>
-          pendingPaths =
-          _pendingAttachments
-              .map(
-                (
-                  _PendingAttachment
-                      attachment,
-                ) =>
-                    attachment.path,
-              )
-              .toList();
+      final List<String> pendingPaths = _pendingAttachments
+          .map((_PendingAttachment attachment) => attachment.path)
+          .toList();
 
-      late final Map<String, dynamic>
-          saved;
+      if (widget.draftOnly) {
+        final List<Map<String, dynamic>> uploaded = <Map<String, dynamic>>[];
 
-      if (
-        widget.isEditing
-      ) {
-        final String questionId =
-            widget.question![
-                    'id_question']
-                ?.toString()
-                .trim() ??
-            '';
-
-        if (
-          questionId.isEmpty
-        ) {
-          throw Exception(
-            'Identificativo domanda non valido.',
-          );
+        try {
+          for (final String path in pendingPaths) {
+            uploaded.add(
+              await _uploadService.uploadQuestionAttachment(
+                department: widget.department,
+                course: widget.course,
+                subject: widget.subject,
+                filePath: path,
+              ),
+            );
+          }
+        } catch (_) {
+          rethrow;
         }
 
-        saved =
-            await _service
-                .saveExistingQuestionWithAttachments(
-          department:
-              widget.department,
-          course:
-              widget.course,
-          subject:
-              widget.subject,
-          questionId:
-              questionId,
-          data:
-              payload,
-          existingAttachments:
-              _existingAttachments,
-          newAttachmentFilePaths:
-              pendingPaths,
+        payload['attachments'] = <Map<String, dynamic>>[
+          ..._existingAttachments,
+          ...uploaded,
+        ];
+
+        if (!mounted) {
+          return;
+        }
+
+        Navigator.pop(context, <String, dynamic>{
+          'question': payload,
+          'new_temp_attachments': uploaded,
+        });
+        return;
+      }
+
+      late final Map<String, dynamic> saved;
+
+      if (widget.isEditing) {
+        final String questionId =
+            widget.question!['id_question']?.toString().trim() ?? '';
+
+        if (questionId.isEmpty) {
+          throw Exception('Identificativo domanda non valido.');
+        }
+
+        saved = await _service.saveExistingQuestionWithAttachments(
+          department: widget.department,
+          course: widget.course,
+          subject: widget.subject,
+          questionId: questionId,
+          data: payload,
+          existingAttachments: _existingAttachments,
+          newAttachmentFilePaths: pendingPaths,
         );
       } else {
-        saved =
-            await _service
-                .saveNewQuestionWithAttachments(
-          department:
-              widget.department,
-          course:
-              widget.course,
-          subject:
-              widget.subject,
-          data:
-              payload,
-          attachmentFilePaths:
-              pendingPaths,
+        saved = await _service.saveNewQuestionWithAttachments(
+          department: widget.department,
+          course: widget.course,
+          subject: widget.subject,
+          data: payload,
+          attachmentFilePaths: pendingPaths,
         );
       }
 
@@ -1547,56 +937,32 @@ class _QuestionEditorPageState
         return;
       }
 
-      Navigator.pop(
-        context,
-        saved,
-      );
-    } catch (
-      error
-    ) {
+      Navigator.pop(context, saved);
+    } catch (error) {
       if (!mounted) {
         return;
       }
 
       setState(() {
-        _error =
-            _friendlyError(
-          error,
-        );
+        _error = _friendlyError(error);
       });
     } finally {
-      if (
-        mounted
-      ) {
+      if (mounted) {
         setState(() {
-          _saving =
-              false;
+          _saving = false;
         });
       }
     }
   }
 
+  String _friendlyError(Object error) {
+    String message = error.toString();
 
-  String _friendlyError(
-    Object error,
-  ) {
-    String message =
-        error.toString();
-
-    if (
-      message.startsWith(
-        'Exception: ',
-      )
-    ) {
-      message =
-          message.substring(
-        11,
-      );
+    if (message.startsWith('Exception: ')) {
+      message = message.substring(11);
     }
 
-    if (
-      message.trim().isEmpty
-    ) {
+    if (message.trim().isEmpty) {
       return 'Non è stato possibile salvare la domanda.';
     }
 
@@ -1604,53 +970,27 @@ class _QuestionEditorPageState
   }
 }
 
-
-class _SectionCard
-    extends StatelessWidget {
+class _SectionCard extends StatelessWidget {
   final Widget child;
 
-  const _SectionCard({
-    required this.child,
-  });
+  const _SectionCard({required this.child});
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     return Container(
-      width:
-          double.infinity,
-      padding:
-          const EdgeInsets.all(
-        18,
+      width: double.infinity,
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: AppColors.eleganceDeepNavy,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.skyBlue.withValues(alpha: 0.1)),
       ),
-      decoration:
-          BoxDecoration(
-        color:
-            AppColors.eleganceDeepNavy,
-        borderRadius:
-            BorderRadius.circular(
-          16,
-        ),
-        border:
-            Border.all(
-          color:
-              AppColors.skyBlue
-                  .withValues(
-            alpha:
-                0.1,
-          ),
-        ),
-      ),
-      child:
-          child,
+      child: child,
     );
   }
 }
 
-
-class _AnswerEditor
-    extends StatelessWidget {
+class _AnswerEditor extends StatelessWidget {
   final String id;
   final TextEditingController controller;
   final bool selected;
@@ -1664,153 +1004,64 @@ class _AnswerEditor
   });
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     return Container(
-      padding:
-          const EdgeInsets.all(
-        12,
-      ),
-      decoration:
-          BoxDecoration(
-        color:
-            AppColors.brandNightBlue
-                .withValues(
-          alpha:
-              selected
-                  ? 0.72
-                  : 0.38,
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: AppColors.brandNightBlue.withValues(
+          alpha: selected ? 0.72 : 0.38,
         ),
-        borderRadius:
-            BorderRadius.circular(
-          13,
-        ),
-        border:
-            Border.all(
-          color:
-              selected
-                  ? AppColors.skyBlue
-                      .withValues(
-                    alpha:
-                        0.55,
-                  )
-                  : AppColors.skyBlue
-                      .withValues(
-                    alpha:
-                        0.08,
-                  ),
+        borderRadius: BorderRadius.circular(13),
+        border: Border.all(
+          color: selected
+              ? AppColors.skyBlue.withValues(alpha: 0.55)
+              : AppColors.skyBlue.withValues(alpha: 0.08),
         ),
       ),
-      child:
-          Row(
-        crossAxisAlignment:
-            CrossAxisAlignment.start,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           InkWell(
-            onTap:
-                onSelected,
-            borderRadius:
-                BorderRadius.circular(
-              30,
-            ),
-            child:
-                Padding(
-              padding:
-                  const EdgeInsets.all(
-                4,
-              ),
-              child:
-                  Radio<String>(
-                value:
-                    id,
-                groupValue:
-                    selected
-                        ? id
-                        : '',
-                onChanged:
-                    (_) =>
-                        onSelected(),
-                activeColor:
-                    AppColors.skyBlue,
+            onTap: onSelected,
+            borderRadius: BorderRadius.circular(30),
+            child: Padding(
+              padding: const EdgeInsets.all(4),
+              child: Radio<String>(
+                value: id,
+                groupValue: selected ? id : '',
+                onChanged: (_) => onSelected(),
+                activeColor: AppColors.skyBlue,
               ),
             ),
           ),
-          const SizedBox(
-            width:
-                6,
-          ),
+          const SizedBox(width: 6),
           Expanded(
-            child:
-                TextFormField(
-              controller:
-                  controller,
-              minLines:
-                  2,
-              maxLines:
-                  5,
-              style:
-                  const TextStyle(
-                color:
-                    AppColors.pureWhite,
-                fontSize:
-                    13,
-              ),
-              validator:
-                  (
-                String? value,
-              ) {
-                if (
-                  value == null ||
-                  value
-                      .trim()
-                      .isEmpty
-                ) {
+            child: TextFormField(
+              controller: controller,
+              minLines: 2,
+              maxLines: 5,
+              style: TextStyle(color: AppColors.pureWhite, fontSize: 13),
+              validator: (String? value) {
+                if (value == null || value.trim().isEmpty) {
                   return 'Risposta obbligatoria.';
                 }
 
                 return null;
               },
-              decoration:
-                  InputDecoration(
-                labelText:
-                    'Risposta ${id.toUpperCase()}',
-                hintText:
-                    'Inserisci il testo...',
-                labelStyle:
-                    TextStyle(
-                  color:
-                      AppColors.pureWhite
-                          .withValues(
-                    alpha:
-                        0.7,
-                  ),
+              decoration: InputDecoration(
+                labelText: 'Risposta ${id.toUpperCase()}',
+                hintText: 'Inserisci il testo...',
+                labelStyle: TextStyle(
+                  color: AppColors.pureWhite.withValues(alpha: 0.7),
                 ),
-                hintStyle:
-                    TextStyle(
-                  color:
-                      AppColors.pureWhite
-                          .withValues(
-                    alpha:
-                        0.3,
-                  ),
+                hintStyle: TextStyle(
+                  color: AppColors.pureWhite.withValues(alpha: 0.3),
                 ),
-                filled:
-                    true,
-                fillColor:
-                    AppColors.darkElegance
-                        .withValues(
-                  alpha:
-                      0.42,
-                ),
-                border:
-                    OutlineInputBorder(
-                  borderRadius:
-                      BorderRadius.circular(
-                    11,
-                  ),
-                  borderSide:
-                      BorderSide.none,
+                filled: true,
+                fillColor: AppColors.darkElegance.withValues(alpha: 0.42),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(11),
+                  borderSide: BorderSide.none,
                 ),
               ),
             ),
@@ -1821,9 +1072,7 @@ class _AnswerEditor
   }
 }
 
-
-class _AttachmentTile
-    extends StatelessWidget {
+class _AttachmentTile extends StatelessWidget {
   final String name;
   final String mimeType;
   final bool uploaded;
@@ -1837,123 +1086,61 @@ class _AttachmentTile
   });
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     final bool image =
-        mimeType
-            .toLowerCase()
-            .startsWith(
-          'image/',
-        ) ||
-        [
-          'PNG',
-          'JPG',
-          'JPEG',
-          'WEBP',
-        ].contains(
-          mimeType
-              .toUpperCase(),
-        );
+        mimeType.toLowerCase().startsWith('image/') ||
+        ['PNG', 'JPG', 'JPEG', 'WEBP'].contains(mimeType.toUpperCase());
 
     return Container(
-      padding:
-          const EdgeInsets.symmetric(
-        horizontal:
-            12,
-        vertical:
-            10,
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      decoration: BoxDecoration(
+        color: AppColors.brandNightBlue.withValues(alpha: 0.34),
+        borderRadius: BorderRadius.circular(12),
       ),
-      decoration:
-          BoxDecoration(
-        color:
-            AppColors.brandNightBlue
-                .withValues(
-          alpha:
-              0.34,
-        ),
-        borderRadius:
-            BorderRadius.circular(
-          12,
-        ),
-      ),
-      child:
-          Row(
+      child: Row(
         children: [
           Icon(
-            image
-                ? Icons.image_outlined
-                : Icons.description_outlined,
-            color:
-                AppColors.skyBlue,
+            image ? Icons.image_outlined : Icons.description_outlined,
+            color: AppColors.skyBlue,
           ),
-          const SizedBox(
-            width:
-                11,
-          ),
+          const SizedBox(width: 11),
           Expanded(
-            child:
-                Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   name,
-                  maxLines:
-                      1,
-                  overflow:
-                      TextOverflow.ellipsis,
-                  style:
-                      const TextStyle(
-                    color:
-                        AppColors.pureWhite,
-                    fontSize:
-                        13,
-                    fontWeight:
-                        FontWeight.w600,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: AppColors.pureWhite,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-                const SizedBox(
-                  height:
-                      2,
-                ),
+                const SizedBox(height: 2),
                 Text(
                   uploaded
                       ? 'Già collegato alla domanda'
                       : 'Verrà caricato al salvataggio',
-                  style:
-                      TextStyle(
-                    color:
-                        AppColors.pureWhite
-                            .withValues(
-                      alpha:
-                          0.44,
-                    ),
-                    fontSize:
-                        10,
+                  style: TextStyle(
+                    color: AppColors.pureWhite.withValues(alpha: 0.44),
+                    fontSize: 10,
                   ),
                 ),
               ],
             ),
           ),
           IconButton(
-            tooltip:
-                'Rimuovi',
-            onPressed:
-                onRemove,
-            icon:
-                const Icon(
-              Icons.close_rounded,
-              color:
-                  Colors.white54,
-            ),
+            tooltip: 'Rimuovi',
+            onPressed: onRemove,
+            icon: Icon(Icons.close_rounded, color: AppColors.white54),
           ),
         ],
       ),
     );
   }
 }
-
 
 class _PendingAttachment {
   final String path;
@@ -1969,74 +1156,33 @@ class _PendingAttachment {
   });
 }
 
-
-class _ErrorCard
-    extends StatelessWidget {
+class _ErrorCard extends StatelessWidget {
   final String message;
 
-  const _ErrorCard({
-    required this.message,
-  });
+  const _ErrorCard({required this.message});
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     return Container(
-      width:
-          double.infinity,
-      padding:
-          const EdgeInsets.all(
-        14,
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: AppColors.redAccent.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(13),
+        border: Border.all(color: AppColors.redAccent.withValues(alpha: 0.28)),
       ),
-      decoration:
-          BoxDecoration(
-        color:
-            Colors.redAccent
-                .withValues(
-          alpha:
-              0.1,
-        ),
-        borderRadius:
-            BorderRadius.circular(
-          13,
-        ),
-        border:
-            Border.all(
-          color:
-              Colors.redAccent
-                  .withValues(
-            alpha:
-                0.28,
-          ),
-        ),
-      ),
-      child:
-          Row(
-        crossAxisAlignment:
-            CrossAxisAlignment.start,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(
-            Icons.error_outline_rounded,
-            color:
-                Colors.redAccent,
-          ),
-          const SizedBox(
-            width:
-                10,
-          ),
+          Icon(Icons.error_outline_rounded, color: AppColors.redAccent),
+          const SizedBox(width: 10),
           Expanded(
-            child:
-                Text(
+            child: Text(
               message,
-              style:
-                  const TextStyle(
-                color:
-                    AppColors.pureWhite,
-                fontSize:
-                    12,
-                height:
-                    1.35,
+              style: TextStyle(
+                color: AppColors.pureWhite,
+                fontSize: 12,
+                height: 1.35,
               ),
             ),
           ),

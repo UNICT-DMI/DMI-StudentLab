@@ -226,7 +226,7 @@ super.initState();
 
           title:
 
-              const Text(
+              Text(
 
             'Verifica percorso',
 
@@ -250,11 +250,11 @@ super.initState();
 
             style:
 
-                const TextStyle(
+                TextStyle(
 
               color:
 
-                  Colors.white70,
+                  AppColors.white70,
 
               height:
 
@@ -310,7 +310,7 @@ super.initState();
 
               child:
 
-                  const Text(
+                  Text(
 
                 'Verifica',
 
@@ -320,7 +320,7 @@ super.initState();
 
                   color:
 
-                      Colors.greenAccent,
+                      AppColors.greenAccent,
 
                 ),
 
@@ -392,7 +392,7 @@ super.initState();
 
           title:
 
-              const Text(
+              Text(
 
             'Rifiuta verifica',
 
@@ -416,11 +416,11 @@ super.initState();
 
             style:
 
-                const TextStyle(
+                TextStyle(
 
               color:
 
-                  Colors.white70,
+                  AppColors.white70,
 
               height:
 
@@ -476,7 +476,7 @@ super.initState();
 
               child:
 
-                  const Text(
+                  Text(
 
                 'Rifiuta',
 
@@ -486,7 +486,7 @@ super.initState();
 
                   color:
 
-                      Colors.redAccent,
+                      AppColors.redAccent,
 
                 ),
 
@@ -730,7 +730,7 @@ super.initState();
 
                 _refreshing
 
-                    ? const SizedBox(
+                    ? SizedBox(
 
                         width:
 
@@ -1208,7 +1208,7 @@ class _AcademicPathVerificationCard
 
                 child:
 
-                    const Icon(
+                    Icon(
 
                   Icons
 
@@ -1260,7 +1260,7 @@ class _AcademicPathVerificationCard
 
                       style:
 
-                          const TextStyle(
+                          TextStyle(
 
                         color:
 
@@ -1296,11 +1296,11 @@ class _AcademicPathVerificationCard
 
                       style:
 
-                          const TextStyle(
+                          TextStyle(
 
                         color:
 
-                            Colors.white38,
+                            AppColors.white38,
 
                         fontSize:
 
@@ -1622,7 +1622,7 @@ class _AcademicPathVerificationCard
 
                 color:
 
-                    Colors.greenAccent
+                    AppColors.greenAccent
 
                         .withOpacity(
 
@@ -1644,7 +1644,7 @@ class _AcademicPathVerificationCard
 
                   color:
 
-                      Colors.greenAccent
+                      AppColors.greenAccent
 
                           .withOpacity(
 
@@ -1666,7 +1666,7 @@ class _AcademicPathVerificationCard
 
                 children: [
 
-                  const Icon(
+                  Icon(
 
                     Icons
 
@@ -1674,7 +1674,7 @@ class _AcademicPathVerificationCard
 
                     color:
 
-                        Colors.greenAccent,
+                        AppColors.greenAccent,
 
                     size:
 
@@ -1706,11 +1706,11 @@ class _AcademicPathVerificationCard
 
                       style:
 
-                          const TextStyle(
+                          TextStyle(
 
                         color:
 
-                            Colors.white60,
+                            AppColors.white60,
 
                         fontSize:
 
@@ -1768,7 +1768,7 @@ class _AcademicPathVerificationCard
 
                       backgroundColor:
 
-                          Colors.greenAccent,
+                          AppColors.greenAccent,
 
                       foregroundColor:
 
@@ -1850,7 +1850,7 @@ class _AcademicPathVerificationCard
 
                       foregroundColor:
 
-                          Colors.redAccent,
+                          AppColors.redAccent,
 
                       side:
 
@@ -1858,7 +1858,7 @@ class _AcademicPathVerificationCard
 
                         color:
 
-                            Colors.redAccent
+                            AppColors.redAccent
 
                                 .withOpacity(
 
@@ -2008,7 +2008,7 @@ class _AcademicPendingBadge
 
         color:
 
-            Colors.amber
+            AppColors.amber
 
                 .withOpacity(
 
@@ -2030,7 +2030,7 @@ class _AcademicPendingBadge
 
           color:
 
-              Colors.amber
+              AppColors.amber
 
                   .withOpacity(
 
@@ -2044,7 +2044,7 @@ class _AcademicPendingBadge
 
       child:
 
-          const Row(
+          Row(
 
         mainAxisSize:
 
@@ -2058,7 +2058,7 @@ class _AcademicPendingBadge
 
             color:
 
-                Colors.amber,
+                AppColors.amber,
 
             size:
 
@@ -2084,7 +2084,7 @@ class _AcademicPendingBadge
 
               color:
 
-                  Colors.amber,
+                  AppColors.amber,
 
               fontSize:
 
@@ -2186,11 +2186,11 @@ class _AcademicInfoRow
 
             style:
 
-                const TextStyle(
+                TextStyle(
 
               color:
 
-                  Colors.white38,
+                  AppColors.white38,
 
               fontSize:
 
@@ -2216,11 +2216,11 @@ class _AcademicInfoRow
 
             style:
 
-                const TextStyle(
+                TextStyle(
 
               color:
 
-                  Colors.white70,
+                  AppColors.white70,
 
               fontSize:
 
@@ -2352,7 +2352,7 @@ class _AcademicSmallBadge
 
             style:
 
-                const TextStyle(
+                TextStyle(
 
               color:
 
@@ -2588,7 +2588,7 @@ class _EmptyAcademicPaths
 
           child:
 
-              const Column(
+              Column(
 
             children: [
 
@@ -2600,7 +2600,7 @@ class _EmptyAcademicPaths
 
                 color:
 
-                    Colors.white38,
+                    AppColors.white38,
 
                 size:
 
@@ -2630,7 +2630,7 @@ class _EmptyAcademicPaths
 
                   color:
 
-                      Colors.white60,
+                      AppColors.white60,
 
                   fontSize:
 
@@ -2740,7 +2740,7 @@ class _AcademicPathError
 
               color:
 
-                  Colors.redAccent
+                  AppColors.redAccent
 
                       .withOpacity(
 
@@ -2762,13 +2762,13 @@ class _AcademicPathError
 
             children: [
 
-              const Icon(
+              Icon(
 
                 Icons.error_outline_rounded,
 
                 color:
 
-                    Colors.redAccent,
+                    AppColors.redAccent,
 
                 size:
 
@@ -2784,7 +2784,7 @@ class _AcademicPathError
 
               ),
 
-              const Text(
+              Text(
 
                 'Impossibile caricare i percorsi',
 
@@ -2830,11 +2830,11 @@ class _AcademicPathError
 
                 style:
 
-                    const TextStyle(
+                    TextStyle(
 
                   color:
 
-                      Colors.white60,
+                      AppColors.white60,
 
                   fontSize:
 

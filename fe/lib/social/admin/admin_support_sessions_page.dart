@@ -143,8 +143,8 @@ class _AdminSupportSessionsPageState
               ? Center(
                   child: Text(
                     _error!,
-                    style: const TextStyle(
-                      color: Colors.white70,
+                    style: TextStyle(
+                      color: AppColors.white70,
                     ),
                   ),
                 )
@@ -184,13 +184,13 @@ class _AdminSupportSessionsPageState
               ? Icons.support_agent
               : Icons.support_agent_outlined,
           color: online
-              ? Colors.greenAccent
+              ? AppColors.greenAccent
               : AppColors.skyBlue,
         ),
         title: Text(
           item['issue_summary']?.toString() ??
               'Richiesta assistenza',
-          style: const TextStyle(
+          style: TextStyle(
             color: AppColors.pureWhite,
             fontWeight: FontWeight.w600,
           ),
@@ -198,8 +198,8 @@ class _AdminSupportSessionsPageState
         subtitle: Text(
           'Utente #${item['user_id']} • $status'
           '${online ? ' • ONLINE' : ''}',
-          style: const TextStyle(
-            color: Colors.white54,
+          style: TextStyle(
+            color: AppColors.white54,
             fontSize: 11,
           ),
         ),
@@ -210,9 +210,9 @@ class _AdminSupportSessionsPageState
                     : () => _accept(item),
                 child: const Text('Accetta'),
               )
-            : const Icon(
+            : Icon(
                 Icons.arrow_forward_ios,
-                color: Colors.white30,
+                color: AppColors.white30,
                 size: 14,
               ),
       ),
@@ -369,7 +369,7 @@ class _AdminSupportSessionDetailPageState
                     children: [
                       Text(
                         session['issue_summary']?.toString() ?? '',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.pureWhite,
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
@@ -381,8 +381,8 @@ class _AdminSupportSessionDetailPageState
                         '${session['is_online'] == true ? ' • ONLINE' : ''}',
                         style: TextStyle(
                           color: session['is_online'] == true
-                              ? Colors.greenAccent
-                              : Colors.white54,
+                              ? AppColors.greenAccent
+                              : AppColors.white54,
                         ),
                       ),
                     ],
@@ -394,7 +394,7 @@ class _AdminSupportSessionDetailPageState
                     crossAxisAlignment:
                         CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Azioni controllate',
                         style: TextStyle(
                           color: AppColors.pureWhite,
@@ -437,7 +437,7 @@ class _AdminSupportSessionDetailPageState
                     crossAxisAlignment:
                         CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Ultimo snapshot SQLite',
                         style: TextStyle(
                           color: AppColors.pureWhite,
@@ -446,17 +446,17 @@ class _AdminSupportSessionDetailPageState
                       ),
                       const SizedBox(height: 8),
                       if (snapshot == null)
-                        const Text(
+                        Text(
                           'Nessuno snapshot ricevuto.',
                           style: TextStyle(
-                            color: Colors.white54,
+                            color: AppColors.white54,
                           ),
                         )
                       else
                         SelectableText(
                           _pretty(snapshot['payload']),
-                          style: const TextStyle(
-                            color: Colors.white70,
+                          style: TextStyle(
+                            color: AppColors.white70,
                             fontSize: 11,
                             fontFamily: 'monospace',
                           ),

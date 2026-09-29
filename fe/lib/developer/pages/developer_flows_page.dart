@@ -204,7 +204,7 @@ class _Header extends StatelessWidget {
                     13,
                   ),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons
                       .account_tree_outlined,
                   color:
@@ -219,7 +219,7 @@ class _Header extends StatelessWidget {
                   crossAxisAlignment:
                       CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       'Application Flows',
                       style: TextStyle(
                         color:
@@ -274,7 +274,7 @@ class _Header extends StatelessWidget {
                   label:
                       '$criticalFlows critical',
                   color:
-                      Colors.redAccent,
+                      AppColors.redAccent,
                 ),
             ],
           ),
@@ -344,7 +344,7 @@ class _FlowCard extends StatelessWidget {
         ),
         title: Text(
           flow.name,
-          style: const TextStyle(
+          style: TextStyle(
             color:
                 AppColors.pureWhite,
             fontSize: 13,
@@ -420,7 +420,7 @@ class _FlowStepTile
   Widget build(BuildContext context) {
     final Color accent =
         step.securityCritical
-            ? Colors.redAccent
+            ? AppColors.redAccent
             : DeveloperUiStyle
                 .layerColor(
                 step.layer,
@@ -584,13 +584,13 @@ class _FlowStepTile
                       ),
                     ),
                     if (step.securityCritical)
-                      const _Badge(
+                      _Badge(
                         icon: Icons
                             .lock_outline_rounded,
                         label:
                             'SECURITY',
                         color:
-                            Colors.redAccent,
+                            AppColors.redAccent,
                       ),
                   ],
                 ),
@@ -724,17 +724,17 @@ class _ErrorState extends StatelessWidget {
           decoration:
               DeveloperUiStyle.panelDecoration(
             borderColor:
-                Colors.redAccent,
+                AppColors.redAccent,
           ),
           child: Column(
             mainAxisSize:
                 MainAxisSize.min,
             children: [
-              const Icon(
+              Icon(
                 Icons
                     .error_outline_rounded,
                 color:
-                    Colors.redAccent,
+                    AppColors.redAccent,
                 size: 38,
               ),
               const SizedBox(

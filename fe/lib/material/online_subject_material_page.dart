@@ -248,7 +248,7 @@ class _OnlineSubjectMaterialPageState
         children: [
           Text(
             widget.subjectName,
-            style: const TextStyle(
+            style: TextStyle(
               color: AppColors.pureWhite,
               fontSize: 22,
               fontWeight: FontWeight.bold,
@@ -269,7 +269,7 @@ class _OnlineSubjectMaterialPageState
           const SizedBox(
             height: 24,
           ),
-          const Text(
+          Text(
             'Materiali disponibili',
             style: TextStyle(
               color: AppColors.pureWhite,
@@ -321,12 +321,12 @@ class _OnlineSubjectMaterialPageState
                           MainAxisAlignment.end,
                       children: [
                         if (downloaded)
-                          const Row(
+                          Row(
                             children: [
                               Icon(
                                 Icons.check_circle_rounded,
                                 color:
-                                    Colors.greenAccent,
+                                    AppColors.greenAccent,
                                 size: 16,
                               ),
                               SizedBox(
@@ -336,7 +336,7 @@ class _OnlineSubjectMaterialPageState
                                 'Disponibile offline',
                                 style: TextStyle(
                                   color:
-                                      Colors.greenAccent,
+                                      AppColors.greenAccent,
                                   fontSize: 11,
                                   fontWeight:
                                       FontWeight.w500,
@@ -461,12 +461,12 @@ class _EmptyMaterials extends StatelessWidget {
               16,
             ),
           ),
-          child: const Column(
+          child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(
                 Icons.folder_open_rounded,
-                color: Colors.white38,
+                color: AppColors.white38,
                 size: 45,
               ),
               SizedBox(
@@ -476,7 +476,7 @@ class _EmptyMaterials extends StatelessWidget {
                 'Nessun materiale disponibile',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.white70,
+                  color: AppColors.white70,
                   fontSize: 14,
                 ),
               ),

@@ -172,7 +172,7 @@ class _PublicGroupsPageState extends State<PublicGroupsPage> {
     fontWeight: FontWeight.w600,),), actions: [IconButton(tooltip: 'Aggiorna', onPressed: _loading ? null : _loadGroups,
     icon: const Icon(Icons.refresh_rounded,),),],), body: SafeArea(child: Center(child: ConstrainedBox(constraints: const BoxConstraints(maxWidth:
     1050,), child: RefreshIndicator(onRefresh: _loadGroups, child: ListView(physics: const AlwaysScrollableScrollPhysics(),
-    padding: const EdgeInsets.all(20,), children: [const Text('Trova il tuo gruppo', style: TextStyle(color: AppColors.pureWhite,
+    padding: const EdgeInsets.all(20,), children: [Text('Trova il tuo gruppo', style: TextStyle(color: AppColors.pureWhite,
     fontSize: 25, fontWeight: FontWeight.bold,),), const SizedBox(height: 6,), Text('Esplora i gruppi pubblici di StudentLab. '
     'Cerca per nome, materia, dipartimento o corso ' 'e scopri materiali, appunti e community ' 'dedicate allo studio.',
     style: TextStyle(color: AppColors.pureWhite.withValues(alpha: 0.52,), fontSize: 12, height: 1.45,),), if (isGuest)...[const
@@ -183,7 +183,7 @@ class _PublicGroupsPageState extends State<PublicGroupsPage> {
   Widget _buildGuestInfo() {
     return Container(padding: const EdgeInsets.all(14,), decoration: BoxDecoration(color: AppColors.skyBlue.withValues(alpha:
     0.06,), borderRadius: BorderRadius.circular(14,), border: Border.all(color: AppColors.skyBlue.withValues(alpha: 0.13,
-    ),),), child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [const Icon(Icons.visibility_outlined,
+    ),),), child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [Icon(Icons.visibility_outlined,
     color: AppColors.materialSky, size: 20,), const SizedBox(width: 10,), Expanded(child: Text('Stai esplorando come Guest. '
     'Puoi cercare e aprire i gruppi pubblici, ' 'vedere i partecipanti e scaricare il materiale ' 'disponibile per consultarlo offline. '
     'Per entrare nei gruppi, utilizzare la chat ' 'o condividere materiale devi accedere a StudentLab.', style: TextStyle(color:
@@ -196,8 +196,8 @@ class _PublicGroupsPageState extends State<PublicGroupsPage> {
       }
       );
     }
-    , style: const TextStyle(color: AppColors.pureWhite,), decoration: InputDecoration(hintText: 'Cerca nome, materia, corso...',
-    hintStyle: TextStyle(color: AppColors.pureWhite.withValues(alpha: 0.35,),), prefixIcon: const Icon(Icons.search_rounded,
+    , style: TextStyle(color: AppColors.pureWhite,), decoration: InputDecoration(hintText: 'Cerca nome, materia, corso...',
+    hintStyle: TextStyle(color: AppColors.pureWhite.withValues(alpha: 0.35,),), prefixIcon: Icon(Icons.search_rounded,
     color: AppColors.skyBlue,), suffixIcon: _searchQuery.isEmpty ? null : IconButton(tooltip: 'Cancella ricerca', onPressed:
     () {
       _searchController.clear();
@@ -206,7 +206,7 @@ class _PublicGroupsPageState extends State<PublicGroupsPage> {
       }
       );
     }
-    , icon: const Icon(Icons.close_rounded, color: Colors.white54,),), filled: true, fillColor: AppColors.eleganceMidnight,
+    , icon: Icon(Icons.close_rounded, color: AppColors.white54,),), filled: true, fillColor: AppColors.eleganceMidnight,
     border: OutlineInputBorder(borderRadius: BorderRadius.circular(15,), borderSide: BorderSide.none,), enabledBorder: OutlineInputBorder(borderRadius:
     BorderRadius.circular(15,), borderSide: BorderSide(color: AppColors.skyBlue.withValues(alpha: 0.10,),),), focusedBorder:
     OutlineInputBorder(borderRadius: BorderRadius.circular(15,), borderSide: BorderSide(color: AppColors.skyBlue.withValues(alpha:
@@ -300,14 +300,14 @@ class _PublicGroupsPageState extends State<PublicGroupsPage> {
     shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20,),),), builder: (sheetContext,
     ) {
       return SafeArea(child: ListView(shrinkWrap: true, padding: const EdgeInsets.symmetric(vertical: 10,), children: [Padding(padding:
-      const EdgeInsets.fromLTRB(18, 8, 18, 10,), child: Text(title, style: const TextStyle(color: AppColors.pureWhite,
-      fontSize: 18, fontWeight: FontWeight.bold,),),), ListTile(leading: const Icon(Icons.clear_all_rounded, color: AppColors.skyBlue,
-      ), title: const Text('Tutti', style: TextStyle(color: AppColors.pureWhite,),), trailing: selected == null ? const Icon(Icons.check_rounded,
+      const EdgeInsets.fromLTRB(18, 8, 18, 10,), child: Text(title, style: TextStyle(color: AppColors.pureWhite,
+      fontSize: 18, fontWeight: FontWeight.bold,),),), ListTile(leading: Icon(Icons.clear_all_rounded, color: AppColors.skyBlue,
+      ), title: Text('Tutti', style: TextStyle(color: AppColors.pureWhite,),), trailing: selected == null ? Icon(Icons.check_rounded,
       color: AppColors.skyBlue,) : null, onTap: () {
         Navigator.pop(sheetContext, '',);
       }
       ,),...values.map((String item,) {
-        return ListTile(title: Text(item, style: const TextStyle(color: AppColors.pureWhite,),), trailing: selected == item ? const
+        return ListTile(title: Text(item, style: TextStyle(color: AppColors.pureWhite,),), trailing: selected == item ? 
         Icon(Icons.check_rounded, color: AppColors.skyBlue,) : null, onTap: () {
           Navigator.pop(sheetContext, item,);
         }
@@ -385,9 +385,9 @@ class _FilterButton extends StatelessWidget {
     11, vertical: 9,), decoration: BoxDecoration(color: active ? AppColors.skyBlue.withValues(alpha: 0.14,) : AppColors.eleganceMidnight,
     borderRadius: BorderRadius.circular(10,), border: Border.all(color: active ? AppColors.skyBlue.withValues(alpha: 0.32,
     ) : AppColors.skyBlue.withValues(alpha: 0.10,),),), child: Row(mainAxisSize: MainAxisSize.min, children: [Icon(icon,
-    size: 16, color: active ? AppColors.skyBlue : Colors.white54,), const SizedBox(width: 6,), Text(label, style: TextStyle(color:
+    size: 16, color: active ? AppColors.skyBlue : AppColors.white54,), const SizedBox(width: 6,), Text(label, style: TextStyle(color:
     active ? AppColors.pureWhite : AppColors.pureWhite.withValues(alpha: 0.60,), fontSize: 10, fontWeight: active ? FontWeight.w600
-    : FontWeight.normal,),), const SizedBox(width: 3,), const Icon(Icons.arrow_drop_down_rounded, size: 17, color: Colors.white38,
+    : FontWeight.normal,),), const SizedBox(width: 3,), Icon(Icons.arrow_drop_down_rounded, size: 17, color: AppColors.white38,
     ),],),),);
   }
 }
@@ -404,16 +404,16 @@ class _PublicGroupCard extends StatelessWidget {
     borderRadius: BorderRadius.circular(18,), border: Border.all(color: AppColors.skyBlue.withValues(alpha: 0.12,),
     ),), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Row(children: [Container(width: 40,
     height: 40, decoration: BoxDecoration(color: AppColors.brandNightBlue, borderRadius: BorderRadius.circular(11,
-    ),), child: const Icon(Icons.groups_2_outlined, color: AppColors.skyBlue, size: 21,),), const SizedBox(width: 10,
-    ), Expanded(child: Text(group.name, maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(color: AppColors.pureWhite,
-    fontSize: 14, fontWeight: FontWeight.bold,),),), if (group.isOwner) const Icon(Icons.admin_panel_settings_outlined,
+    ),), child: Icon(Icons.groups_2_outlined, color: AppColors.skyBlue, size: 21,),), const SizedBox(width: 10,
+    ), Expanded(child: Text(group.name, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColors.pureWhite,
+    fontSize: 14, fontWeight: FontWeight.bold,),),), if (group.isOwner) Icon(Icons.admin_panel_settings_outlined,
     color: AppColors.materialSky, size: 17,),],), const SizedBox(height: 11,), Text(group.description.isEmpty ? 'Nessuna descrizione.'
     : group.description, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(color: AppColors.pureWhite.withValues(alpha:
     0.48,), fontSize: 10, height: 1.35,),), const Spacer(), _GroupInfoRow(icon: Icons.menu_book_outlined, text: group.subject.isEmpty
     ? 'Materia non specificata' : group.subject,), const SizedBox(height: 6,), _GroupInfoRow(icon: Icons.school_outlined,
     text: '${group.department} • ${group.course}',), const SizedBox(height: 10,), Row(children: [_GroupCounter(icon: Icons.people_outline_rounded,
     value: '${group.memberCount}',), const SizedBox(width: 12,), _GroupCounter(icon: Icons.folder_outlined, value: '${group.materialCount}',
-    ), const Spacer(), const Icon(Icons.arrow_forward_rounded, color: AppColors.skyBlue, size: 17,),],),],),),),);
+    ), const Spacer(), Icon(Icons.arrow_forward_rounded, color: AppColors.skyBlue, size: 17,),],),],),),),);
   }
 }
 class _GroupInfoRow extends StatelessWidget {
@@ -437,8 +437,8 @@ class _GroupCounter extends StatelessWidget {
   }
   );
   @override Widget build(BuildContext context,) {
-    return Row(children: [Icon(icon, color: Colors.white38, size: 14,), const SizedBox(width: 4,), Text(value, style: const TextStyle(color:
-    Colors.white54, fontSize: 9,),),],);
+    return Row(children: [Icon(icon, color: AppColors.white38, size: 14,), const SizedBox(width: 4,), Text(value, style: TextStyle(color:
+    AppColors.white54, fontSize: 9,),),],);
   }
 }
 class _SortOption extends StatelessWidget {
@@ -451,8 +451,8 @@ class _SortOption extends StatelessWidget {
   }
   );
   @override Widget build(BuildContext context,) {
-    return ListTile(onTap: onTap, leading: Icon(icon, color: AppColors.skyBlue,), title: Text(title, style: const TextStyle(color:
-    AppColors.pureWhite,),), trailing: selected ? const Icon(Icons.check_rounded, color: AppColors.skyBlue,) : null,
+    return ListTile(onTap: onTap, leading: Icon(icon, color: AppColors.skyBlue,), title: Text(title, style: TextStyle(color:
+    AppColors.pureWhite,),), trailing: selected ? Icon(Icons.check_rounded, color: AppColors.skyBlue,) : null,
     );
   }
 }
@@ -465,8 +465,8 @@ class _PublicGroupsError extends StatelessWidget {
   );
   @override Widget build(BuildContext context,) {
     return Container(padding: const EdgeInsets.all(18,), decoration: BoxDecoration(color: AppColors.eleganceMidnight,
-    borderRadius: BorderRadius.circular(16,),), child: Column(children: [const Icon(Icons.cloud_off_rounded, color: Colors.redAccent,
-    size: 34,), const SizedBox(height: 10,), Text(message, textAlign: TextAlign.center, style: const TextStyle(color: Colors.white60,
+    borderRadius: BorderRadius.circular(16,),), child: Column(children: [Icon(Icons.cloud_off_rounded, color: AppColors.redAccent,
+    size: 34,), const SizedBox(height: 10,), Text(message, textAlign: TextAlign.center, style: TextStyle(color: AppColors.white60,
     fontSize: 11,),), const SizedBox(height: 12,), OutlinedButton.icon(onPressed: onRetry, icon: const Icon(Icons.refresh_rounded,
     ), label: const Text('Riprova',),),],),);
   }
@@ -480,9 +480,9 @@ class _EmptyPublicGroups extends StatelessWidget {
   );
   @override Widget build(BuildContext context,) {
     return Container(padding: const EdgeInsets.all(24,), decoration: BoxDecoration(color: AppColors.eleganceMidnight,
-    borderRadius: BorderRadius.circular(18,),), child: Column(children: [const Icon(Icons.groups_outlined, color: AppColors.skyBlue,
+    borderRadius: BorderRadius.circular(18,),), child: Column(children: [Icon(Icons.groups_outlined, color: AppColors.skyBlue,
     size: 38,), const SizedBox(height: 12,), Text(filtered ? 'Nessun gruppo corrisponde alla ricerca.' : 'Non ci sono ancora gruppi pubblici.',
-    textAlign: TextAlign.center, style: const TextStyle(color: AppColors.pureWhite, fontSize: 13, fontWeight: FontWeight.w600,
+    textAlign: TextAlign.center, style: TextStyle(color: AppColors.pureWhite, fontSize: 13, fontWeight: FontWeight.w600,
     ),), if (filtered)...[const SizedBox(height: 12,), TextButton.icon(onPressed: onReset, icon: const Icon(Icons.filter_alt_off_outlined,
     ), label: const Text('Rimuovi filtri',),),],],),);
   }

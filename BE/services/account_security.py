@@ -1,12 +1,8 @@
 from datetime import datetime, timezone
-from email.message import EmailMessage
-import smtplib
-import ssl
 from uuid import uuid4
 
 from sqlalchemy.orm import Session
 
-from core.config import settings
 from models.account_security import EmailChangeRequest, PasswordResetRequest
 from models.user import User
 from services.auth import (
@@ -20,6 +16,7 @@ from services.auth import (
     verify_email_verification_code_hash,
     verify_password,
 )
+from services.mail_service import send_transactional_email
 from services.password_policy import validate_password_policy
 
 
@@ -38,56 +35,19 @@ def _send_security_code(
     subject: str,
     intro: str,
 ) -> None:
-    smtp_host = settings.smtp_host
-    smtp_username = settings.smtp_username
-    smtp_password = settings.smtp_password
-    smtp_from_email = settings.smtp_from_email
-    smtp_from_name = settings.smtp_from_name
-
-    if not smtp_host:
-        raise RuntimeError("Email service not configured.")
-    if not smtp_from_email:
-        raise RuntimeError("Email sender not configured.")
-
-    message = EmailMessage()
-    message["Subject"] = subject
-    message["From"] = f"{smtp_from_name} <{smtp_from_email}>"
-    message["To"] = email
-    message.set_content(
+    text = (
         f"{intro}\n\n"
         f"Codice StudentLab:\n\n{code}\n\n"
-        "Questo codice non ha una scadenza temporale, ma è monouso. "
-        "Se richiedi un nuovo codice, quello precedente viene invalidato.\n\n"
+        "Questo codice è monouso. Se richiedi un nuovo codice, "
+        "quello precedente viene invalidato.\n\n"
         "Se non hai richiesto questa operazione, ignora questa email."
     )
 
-    if settings.smtp_use_ssl:
-        context = ssl.create_default_context()
-        with smtplib.SMTP_SSL(
-            smtp_host,
-            settings.smtp_port,
-            context=context,
-            timeout=20,
-        ) as smtp:
-            if smtp_username:
-                smtp.login(smtp_username, smtp_password)
-            smtp.send_message(message)
-        return
-
-    with smtplib.SMTP(
-        smtp_host,
-        settings.smtp_port,
-        timeout=20,
-    ) as smtp:
-        smtp.ehlo()
-        if settings.smtp_use_tls:
-            context = ssl.create_default_context()
-            smtp.starttls(context=context)
-            smtp.ehlo()
-        if smtp_username:
-            smtp.login(smtp_username, smtp_password)
-        smtp.send_message(message)
-
+    send_transactional_email(
+        to_email=email,
+        subject=subject,
+        text=text,
+    )
 
 def _invalidate_password_reset_requests(
     db: Session,
@@ -257,6 +217,9 @@ def complete_password_reset(
 
     if user is None or not user.is_active:
         raise ValueError("Account non disponibile.")
+
+    from services.verification_lock import require_identifiers_editable
+    require_identifiers_editable(db, user)
 
     user.password_hash = hash_password(new_password)
     request.used_at = _now()

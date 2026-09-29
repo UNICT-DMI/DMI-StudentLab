@@ -5,12 +5,21 @@ import '../database/database_tables.dart';
 import '../models/quiz_attempt_answer_local.dart';
 import '../models/quiz_attempt_local.dart';
 import '../services/local_storage_identity.dart';
+import '../../services/device_key_service.dart';
+import 'study_plan_local_repository.dart';
 
 class QuizAttemptLocalRepository {
   final AppDatabase _database;
+  final DeviceKeyService _deviceKeys;
+  final StudyPlanLocalRepository _studyPlanRepository;
 
-  QuizAttemptLocalRepository({AppDatabase? database})
-    : _database = database ?? AppDatabase.instance;
+  QuizAttemptLocalRepository({
+    AppDatabase? database,
+    DeviceKeyService? deviceKeys,
+    StudyPlanLocalRepository? studyPlanRepository,
+  })  : _database = database ?? AppDatabase.instance,
+        _deviceKeys = deviceKeys ?? DeviceKeyService(),
+        _studyPlanRepository = studyPlanRepository ?? StudyPlanLocalRepository(database: database);
 
   int get guestUserId => LocalStorageIdentity.guestUserId;
 
@@ -23,6 +32,9 @@ class QuizAttemptLocalRepository {
     final Database db = await _database.database;
 
     final DateTime now = DateTime.now().toUtc();
+    final String deviceId = await _deviceKeys.getDeviceId();
+    final String studySourceKey =
+        await _studyPlanRepository.ensureGuestSource(deviceId);
 
     final QuizAttemptLocal attempt = QuizAttemptLocal(
       userId: guestUserId,
@@ -36,6 +48,7 @@ class QuizAttemptLocalRepository {
       wrongCount: 0,
       unansweredCount: totalQuestions,
       isHiddenFromHistory: false,
+      studySourceKey: studySourceKey,
       startedAt: now,
       completedAt: null,
       createdAt: now,

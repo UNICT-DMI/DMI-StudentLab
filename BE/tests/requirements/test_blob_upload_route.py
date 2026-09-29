@@ -170,7 +170,7 @@ def test_blob_upload_handler_requires_blob_token():
     )
 
     assert (
-        "Token Vercel Blob non configurato."
+        "Servizio Blob non configurato."
         in source
     )
 
@@ -198,12 +198,12 @@ def test_blob_upload_handler_validates_file_constraints():
     )
 
     assert (
-        "ID gruppo non valido."
+        "Number.isInteger(\n          body.group_id,"
         in source
     )
 
     assert (
-        "ID utente non valido."
+        "Number.isInteger(\n          body.recipient_user_id,"
         in source
     )
 
@@ -213,6 +213,6 @@ def test_blob_upload_handler_validates_file_constraints():
     )
 
     assert (
-        "Hash del file non valido."
+        "Hash SHA-256 non valido."
         in source
     )

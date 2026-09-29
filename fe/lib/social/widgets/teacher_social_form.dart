@@ -2050,7 +2050,7 @@ class _TeacherSocialFormState
           onChanged,
 
       style:
-          const TextStyle(
+          TextStyle(
         color:
             AppColors.pureWhite,
       ),
@@ -2090,7 +2090,7 @@ class _TeacherSocialFormState
 
         suffixIcon:
             loading
-                ? const Padding(
+                ? Padding(
                     padding:
                         EdgeInsets.all(
                       14,
@@ -2124,7 +2124,7 @@ class _TeacherSocialFormState
                             AppColors.eleganceDeepNavy,
 
                         icon:
-                            const Icon(
+                            Icon(
                           Icons.arrow_drop_down_rounded,
 
                           color:
@@ -2152,7 +2152,7 @@ class _TeacherSocialFormState
                                     option,
 
                                     style:
-                                        const TextStyle(
+                                        TextStyle(
                                       color:
                                           AppColors.pureWhite,
                                     ),
@@ -2619,7 +2619,7 @@ class _TeacherSocialFormState
                     ),
 
                     children: [
-                      const Text(
+                      Text(
                         'Crea il tuo profilo',
 
                         style:
@@ -2708,7 +2708,7 @@ class _TeacherSocialFormState
                             true,
 
                         style:
-                            const TextStyle(
+                            TextStyle(
                           color:
                               AppColors.pureWhite,
                         ),
@@ -2731,7 +2731,7 @@ class _TeacherSocialFormState
                               Icons.cake_outlined,
                         ).copyWith(
                           suffixIcon:
-                              const Icon(
+                              Icon(
                             Icons.calendar_month_outlined,
 
                             color:
@@ -2758,7 +2758,7 @@ class _TeacherSocialFormState
                         ],
 
                         style:
-                            const TextStyle(
+                            TextStyle(
                           color:
                               AppColors.pureWhite,
                         ),
@@ -2803,7 +2803,7 @@ class _TeacherSocialFormState
                         ],
 
                         style:
-                            const TextStyle(
+                            TextStyle(
                           color:
                               AppColors.pureWhite,
                         ),
@@ -2873,7 +2873,7 @@ class _TeacherSocialFormState
                             TextInputAction.next,
 
                         style:
-                            const TextStyle(
+                            TextStyle(
                           color:
                               AppColors.pureWhite,
                         ),
@@ -2918,7 +2918,7 @@ class _TeacherSocialFormState
                             28,
                       ),
 
-                      const Text(
+                      Text(
                         'Percorsi accademici',
 
                         style:
@@ -3006,7 +3006,7 @@ class _TeacherSocialFormState
                               CrossAxisAlignment.start,
 
                           children: [
-                            const Row(
+                            Row(
                               children: [
                                 Icon(
                                   Icons.school_outlined,
@@ -3163,7 +3163,7 @@ class _TeacherSocialFormState
                               ),
 
                               items:
-                                  const [
+                                  [
                                 DropdownMenuItem<
                                     AcademicPathStatus>(
                                   value:
@@ -3261,7 +3261,7 @@ class _TeacherSocialFormState
                                   TextInputType.number,
 
                               style:
-                                  const TextStyle(
+                                  TextStyle(
                                 color:
                                     AppColors.pureWhite,
                               ),
@@ -3316,7 +3316,7 @@ class _TeacherSocialFormState
                             style:
                                 TextButton.styleFrom(
                               foregroundColor:
-                                  Colors.redAccent,
+                                  AppColors.redAccent,
                             ),
                           ),
                         ),
@@ -3393,7 +3393,7 @@ class _TeacherSocialFormState
 
                       Row(
                         children: [
-                          const Expanded(
+                          Expanded(
                             child:
                                 Text(
                               'Altri percorsi',
@@ -3420,7 +3420,7 @@ class _TeacherSocialFormState
                                 _addAdditionalAcademicPath,
 
                             icon:
-                                const Icon(
+                                Icon(
                               Icons.add_circle_outline_rounded,
 
                               color:
@@ -3582,7 +3582,7 @@ class _TeacherSocialFormState
                             28,
                       ),
 
-                      const Text(
+                      Text(
                         'Titoli conseguiti',
 
                         style:
@@ -3795,7 +3795,7 @@ class _TeacherSocialFormState
                         decoration:
                             BoxDecoration(
                           color:
-                              Colors.amber.withValues(alpha: 0.06),
+                              AppColors.amber.withValues(alpha: 0.06),
 
                           borderRadius:
                               BorderRadius.circular(
@@ -3805,7 +3805,7 @@ class _TeacherSocialFormState
                           border:
                               Border.all(
                             color:
-                                Colors.amber.withValues(alpha: 0.16),
+                                AppColors.amber.withValues(alpha: 0.16),
                           ),
                         ),
 
@@ -3888,7 +3888,7 @@ class _TeacherSocialFormState
                                       overflow:
                                           TextOverflow.ellipsis,
                                       style:
-                                          const TextStyle(
+                                          TextStyle(
                                         color:
                                             AppColors.pureWhite,
                                       ),
@@ -3955,7 +3955,7 @@ class _TeacherSocialFormState
                                       overflow:
                                           TextOverflow.ellipsis,
                                       style:
-                                          const TextStyle(
+                                          TextStyle(
                                         color:
                                             AppColors.pureWhite,
                                       ),
@@ -4027,7 +4027,7 @@ class _TeacherSocialFormState
                                       overflow:
                                           TextOverflow.ellipsis,
                                       style:
-                                          const TextStyle(
+                                          TextStyle(
                                         color:
                                             AppColors.pureWhite,
                                       ),
@@ -4145,7 +4145,7 @@ class _TeacherSocialFormState
                             28,
                       ),
 
-                      const Row(
+                      Row(
                         children: [
                           Icon(
                             Icons
@@ -4295,7 +4295,7 @@ class _TeacherSocialFormState
                             5,
 
                         style:
-                            const TextStyle(
+                            TextStyle(
                           color:
                               AppColors.pureWhite,
                         ),
@@ -4529,7 +4529,7 @@ class _TeacherSocialFormState
         children: [
           Row(
             children: [
-              const Icon(
+              Icon(
                 Icons
                     .school_outlined,
 
@@ -4548,7 +4548,7 @@ class _TeacherSocialFormState
                   'Insegnamento ${index + 1}',
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
                         AppColors.pureWhite,
 
@@ -4576,7 +4576,7 @@ class _TeacherSocialFormState
                   ),
 
                   color:
-                      Colors.redAccent,
+                      AppColors.redAccent,
                 ),
             ],
           ),
@@ -4645,7 +4645,7 @@ class _TeacherSocialFormState
                             .ellipsis,
 
                     style:
-                        const TextStyle(
+                        TextStyle(
                       color:
                           AppColors
                               .pureWhite,
@@ -4710,7 +4710,7 @@ class _TeacherSocialFormState
 
               items:
                   [
-                const DropdownMenuItem<
+                DropdownMenuItem<
                     SubjectOffering?>(
                   value:
                       null,
@@ -4748,7 +4748,7 @@ class _TeacherSocialFormState
                                 .ellipsis,
 
                         style:
-                            const TextStyle(
+                            TextStyle(
                           color:
                               AppColors
                                   .pureWhite,
@@ -4812,7 +4812,7 @@ class _TeacherSocialFormState
                 AppColors.skyBlue,
 
             title:
-                const Text(
+                Text(
               'Insegnamento attuale',
 
               style:
@@ -4865,7 +4865,7 @@ class _TeacherSocialFormState
                 AppColors.skyBlue,
 
             title:
-                const Text(
+                Text(
               'Disponibile per supporto',
 
               style:
@@ -4919,7 +4919,7 @@ class _TeacherSocialFormState
                 AppColors.skyBlue,
 
             title:
-                const Text(
+                Text(
               'Lezioni private',
 
               style:
@@ -4964,7 +4964,7 @@ class _TeacherSocialFormState
                 3,
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
                   AppColors.pureWhite,
             ),
@@ -5102,7 +5102,7 @@ class _TeacherSocialFormState
                               detail,
 
                               style:
-                                  const TextStyle(
+                                  TextStyle(
                                 color:
                                     AppColors
                                         .materialSky,
@@ -5394,7 +5394,7 @@ class _TeacherSocialFormState
           controller,
 
       style:
-          const TextStyle(
+          TextStyle(
         color:
             AppColors.pureWhite,
       ),
@@ -5497,7 +5497,7 @@ class _TeacherSocialFormState
         ),
 
         borderSide:
-            const BorderSide(
+            BorderSide(
           color:
               AppColors.socialBlue,
         ),
@@ -5534,7 +5534,7 @@ class _TeacherSocialFormState
       ),
 
       prefixIcon:
-          const Icon(
+          Icon(
         Icons.lock_outline_rounded,
 
         color:
@@ -5599,7 +5599,7 @@ class _TeacherSocialFormState
         ),
 
         borderSide:
-            const BorderSide(
+            BorderSide(
           color:
               AppColors.socialBlue,
         ),
@@ -5641,7 +5641,7 @@ class _TeacherSocialFormState
           title,
 
           style:
-              const TextStyle(
+              TextStyle(
             color:
                 AppColors.pureWhite,
 
@@ -5683,7 +5683,7 @@ class _TeacherSocialFormState
       decoration:
           BoxDecoration(
         color:
-            Colors.redAccent
+            AppColors.redAccent
                 .withValues(alpha: 0.08),
 
         borderRadius:
@@ -5694,7 +5694,7 @@ class _TeacherSocialFormState
         border:
             Border.all(
           color:
-              Colors.redAccent
+              AppColors.redAccent
                   .withValues(alpha: 0.20),
         ),
       ),
@@ -5705,11 +5705,11 @@ class _TeacherSocialFormState
             CrossAxisAlignment.start,
 
         children: [
-          const Icon(
+          Icon(
             Icons.error_outline_rounded,
 
             color:
-                Colors.redAccent,
+                AppColors.redAccent,
 
             size:
                 20,
@@ -6547,7 +6547,7 @@ class _InlineAcademicPathEditorState
                         : 'Modifica percorso',
 
                     style:
-                        const TextStyle(
+                        TextStyle(
                       color:
                           AppColors.pureWhite,
 
@@ -6568,11 +6568,11 @@ class _InlineAcademicPathEditorState
                       widget.onCancel,
 
                   icon:
-                      const Icon(
+                      Icon(
                     Icons.close_rounded,
 
                     color:
-                        Colors.white54,
+                        AppColors.white54,
                   ),
                 ),
               ],
@@ -6734,7 +6734,7 @@ class _InlineAcademicPathEditorState
               ),
 
               items:
-                  const [
+                  [
                 DropdownMenuItem(
                   value:
                       AcademicPathStatus.enrolled,
@@ -6839,7 +6839,7 @@ class _InlineAcademicPathEditorState
                   _validateStartYear,
 
               style:
-                  const TextStyle(
+                  TextStyle(
                 color:
                     AppColors.pureWhite,
               ),
@@ -6880,7 +6880,7 @@ class _InlineAcademicPathEditorState
                       : null,
 
               title:
-                  const Text(
+                  Text(
                 'Percorso corrente',
 
                 style:
@@ -6912,7 +6912,7 @@ class _InlineAcademicPathEditorState
               },
 
               title:
-                  const Text(
+                  Text(
                 'Percorso principale',
 
                 style:
@@ -7688,7 +7688,7 @@ class _InlineAcademicTitleEditorState
         border:
             Border.all(
           color:
-              Colors.amber.withValues(alpha: 0.20),
+              AppColors.amber.withValues(alpha: 0.20),
         ),
       ),
 
@@ -7713,7 +7713,7 @@ class _InlineAcademicTitleEditorState
                         : 'Modifica titolo',
 
                     style:
-                        const TextStyle(
+                        TextStyle(
                       color:
                           AppColors.pureWhite,
 
@@ -7734,11 +7734,11 @@ class _InlineAcademicTitleEditorState
                       widget.onCancel,
 
                   icon:
-                      const Icon(
+                      Icon(
                     Icons.close_rounded,
 
                     color:
-                        Colors.white54,
+                        AppColors.white54,
                   ),
                 ),
               ],
@@ -7963,7 +7963,7 @@ class _InlineAcademicTitleEditorState
                   _validateGraduationYear,
 
               style:
-                  const TextStyle(
+                  TextStyle(
                 color:
                     AppColors.pureWhite,
               ),
@@ -7974,7 +7974,7 @@ class _InlineAcademicTitleEditorState
                     'Anno di conseguimento',
 
                 prefixIcon:
-                    const Icon(
+                    Icon(
                   Icons.calendar_month_outlined,
 
                   color:
@@ -8063,7 +8063,7 @@ class _InlineHybridAcademicField
           onChanged,
 
       style:
-          const TextStyle(
+          TextStyle(
         color:
             AppColors.pureWhite,
       ),
@@ -8114,7 +8114,7 @@ class _InlineHybridAcademicField
 
         suffixIcon:
             loading
-                ? const Padding(
+                ? Padding(
                     padding:
                         EdgeInsets.all(
                       14,
@@ -8148,7 +8148,7 @@ class _InlineHybridAcademicField
                             AppColors.eleganceDeepNavy,
 
                         icon:
-                            const Icon(
+                            Icon(
                           Icons.arrow_drop_down_rounded,
 
                           color:
@@ -8176,7 +8176,7 @@ class _InlineHybridAcademicField
                                     option,
 
                                     style:
-                                        const TextStyle(
+                                        TextStyle(
                                       color:
                                           AppColors.pureWhite,
                                     ),
@@ -8243,7 +8243,7 @@ class _AcademicTitleDraftCard
         border:
             Border.all(
           color:
-              Colors.amber.withValues(alpha: 0.18),
+              AppColors.amber.withValues(alpha: 0.18),
         ),
       ),
 
@@ -8253,11 +8253,11 @@ class _AcademicTitleDraftCard
             CrossAxisAlignment.start,
 
         children: [
-          const Icon(
+          Icon(
             Icons.workspace_premium_outlined,
 
             color:
-                Colors.amber,
+                AppColors.amber,
 
             size:
                 20,
@@ -8279,7 +8279,7 @@ class _AcademicTitleDraftCard
                   title.degreeType,
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
                         AppColors.pureWhite,
 
@@ -8358,7 +8358,7 @@ class _AcademicTitleDraftCard
                 onEdit,
 
             icon:
-                const Icon(
+                Icon(
               Icons.edit_outlined,
 
               color:
@@ -8377,11 +8377,11 @@ class _AcademicTitleDraftCard
                 onDelete,
 
             icon:
-                const Icon(
+                Icon(
               Icons.delete_outline_rounded,
 
               color:
-                  Colors.redAccent,
+                  AppColors.redAccent,
 
               size:
                   18,
@@ -8440,7 +8440,7 @@ class _AdditionalAcademicPathCard
             crossAxisAlignment:
                 CrossAxisAlignment.start,
             children: [
-              const Icon(
+              Icon(
                 Icons.school_outlined,
                 color:
                     AppColors.skyBlue,
@@ -8460,7 +8460,7 @@ class _AdditionalAcademicPathCard
                     Text(
                       path.course,
                       style:
-                          const TextStyle(
+                          TextStyle(
                         color:
                             AppColors.pureWhite,
                         fontSize:
@@ -8497,7 +8497,7 @@ class _AdditionalAcademicPathCard
                 onPressed:
                     onEdit,
                 icon:
-                    const Icon(
+                    Icon(
                   Icons.edit_outlined,
                   color:
                       AppColors.materialSky,
@@ -8511,10 +8511,10 @@ class _AdditionalAcademicPathCard
                 onPressed:
                     onDelete,
                 icon:
-                    const Icon(
+                    Icon(
                   Icons.delete_outline_rounded,
                   color:
-                      Colors.redAccent,
+                      AppColors.redAccent,
                   size:
                       18,
                 ),
@@ -8615,9 +8615,9 @@ class _AcademicDraftBadge
           Text(
         label,
         style:
-            const TextStyle(
+            TextStyle(
           color:
-              Colors.white60,
+              AppColors.white60,
           fontSize:
               9,
         ),

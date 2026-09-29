@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import '../../theme/studentlab_brand.dart';
 
 import '../../theme/nightTheme.dart';
 
 class StudentLabGuestAccountButton extends StatelessWidget {
   final VoidCallback onPressed;
+  final bool? compact;
 
   const StudentLabGuestAccountButton({
     super.key,
     required this.onPressed,
+    this.compact,
   });
 
   @override
   Widget build(BuildContext context) {
-    final bool compact = MediaQuery.sizeOf(context).width < 390;
+    final bool compact = this.compact ?? MediaQuery.sizeOf(context).width < 390;
 
     return Tooltip(
       message: 'Guest · Accedi o registrati',
@@ -36,7 +39,7 @@ class StudentLabGuestAccountButton extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(16),
                 child: Image.asset(
-                  'assets/mascot/guest_profile.png',
+                  StudentLabBrand.guestAvatar,
                   width: 28,
                   height: 28,
                   fit: BoxFit.cover,
@@ -45,7 +48,7 @@ class StudentLabGuestAccountButton extends StatelessWidget {
                     Object error,
                     StackTrace? stackTrace,
                   ) {
-                    return const CircleAvatar(
+                    return CircleAvatar(
                       radius: 14,
                       backgroundColor: AppColors.studentBlue,
                       child: Icon(
@@ -59,7 +62,7 @@ class StudentLabGuestAccountButton extends StatelessWidget {
               ),
               if (!compact) ...[
                 const SizedBox(width: 7),
-                const Text(
+                Text(
                   'Guest',
                   style: TextStyle(
                     color: AppColors.pureWhite,
@@ -75,7 +78,7 @@ class StudentLabGuestAccountButton extends StatelessWidget {
                 ),
               ] else ...[
                 const SizedBox(width: 1),
-                const Icon(
+                Icon(
                   Icons.keyboard_arrow_down_rounded,
                   color: AppColors.socialSky,
                   size: 12,

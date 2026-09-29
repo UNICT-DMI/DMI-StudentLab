@@ -287,7 +287,7 @@ class _SocialSubjectEditorState
                       CrossAxisAlignment.stretch,
 
                   children: [
-                    const Text(
+                    Text(
                       'Materia',
 
                       style:
@@ -319,7 +319,7 @@ class _SocialSubjectEditorState
                           TextInputAction.next,
 
                       style:
-                          const TextStyle(
+                          TextStyle(
                         color:
                             AppColors.pureWhite,
                       ),
@@ -362,7 +362,7 @@ class _SocialSubjectEditorState
                             20,
                       ),
 
-                      const Text(
+                      Text(
                         'Voto',
 
                         style:
@@ -415,7 +415,7 @@ class _SocialSubjectEditorState
                             _validateGrade,
 
                         style:
-                            const TextStyle(
+                            TextStyle(
                           color:
                               AppColors.pureWhite,
                         ),
@@ -435,7 +435,7 @@ class _SocialSubjectEditorState
                           ),
 
                           prefixIcon:
-                              const Icon(
+                              Icon(
                             Icons.grade_outlined,
 
                             color:
@@ -513,9 +513,9 @@ class _SocialSubjectEditorState
                             ),
 
                             borderSide:
-                                const BorderSide(
+                                BorderSide(
                               color:
-                                  Colors.redAccent,
+                                  AppColors.redAccent,
                             ),
                           ),
 
@@ -527,9 +527,9 @@ class _SocialSubjectEditorState
                             ),
 
                             borderSide:
-                                const BorderSide(
+                                BorderSide(
                               color:
-                                  Colors.redAccent,
+                                  AppColors.redAccent,
                             ),
                           ),
                         ),
@@ -625,7 +625,7 @@ class _SocialSubjectEditorState
                           20,
                     ),
 
-                    const Text(
+                    Text(
                       'Nota sulla materia',
 
                       style:
@@ -678,7 +678,7 @@ class _SocialSubjectEditorState
                           5,
 
                       style:
-                          const TextStyle(
+                          TextStyle(
                         color:
                             AppColors.pureWhite,
                       ),
@@ -698,7 +698,7 @@ class _SocialSubjectEditorState
                         ),
 
                         prefixIcon:
-                            const Padding(
+                            Padding(
                           padding:
                               EdgeInsets.only(
                             bottom:
@@ -883,7 +883,7 @@ class _SocialSubjectEditorState
           title,
 
           style:
-              const TextStyle(
+              TextStyle(
             color:
                 AppColors.pureWhite,
 
@@ -1003,9 +1003,9 @@ class _SocialSubjectEditorState
         ),
 
         borderSide:
-            const BorderSide(
+            BorderSide(
           color:
-              Colors.redAccent,
+              AppColors.redAccent,
         ),
       ),
 
@@ -1017,9 +1017,9 @@ class _SocialSubjectEditorState
         ),
 
         borderSide:
-            const BorderSide(
+            BorderSide(
           color:
-              Colors.redAccent,
+              AppColors.redAccent,
         ),
       ),
     );

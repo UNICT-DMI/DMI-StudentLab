@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import '../../theme/nightTheme.dart';
 
@@ -189,7 +191,7 @@ class _SocialProfilePreviewState
 
                     children: [
 
-                      const Text(
+                      Text(
 
                         'Così apparirà il tuo profilo',
 
@@ -325,7 +327,7 @@ class _SocialProfilePreviewState
 
                               _publishing
 
-                                  ? const SizedBox(
+                                  ? SizedBox(
 
                                       width:
 
@@ -779,6 +781,28 @@ class _SocialProfilePreviewState
 
   ) {
 
+    final String raw = error.toString();
+    final int responseStart = raw.indexOf('400 - ');
+    if (responseStart >= 0) {
+      try {
+        final dynamic body = jsonDecode(raw.substring(responseStart + 6));
+        final String? detail = body is Map && body['detail'] is String
+            ? body['detail'] as String : null;
+        if (detail != null && (
+            detail.startsWith('I dati del percorso accademico') ||
+            detail.startsWith('La versione della Policy') ||
+            detail.startsWith('È necessario') ||
+            detail.startsWith('Devi avere almeno') ||
+            detail.startsWith('La data di nascita') ||
+            detail.startsWith("L'anno di conseguimento") ||
+            detail.startsWith("Inserisci l'anno di conseguimento"))) {
+          return detail;
+        }
+      } catch (_) {
+        // La risposta inattesa usa il messaggio generico qui sotto.
+      }
+    }
+
     final String message =
 
         error
@@ -1031,7 +1055,7 @@ class _SocialProfilePreviewState
 
         color:
 
-            Colors.redAccent
+            AppColors.redAccent
 
                 .withValues(alpha: 0.08),
 
@@ -1049,7 +1073,7 @@ class _SocialProfilePreviewState
 
           color:
 
-              Colors.redAccent
+              AppColors.redAccent
 
                   .withValues(alpha: 0.20),
 
@@ -1067,7 +1091,7 @@ class _SocialProfilePreviewState
 
         children: [
 
-          const Icon(
+          Icon(
 
             Icons
 
@@ -1075,7 +1099,7 @@ class _SocialProfilePreviewState
 
             color:
 
-                Colors.redAccent,
+                AppColors.redAccent,
 
             size:
 
@@ -1310,7 +1334,7 @@ class _ProfileCard
 
                       style:
 
-                          const TextStyle(
+                          TextStyle(
 
                         color:
 
@@ -1510,7 +1534,7 @@ class _ProfileCard
           ],
 
           if (academicTitles.isNotEmpty) ...[
-            const Text(
+            Text(
               'Titoli conseguiti',
 
               style:
@@ -1557,7 +1581,7 @@ class _ProfileCard
           ],
 
           if (academicPaths.isNotEmpty) ...[
-            const Text(
+            Text(
               'Percorsi accademici',
 
               style:
@@ -1608,7 +1632,7 @@ class _ProfileCard
 
             ),
 
-            const Text(
+            Text(
 
               'Materie',
 
@@ -1700,7 +1724,7 @@ class _ProfileCard
 
             ),
 
-            const Text(
+            Text(
 
               'Insegnamenti',
 
@@ -1812,7 +1836,7 @@ class _ProfileCard
 
             ),
 
-            const Text(
+            Text(
 
               'Descrizione',
 
@@ -1918,7 +1942,7 @@ class _ProfileCard
 
             child:
 
-                const Row(
+                Row(
 
               children: [
 
@@ -1930,7 +1954,7 @@ class _ProfileCard
 
                   color:
 
-                      Colors.amber,
+                      AppColors.amber,
 
                   size:
 
@@ -2065,7 +2089,7 @@ class _AcademicPathModelPreview
         children: [
           Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.account_balance_outlined,
 
                 color:
@@ -2088,7 +2112,7 @@ class _AcademicPathModelPreview
                       : path.university,
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
                         AppColors.pureWhite,
 
@@ -2237,7 +2261,7 @@ class _AcademicTitleCard
         border:
             Border.all(
           color:
-              Colors.amber.withValues(alpha: 0.18),
+              AppColors.amber.withValues(alpha: 0.18),
         ),
       ),
 
@@ -2262,7 +2286,7 @@ class _AcademicTitleCard
                 decoration:
                     BoxDecoration(
                   color:
-                      Colors.amber.withValues(alpha: 0.10),
+                      AppColors.amber.withValues(alpha: 0.10),
 
                   borderRadius:
                       BorderRadius.circular(
@@ -2271,11 +2295,11 @@ class _AcademicTitleCard
                 ),
 
                 child:
-                    const Icon(
+                    Icon(
                   Icons.workspace_premium_outlined,
 
                   color:
-                      Colors.amber,
+                      AppColors.amber,
 
                   size:
                       19,
@@ -2298,7 +2322,7 @@ class _AcademicTitleCard
                       title,
 
                       style:
-                          const TextStyle(
+                          TextStyle(
                         color:
                             AppColors.pureWhite,
 
@@ -2347,7 +2371,7 @@ class _AcademicTitleCard
                 decoration:
                     BoxDecoration(
                   color:
-                      Colors.amber.withValues(alpha: 0.10),
+                      AppColors.amber.withValues(alpha: 0.10),
 
                   borderRadius:
                       BorderRadius.circular(
@@ -2356,13 +2380,13 @@ class _AcademicTitleCard
                 ),
 
                 child:
-                    const Text(
+                    Text(
                   'DA VERIFICARE',
 
                   style:
                       TextStyle(
                     color:
-                        Colors.amber,
+                        AppColors.amber,
 
                     fontSize:
                         8,
@@ -2682,7 +2706,7 @@ class _TeacherAssignmentPreview
 
             children: [
 
-              const Padding(
+              Padding(
 
                 padding:
 
@@ -2744,7 +2768,7 @@ class _TeacherAssignmentPreview
 
                       style:
 
-                          const TextStyle(
+                          TextStyle(
 
                         color:
 
@@ -2900,7 +2924,7 @@ class _TeacherAssignmentPreview
 
                   color:
 
-                      Colors.amber
+                      AppColors.amber
 
                           .withValues(alpha: 0.10),
 
@@ -2918,7 +2942,7 @@ class _TeacherAssignmentPreview
 
                 child:
 
-                    const Row(
+                    Row(
 
                   mainAxisSize:
 
@@ -2934,7 +2958,7 @@ class _TeacherAssignmentPreview
 
                       color:
 
-                          Colors.amber,
+                          AppColors.amber,
 
                       size:
 
@@ -2960,7 +2984,7 @@ class _TeacherAssignmentPreview
 
                         color:
 
-                            Colors.amber,
+                            AppColors.amber,
 
                         fontSize:
 
@@ -3394,7 +3418,7 @@ class _AcademicStatusBadge
 
             style:
 
-                const TextStyle(
+                TextStyle(
 
               color:
 
@@ -3614,7 +3638,7 @@ class _SubjectPreview
 
             children: [
 
-              const Icon(
+              Icon(
 
                 Icons
 
@@ -3650,7 +3674,7 @@ class _SubjectPreview
 
                   style:
 
-                      const TextStyle(
+                      TextStyle(
 
                     color:
 
@@ -3849,7 +3873,7 @@ class _PreviewVerificationNotice
       decoration:
           BoxDecoration(
         color:
-            Colors.amber.withValues(alpha: 0.07),
+            AppColors.amber.withValues(alpha: 0.07),
 
         borderRadius:
             BorderRadius.circular(
@@ -3859,7 +3883,7 @@ class _PreviewVerificationNotice
         border:
             Border.all(
           color:
-              Colors.amber.withValues(alpha: 0.18),
+              AppColors.amber.withValues(alpha: 0.18),
         ),
       ),
 
@@ -3869,11 +3893,11 @@ class _PreviewVerificationNotice
             CrossAxisAlignment.start,
 
         children: [
-          const Icon(
+          Icon(
             Icons.verified_user_outlined,
 
             color:
-                Colors.amber,
+                AppColors.amber,
 
             size:
                 18,
@@ -3937,7 +3961,7 @@ class _PreviewPendingBadge
       decoration:
           BoxDecoration(
         color:
-            Colors.amber.withValues(alpha: 0.10),
+            AppColors.amber.withValues(alpha: 0.10),
 
         borderRadius:
             BorderRadius.circular(
@@ -3951,11 +3975,11 @@ class _PreviewPendingBadge
             MainAxisSize.min,
 
         children: [
-          const Icon(
+          Icon(
             Icons.schedule_rounded,
 
             color:
-                Colors.amber,
+                AppColors.amber,
 
             size:
                 10,
@@ -3970,9 +3994,9 @@ class _PreviewPendingBadge
             label,
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
-                  Colors.amber,
+                  AppColors.amber,
 
               fontSize:
                   8,
@@ -4013,7 +4037,7 @@ class _PreviewGradePendingBadge
       decoration:
           BoxDecoration(
         color:
-            Colors.amber.withValues(alpha: 0.10),
+            AppColors.amber.withValues(alpha: 0.10),
 
         borderRadius:
             BorderRadius.circular(
@@ -4027,11 +4051,11 @@ class _PreviewGradePendingBadge
             MainAxisSize.min,
 
         children: [
-          const Icon(
+          Icon(
             Icons.schedule_rounded,
 
             color:
-                Colors.amber,
+                AppColors.amber,
 
             size:
                 10,
@@ -4046,9 +4070,9 @@ class _PreviewGradePendingBadge
             '$grade/30 · DA VERIFICARE',
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
-                  Colors.amber,
+                  AppColors.amber,
 
               fontSize:
                   8,
@@ -4166,7 +4190,7 @@ class _SubjectBadge
 
             style:
 
-                const TextStyle(
+                TextStyle(
 
               color:
 
@@ -4212,7 +4236,7 @@ class _AvailableBadge
 
   ) {
 
-    return const Row(
+    return Row(
 
       mainAxisSize:
 
@@ -4226,7 +4250,7 @@ class _AvailableBadge
 
           color:
 
-              Colors.green,
+              AppColors.green,
 
           size:
 
@@ -4252,7 +4276,7 @@ class _AvailableBadge
 
             color:
 
-                Colors.green,
+                AppColors.green,
 
             fontSize:
 
@@ -4386,7 +4410,7 @@ class _ProfileChip
 
             style:
 
-                const TextStyle(
+                TextStyle(
 
               color:
 

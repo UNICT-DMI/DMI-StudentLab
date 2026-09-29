@@ -22,11 +22,13 @@ from models.teacher_material import (
 from services.teacher_material_assignment import (
     can_user_access_teacher_material,
 )
+from services.public_material_access import can_read_public_material
 
 
 def _require_active_public_material(
     db: Session,
     material_id: int,
+    user_id: int | None = None,
 ):
     material = (
         db.query(
@@ -69,11 +71,8 @@ def _require_active_public_material(
         )
     )
 
-    if (
-        status != "active"
-        or not is_visible
-        or not is_active
-    ):
+    if (status not in {"published", "active"} or not is_visible
+            or not can_read_public_material(db, material, user_id)):
         raise ValueError(
             "Materiale non trovato.",
         )
@@ -85,7 +84,7 @@ def _require_accessible_teacher_material(
     db: Session,
     *,
     material_id: int,
-    user_id: int,
+    user_id: int | None,
 ):
     material = (
         db.query(
@@ -242,6 +241,7 @@ def get_downloadable_material(
             _require_active_public_material(
                 db,
                 material_id,
+                user_id,
             )
         )
 
@@ -275,6 +275,7 @@ def get_downloadable_material(
             material.id,
         "stored_name":
             material.stored_name,
+        "drive_file_id": getattr(material, 'drive_file_id', None),
         "original_name":
             material.original_name,
         "mime_type":

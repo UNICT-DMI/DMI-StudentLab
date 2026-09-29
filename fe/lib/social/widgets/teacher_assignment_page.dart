@@ -172,7 +172,7 @@ class _TeacherAssignmentsPageState
               AppColors.eleganceDeepNavy,
 
           title:
-              const Text(
+              Text(
             'Elimina insegnamento',
 
             style:
@@ -222,13 +222,13 @@ class _TeacherAssignmentsPageState
               },
 
               child:
-                  const Text(
+                  Text(
                 'Elimina',
 
                 style:
                     TextStyle(
                   color:
-                      Colors.redAccent,
+                      AppColors.redAccent,
                 ),
               ),
             ),
@@ -500,12 +500,12 @@ class _TeacherAssignmentsPageState
                 MainAxisSize.min,
 
             children: [
-              const Icon(
+              Icon(
                 Icons
                     .error_outline_rounded,
 
                 color:
-                    Colors.redAccent,
+                    AppColors.redAccent,
 
                 size:
                     42,
@@ -592,7 +592,7 @@ class _TeacherAssignmentsPageState
                 ),
 
                 children: [
-                  const Text(
+                  Text(
                     'Insegnamenti',
 
                     style:
@@ -779,7 +779,7 @@ class _AssignmentCard
                 ),
 
                 child:
-                    const Icon(
+                    Icon(
                   Icons
                       .cast_for_education_outlined,
 
@@ -804,7 +804,7 @@ class _AssignmentCard
                       assignment.subject.name,
 
                       style:
-                          const TextStyle(
+                          TextStyle(
                         color:
                             AppColors.pureWhite,
 
@@ -855,7 +855,7 @@ class _AssignmentCard
                     AppColors.eleganceDeepNavy,
 
                 icon:
-                    const Icon(
+                    Icon(
                   Icons.more_vert,
 
                   color:
@@ -997,14 +997,14 @@ class _AssignmentCard
 
   Color _verificationColor() {
     if (assignment.isVerified) {
-      return Colors.greenAccent;
+      return AppColors.greenAccent;
     }
 
     if (assignment.isRejected) {
-      return Colors.redAccent;
+      return AppColors.redAccent;
     }
 
-    return Colors.amber;
+    return AppColors.amber;
   }
 }
 
@@ -1906,7 +1906,7 @@ class _TeacherAssignmentEditorPageState
                 ),
 
                 children: [
-                  const Text(
+                  Text(
                     'Insegnamento',
 
                     style:
@@ -1961,7 +1961,7 @@ class _TeacherAssignmentEditorPageState
                       decoration:
                           BoxDecoration(
                         color:
-                            Colors.redAccent
+                            AppColors.redAccent
                                 .withOpacity(
                           0.08,
                         ),
@@ -1978,9 +1978,9 @@ class _TeacherAssignmentEditorPageState
                         _error!,
 
                         style:
-                            const TextStyle(
+                            TextStyle(
                           color:
-                              Colors.redAccent,
+                              AppColors.redAccent,
                         ),
                       ),
                     ),
@@ -2043,7 +2043,7 @@ class _TeacherAssignmentEditorPageState
                                     .ellipsis,
 
                             style:
-                                const TextStyle(
+                                TextStyle(
                               color:
                                   AppColors.pureWhite,
                             ),
@@ -2133,7 +2133,7 @@ class _TeacherAssignmentEditorPageState
                                     .ellipsis,
 
                             style:
-                                const TextStyle(
+                                TextStyle(
                               color:
                                   AppColors.pureWhite,
                             ),
@@ -2232,7 +2232,7 @@ class _TeacherAssignmentEditorPageState
                                     .ellipsis,
 
                             style:
-                                const TextStyle(
+                                TextStyle(
                               color:
                                   AppColors.pureWhite,
                             ),
@@ -2341,7 +2341,7 @@ class _TeacherAssignmentEditorPageState
                                       .ellipsis,
 
                               style:
-                                  const TextStyle(
+                                  TextStyle(
                                 color:
                                     AppColors.pureWhite,
                               ),
@@ -2412,7 +2412,7 @@ class _TeacherAssignmentEditorPageState
 
                       items:
                           [
-                        const DropdownMenuItem<
+                        DropdownMenuItem<
                             SubjectOffering?>(
                           value:
                               null,
@@ -2458,7 +2458,7 @@ class _TeacherAssignmentEditorPageState
                                         .ellipsis,
 
                                 style:
-                                    const TextStyle(
+                                    TextStyle(
                                   color:
                                       AppColors.pureWhite,
                                 ),
@@ -2521,7 +2521,7 @@ class _TeacherAssignmentEditorPageState
                           AppColors.skyBlue,
 
                       title:
-                          const Text(
+                          Text(
                         'Insegnamento attuale',
 
                         style:
@@ -2568,7 +2568,7 @@ class _TeacherAssignmentEditorPageState
                       decoration:
                           BoxDecoration(
                         color:
-                            Colors.amber
+                            AppColors.amber
                                 .withOpacity(
                           0.07,
                         ),
@@ -2585,11 +2585,11 @@ class _TeacherAssignmentEditorPageState
                             CrossAxisAlignment.start,
 
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.info_outline,
 
                             color:
-                                Colors.amber,
+                                AppColors.amber,
 
                             size:
                                 18,
@@ -2644,7 +2644,7 @@ class _TeacherAssignmentEditorPageState
 
                       icon:
                           _saving
-                              ? const SizedBox(
+                              ? SizedBox(
                                   width:
                                       18,
 
@@ -2791,7 +2791,7 @@ class _TeacherAssignmentEditorPageState
         ),
 
         borderSide:
-            const BorderSide(
+            BorderSide(
           color:
               AppColors.teacherIndigo,
         ),
@@ -2955,7 +2955,7 @@ class _VerificationBadge
     BuildContext context,
   ) {
     if (assignment.isVerified) {
-      return const _ColoredBadge(
+      return _ColoredBadge(
         label:
             'VERIFICATO',
 
@@ -2963,12 +2963,12 @@ class _VerificationBadge
             Icons.verified_rounded,
 
         color:
-            Colors.greenAccent,
+            AppColors.greenAccent,
       );
     }
 
     if (assignment.isRejected) {
-      return const _ColoredBadge(
+      return _ColoredBadge(
         label:
             'RIFIUTATO',
 
@@ -2976,11 +2976,11 @@ class _VerificationBadge
             Icons.cancel_outlined,
 
         color:
-            Colors.redAccent,
+            AppColors.redAccent,
       );
     }
 
-    return const _ColoredBadge(
+    return _ColoredBadge(
       label:
           'IN VERIFICA',
 
@@ -2988,7 +2988,7 @@ class _VerificationBadge
           Icons.schedule_rounded,
 
       color:
-          Colors.amber,
+          AppColors.amber,
     );
   }
 }
@@ -3154,7 +3154,7 @@ class _SimpleBadge
             label,
 
             style:
-                const TextStyle(
+                TextStyle(
               color:
                   AppColors.materialSky,
 
@@ -3206,7 +3206,7 @@ class _EmptyAssignments
       child:
           Column(
         children: [
-          const Icon(
+          Icon(
             Icons
                 .cast_for_education_outlined,
 
@@ -3222,7 +3222,7 @@ class _EmptyAssignments
                 12,
           ),
 
-          const Text(
+          Text(
             'Nessun insegnamento',
 
             style:
@@ -3310,7 +3310,7 @@ class _MenuItem
   ) {
     final Color color =
         danger
-            ? Colors.redAccent
+            ? AppColors.redAccent
             : AppColors.pureWhite;
 
     return Row(

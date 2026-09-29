@@ -1,0 +1,410 @@
+{
+  "universities": [
+    {
+      "code": "UNICT",
+      "name": "Università degli Studi di Catania",
+      "departments": [
+        {
+          "code": "DI3A",
+          "name": "Dipartimento di Agricoltura, Alimentazione e Ambiente",
+          "courses": [
+            {
+              "code": "L-26",
+              "name": "Scienze e tecnologie alimentari",
+              "degree_type": "Laurea triennale",
+              "subjects": [
+                {
+                  "code": "9799194",
+                  "name": "CHIMICA GENERALE E ORGANICA",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": "CHIMICA GENERALE ED ELEMENTI DI STECHIOMETRIA",
+                      "channel": null,
+                      "teachers": [
+                        "LOMBARDO GIUSEPPE MARCELLO"
+                      ]
+                    },
+                    {
+                      "module": "CHIMICA ORGANICA",
+                      "channel": null,
+                      "teachers": [
+                        "RIELA SERENA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1006315",
+                  "name": "COLLOQUIO DI LINGUA INGLESE",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": []
+                    }
+                  ]
+                },
+                {
+                  "code": "9799197",
+                  "name": "FONDAMENTI DI FISICA E MACCHINE",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": "FISICA",
+                      "channel": null,
+                      "teachers": [
+                        "MESINGER ANDREI ALBERT"
+                      ]
+                    },
+                    {
+                      "module": "MECCANICA E MACCHINE",
+                      "channel": null,
+                      "teachers": [
+                        "CERRUTO EMANUELE"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9799198",
+                  "name": "GESTIONE DELLA QUALITÀ E DELLA SICUREZZA ALIMENTARE",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "BARBAGALLO RICCARDO NUNZIO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1001448",
+                  "name": "LABORATORIO DI INFORMATICA",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": "A-L",
+                      "teachers": []
+                    },
+                    {
+                      "module": null,
+                      "channel": "M-Z",
+                      "teachers": []
+                    }
+                  ]
+                },
+                {
+                  "code": "9799195",
+                  "name": "MATEMATICA E STATISTICA APPLICATE ALLE SCIENZE ALIMENTARI",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "MACCA EMANUELE"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9799196",
+                  "name": "PRODUZIONI ANIMALI",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": "ALIMENTAZIONE E QUALITÀ DELLE PRODUZIONI ANIMALI",
+                      "channel": null,
+                      "teachers": [
+                        "PRIOLO ALESSANDRO"
+                      ]
+                    },
+                    {
+                      "module": "SISTEMI DI PRODUZIONE ANIMALE",
+                      "channel": null,
+                      "teachers": [
+                        "TUMINO SERENA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9799200",
+                  "name": "PRODUZIONI VEGETALI",
+                  "study_year": 1,
+                  "offerings": [
+                    {
+                      "module": "COLTIVAZIONI ERBACEE PER L'INDUSTRIA ALIMENTARE",
+                      "channel": null,
+                      "teachers": [
+                        "LOMBARDO SARA"
+                      ]
+                    },
+                    {
+                      "module": "PRODOTTI FRUTTICOLI",
+                      "channel": null,
+                      "teachers": [
+                        "CONTINELLA ALBERTO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9799201",
+                  "name": "BIOCHIMICA",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "VANELLA LUCA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1010954",
+                  "name": "CHIMICA DEGLI ALIMENTI",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "OLIVERI IVAN PIETRO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1007889",
+                  "name": "ECONOMIA DELL'IMPRESA AGROALIMENTARE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "BELLIA CLAUDIO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1010964",
+                  "name": "ECONOMIA E LEGISLAZIONE AGROALIMENTARE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": "ECONOMIA AGROALIMENTARE",
+                      "channel": null,
+                      "teachers": [
+                        "SCUDERI ALESSANDRO"
+                      ]
+                    },
+                    {
+                      "module": "LEGISLAZIONE ALIMENTARE",
+                      "channel": null,
+                      "teachers": [
+                        "ZARBA' CARLA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1007897",
+                  "name": "EDIFICI AGROINDUSTRIALI",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "ARCIDIACONO CLAUDIA",
+                        "CASCONE GIOVANNI"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1010958",
+                  "name": "MICROBIOLOGIA GENERALE E DEGLI ALIMENTI",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": "MICROBIOLOGIA GENERALE",
+                      "channel": null,
+                      "teachers": [
+                        "RESTUCCIA CRISTINA"
+                      ]
+                    },
+                    {
+                      "module": "MICROBIOLOGIA DEGLI ALIMENTI",
+                      "channel": null,
+                      "teachers": [
+                        "CAGGIA CINZIA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9799202",
+                  "name": "OPERAZIONI UNITARIE",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "TODARO ALDO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "9799203",
+                  "name": "PATOLOGIA E PARASSITOLOGIA DEGLI ALIMENTI",
+                  "study_year": 2,
+                  "offerings": [
+                    {
+                      "module": "DIFESA DEGLI ALIMENTI DAGLI ANIMALI INFESTANTI",
+                      "channel": null,
+                      "teachers": [
+                        "SUMA POMPEO"
+                      ]
+                    },
+                    {
+                      "module": "PATOLOGIA POST-RACCOLTA DEI PRODOTTI VEGETALI",
+                      "channel": null,
+                      "teachers": [
+                        "CIRVILLERI GABRIELLA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1015179",
+                  "name": "ANALISI CHIMICHE, FISICHE E SENSORIALI",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "ARENA ELENA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1007862",
+                  "name": "APICOLTURA E PRODUZIONI APISTICHE",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "MAZZEO GAETANA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1007828",
+                  "name": "BIOCHIMICA DELLA NUTRIZIONE",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "SORRENTI VALERIA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1010954",
+                  "name": "CHIMICA DEGLI ALIMENTI",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "SIRACUSA VALENTINA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1007928",
+                  "name": "ECONOMIA DEI PRODOTTI DI QUALITA'",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "FOTI VERA TERESA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1001825",
+                  "name": "FONDAMENTI DI OPERAZIONI UNITARIE",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "TODARO ALDO"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1007920",
+                  "name": "MICROBIOLOGIA DEGLI ALIMENTI FUNZIONALI",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "RANDAZZO CINZIA LUCIA"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "code": "1015169",
+                  "name": "PROCESSI DELLE TECNOLOGIE ALIMENTARI",
+                  "study_year": 3,
+                  "offerings": [
+                    {
+                      "module": null,
+                      "channel": null,
+                      "teachers": [
+                        "MURATORE GIUSEPPE"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
